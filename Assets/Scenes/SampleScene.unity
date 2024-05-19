@@ -276,6 +276,7 @@ MonoBehaviour:
   <MoveSpeed>k__BackingField: 1000
   <RotationSpeed>k__BackingField: 10
   <LookSpeed>k__BackingField: 10
+  <DashStrength>k__BackingField: 5
 --- !u!50 &269466481
 Rigidbody2D:
   serializedVersion: 4
@@ -424,6 +425,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c26911c4-a147-491b-9a41-1486c9e6972b
     m_ActionName: 'Player/Pointer[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 269466480}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 16f2294e-d898-451f-a2e9-17cdb54b9bba
+    m_ActionName: 'Player/Dash[/XInputControllerWindows/leftShoulder,/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

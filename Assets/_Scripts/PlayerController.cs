@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] public float MoveSpeed { get; private set; } = 5;
     [field: SerializeField] public float RotationSpeed { get; private set; } = 5;
     [field: SerializeField] public float LookSpeed { get; private set; } = 5;
+    [field: SerializeField] public float DashStrength { get; private set; } = 5;
 
 
 
@@ -67,8 +68,8 @@ public class PlayerController : MonoBehaviour
 
         if (isGamepad)
         {
-            if (Input.Crosshair.ReadValue<Vector2>() == Vector2.zero) return;
-            direction = Input.Crosshair.ReadValue<Vector2>().normalized;
+            if (Input.Look.ReadValue<Vector2>() == Vector2.zero) return;
+            direction = Input.Look.ReadValue<Vector2>().normalized;
         }
         else
         {
@@ -99,6 +100,11 @@ public class PlayerController : MonoBehaviour
     public void OnControlsChanged(PlayerInput input)
     {
         isGamepad = input.currentControlScheme.Equals("Gamepad");
+    }
+
+    public void Dash()
+    {
+        _rigidbody2D.AddForce(transform.up * DashStrength, ForceMode2D.Impulse);
     }
 
     private void OnDrawGizmos()
