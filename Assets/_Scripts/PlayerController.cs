@@ -17,14 +17,21 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] public float LookSpeed { get; private set; } = 5;
     [field: SerializeField] public float DashStrength { get; private set; } = 5;
 
+    
 
 
+    public Vector2 LookDirection { get; private set; }
 
     private InputSystem _inputSystem;
     private Vector2 _moveInput;
     private bool isGamepad = true;
 
     private InputSystem.PlayerActions Input { get { return _inputSystem.Player; } }
+
+
+    private Vector2 _acceleration = Vector3.zero;
+    private Vector2 _prevVelocity = Vector3.zero;
+
 
     private void Awake()
     {
@@ -43,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _moveInput = Input.Move.ReadValue<Vector2>();
-        LookAtCrosshair();
+        Look();
         MoveCrosshair();
 
 
@@ -53,6 +60,9 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
+
+        _acceleration = _rigidbody2D.velocity - _prevVelocity;
+        _prevVelocity = _rigidbody2D.velocity;
     }
 
 
@@ -62,22 +72,21 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D.AddForce(_moveInput *  Time.deltaTime * MoveSpeed);
     }
 
-    private void LookAtCrosshair()
+    private void Look()
     {
-        Vector3 direction;
 
         if (isGamepad)
         {
             if (Input.Look.ReadValue<Vector2>() == Vector2.zero) return;
-            direction = Input.Look.ReadValue<Vector2>().normalized;
+            LookDirection = Input.Look.ReadValue<Vector2>().normalized;
         }
         else
         {
-            direction = (_crossHair.position - transform.position).normalized;
+            LookDirection = (_crossHair.position - transform.position).normalized;
           
         }
 
-        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction);
+        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, LookDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * RotationSpeed);
     }
 
@@ -111,10 +120,13 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Vector3 velocity = _rigidbody2D.velocity;
-
-        Debug.Log(velocity);
-
         Gizmos.DrawLine(transform.position, transform.position + velocity);
+
+        Gizmos.color = Color.blue;
+        Vector3 accel = _acceleration * 5;
+        Debug.Log(accel);
+        Gizmos.DrawLine(transform.position, transform.position + accel);
+
 
     }
 
