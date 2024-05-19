@@ -273,7 +273,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 269466481}
   _crossHair: {fileID: 1196150090}
   _mainCamera: {fileID: 519420031}
-  <MoveSpeed>k__BackingField: 7
+  <MoveSpeed>k__BackingField: 1000
   <RotationSpeed>k__BackingField: 10
   <LookSpeed>k__BackingField: 10
 --- !u!50 &269466481
@@ -289,7 +289,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

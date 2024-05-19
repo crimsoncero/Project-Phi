@@ -51,13 +51,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _rigidbody2D.velocity = _moveInput * MoveSpeed;
+        Movement();
     }
 
 
+
+    private void Movement()
+    {
+        _rigidbody2D.AddForce(_moveInput *  Time.deltaTime * MoveSpeed);
+    }
+
     private void LookAtCrosshair()
     {
-        Vector3 direction = (_crossHair.position - transform.position).normalized;
+        Vector3 direction;
+
+        if (isGamepad)
+        {
+            if (Input.Crosshair.ReadValue<Vector2>() == Vector2.zero) return;
+            direction = Input.Crosshair.ReadValue<Vector2>().normalized;
+        }
+        else
+        {
+            direction = (_crossHair.position - transform.position).normalized;
+          
+        }
+
         Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * RotationSpeed);
     }
@@ -66,9 +84,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isGamepad)
         {
-            Vector2 inputVector = Input.Crosshair.ReadValue<Vector2>();
-            Vector3 translation = new Vector3(inputVector.x, inputVector.y, 0) * LookSpeed * Time.deltaTime;
-            _crossHair.position += translation;
+
+            _crossHair.position = transform.position + (transform.up * 2);
         }
         else
         {
@@ -82,6 +99,17 @@ public class PlayerController : MonoBehaviour
     public void OnControlsChanged(PlayerInput input)
     {
         isGamepad = input.currentControlScheme.Equals("Gamepad");
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 velocity = _rigidbody2D.velocity;
+
+        Debug.Log(velocity);
+
+        Gizmos.DrawLine(transform.position, transform.position + velocity);
+
     }
 
 }
