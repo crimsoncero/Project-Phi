@@ -35,6 +35,7 @@ namespace Photon.Pun
             {
                 if (instance == null)
                 {
+#pragma warning disable
                     instance = FindObjectOfType<PhotonHandler>();
                     if (instance == null)
                     {

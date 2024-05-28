@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] Rigidbody2D _rigidbody2D;
-    [SerializeField] Transform _crossHair;
     [SerializeField] Camera _mainCamera;
 
     [field: Header("Unit Variables")]
@@ -51,7 +50,6 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = Input.Move.ReadValue<Vector2>();
         Look();
-        MoveCrosshair();
 
 
     }
@@ -69,7 +67,12 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
+        // Translate
         _rigidbody2D.AddForce(_moveInput *  Time.deltaTime * MoveSpeed);
+
+        // Rotate
+        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, LookDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * RotationSpeed);
     }
 
     private void Look()
@@ -82,39 +85,25 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            LookDirection = (_crossHair.position - transform.position).normalized;
-          
+            Vector2 pointerPosition = _mainCamera.ScreenToWorldPoint(Input.Pointer.ReadValue<Vector2>());
+            Vector2 dir;
+            dir.x = pointerPosition.x - transform.position.x;
+            dir.y = pointerPosition.y - transform.position.y;
+            LookDirection = dir.normalized;
         }
 
-        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, LookDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * RotationSpeed);
+       
     }
 
-    private void MoveCrosshair()
-    {
-        if (isGamepad)
-        {
 
-            _crossHair.position = transform.position + (transform.up * 2);
-        }
-        else
-        {
-            Vector3 position = _mainCamera.ScreenToWorldPoint(Input.Pointer.ReadValue<Vector2>());
-            position.z = _crossHair.position.z;
-            _crossHair.position = position;
-        }
-        
-    }
+
 
     public void OnControlsChanged(PlayerInput input)
     {
         isGamepad = input.currentControlScheme.Equals("Gamepad");
     }
 
-    public void Dash()
-    {
-        _rigidbody2D.AddForce(transform.up * DashStrength, ForceMode2D.Impulse);
-    }
+    
 
     private void OnDrawGizmos()
     {
@@ -124,7 +113,6 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Vector3 accel = _acceleration * 5;
-        Debug.Log(accel);
         Gizmos.DrawLine(transform.position, transform.position + accel);
 
 

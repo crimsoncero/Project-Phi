@@ -2983,7 +2983,7 @@ namespace Photon.Pun
         public static HashSet<GameObject> FindGameObjectsWithComponent(Type type)
         {
             HashSet<GameObject> objectsWithComponent = new HashSet<GameObject>();
-
+            #pragma warning disable
             Component[] targetComponents = (Component[]) GameObject.FindObjectsOfType(type);
             for (int index = 0; index < targetComponents.Length; index++)
             {

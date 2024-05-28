@@ -25,6 +25,7 @@ namespace Photon.Chat.Demo
 
         public void OnPointerClick(PointerEventData eventData)
         {
+#pragma warning disable
             ChatGui handler = FindObjectOfType<ChatGui>();
             handler.ShowChannel(this.Channel);
         }

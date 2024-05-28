@@ -22,6 +22,7 @@ namespace Photon.Chat.Demo
 
         public void Start()
         {
+#pragma warning disable
             this.chatNewComponent = FindObjectOfType<ChatGui>();
 
 
