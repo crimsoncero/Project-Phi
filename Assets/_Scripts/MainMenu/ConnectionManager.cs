@@ -23,14 +23,24 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.JoinLobby(TypedLobby.Default);
         IsConnected = true;
+    }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        Debug.Log("Connected to " + PhotonNetwork.CurrentLobby);
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         base.OnRoomListUpdate(roomList);
 
         UpdateRoomList(roomList);
+        foreach(RoomInfo room in RoomList)
+        {
+            Debug.Log(room.Name);
+        }
         
     }
     private void UpdateRoomList(List<RoomInfo> updatedRooms)
@@ -73,7 +83,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     public void Quickplay()
     {
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public void DirectJoin(string roomID)
@@ -95,10 +105,10 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
+        Debug.Log("Failed Joining Random");
     }
 
     
-
 
 
 }
