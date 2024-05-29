@@ -39,9 +39,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         {
             if (RoomList.Contains(room))
             {
-                // Remove room from list if not listed anymore.
-                if(room.RemovedFromList)
+                if (room.RemovedFromList)
+                    // Remove room from list if not listed anymore.
                     RoomList.Remove(room);
+                else
+                    // Update existing room
+                    RoomList[RoomList.FindIndex((r) => r.Name == room.Name)] = room;
             }
             else
             {
@@ -68,12 +71,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         Debug.Log("Creating room failed");
     }
 
-    public void JoinRandomRoom()
+    public void Quickplay()
     {
-        PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.JoinRandomOrCreateRoom();
     }
 
-    public void JoinRoom(string roomID)
+    public void DirectJoin(string roomID)
     {
         PhotonNetwork.JoinRoom(roomID);
     }
