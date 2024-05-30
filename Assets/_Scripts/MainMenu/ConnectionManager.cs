@@ -6,6 +6,9 @@ using Photon.Realtime;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private RoomSetup _quickplaySetup;
+    
+    
     public List<RoomInfo> RoomList { get; private set; }
 
 
@@ -106,6 +109,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Failed Joining Random");
+        PhotonNetwork.CreateRoom(_quickplaySetup.RoomID, _quickplaySetup.RoomOptions);
     }
 
     

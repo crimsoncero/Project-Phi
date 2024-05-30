@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621fed41c9440384cb6012a51d53f4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _quickplaySetup: {fileID: 11400000, guid: d88785834ef5ffa4392b5d775aa60962, type: 2}
 --- !u!4 &452286043
 Transform:
   m_ObjectHideFlags: 0
@@ -1070,7 +1071,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 452286042}
         m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
-        m_MethodName: JoinRandomRoom
+        m_MethodName: Quickplay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
