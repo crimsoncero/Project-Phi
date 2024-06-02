@@ -10,6 +10,13 @@ public enum Maps
     C
 }
 
+public enum WeaponSpawnPattern
+{
+    Normal,
+    None,
+    LaserOnly
+}
+
 
 [CreateAssetMenu(fileName = "RoomSetup", menuName = "Scriptable Objects/RoomSetup")]
 public class RoomSetup : ScriptableObject
@@ -26,6 +33,7 @@ public class RoomSetup : ScriptableObject
     [SerializeField] private int _matchTime = 120;
     [SerializeField] private int _scoreGoal = 0;
     [SerializeField] private string _name = "Match";
+    [SerializeField] private WeaponSpawnPattern _weaponSpawnPattern = WeaponSpawnPattern.Normal;
 
     public int PlayerCount
     {
@@ -72,7 +80,15 @@ public class RoomSetup : ScriptableObject
             RoomOptions.CustomRoomProperties["n"] = _name;
         }
     }
-
+    public WeaponSpawnPattern WeaponSpawnPattern
+    {
+        get { return _weaponSpawnPattern; }
+        set
+        {
+            _weaponSpawnPattern = value;
+            RoomOptions.CustomRoomProperties["w"] = _weaponSpawnPattern;
+        }
+    }
 
     public RoomSetup(string roomID)
     {
@@ -83,9 +99,6 @@ public class RoomSetup : ScriptableObject
         RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.MaxPlayers = _playerCount;
         SetHashtable();
-
-        
-
     }
 
     private void SetHashtable()
@@ -95,7 +108,8 @@ public class RoomSetup : ScriptableObject
             { "m", _map },
             { "t", _matchTime },
             { "n", _name },
-            { "s", _scoreGoal }
+            { "s", _scoreGoal },
+            { "w", _weaponSpawnPattern }
         };
     }
 
