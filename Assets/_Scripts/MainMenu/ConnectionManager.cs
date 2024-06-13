@@ -3,12 +3,12 @@ using Photon;
 using Photon.Pun;
 using System.Collections.Generic;
 using Photon.Realtime;
+using System;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private RoomSetup _quickplaySetup;
-    
-    
+
     public List<RoomInfo> RoomList { get; private set; }
 
 
@@ -20,7 +20,17 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
+        //Connect();
+    }
+
+    public void Connect()
+    {
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
     }
 
     public override void OnConnectedToMaster()
