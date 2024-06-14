@@ -82,6 +82,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(System.DateTime.Now.ToString());
     }
 
+    public void CreateRoom(RoomSetup roomSetup)
+    {
+        PhotonNetwork.CreateRoom(roomSetup.RoomID, roomSetup.RoomOptions);
+    }
+
     public override void OnCreatedRoom()
     {
         base.OnCreatedRoom();

@@ -1,5 +1,7 @@
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Realtime;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public enum Maps
@@ -38,9 +40,26 @@ public class RoomSetup : ScriptableObject
         RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.MaxPlayers = RoomProperties.PlayerCount;
         RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
+        SetCustomRoomPropertiesForLoby();
     }
 
+    public void Update()
+    {
+        RoomOptions.PlayerTtl = _playersTtl;
+        RoomOptions.EmptyRoomTtl = 0;
+        RoomOptions.MaxPlayers = RoomProperties.PlayerCount;
+        RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
+    }
 
+    private void SetCustomRoomPropertiesForLoby()
+    {
+        string[] keysArray = new string[RoomProperties.Hashtable.Keys.Count];
+        for(int i = 0; i < keysArray.Length; i++)
+        {
+            keysArray[i] = RoomProperties.Hashtable.Keys.ToArray()[i] as string;
+        }
+        RoomOptions.CustomRoomPropertiesForLobby = keysArray;
+    }
 
 
 
