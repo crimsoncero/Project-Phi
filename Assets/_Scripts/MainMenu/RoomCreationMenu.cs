@@ -41,6 +41,11 @@ public class RoomCreationMenu : MonoBehaviour
         GUIUtility.systemCopyBuffer = _roomSetup.RoomID;
     }
 
+    /// <summary>
+    /// Generate RoomID by using the DateTime.Now and concatenating it with
+    /// the macAddress, then returning its Hash Code
+    /// </summary>
+    /// <returns></returns>
     private int AssignRoomID()
     {
         string dateTimeString = DateTime.Now.ToString("yyyyMMddHHmmssfff");
@@ -53,21 +58,22 @@ public class RoomCreationMenu : MonoBehaviour
         }
 
         string concatenatedString = dateTimeString + macAddress;
-        return concatenatedString.GetHashCode();
+        return Math.Abs(concatenatedString.GetHashCode());
     }
 
-    string GetMacAddress()
+    private string GetMacAddress()
     {
         var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
         foreach (var networkInterface in networkInterfaces)
         {
-            if (networkInterface.OperationalStatus == OperationalStatus.Up)
+            if (networkInterface.OperationalStatus != OperationalStatus.Up)
             {
-                var addressBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
-                if (addressBytes.Length == 6)
-                {
-                    return string.Join(":", addressBytes.Select(b => b.ToString("X2")));
-                }
+                continue;
+            }
+            var addressBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
+            if (addressBytes.Length == 6)
+            {
+                return string.Join(":", addressBytes.Select(b => b.ToString("X2")));
             }
         }
         return null;
