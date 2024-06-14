@@ -1,4 +1,5 @@
 using Photon.Realtime;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -40,10 +41,21 @@ public class RoomSetup : ScriptableObject
         RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
     }
 
+    public static RoomSetup CreateRoomInstance(string roomID)
+    {
+        var data = CreateInstance<RoomSetup>();
+        data.RoomID = roomID;
+        data.Init(data);
+        return data;
+    }
 
-
-
-
-
-
+    private  void Init(RoomSetup data)
+    {
+        data.RoomProperties = new RoomProperties();
+        data.RoomOptions = new RoomOptions();
+        data.RoomOptions.PlayerTtl = _playersTtl;
+        data.RoomOptions.EmptyRoomTtl = 0;
+        data.RoomOptions.MaxPlayers = RoomProperties.PlayerCount;
+        data.RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
+    }
 }

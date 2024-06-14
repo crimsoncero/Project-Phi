@@ -3,8 +3,8 @@ using TMPro;
 public class ScrollText : MonoBehaviour
 {
     [SerializeField] TMP_Text _text;
-    [SerializeField] int _maxValue;
-    [SerializeField] int _minValue;
+    [SerializeField, Min(0)] int _maxValue;
+    [SerializeField, Min(0)] int _minValue;
 
     private int _valueNumber;
     private string _defaultText;
@@ -16,6 +16,8 @@ public class ScrollText : MonoBehaviour
 
     private void Awake()
     {
+        if (_minValue > _maxValue)
+            _maxValue = _minValue;
         _defaultText = _text.text;
         _valueNumber = _minValue;
     }
@@ -27,14 +29,12 @@ public class ScrollText : MonoBehaviour
         {
             _valueNumber = _maxValue;
         }
-        if(_valueNumber <= _minValue)
+        else if(_valueNumber <= _minValue)
         {
             _valueNumber = _minValue;
             _text.text = _defaultText;
             return;
         }
-        Debug.Log(_valueNumber);
-        Debug.Log(value);
         _text.text = _valueNumber.ToString();
     }
 }

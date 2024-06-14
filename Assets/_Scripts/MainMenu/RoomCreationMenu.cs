@@ -20,7 +20,9 @@ public class RoomCreationMenu : MonoBehaviour
 
     public void CreateRoomUsingProperties()
     {
-        _roomSetup = new RoomSetup(AssignRoomID().ToString());
+       _roomSetup = RoomSetup.CreateRoomInstance(AssignRoomID().ToString());
+        if (_roomSetup == null)
+            return;
         _roomProperties = _roomSetup.RoomProperties;
         _roomProperties.Name = _roomName.text;
         if (int.TryParse(_playerCount.text, out _playerCountNumber))
