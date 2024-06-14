@@ -6,25 +6,22 @@ using System.Linq;
 
 public class RoomCreationMenu : MonoBehaviour
 {
-    [SerializeField] RoomSetup _roomSetup;
     [SerializeField] TMP_Text _roomName;
     [SerializeField] TMP_Text _playerCount;
     [SerializeField] TMP_Text _timerCondition;
     [SerializeField] TMP_Text _scoreCondition;
+    [SerializeField] TMP_Text _roomID;
 
+    private RoomSetup _roomSetup;
     private RoomProperties _roomProperties;
     private int _playerCountNumber;
     private int _timerNumber;
     private int _scoreNumber;
 
-    private void Awake()
-    {
-        _roomProperties = _roomSetup.RoomProperties;
-    }
-
     public void CreateRoomUsingProperties()
     {
         _roomSetup = new RoomSetup(AssignRoomID().ToString());
+        _roomProperties = _roomSetup.RoomProperties;
         _roomProperties.Name = _roomName.text;
         if (int.TryParse(_playerCount.text, out _playerCountNumber))
             _roomProperties.PlayerCount = _playerCountNumber;
@@ -32,10 +29,13 @@ public class RoomCreationMenu : MonoBehaviour
             _roomProperties.MatchTime = _timerNumber;
         if(int.TryParse(_scoreCondition.text, out _scoreNumber))
             _roomProperties.ScoreGoal = _scoreNumber;
+        _roomID.text = _roomSetup.RoomID;
     }
 
     public void CopyRoomIDToClipboard()
     {
+        if (_roomSetup.RoomID == null || _roomSetup.RoomID == "")
+            return;
         GUIUtility.systemCopyBuffer = _roomSetup.RoomID;
     }
 
