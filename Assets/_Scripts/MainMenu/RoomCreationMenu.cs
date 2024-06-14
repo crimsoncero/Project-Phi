@@ -24,15 +24,14 @@ public class RoomCreationMenu : MonoBehaviour
 
     public void CreateRoomUsingProperties()
     {
+        _roomSetup = new RoomSetup(AssignRoomID().ToString());
         _roomProperties.Name = _roomName.text;
-        int.TryParse(_playerCount.text, out _playerCountNumber);
-        int.TryParse(_timerCondition.text, out _timerNumber);
-        bool isScore = int.TryParse(_scoreCondition.text, out _scoreNumber);
-        _roomProperties.PlayerCount = _playerCountNumber;
-        _roomProperties.MatchTime = _timerNumber;
-        if(isScore)
+        if (int.TryParse(_playerCount.text, out _playerCountNumber))
+            _roomProperties.PlayerCount = _playerCountNumber;
+        if (int.TryParse(_timerCondition.text, out _timerNumber))
+            _roomProperties.MatchTime = _timerNumber;
+        if(int.TryParse(_scoreCondition.text, out _scoreNumber))
             _roomProperties.ScoreGoal = _scoreNumber;
-        AssignRoomID();
     }
 
     public void CopyRoomIDToClipboard()
@@ -40,7 +39,7 @@ public class RoomCreationMenu : MonoBehaviour
         GUIUtility.systemCopyBuffer = _roomSetup.RoomID;
     }
 
-    private void AssignRoomID()
+    private int AssignRoomID()
     {
         string dateTimeString = DateTime.Now.ToString("yyyyMMddHHmmssfff");
         string macAddress = GetMacAddress();
@@ -48,11 +47,11 @@ public class RoomCreationMenu : MonoBehaviour
         if (macAddress == null)
         {
             Debug.LogError("Failed to retrieve MAC address.");
-            return;
+            return 0;
         }
 
         string concatenatedString = dateTimeString + macAddress;
-        //_roomSetup.RoomID = concatenatedString.GetHashCode();
+        return concatenatedString.GetHashCode();
     }
 
     string GetMacAddress()
