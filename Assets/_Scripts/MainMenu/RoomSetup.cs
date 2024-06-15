@@ -1,7 +1,6 @@
-using ExitGames.Client.Photon.StructWrapping;
 using Photon.Realtime;
+using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public enum Maps
@@ -40,29 +39,23 @@ public class RoomSetup : ScriptableObject
         RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.MaxPlayers = RoomProperties.PlayerCount;
         RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
-        SetCustomRoomPropertiesForLoby();
     }
 
-    public void Update()
+    public static RoomSetup CreateRoomInstance(string roomID)
     {
-        RoomOptions.PlayerTtl = _playersTtl;
-        RoomOptions.EmptyRoomTtl = 0;
-        RoomOptions.MaxPlayers = RoomProperties.PlayerCount;
-        RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
+        var data = CreateInstance<RoomSetup>();
+        data.RoomID = roomID;
+        data.Init(data);
+        return data;
     }
 
-    private void SetCustomRoomPropertiesForLoby()
+    private  void Init(RoomSetup data)
     {
-        string[] keysArray = new string[RoomProperties.Hashtable.Keys.Count];
-        for(int i = 0; i < keysArray.Length; i++)
-        {
-            keysArray[i] = RoomProperties.Hashtable.Keys.ToArray()[i] as string;
-        }
-        RoomOptions.CustomRoomPropertiesForLobby = keysArray;
+        data.RoomProperties = new RoomProperties();
+        data.RoomOptions = new RoomOptions();
+        data.RoomOptions.PlayerTtl = _playersTtl;
+        data.RoomOptions.EmptyRoomTtl = 0;
+        data.RoomOptions.MaxPlayers = RoomProperties.PlayerCount;
+        data.RoomOptions.CustomRoomProperties = RoomProperties.Hashtable;
     }
-
-
-
-
-
 }

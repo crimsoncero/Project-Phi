@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bf1cac521d691c47a2328b1044f7143, type: 3}
-  m_Name: QuickplayRoom
+  m_Name: RoomSetup
   m_EditorClassIdentifier: 
   <RoomID>k__BackingField: 
   _playersTtl: 5000
