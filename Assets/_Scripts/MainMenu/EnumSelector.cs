@@ -25,7 +25,7 @@ public class EnumSelector<TEnum> : MonoBehaviour where TEnum : Enum
         ChangeEnumText();
     }
 
-    private void ChangeEnumText()
+    protected virtual void ChangeEnumText()
     {
         _enumText.text = _currentEnum.ToString();
     }
