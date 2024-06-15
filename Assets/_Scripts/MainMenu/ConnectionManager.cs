@@ -10,8 +10,11 @@ using System.Linq;
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private RoomSetup _quickplaySetup;
+    [SerializeField] private GameObject RoomListObject;
+    [SerializeField] private Transform RoomListGrid;
 
     public List<RoomInfo> RoomList { get; private set; }
+    public List<RoomListObject> roomListObjects { get; private set; }
 
 
     public bool IsConnected { get; private set; } = false;
@@ -19,6 +22,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         RoomList = new List<RoomInfo>();
+        roomListObjects = new List<RoomListObject>();
+
     }
     private void Start()
     {
@@ -65,16 +70,31 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             if (RoomList.Contains(room))
             {
                 if (room.RemovedFromList)
+                {
                     // Remove room from list if not listed anymore.
                     RoomList.Remove(room);
+                    int index = roomListObjects.FindIndex((r) => r.RoomName == room.Name);
+                    Destroy(roomListObjects[index].gameObject);
+                    roomListObjects.Remove(roomListObjects[index]);
+                }
                 else
+                {
                     // Update existing room
                     RoomList[RoomList.FindIndex((r) => r.Name == room.Name)] = room;
+                    roomListObjects[roomListObjects.FindIndex((r) => r.RoomName == room.Name)].updateData(room);
+                }
+            
             }
             else
             {
                 // Add the new room to the list.
                 RoomList.Add(room);
+                GameObject newRoomObject = Instantiate(RoomListObject, RoomListGrid);
+                RoomListObject objectRef = newRoomObject.GetComponent<RoomListObject>();
+                objectRef.RoomName = room.Name;
+                objectRef.manager = this;
+                objectRef.updateData(room);
+                roomListObjects.Add(objectRef);
             }
         }
     }
