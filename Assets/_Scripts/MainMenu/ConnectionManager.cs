@@ -4,6 +4,8 @@ using Photon.Pun;
 using System.Collections.Generic;
 using Photon.Realtime;
 using System;
+using System.Net.NetworkInformation;
+using System.Linq;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
@@ -113,6 +115,18 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Joined room");
+
+        Room room = PhotonNetwork.CurrentRoom;
+        RoomProperties props = new RoomProperties(room.CustomProperties);
+
+        Debug.Log("Match Properties:");
+        Debug.Log("ID: " + room.Name);
+        Debug.Log($"Name: {props.Name}");
+        Debug.Log($"Map: {props.Map}");
+        Debug.Log($"Player Count: {props.PlayerCount}");
+        Debug.Log($"Match Time: {props.MatchTime}");
+        Debug.Log($"Score Goal: {props.ScoreGoal}");
+        Debug.Log($"Spawn Pattern: {props.WeaponSpawnPattern}");
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
@@ -124,10 +138,51 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Failed Joining Random");
-        PhotonNetwork.CreateRoom(_quickplaySetup.RoomID, _quickplaySetup.RoomOptions);
+        PhotonNetwork.CreateRoom(AssignRoomID(), _quickplaySetup.RoomOptions);
     }
 
-    
+
+
+
+
+    /// <summary>
+    /// Generate RoomID by using the DateTime.Now and concatenating it with
+    /// the macAddress, then returning its Hash Code
+    /// </summary>
+    /// <returns></returns>
+    public string AssignRoomID()
+    {
+        string dateTimeString = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        string macAddress = GetMacAddress();
+
+        if (macAddress == null)
+        {
+            Debug.LogError("Failed to retrieve MAC address.");
+            return "ERROR";
+        }
+
+        string concatenatedString = dateTimeString + macAddress;
+        return Math.Abs(concatenatedString.GetHashCode()).ToString();
+    }
+
+    private string GetMacAddress()
+    {
+        var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+        foreach (var networkInterface in networkInterfaces)
+        {
+            if (networkInterface.OperationalStatus != OperationalStatus.Up)
+            {
+                continue;
+            }
+            var addressBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
+            if (addressBytes.Length == 6)
+            {
+                return string.Join(":", addressBytes.Select(b => b.ToString("X2")));
+            }
+        }
+        return null;
+    }
+
 
 
 }

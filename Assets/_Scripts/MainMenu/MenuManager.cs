@@ -8,20 +8,25 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject _connectPanel;
     [SerializeField] private GameObject _startMenuPanel;
+    [SerializeField] private GameObject _createGamePanel;
 
 
-
-
-    private void ShowReconnect()
+    public void ShowCreateGame()
     {
-        _startMenuPanel.SetActive(false);
+       DisableAllPanels();
+        _createGamePanel.SetActive(true);
+    } 
+    
+    public void ShowReconnect()
+    {
+        DisableAllPanels();
         _connectPanel.SetActive(true);
     }
 
-    private void ShowStartMenu()
+    public void ShowStartMenu()
     {
+        DisableAllPanels();
         _startMenuPanel.SetActive(true);
-        _connectPanel.SetActive(false);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -35,5 +40,19 @@ public class MenuManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
         ShowStartMenu();
     }
+
+
+    public void JoinMatchUsingClipboard()
+    {
+        string roomID = GUIUtility.systemCopyBuffer;
+        _connectionManager.DirectJoin(roomID);
+    }
+
+    private void DisableAllPanels()
+    {
+        _connectPanel.SetActive(false);
+        _startMenuPanel.SetActive(false);
+        _createGamePanel.SetActive(false);
+    } 
 
 }

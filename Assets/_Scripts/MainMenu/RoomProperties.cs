@@ -1,8 +1,10 @@
 ﻿
 
 using Photon.Realtime;
+using System;
 using UnityEngine;
 
+[Serializable]
 public class RoomProperties
 {
     public ExitGames.Client.Photon.Hashtable Hashtable { get; private set; }
@@ -36,7 +38,7 @@ public class RoomProperties
 
     public int PlayerCount
     {
-        get { return _playerCount; }
+        get { return (int)Hashtable["p"]; }
         set
         {
             _playerCount = Mathf.Clamp(value, 1, 6);
@@ -45,7 +47,7 @@ public class RoomProperties
     }
     public Maps Map
     {
-        get { return _map; }
+        get { return (Maps)Hashtable["m"]; }
         set
         {
             _map = value;
@@ -54,7 +56,7 @@ public class RoomProperties
     }
     public int MatchTime
     {
-        get { return _matchTime; }
+        get { return (int)Hashtable["t"]; }
         set
         {
             _matchTime = value;
@@ -63,7 +65,7 @@ public class RoomProperties
     }
     public int ScoreGoal
     {
-        get { return _scoreGoal; }
+        get { return (int)Hashtable["s"]; }
         set
         {
             _scoreGoal = value;
@@ -72,7 +74,7 @@ public class RoomProperties
     }
     public string Name
     {
-        get { return _name; }
+        get { return (string)Hashtable["n"]; }
         set
         {
             _name = value;
@@ -81,7 +83,7 @@ public class RoomProperties
     }
     public WeaponSpawnPattern WeaponSpawnPattern
     {
-        get { return _weaponSpawnPattern; }
+        get { return (WeaponSpawnPattern)Hashtable["w"]; }
         set
         {
             _weaponSpawnPattern = value;
