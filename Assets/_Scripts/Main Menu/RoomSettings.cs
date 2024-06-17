@@ -1,5 +1,6 @@
 
 using Photon.Realtime;
+using SeraphUtil;
 using System;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ public class RoomSettings
     private string GenerateRoomName()
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-        string macAddress = SeraphUtility.GetMacAddress();
+        string macAddress = Utility.GetMacAddress();
         if(string.IsNullOrEmpty(macAddress))
         {
             macAddress = "Error";
