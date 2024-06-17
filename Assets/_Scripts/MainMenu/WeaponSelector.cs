@@ -1,6 +1,6 @@
-using UnityEngine;
+//using UnityEngine;
 
-public class WeaponSelector : EnumSelector<WeaponSpawnPattern>
-{
+//public class WeaponSelector : EnumSelector<WeaponSpawnPattern>
+//{
 
-}
+//}

@@ -6,18 +6,23 @@ using Debug = UnityEngine.Debug;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
+    private static ConnectionManager _instance;
+    public static ConnectionManager Instance { get { return _instance; } }
+
+    
     public List<RoomInfo> RoomList {  get; private set; }
 
     public bool IsConnected { get { return PhotonNetwork.IsConnectedAndReady; } }
 
     private void Awake()
     {
-        RoomList = new List<RoomInfo>();
-    }
-
-    private void Start()
-    {
-        Connect();
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
+        {
+            _instance = this;
+            RoomList = new List<RoomInfo>();
+        }
     }
 
     // Actions
@@ -46,12 +51,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         PhotonNetwork.JoinLobby(TypedLobby.Default);
-        Debug.Log("Connected to Master");
+        Debug.Log($"{PhotonNetwork.NickName} Connected to Master");
     }
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        Debug.Log("Joined Lobby " + PhotonNetwork.CurrentLobby);
+        Debug.Log($"{PhotonNetwork.NickName} Joined Lobby " + PhotonNetwork.CurrentLobby);
+
     }
     public override void OnRoomListUpdate(List<RoomInfo> updatedRooms)
     {
@@ -88,7 +94,17 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         RoomSettings settings = new RoomSettings();
         settings.CreateRoomUsingSettings(this);
     }
-
+    public override void OnLeftLobby()
+    {
+        // The game is only in one lobby, if by chance the player got removed from the lobby, they will disconnect from the server and then have a chance to reconnect again.
+        base.OnLeftLobby();
+        PhotonNetwork.Disconnect();
+    }
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+        Debug.Log("Disconnected from Photon");
+    }
 
 
 
