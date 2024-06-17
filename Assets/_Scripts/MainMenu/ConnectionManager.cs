@@ -139,14 +139,15 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         Room room = PhotonNetwork.CurrentRoom;
         RoomProperties props = new RoomProperties(room.CustomProperties);
 
-        Debug.Log("Match Properties:");
-        Debug.Log("ID: " + room.Name);
-        Debug.Log($"Name: {props.Name}");
-        Debug.Log($"Map: {props.Map}");
-        Debug.Log($"Player Count: {props.PlayerCount}");
-        Debug.Log($"Match Time: {props.MatchTime}");
-        Debug.Log($"Score Goal: {props.ScoreGoal}");
-        Debug.Log($"Spawn Pattern: {props.WeaponSpawnPattern}");
+        Debug.Log("Match Properties:\n" +
+            "ID: " + room.Name + '\n' +
+            $"Name: {props.Name}\n" +
+            $"Map: {props.Map}\n" +
+            $"Player Count: {props.PlayerCount}\n" +
+            $"Match Time: {props.MatchTime}\n" +
+            $"Score Goal: {props.ScoreGoal}\n " +
+            $"Spawn Pattern: {props.WeaponSpawnPattern}");
+       
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {

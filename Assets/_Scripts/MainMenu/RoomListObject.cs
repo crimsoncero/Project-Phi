@@ -20,14 +20,10 @@ public class RoomListObject : MonoBehaviour
     public ConnectionManager manager; 
     public void updateData(RoomInfo roomInfo)
     {
-        Name.text = roomInfo.Name;
+        RoomProperties props = new RoomProperties(roomInfo.CustomProperties);
+        Name.text = props.Name;
         PlayerCount.text = roomInfo.PlayerCount +" / " +roomInfo.MaxPlayers;
-        ID.text = roomInfo.Name;
-        //foreach (var data in roomInfo.CustomProperties)
-        //{
-
-        //}
-
+        ID.text = roomInfo.Name; 
     }
 
     public void JoinRoom()
