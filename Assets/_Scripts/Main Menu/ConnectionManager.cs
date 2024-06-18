@@ -34,6 +34,10 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Disconnect();
     }
+    public void LeaveRoom(bool becomeInactive)
+    {
+        PhotonNetwork.LeaveRoom(becomeInactive);
+    }
     public void CreateRoom(RoomSettings settings)
     {
         PhotonNetwork.CreateRoom(settings.RoomName, settings.RoomOptions, TypedLobby.Default);
@@ -106,7 +110,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         Debug.Log("Disconnected from Photon");
     }
 
-
+    
 
 
 

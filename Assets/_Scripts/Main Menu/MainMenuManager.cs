@@ -10,11 +10,12 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
 
     private List<GameObject> _panelList;
     [SerializeField] private LoginPanel _loginPanel;
-    [SerializeField] private GameObject _menuPanel;
+    [SerializeField] private MenuPanel _menuPanel;
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _creditsPanel;
     [SerializeField] private GameObject _createMatchPanel;
     [SerializeField] private GameObject _joinMatchPanel;
+    [SerializeField] private WaitingRoomPanel _waitingPanel;
 
     private void Awake()
     {
@@ -25,7 +26,8 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             _creditsPanel.gameObject,
             _createMatchPanel.gameObject,
             _joinMatchPanel.gameObject,
-            _optionsPanel.gameObject
+            _optionsPanel.gameObject,
+            _waitingPanel.gameObject
         };
     }
 
@@ -37,37 +39,42 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
 
 
     #region Panel Activation
-    private void ActivateMenuPanel()
+    public void ActivateMenuPanel()
     {
         DeactivatePanels();
         _menuPanel.gameObject.SetActive(true);
     }
-    private void ActivateOptionsPanel()
+    public void ActivateWaitingPanel()
+    {
+        DeactivatePanels();
+        _waitingPanel.gameObject.SetActive(true);
+    }
+    public void ActivateOptionsPanel()
     {
         DeactivatePanels();
         _optionsPanel.gameObject.SetActive(true);
     }
-    private void ActivateCreditsPanel()
+    public void ActivateCreditsPanel()
     {
         DeactivatePanels();
         _creditsPanel.gameObject.SetActive(true);
     }
-    private void ActivateCreateMatchPanel()
+    public void ActivateCreateMatchPanel()
     {
         DeactivatePanels();
         _createMatchPanel.gameObject.SetActive(true);
     }
-    private void ActivateJoinMatchPanel()
+    public void ActivateJoinMatchPanel()
     {
         DeactivatePanels();
         _joinMatchPanel.gameObject.SetActive(true);
     }
-    private void ActivateLoginPanel()
+    public void ActivateLoginPanel()
     {
         DeactivatePanels();
         _loginPanel.gameObject.SetActive(true);
     }
-    private void DeactivatePanels()
+    public void DeactivatePanels()
     {
         foreach(GameObject panel in _panelList)
         {
@@ -90,5 +97,10 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         ActivateLoginPanel();
     }
 
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        DeactivatePanels();
+    }
     #endregion
 }
