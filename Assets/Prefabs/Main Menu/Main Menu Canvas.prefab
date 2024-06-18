@@ -157,11 +157,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loginPanel: {fileID: 4344672322961072951}
-  _menuPanel: {fileID: 0}
-  _optionsPanel: {fileID: 0}
-  _creditsPanel: {fileID: 0}
-  _createMatchPanel: {fileID: 0}
-  _joinMatchPanel: {fileID: 0}
+  _menuPanel: {fileID: 2329303346675471964}
+  _optionsPanel: {fileID: 7343504948662496896}
+  _creditsPanel: {fileID: 9127051259588903032}
+  _createMatchPanel: {fileID: 301483235579675226}
+  _joinMatchPanel: {fileID: 6068861583241773371}
 --- !u!1 &1088852559625060877
 GameObject:
   m_ObjectHideFlags: 0
