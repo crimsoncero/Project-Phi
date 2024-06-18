@@ -4,7 +4,7 @@ using Photon;
 
 public class RoomProperties
 {
-    public ExitGames.Client.Photon.Hashtable Hashtable {  get; private set; }
+    public Hashtable Hashtable {  get; private set; }
 
 	private Maps _map = Maps.Random;
     public Maps Map
@@ -59,7 +59,7 @@ public class RoomProperties
 
     public RoomProperties()
     {
-        Hashtable = new ExitGames.Client.Photon.Hashtable()
+        Hashtable = new Hashtable()
         {
             { "m", _map },
             { "t", _time },

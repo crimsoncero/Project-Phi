@@ -38,7 +38,7 @@ public class RoomSettings
         RoomProperties = new RoomProperties();
         RoomOptions = new RoomOptions();
         MaxPlayers = 4;
-        RoomOptions.PlayerTtl = 5000;
+        RoomOptions.PlayerTtl = -1;
 
         UpdateRoomProperties();
 

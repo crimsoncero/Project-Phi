@@ -11,19 +11,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera _mainCamera;
 
     [field: Header("Unit Variables")]
-    [field: SerializeField] public float MoveSpeed { get; private set; } = 5;
-    [field: SerializeField] public float RotationSpeed { get; private set; } = 5;
-    [field: SerializeField] public float LookSpeed { get; private set; } = 5;
+    [field: SerializeField] public float MoveSpeed { get; private set; } = 1000;
+    [field: SerializeField] public float RotationSpeed { get; private set; } = 10;
+    [field: SerializeField] public float LookSpeed { get; private set; } = 10;
     [field: SerializeField] public float DashStrength { get; private set; } = 5;
 
-    
 
 
     public Vector2 LookDirection { get; private set; }
 
     private InputSystem _inputSystem;
     private Vector2 _moveInput;
-    private bool isGamepad = true;
+    private bool _isGamepad = true;
 
     private InputSystem.PlayerActions Input { get { return _inputSystem.Player; } }
 
@@ -35,11 +34,13 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _inputSystem = new InputSystem();
+        _mainCamera = Camera.main;
     }
 
     private void OnEnable()
     {
         Input.Enable();
+        
     }
     private void OnDisable()
     {
@@ -77,8 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
-
-        if (isGamepad)
+        if (_isGamepad)
         {
             if (Input.Look.ReadValue<Vector2>() == Vector2.zero) return;
             LookDirection = Input.Look.ReadValue<Vector2>().normalized;
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnControlsChanged(PlayerInput input)
     {
-        isGamepad = input.currentControlScheme.Equals("Gamepad");
+        _isGamepad = input.currentControlScheme.Equals("Gamepad");
     }
 
     
