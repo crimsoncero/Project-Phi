@@ -25,6 +25,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         }
     }
 
+    // General settings to setup when connecting to the game.
+    private void SettingsSetup()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     // Actions
     public void Connect()
     {
@@ -61,6 +67,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         Debug.Log($"{PhotonNetwork.NickName} Joined Lobby " + PhotonNetwork.CurrentLobby);
+        SettingsSetup();
 
     }
     public override void OnRoomListUpdate(List<RoomInfo> updatedRooms)

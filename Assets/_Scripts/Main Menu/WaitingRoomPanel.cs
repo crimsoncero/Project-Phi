@@ -1,8 +1,10 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 {
@@ -14,6 +16,8 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
     private bool InRoom { get { return PhotonNetwork.InRoom; } }
 
+
+
     public override void OnEnable()
     {
         base.OnEnable();
@@ -24,7 +28,21 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
             _startButton.SetActive(false);
 
         InitPlayerTags();
+
     }
+
+    
+    private IEnumerator LoadAsyncScene()
+    {
+        AsyncOperation asyncLLoad = SceneManager.LoadSceneAsync(1);
+
+        while(!asyncLLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+
 
 
     private void InitPlayerTags()
@@ -71,7 +89,7 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
     public void OnStartMatch()
     {
-        
+        StartCoroutine(LoadAsyncScene());
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

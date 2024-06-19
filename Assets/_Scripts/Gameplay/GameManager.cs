@@ -8,23 +8,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        ConnectionManager.Instance.Connect();
-       
+       InitPlayer();
     }
 
-    public override void OnJoinedLobby()
+    private void InitPlayer()
     {
-        base.OnJoinedLobby();
-    }
-
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
         GameObject ship = PhotonNetwork.Instantiate(PlayerPrefabName, Vector3.zero, Quaternion.identity);
         ship.GetComponent<PlayerController>().enabled = true;
         ship.GetComponent<PlayerInput>().enabled = true;
     }
-      
 
 
 }
