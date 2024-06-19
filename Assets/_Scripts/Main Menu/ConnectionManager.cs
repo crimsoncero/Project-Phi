@@ -91,6 +91,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
+        Debug.Log("Failed to join room:\n return code: " + returnCode + "\nmessage: " + message);
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {

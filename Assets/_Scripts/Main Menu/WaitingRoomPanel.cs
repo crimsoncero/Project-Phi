@@ -1,44 +1,73 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 {
-    private const string PlayerTagPath = "Prefabs\\Main Menu\\Player Tag";
-    
-    
-    
     [SerializeField] private GameObject _startButton;
 
     [SerializeField] private GameObject _playerListPanel;
-    [SerializeField] private PlayerTag _playerTag;
 
-    private List<PlayerTag> _playerTags = new List<PlayerTag>(6);
+    [SerializeField] private List<PlayerTag> _playerTags = new List<PlayerTag>(RoomSettings.MAXPLAYERS);
 
+    private bool InRoom { get { return PhotonNetwork.InRoom; } }
 
-    private void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
+
         if(PhotonNetwork.IsMasterClient)
             _startButton.SetActive(true);
         else
             _startButton.SetActive(false);
 
-        CreatePlayerTag(PhotonNetwork.LocalPlayer);
+        InitPlayerTags();
     }
 
 
-    private void CreatePlayerTag(Player newPlayer)
+    private void InitPlayerTags()
     {
-        if(PhotonNetwork.InRoom)
+        if (!InRoom) return;
+
+        Player[] currentPlayers = PhotonNetwork.CurrentRoom.Players.Values.ToArray();
+
+        for(int i = 0; i < _playerTags.Count ; i++)
         {
-            PlayerTag player = PhotonNetwork.Instantiate(PlayerTagPath, Vector3.zero, Quaternion.identity).GetComponent<PlayerTag>();
-            player.transform.SetParent(_playerListPanel.transform);
-            player.PlayerInfo = newPlayer;
-            _playerTags.Add(player);
+            if(i <  currentPlayers.Length)
+                _playerTags[i].PlayerInfo = currentPlayers[i];
+            else if(i >= PhotonNetwork.CurrentRoom.MaxPlayers)
+                _playerTags[i].SetNotOpenSlot();
+
+        }
+
+    }
+
+    private void AddPlayerTag(Player playerInfo)
+    {
+        if (!InRoom) return;
+
+        // Go through the array of player tags, and insert on the first empty tag slot.
+        foreach (PlayerTag tag in _playerTags)
+        {
+            if (tag.IsEmpty)
+            {
+                tag.PlayerInfo = playerInfo;
+                break;
+            }
         }
     }
 
+    private void RemovePlayerTag(Player playerInfo)
+    {
+        if (!InRoom) return;
+
+        // Find the index in the playerTag Array of the player that left.
+        int i = _playerTags.FindIndex((p) => p.PlayerInfo == playerInfo);
+        if (i != -1) // if -1 then the player wasn't in the list
+            _playerTags[i].PlayerInfo = null;
+    }
 
     public void OnStartMatch()
     {
@@ -49,11 +78,14 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
+        AddPlayerTag(newPlayer);
+
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
+        RemovePlayerTag(otherPlayer);
 
     }
 

@@ -21,6 +21,13 @@ public enum WeaponSpawnPattern
 
 public class RoomSettings
 {
+    public static readonly int MAXPLAYERS = 6;
+    public static readonly int MINPLAYERS = 1;
+
+
+
+
+
     public RoomOptions RoomOptions {  get; private set; }
     public string RoomName { get; private set; }
     
@@ -39,6 +46,7 @@ public class RoomSettings
         RoomOptions = new RoomOptions();
         MaxPlayers = 4;
         RoomOptions.PlayerTtl = -1;
+        RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.PublishUserId = true;
 
         UpdateRoomProperties();
