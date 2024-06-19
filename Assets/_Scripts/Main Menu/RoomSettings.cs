@@ -75,7 +75,7 @@ public class RoomSettings
         }
 
         string str = dateTime + macAddress;
-        return str.GetHashCode().ToString();
+        return Mathf.Abs(str.GetHashCode()).ToString();
     }
 
 

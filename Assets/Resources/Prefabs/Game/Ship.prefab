@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 705207317605256538}
   - component: {fileID: -6896135231121268280}
   - component: {fileID: -804836445776876065}
+  - component: {fileID: 1454928307704693278}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -303,6 +304,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -804836445776876065}
+  - {fileID: 1454928307704693278}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -318,10 +320,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
+  m_SynchronizePosition: 0
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &1454928307704693278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5640804680741608825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &6629566599582876085
 GameObject:
   m_ObjectHideFlags: 0
