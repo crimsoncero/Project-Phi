@@ -15,7 +15,7 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     [SerializeField] private List<PlayerTag> _playerTags = new List<PlayerTag>(RoomSettings.MAXPLAYERS);
 
     private bool InRoom { get { return PhotonNetwork.InRoom; } }
-
+    private AsyncOperation _asyncLoad; 
 
 
     public override void OnEnable()
@@ -29,17 +29,19 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
         InitPlayerTags();
 
+
     }
 
     
     private IEnumerator LoadAsyncScene()
     {
-        AsyncOperation asyncLLoad = SceneManager.LoadSceneAsync(1);
+        _asyncLoad = SceneManager.LoadSceneAsync("Gameplay Test Scene");
 
-        while(!asyncLLoad.isDone)
+        while(!_asyncLoad.isDone)
         {
             yield return null;
         }
+
     }
 
 
