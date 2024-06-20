@@ -25,15 +25,6 @@ public class ShipController : MonoBehaviour
     }
 
 
-    public void FireWeapon(bool isPrimary)
-    {
-        if (isPrimary)
-            _photonView.RPC("FirePrimary", RpcTarget.AllViaServer);
-        else
-            _photonView.RPC("FireSpecial", RpcTarget.AllViaServer);
-    }
-
-
     #region Pun RPC
     [PunRPC]
     private void FirePrimary(PhotonMessageInfo info)

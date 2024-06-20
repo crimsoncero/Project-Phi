@@ -104,18 +104,16 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //TEMPORARY
     public void FirePrimary()
     {
         if (PrimaryWeapon == null) return;
         if (!_canFire) return;
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
-            _shipController.FireWeapon(true);
+            _photonView.RPC("FirePrimary", RpcTarget.AllViaServer);
             StartCoroutine(WaitForWeaponCooldown(true));
         }
     }
-
 
     public void FireSpecial()
     {
@@ -124,7 +122,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.SpecialFire.phase == InputActionPhase.Performed)
         {
-            _shipController.FireWeapon(false);
+            _photonView.RPC("FireSpecial", RpcTarget.AllViaServer);
             StartCoroutine(WaitForWeaponCooldown(false));
         }
     }
