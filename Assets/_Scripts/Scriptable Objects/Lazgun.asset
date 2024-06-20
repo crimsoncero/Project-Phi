@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0514358e288056040b33d3946044d759, type: 3}
+  m_Name: Lazgun
+  m_EditorClassIdentifier: 
+  <FiringMethod>k__BackingField: 1
+  <MaxAmmo>k__BackingField: 3
+  <Cooldown>k__BackingField: 0.4
+  <Velocity>k__BackingField: 8
+  _spawnPoint: {x: 0, y: 0.35, z: 0}
+  _laser: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}

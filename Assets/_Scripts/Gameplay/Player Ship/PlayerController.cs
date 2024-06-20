@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -10,27 +12,33 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     [SerializeField] Rigidbody2D _rigidbody2D;
     [SerializeField] Camera _mainCamera;
+    [SerializeField] PhotonView _photonView;
     [SerializeField] ShipController _shipController;
 
-    [field: Header("Unit Variables")]
+    [field: Header("Movement Variables")]
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1000;
     [field: SerializeField] public float RotationSpeed { get; private set; } = 10;
-    [field: SerializeField] public float LookSpeed { get; private set; } = 10;
 
-
-
-    private bool _canFire = true; 
-
-
-    public Vector2 LookDirection { get; private set; }
-
+   
+    
+    // Input System
     private InputSystem _inputSystem;
     private Vector2 _moveInput;
     private bool _isGamepad = true;
-
     private InputSystem.PlayerActions Input { get { return _inputSystem.Player; } }
 
+    // Movement
+    private Vector2 _lookDirection;
+    
+    // Weapons
+    private bool _canFire = true;
+    private Weapon PrimaryWeapon { get { return _shipController.PrimaryWeapon; } }
+    private Weapon SpecialWeapon { get { return _shipController.SpecialWeapon; } }
+    private int SpecialAmmo { get { return _shipController.SpecialAmmo; } set { _shipController.SpecialAmmo = value; } }
 
+
+
+    // Gizmos feedback
     private Vector2 _acceleration = Vector3.zero;
     private Vector2 _prevVelocity = Vector3.zero;
 
@@ -51,10 +59,7 @@ public class PlayerController : MonoBehaviour
         Input.Disable();
     }
 
-    private void Update()
-    {
-        Look();
-    }
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -64,8 +69,6 @@ public class PlayerController : MonoBehaviour
         _acceleration = _rigidbody2D.velocity - _prevVelocity;
         _prevVelocity = _rigidbody2D.velocity;
     }
-
-
     
     private void Movement()
     {
@@ -73,40 +76,64 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D.AddForce(_moveInput *  Time.deltaTime * MoveSpeed);
 
         // Rotate
-        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, LookDirection);
+        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, _lookDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * RotationSpeed);
     }
 
-    private void Look()
+    public void Look(CallbackContext context)
     {
         if (_isGamepad)
         {
-            if (Input.Look.ReadValue<Vector2>() == Vector2.zero) return;
-            LookDirection = Input.Look.ReadValue<Vector2>().normalized;
+            Vector2 dir = context.action.ReadValue<Vector2>();
+            if (dir == Vector2.zero) return;
+            _lookDirection = dir.normalized;
         }
         else
         {
-            Vector2 pointerPosition = _mainCamera.ScreenToWorldPoint(Input.Pointer.ReadValue<Vector2>());
+            Vector2 pointerPosition = _mainCamera.ScreenToWorldPoint(context.action.ReadValue<Vector2>());
             Vector2 dir;
             dir.x = pointerPosition.x - transform.position.x;
             dir.y = pointerPosition.y - transform.position.y;
-            LookDirection = dir.normalized;
+            _lookDirection = dir.normalized;
         }
     }
 
-
-    public void OnMove(CallbackContext context)
+    public void Move(CallbackContext context)
     {
         _moveInput = context.action.ReadValue<Vector2>();
+    }
+
+
+    //TEMPORARY
+    public void FirePrimary()
+    {
+        if (PrimaryWeapon == null) return;
+        if (!_canFire) return;
+        if (Input.PrimaryFire.phase == InputActionPhase.Performed)
+        {
+            PrimaryWeapon.Fire(_photonView, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude);
+            StartCoroutine(WaitForWeaponCooldown(true));
+        }
+    }
+
+    public void FireSpecial()
+    {
+        if (SpecialWeapon == null) return;
+        if (SpecialAmmo <= 0) return;
+        if (!_canFire) return;
+        if (Input.SpecialFire.phase == InputActionPhase.Performed)
+        {
+            SpecialWeapon.Fire(_photonView, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude);
+            SpecialAmmo--;
+            StartCoroutine(WaitForWeaponCooldown(false));
+        }
     }
 
     public void OnControlsChanged(PlayerInput input)
     {
         _isGamepad = input.currentControlScheme.Equals("Gamepad");
     }
-
     
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -119,5 +146,25 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    private IEnumerator WaitForWeaponCooldown(bool isMainWeapon)
+    {
+        Weapon weaponFired = isMainWeapon ? PrimaryWeapon : SpecialWeapon;
+
+        _canFire = false;
+        yield return new WaitForSeconds(weaponFired.Cooldown);
+        _canFire = true;
+
+        // Autofire
+        if (weaponFired.FiringMethod == Weapon.FiringMethods.Auto)
+        {
+            if (isMainWeapon)
+                FirePrimary();
+            else
+                FireSpecial();
+        }
+           
+    }
+
 
 }
