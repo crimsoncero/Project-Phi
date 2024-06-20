@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -16,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [field: SerializeField] public float RotationSpeed { get; private set; } = 10;
     [field: SerializeField] public float LookSpeed { get; private set; } = 10;
 
+
+
+    private bool _canFire = true; 
 
 
     public Vector2 LookDirection { get; private set; }
@@ -49,10 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _moveInput = Input.Move.ReadValue<Vector2>();
         Look();
-
-
     }
 
     // Update is called once per frame
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    
     private void Movement()
     {
         // Translate
@@ -91,12 +92,13 @@ public class PlayerController : MonoBehaviour
             dir.y = pointerPosition.y - transform.position.y;
             LookDirection = dir.normalized;
         }
-
-       
     }
 
 
-
+    public void OnMove(CallbackContext context)
+    {
+        _moveInput = context.action.ReadValue<Vector2>();
+    }
 
     public void OnControlsChanged(PlayerInput input)
     {

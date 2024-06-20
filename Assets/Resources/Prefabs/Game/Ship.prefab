@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: -6896135231121268280}
   - component: {fileID: -804836445776876065}
   - component: {fileID: 1454928307704693278}
+  - component: {fileID: 1990376866714872790}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -163,7 +164,19 @@ MonoBehaviour:
         m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -855393122673354210}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
@@ -253,10 +266,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 705207317605256538}
   _mainCamera: {fileID: 0}
+  _shipController: {fileID: 1990376866714872790}
   <MoveSpeed>k__BackingField: 1000
   <RotationSpeed>k__BackingField: 10
   <LookSpeed>k__BackingField: 10
-  <DashStrength>k__BackingField: 5
 --- !u!50 &705207317605256538
 Rigidbody2D:
   serializedVersion: 4
@@ -340,6 +353,18 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &1990376866714872790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5640804680741608825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5d9aaa4be9ce94ebbb113d358b6774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6629566599582876085
 GameObject:
   m_ObjectHideFlags: 0
