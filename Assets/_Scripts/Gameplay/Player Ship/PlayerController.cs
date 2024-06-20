@@ -111,10 +111,11 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
-            PrimaryWeapon.Fire(_photonView, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude);
+            _shipController.FireWeapon(true);
             StartCoroutine(WaitForWeaponCooldown(true));
         }
     }
+
 
     public void FireSpecial()
     {
@@ -123,8 +124,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.SpecialFire.phase == InputActionPhase.Performed)
         {
-            SpecialWeapon.Fire(_photonView, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude);
-            SpecialAmmo--;
+            _shipController.FireWeapon(false);
             StartCoroutine(WaitForWeaponCooldown(false));
         }
     }

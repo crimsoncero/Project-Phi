@@ -26,8 +26,8 @@ public abstract class Weapon : ScriptableObject
     [field: SerializeField]
     public float Velocity { get; private set; }
 
-    public abstract void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, float shipVelocity);
 
+    public abstract void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, float shipVelocity, float lag);
 
 
     protected Vector3 AdjustPosition(Vector3 point, Vector3 shipPosition, Quaternion shipRotation)

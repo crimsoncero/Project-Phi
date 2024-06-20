@@ -7,12 +7,12 @@ public class Lazgun : Weapon
     [SerializeField] private Vector3 _spawnPoint;
     [SerializeField] private Projectile _laser;
 
-    public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, float shipVelocity)
+    public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, float shipVelocity, float lag)
     {
         Vector3 originalDirection = shipRotation * Vector2.up;
 
 
         Projectile projectile = Instantiate(_laser, AdjustPosition(_spawnPoint, shipPosition, shipRotation), Quaternion.identity);
-        projectile.InitProjectile(Velocity + shipVelocity, originalDirection, 0);
+        projectile.InitProjectile(photonView.Owner, Velocity + shipVelocity, originalDirection, lag);
     }
 }

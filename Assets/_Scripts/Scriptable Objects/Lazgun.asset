@@ -15,6 +15,6 @@ MonoBehaviour:
   <FiringMethod>k__BackingField: 1
   <MaxAmmo>k__BackingField: 3
   <Cooldown>k__BackingField: 0.4
-  <Velocity>k__BackingField: 8
-  _spawnPoint: {x: 0, y: 0.35, z: 0}
+  <Velocity>k__BackingField: 6
+  _spawnPoint: {x: 0, y: 0, z: 0}
   _laser: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}
