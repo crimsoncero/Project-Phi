@@ -15,6 +15,7 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     [SerializeField] private List<PlayerTag> _playerTags = new List<PlayerTag>(RoomSettings.MAXPLAYERS);
 
     private bool InRoom { get { return PhotonNetwork.InRoom; } }
+    private Room CurrentRoom { get { return PhotonNetwork.CurrentRoom; } }
     private AsyncOperation _asyncLoad; 
 
 
@@ -51,13 +52,13 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     {
         if (!InRoom) return;
 
-        Player[] currentPlayers = PhotonNetwork.CurrentRoom.Players.Values.ToArray();
+        Player[] currentPlayers = CurrentRoom.Players.Values.ToArray();
 
         for(int i = 0; i < _playerTags.Count ; i++)
         {
             if(i <  currentPlayers.Length)
                 _playerTags[i].PlayerInfo = currentPlayers[i];
-            else if(i >= PhotonNetwork.CurrentRoom.MaxPlayers)
+            else if(i >= CurrentRoom.MaxPlayers)
                 _playerTags[i].SetNotOpenSlot();
 
         }
@@ -91,6 +92,9 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
     public void OnStartMatch()
     {
+        CurrentRoom.PlayerTtl = -1;
+        CurrentRoom.IsOpen = false;
+        CurrentRoom.IsVisible = false;
         StartCoroutine(LoadAsyncScene());
     }
 
