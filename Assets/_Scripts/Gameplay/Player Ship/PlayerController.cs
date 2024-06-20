@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     [SerializeField] Rigidbody2D _rigidbody2D;
     [SerializeField] Camera _mainCamera;
+    [SerializeField] ShipController _shipController;
 
     [field: Header("Unit Variables")]
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1000;
     [field: SerializeField] public float RotationSpeed { get; private set; } = 10;
     [field: SerializeField] public float LookSpeed { get; private set; } = 10;
-    [field: SerializeField] public float DashStrength { get; private set; } = 5;
 
 
 
