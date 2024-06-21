@@ -804,6 +804,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Login Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 8708409088069840663, guid: 86a2add3ede56da4b9022ad313a69ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

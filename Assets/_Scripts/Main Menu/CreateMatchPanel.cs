@@ -10,9 +10,11 @@ public class CreateMatchPanel : MonoBehaviour
     [Header("Map Selection")]
     [SerializeField] private IntSelector _mapSelector;
     [SerializeField] private TMP_Text _mapName;
-    private Maps _selectedMap = Maps.Random;
-
-
+    private Maps CurrentMap
+    {
+        get { return _roomSettings.RoomProperties.Map; }
+        set { _roomSettings.RoomProperties.Map = value; }
+    }
 
 
 
@@ -25,7 +27,7 @@ public class CreateMatchPanel : MonoBehaviour
             _roomSettings = new RoomSettings();
 
         // Init values
-        _mapName.text = _selectedMap.ToString();
+        _mapName.text = CurrentMap.ToString();
 
 
 
@@ -45,8 +47,8 @@ public class CreateMatchPanel : MonoBehaviour
 
     public void UpdateSelectedMap(int value, bool wasIncreased)
     {
-        _selectedMap = (Maps)value;
-        _mapName.text = _selectedMap.ToString();
+        CurrentMap = (Maps)value;
+        _mapName.text = CurrentMap.ToString();
 
     } 
     
