@@ -14,8 +14,8 @@ public enum Maps
 
 public enum WeaponSpawnPattern
 {
-    Normal = 0,
-    None = 1,
+    All = 0,
+    PrimaryOnly = 1,
     LaserOnly = 2
 }
 
@@ -41,7 +41,7 @@ public class RoomSettings
 
     public RoomSettings()
     {
-        RoomName = GenerateRoomName();
+        GenerateRoomName();
         RoomProperties = new RoomProperties();
         RoomOptions = new RoomOptions();
         MaxPlayers = 4;
@@ -65,7 +65,7 @@ public class RoomSettings
         con.CreateRoom(this);
     }
 
-    private string GenerateRoomName()
+    public string GenerateRoomName()
     {
         string dateTime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
         string macAddress = Utility.GetMacAddress();
@@ -75,7 +75,8 @@ public class RoomSettings
         }
 
         string str = dateTime + macAddress;
-        return Mathf.Abs(str.GetHashCode()).ToString();
+        RoomName =  Mathf.Abs(str.GetHashCode()).ToString();
+        return RoomName;
     }
 
 

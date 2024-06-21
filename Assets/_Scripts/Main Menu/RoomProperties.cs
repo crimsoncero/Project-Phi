@@ -1,5 +1,6 @@
 using ExitGames.Client.Photon;
 using Photon;
+using Photon.Pun;
 
 
 public class RoomProperties
@@ -36,7 +37,7 @@ public class RoomProperties
             Hashtable["s"] = _score;
         }
     }
-    private string _nickname = "Match";
+    private string _nickname = PhotonNetwork.NickName + "'s Game";
     public string Nickname
     {
         get { return (string)Hashtable["n"]; }

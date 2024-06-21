@@ -45,8 +45,7 @@ public class IntSelector : MonoBehaviour
             if (Cycle)
             {
                 // Overflow value.
-                int overflow = tempVal - Max - 1;
-                Value = Min + overflow;
+                Value = Min;
             }
             else
             {
@@ -72,8 +71,7 @@ public class IntSelector : MonoBehaviour
             if (Cycle)
             {
                 // Underflow value.
-                int underflow = Min - tempVal - 1;
-                Value = Max - underflow;
+                Value = Max;
             }
             else
             {
