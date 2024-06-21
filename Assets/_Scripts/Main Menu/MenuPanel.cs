@@ -4,6 +4,8 @@ using UnityEngine;
 public class MenuPanel : MonoBehaviour
 {
     private ConnectionManager Con { get { return ConnectionManager.Instance; } }
+    private MainMenuManager MainMenu { get { return MainMenuManager.Instance; } }
+
 
     [SerializeField] private GameObject _directJoinPanel;
     [SerializeField] private GameObject _menuPanel;
@@ -20,7 +22,7 @@ public class MenuPanel : MonoBehaviour
 
     public void OnCreateMatch()
     {
-
+        MainMenu.ActivateCreateMatchPanel();
     }
 
     public void OnMatchList()

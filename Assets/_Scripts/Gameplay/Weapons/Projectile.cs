@@ -5,6 +5,7 @@ public class Projectile : MonoBehaviour
 {
     public Player Owner { get; set; }
 
+
     [SerializeField] private Rigidbody2D _rigidbody;
 
 

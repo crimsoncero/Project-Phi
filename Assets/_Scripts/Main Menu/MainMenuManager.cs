@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class MainMenuManager : MonoBehaviourPunCallbacks
 {
+    private static MainMenuManager _instance;
+    public static MainMenuManager Instance { get { return _instance; } }
+
     private ConnectionManager Con { get { return ConnectionManager.Instance; } }
 
     private List<GameObject> _panelList;
@@ -19,8 +22,13 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        _panelList = new List<GameObject>
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
         {
+            _instance = this;
+            _panelList = new List<GameObject>
+            {
             _loginPanel.gameObject,
             _menuPanel.gameObject,
             _creditsPanel.gameObject,
@@ -28,7 +36,9 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             _joinMatchPanel.gameObject,
             _optionsPanel.gameObject,
             _waitingRoomPanel.gameObject
-        };
+            };
+        }
+        
     }
 
     private void Start()

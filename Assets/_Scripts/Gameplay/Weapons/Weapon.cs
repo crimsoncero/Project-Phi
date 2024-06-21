@@ -32,7 +32,7 @@ public abstract class Weapon : ScriptableObject
 
     protected Vector3 AdjustPosition(Vector3 point, Vector3 shipPosition, Quaternion shipRotation)
     {
-        Vector3 rotatedPoint = shipRotation * (point) + shipPosition;
+        Vector3 rotatedPoint = (shipRotation * point) + shipPosition;
         return rotatedPoint;
     }
 }

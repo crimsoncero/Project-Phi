@@ -7,6 +7,10 @@ using static UnityEngine.InputSystem.InputAction;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    private const string RPC_PRIMARY_FIRE = "FirePrimary";
+    private const string RPC_SPECIAL_FIRE = "FireSpecial";
+
+
 
 
     [Header("Components")]
@@ -110,7 +114,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
-            _photonView.RPC("FirePrimary", RpcTarget.AllViaServer);
+            _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All) ;
             StartCoroutine(WaitForWeaponCooldown(true));
         }
     }
@@ -122,7 +126,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.SpecialFire.phase == InputActionPhase.Performed)
         {
-            _photonView.RPC("FireSpecial", RpcTarget.AllViaServer);
+            _photonView.RPC(RPC_SPECIAL_FIRE, RpcTarget.All);
             StartCoroutine(WaitForWeaponCooldown(false));
         }
     }

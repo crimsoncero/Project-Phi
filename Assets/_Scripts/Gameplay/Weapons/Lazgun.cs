@@ -11,7 +11,6 @@ public class Lazgun : Weapon
     {
         Vector3 originalDirection = shipRotation * Vector2.up;
 
-
         Projectile projectile = Instantiate(_laser, AdjustPosition(_spawnPoint, shipPosition, shipRotation), Quaternion.identity);
         projectile.InitProjectile(photonView.Owner, Velocity + shipVelocity, originalDirection, lag);
     }

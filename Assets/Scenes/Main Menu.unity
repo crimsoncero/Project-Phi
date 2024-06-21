@@ -1180,6 +1180,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Create Match Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 5380929705195685064, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1190,27 +1194,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5935866774854522804, guid: 2f68594b395b7e14ca2f50528ac50545, type: 3}
       propertyPath: m_LocalPosition.x

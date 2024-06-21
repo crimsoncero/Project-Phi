@@ -26,7 +26,7 @@ public class ShipController : MonoBehaviour
 
 
     #region Pun RPC
-    [PunRPC]
+    [PunRPC] // NEED TO ADD Current Position and rotation and velocity of the ship when message was sent
     private void FirePrimary(PhotonMessageInfo info)
     {
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);

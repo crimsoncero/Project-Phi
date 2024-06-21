@@ -6,17 +6,17 @@ using UnityEngine;
 
 public enum Maps
 {
-    Random,
-    Graveyard,
-    B,
-    C
+    Random = 0,
+    Graveyard = 1,
+    B = 2,
+    C = 3
 }
 
 public enum WeaponSpawnPattern
 {
-    Normal,
-    None,
-    LaserOnly
+    Normal = 0,
+    None = 1,
+    LaserOnly = 2
 }
 
 public class RoomSettings
