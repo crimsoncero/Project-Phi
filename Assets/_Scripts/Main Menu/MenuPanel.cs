@@ -27,7 +27,7 @@ public class MenuPanel : MonoBehaviour
 
     public void OnMatchList()
     {
-
+        MainMenu.ActivateJoinMatchPanel();
     }
 
     public void OnDirectJoin()
