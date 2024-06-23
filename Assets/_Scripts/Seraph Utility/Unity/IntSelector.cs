@@ -1,90 +1,92 @@
 using System;
 using UnityEngine;
 
-
-public delegate void SelAction(int value, bool wasIncreased);
-
-/// <summary>
-/// Class that enables going through values in an interative fashion
-/// </summary>
-public class IntSelector : MonoBehaviour
+namespace SeraphUtil
 {
-    [field: Header("Value Control")]
-    [field: Tooltip("The value that is being changed, you can set the default here.")]
-    [field: SerializeField] public int Value { get; set; }
-    
-    [field: Tooltip("The minimum value.")]
-    [field: SerializeField] public int Min { get; set; }
-    
-    [field: Tooltip("The maximum value.")]
-    [field: SerializeField] public int Max { get; set; }
-    
-    [field: Tooltip("The amount the value increases or decreases.")]
-    [field: SerializeField] public int Iterator { get; set; }
-    
+    public delegate void SelAction(int value, bool wasIncreased);
 
-    [field: Header("Options")]
-    [field: Tooltip("Whether the values wrap or not")]
-    [field: SerializeField] public bool Cycle { get; set; }
-
-
-    // Events
     /// <summary>
-    /// Raised whenever the value changes.
+    /// Class that enables going through values in an interative fashion
     /// </summary>
-    public event SelAction ValueChanged;
-
-
-    public void Increase()
+    public class IntSelector : MonoBehaviour
     {
-        int tempVal = Value;
-        tempVal += Iterator;
+        [field: Header("Value Control")]
+        [field: Tooltip("The value that is being changed, you can set the default here.")]
+        [field: SerializeField] public int Value { get; set; }
 
-        if (tempVal > Max)
+        [field: Tooltip("The minimum value.")]
+        [field: SerializeField] public int Min { get; set; }
+
+        [field: Tooltip("The maximum value.")]
+        [field: SerializeField] public int Max { get; set; }
+
+        [field: Tooltip("The amount the value increases or decreases.")]
+        [field: SerializeField] public int Iterator { get; set; }
+
+
+        [field: Header("Options")]
+        [field: Tooltip("Whether the values wrap or not")]
+        [field: SerializeField] public bool Cycle { get; set; }
+
+
+        // Events
+        /// <summary>
+        /// Raised whenever the value changes.
+        /// </summary>
+        public event SelAction ValueChanged;
+
+
+        public void Increase()
         {
-            if (Cycle)
+            int tempVal = Value;
+            tempVal += Iterator;
+
+            if (tempVal > Max)
             {
-                // Overflow value.
-                Value = Min;
+                if (Cycle)
+                {
+                    // Overflow value.
+                    Value = Min;
+                }
+                else
+                {
+                    // Clamp value.
+                    Value = Max;
+                }
             }
             else
             {
-                // Clamp value.
-                Value = Max;
+                Value = tempVal;
             }
-        }
-        else
-        {
-            Value = tempVal;
+
+            ValueChanged?.Invoke(Value, true);
         }
 
-        ValueChanged?.Invoke(Value, true);
-    }
-
-    public void Decrease()
-    {
-        int tempVal = Value;
-        tempVal -= Iterator;
-
-        if (tempVal < Min)
+        public void Decrease()
         {
-            if (Cycle)
+            int tempVal = Value;
+            tempVal -= Iterator;
+
+            if (tempVal < Min)
             {
-                // Underflow value.
-                Value = Max;
+                if (Cycle)
+                {
+                    // Underflow value.
+                    Value = Max;
+                }
+                else
+                {
+                    // Clamp value.
+                    Value = Min;
+                }
             }
             else
             {
-                // Clamp value.
-                Value = Min;
+                Value = tempVal;
             }
-        }
-        else
-        {
-            Value = tempVal;
+
+            ValueChanged?.Invoke(Value, false);
         }
 
-        ValueChanged?.Invoke(Value, false);
     }
-
 }

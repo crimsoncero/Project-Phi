@@ -1,3 +1,4 @@
+using SeraphUtil;
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
-            _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All) ;
+            _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All);
             StartCoroutine(WaitForWeaponCooldown(true));
         }
     }
