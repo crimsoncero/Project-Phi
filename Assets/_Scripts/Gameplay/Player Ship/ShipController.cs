@@ -27,18 +27,19 @@ public class ShipController : MonoBehaviour
 
     #region Pun RPC
     [PunRPC] // NEED TO ADD Current Position and rotation and velocity of the ship when message was sent
-    private void FirePrimary(PhotonMessageInfo info)
+    private void FirePrimary(Vector3 position, Quaternion rotation,  float velocityMag, PhotonMessageInfo info)
     {
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-        PrimaryWeapon.Fire(_photonView, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude, lag);
+        PrimaryWeapon.Fire(_photonView, position, rotation, velocityMag, lag);
     }
 
     [PunRPC]
-    private void FireSpecial(PhotonMessageInfo info)
+    private void FireSpecial(Vector3 position, Quaternion rotation, float velocityMag, PhotonMessageInfo info)
     {
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-        SpecialWeapon.Fire(_photonView, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude, lag);
+        SpecialWeapon.Fire(_photonView, position, rotation, velocityMag, lag);
         SpecialAmmo--;
+
     }
     #endregion
 }
