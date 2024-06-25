@@ -5,13 +5,10 @@ using UnityEngine;
 public class Lazgun : Weapon
 {
     [SerializeField] private Vector3 _spawnPoint;
-    [SerializeField] private Projectile _laser;
 
-    public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, float shipVelocity, float lag)
+    public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag)
     {
-        Vector3 originalDirection = shipRotation * Vector2.up;
-
-        Projectile projectile = Instantiate(_laser, AdjustPosition(_spawnPoint, shipPosition, shipRotation), Quaternion.identity);
-        projectile.InitProjectile(photonView.Owner, Velocity + shipVelocity, originalDirection, lag);
+        Projectile projectile = Instantiate(ProjectilePrefab, AdjustPosition(_spawnPoint, shipPosition, shipRotation), Quaternion.identity);
+        projectile.Init(photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation) , shipRotation, lag);
     }
 }

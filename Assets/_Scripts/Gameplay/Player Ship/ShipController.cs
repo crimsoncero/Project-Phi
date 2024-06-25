@@ -9,6 +9,7 @@ public class ShipController : MonoBehaviour
 
     [SerializeField] private PhotonView _photonView;
     [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private GameObject _visuals;
 
 	private int _specialAmmo;
 
@@ -21,25 +22,33 @@ public class ShipController : MonoBehaviour
     private void OnEnable()
     {
         if(SpecialWeapon != null)
-            SpecialAmmo = SpecialWeapon.MaxAmmo; 
+            SpecialAmmo = SpecialWeapon.MaxAmmo;
     }
 
 
     #region Pun RPC
     [PunRPC] // NEED TO ADD Current Position and rotation and velocity of the ship when message was sent
-    private void FirePrimary(Vector3 position, Quaternion rotation,  float velocityMag, PhotonMessageInfo info)
+    private void FirePrimary(Vector3 position, Quaternion rotation,  Vector2 velocity, PhotonMessageInfo info)
     {
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-        PrimaryWeapon.Fire(_photonView, position, rotation, velocityMag, lag);
+        PrimaryWeapon.Fire(_photonView, position, rotation, velocity, lag);
     }
 
     [PunRPC]
-    private void FireSpecial(Vector3 position, Quaternion rotation, float velocityMag, PhotonMessageInfo info)
+    private void FireSpecial(Vector3 position, Quaternion rotation, Vector2 velocity, PhotonMessageInfo info)
     {
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-        SpecialWeapon.Fire(_photonView, position, rotation, velocityMag, lag);
+        SpecialWeapon.Fire(_photonView, position, rotation, velocity, lag);
         SpecialAmmo--;
-
     }
     #endregion
+
+
+    public void SetSpecialWeapon(Weapon weapon)
+    {
+        SpecialWeapon = weapon;
+
+        Instantiate(SpecialWeapon.WeaponPrefab, _visuals.transform);
+    }
+
 }

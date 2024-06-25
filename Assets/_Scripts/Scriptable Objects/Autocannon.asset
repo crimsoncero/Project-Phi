@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0514358e288056040b33d3946044d759, type: 3}
-  m_Name: Lazgun
+  m_Script: {fileID: 11500000, guid: edb4b9d08ebeb07459f9e89f9ba74a86, type: 3}
+  m_Name: Autocannon
   m_EditorClassIdentifier: 
   <FiringMethod>k__BackingField: 1
-  <MaxAmmo>k__BackingField: 3
-  <Cooldown>k__BackingField: 0.3
+  <MaxAmmo>k__BackingField: 30
+  <Cooldown>k__BackingField: 0.4
   <Damage>k__BackingField: 0
-  <WeaponPrefab>k__BackingField: {fileID: 0}
   ProjectilePrefab: {fileID: 2267390870902065815, guid: 333715c838bc2234cb4e94c7e27b5ce7, type: 3}
-  <ProjectileVelocity>k__BackingField: 6
-  _spawnPoint: {x: 0, y: 0, z: 0}
+  <ProjectileVelocity>k__BackingField: 5
+  <WeaponPrefab>k__BackingField: {fileID: -2253911629886400664, guid: 5efefbf6f9c6bbf49bd517bc35d91041, type: 3}

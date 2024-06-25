@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 48
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -75,7 +75,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -88,7 +88,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638549625662964792
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Main Ship - Weapons - Rockets_Frame_0
+  - name: Hellfire Rocket Pod Sprite_Frame_0
     originalName: 
-    pivot: {x: 0.50000006, y: -0.55}
+    pivot: {x: 0.50000006, y: 0.65}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -134,7 +134,7 @@ ScriptedImporter:
       y: 67
       width: 34
       height: 20
-    spriteID: 47fe6783a0696a147bf6cdfc963b57e9
+    spriteID: 2eec54b7f89ed534283ab31b082bbffe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,9 +143,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 214, y: 67}
-  - name: Main Ship - Weapons - Rockets_Frame_1
+  - name: Hellfire Rocket Pod Sprite_Frame_1
     originalName: 
-    pivot: {x: 0.50000006, y: -0.55}
+    pivot: {x: 0.50000006, y: 0.65}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -155,7 +155,7 @@ ScriptedImporter:
       y: 96
       width: 34
       height: 20
-    spriteID: f452e10441632994fa2ce5bda3a98b23
+    spriteID: cbcc396a92cb6264baab0c5fb9e09208
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -164,9 +164,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_2
+  - name: Hellfire Rocket Pod Sprite_Frame_2
     originalName: 
-    pivot: {x: 0.50000006, y: -0.52380955}
+    pivot: {x: 0.50000006, y: 0.6190476}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -176,7 +176,7 @@ ScriptedImporter:
       y: 36
       width: 34
       height: 21
-    spriteID: 0f90ff00ad8e4694082a6e800be36764
+    spriteID: 0259c115fcb36444aaaf6b2a4b691557
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -185,9 +185,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 217, y: 36}
-  - name: Main Ship - Weapons - Rockets_Frame_3
+  - name: Hellfire Rocket Pod Sprite_Frame_3
     originalName: 
-    pivot: {x: 0.50000006, y: -0.47826087}
+    pivot: {x: 0.50000006, y: 0.5652173}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -197,7 +197,7 @@ ScriptedImporter:
       y: 4
       width: 34
       height: 23
-    spriteID: 8f84ec4269bfec6408f5f07cf8fa6a14
+    spriteID: ff1b909499c32d84c883ceb1b494388a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -206,9 +206,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 172, y: 4}
-  - name: Main Ship - Weapons - Rockets_Frame_4
+  - name: Hellfire Rocket Pod Sprite_Frame_4
     originalName: 
-    pivot: {x: 0.50000006, y: -0.45833334}
+    pivot: {x: 0.50000006, y: 0.5416666}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -218,7 +218,7 @@ ScriptedImporter:
       y: 4
       width: 34
       height: 24
-    spriteID: a0fd291e2f9d727468b19fd66bfbaa0c
+    spriteID: 3e32ea231430aa74fafea4dd5e04b30e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -227,9 +227,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Main Ship - Weapons - Rockets_Frame_5
+  - name: Hellfire Rocket Pod Sprite_Frame_5
     originalName: 
-    pivot: {x: 0.50000006, y: -0.47826087}
+    pivot: {x: 0.50000006, y: 0.5652173}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -239,7 +239,7 @@ ScriptedImporter:
       y: 4
       width: 34
       height: 23
-    spriteID: d17a96fdaf28a514c8fa1f2c025a95bb
+    spriteID: 6ae8484b2d16d334394ce0e129ce5756
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -248,9 +248,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 214, y: 4}
-  - name: Main Ship - Weapons - Rockets_Frame_6
+  - name: Hellfire Rocket Pod Sprite_Frame_6
     originalName: 
-    pivot: {x: 0.50000006, y: -0.55}
+    pivot: {x: 0.50000006, y: 0.65}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -260,7 +260,7 @@ ScriptedImporter:
       y: 96
       width: 34
       height: 20
-    spriteID: a859c7e508bf1a8479aa777bd7301042
+    spriteID: c6159a8e1b3dbb047b09cf6edf161163
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -269,9 +269,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 46, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_7
+  - name: Hellfire Rocket Pod Sprite_Frame_7
     originalName: 
-    pivot: {x: 0.50000006, y: -0.57894737}
+    pivot: {x: 0.50000006, y: 0.6842104}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -281,7 +281,7 @@ ScriptedImporter:
       y: 96
       width: 34
       height: 19
-    spriteID: 537cc9a9091332743a837edcdb80159f
+    spriteID: 7fd2ebfe06b24214d9a798b2c0000890
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -290,9 +290,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 131, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_8
+  - name: Hellfire Rocket Pod Sprite_Frame_8
     originalName: 
-    pivot: {x: 0.50000006, y: -0.52380955}
+    pivot: {x: 0.50000006, y: 0.6190476}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -302,7 +302,7 @@ ScriptedImporter:
       y: 67
       width: 34
       height: 21
-    spriteID: 0209cc0b6a3c54248a6ab869aca5a2d5
+    spriteID: d6ae723416fc43348ad5026c9a5eb447
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -311,9 +311,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 67}
-  - name: Main Ship - Weapons - Rockets_Frame_9
+  - name: Hellfire Rocket Pod Sprite_Frame_9
     originalName: 
-    pivot: {x: 0.50000006, y: -0.47826087}
+    pivot: {x: 0.50000006, y: 0.5652173}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -323,7 +323,7 @@ ScriptedImporter:
       y: 36
       width: 34
       height: 23
-    spriteID: 3365eef9a0b9c2a43a2504b24c75b225
+    spriteID: 0a96269411a737247be61e4386437b76
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -332,9 +332,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 36}
-  - name: Main Ship - Weapons - Rockets_Frame_10
+  - name: Hellfire Rocket Pod Sprite_Frame_10
     originalName: 
-    pivot: {x: 0.50000006, y: -0.45833334}
+    pivot: {x: 0.50000006, y: 0.5416666}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -344,7 +344,7 @@ ScriptedImporter:
       y: 4
       width: 34
       height: 24
-    spriteID: fdf8ab0e8cee83e48acb036d62f35f95
+    spriteID: 83008ebbd0036bb4191787de58d45d59
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -353,9 +353,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 46, y: 4}
-  - name: Main Ship - Weapons - Rockets_Frame_11
+  - name: Hellfire Rocket Pod Sprite_Frame_11
     originalName: 
-    pivot: {x: 0.50000006, y: -0.47826087}
+    pivot: {x: 0.50000006, y: 0.5652173}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -365,7 +365,7 @@ ScriptedImporter:
       y: 36
       width: 34
       height: 23
-    spriteID: e3232d5b3203b304ea1ba9746f7da399
+    spriteID: 86cb6d6d24135ce43a7ae9a162f23111
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -374,9 +374,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 46, y: 36}
-  - name: Main Ship - Weapons - Rockets_Frame_12
+  - name: Hellfire Rocket Pod Sprite_Frame_12
     originalName: 
-    pivot: {x: 0.50000006, y: -0.6875}
+    pivot: {x: 0.50000006, y: 0.81249994}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -386,7 +386,7 @@ ScriptedImporter:
       y: 124
       width: 34
       height: 16
-    spriteID: 8fa7ee6d25b9322488c7d5de76ee5592
+    spriteID: d7efd8c80254d9d49a64218499c93109
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -395,9 +395,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 46, y: 124}
-  - name: Main Ship - Weapons - Rockets_Frame_13
+  - name: Hellfire Rocket Pod Sprite_Frame_13
     originalName: 
-    pivot: {x: 0.50000006, y: -0.6875}
+    pivot: {x: 0.50000006, y: 0.81249994}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -407,7 +407,7 @@ ScriptedImporter:
       y: 124
       width: 34
       height: 16
-    spriteID: b0857482f0463fd49a480abbe9682c63
+    spriteID: 3174148468b07214988f11259f80609b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -416,9 +416,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 88, y: 124}
-  - name: Main Ship - Weapons - Rockets_Frame_14
+  - name: Hellfire Rocket Pod Sprite_Frame_14
     originalName: 
-    pivot: {x: 0.50000006, y: -0.52380955}
+    pivot: {x: 0.50000006, y: 0.6190476}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -428,7 +428,7 @@ ScriptedImporter:
       y: 67
       width: 34
       height: 21
-    spriteID: 6cba28e112138ea459f8dfc5179d11ab
+    spriteID: efea6f9cf8dc535479f89e69fcb2ef99
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -437,9 +437,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 46, y: 67}
-  - name: Main Ship - Weapons - Rockets_Frame_15
+  - name: Hellfire Rocket Pod Sprite_Frame_15
     originalName: 
-    pivot: {x: 0.50000006, y: -0.47826087}
+    pivot: {x: 0.50000006, y: 0.5652173}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -449,7 +449,7 @@ ScriptedImporter:
       y: 36
       width: 34
       height: 23
-    spriteID: e3370529815ac0f48b12531f3c35fa34
+    spriteID: 32e73aca2bc59894a8022b85d6d4f724
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -458,9 +458,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 88, y: 36}
-  - name: Main Ship - Weapons - Rockets_Frame_23
+  - name: Hellfire Rocket Pod Sprite_Frame_16
     originalName: 
-    pivot: {x: 0.50000006, y: -0.45833334}
+    pivot: {x: 0.50000006, y: 0.5416666}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -470,7 +470,7 @@ ScriptedImporter:
       y: 4
       width: 34
       height: 24
-    spriteID: c94f8f2f5661d254fbb6968a22a114aa
+    spriteID: ea0495c6abf8c754cb689df4bd776e02
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -479,9 +479,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 88, y: 4}
-  - name: Main Ship - Weapons - Rockets_Frame_24
+  - name: Hellfire Rocket Pod Sprite_Frame_17
     originalName: 
-    pivot: {x: 0.50000006, y: -0.52380955}
+    pivot: {x: 0.50000006, y: 0.6190476}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -491,7 +491,7 @@ ScriptedImporter:
       y: 67
       width: 34
       height: 21
-    spriteID: 5eb659c3688a18f41a70cbf873f45270
+    spriteID: fc7b716a40809994295d3fcd04b9ed87
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -500,9 +500,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 88, y: 67}
-  - name: Main Ship - Weapons - Rockets_Frame_27
+  - name: Hellfire Rocket Pod Sprite_Frame_18
     originalName: 
-    pivot: {x: 0.50000006, y: -0.6875}
+    pivot: {x: 0.50000006, y: 0.81249994}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -512,7 +512,7 @@ ScriptedImporter:
       y: 124
       width: 34
       height: 16
-    spriteID: c36fc0f3403ba2a40a18c93f1ea87a7a
+    spriteID: 3598bf702580f864983665603ca33954
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -521,9 +521,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 130, y: 124}
-  - name: Main Ship - Weapons - Rockets_Frame_28
+  - name: Hellfire Rocket Pod Sprite_Frame_19
     originalName: 
-    pivot: {x: 0.50000006, y: -0.73333335}
+    pivot: {x: 0.50000006, y: 0.8666666}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -533,7 +533,7 @@ ScriptedImporter:
       y: 124
       width: 34
       height: 15
-    spriteID: 6771395f349ba8e4cafa8c5746738df6
+    spriteID: 618a92e90fd433343bb831e9c6d88f3f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -542,9 +542,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 172, y: 124}
-  - name: Main Ship - Weapons - Rockets_Frame_29
+  - name: Hellfire Rocket Pod Sprite_Frame_20
     originalName: 
-    pivot: {x: 0.50000006, y: -0.52380955}
+    pivot: {x: 0.50000006, y: 0.6190476}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -554,7 +554,7 @@ ScriptedImporter:
       y: 67
       width: 34
       height: 21
-    spriteID: 794c3200893b6354cafaf7b3a4fb05b3
+    spriteID: 565e900d3a76d2347b773d954a1ae945
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -563,9 +563,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 130, y: 67}
-  - name: Main Ship - Weapons - Rockets_Frame_30
+  - name: Hellfire Rocket Pod Sprite_Frame_21
     originalName: 
-    pivot: {x: 0.50000006, y: -0.47826087}
+    pivot: {x: 0.50000006, y: 0.5652173}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -575,7 +575,7 @@ ScriptedImporter:
       y: 36
       width: 34
       height: 23
-    spriteID: a4366ec01e9fae24fa83ff25ed15e315
+    spriteID: ec7b0e20f730fdc4ab0a7c3b7db3c95b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -584,9 +584,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 130, y: 36}
-  - name: Main Ship - Weapons - Rockets_Frame_2
+  - name: Hellfire Rocket Pod Sprite_Frame_22
     originalName: 
-    pivot: {x: 0.50000006, y: -0.45833334}
+    pivot: {x: 0.50000006, y: 0.5416666}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -596,7 +596,7 @@ ScriptedImporter:
       y: 4
       width: 34
       height: 24
-    spriteID: 9f8741f848c2845488d3ef5de1405b65
+    spriteID: 258895470d17c93488a2da95d2ba84cc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -605,9 +605,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 130, y: 4}
-  - name: Main Ship - Weapons - Rockets_Frame_7
+  - name: Hellfire Rocket Pod Sprite_Frame_23
     originalName: 
-    pivot: {x: 0.50000006, y: -0.52380955}
+    pivot: {x: 0.50000006, y: 0.6190476}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -617,7 +617,7 @@ ScriptedImporter:
       y: 67
       width: 34
       height: 21
-    spriteID: 22d712cbf524c1247a66ec752a8aca29
+    spriteID: 289b90c830ce7d44e9dc02f942db2993
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -626,9 +626,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 172, y: 67}
-  - name: Main Ship - Weapons - Rockets_Frame_8
+  - name: Hellfire Rocket Pod Sprite_Frame_24
     originalName: 
-    pivot: {x: 0.50000006, y: -0.9166667}
+    pivot: {x: 0.50000006, y: 1.0833333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -638,7 +638,7 @@ ScriptedImporter:
       y: 149
       width: 34
       height: 12
-    spriteID: dd4134f41bc898048bb5a2460e00949b
+    spriteID: d0df4cfe1746ff2409bb18cd2b808bfb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -647,9 +647,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 149}
-  - name: Main Ship - Weapons - Rockets_Frame_13
+  - name: Hellfire Rocket Pod Sprite_Frame_25
     originalName: 
-    pivot: {x: 0.50000006, y: -0.7692308}
+    pivot: {x: 0.50000006, y: 1.0769231}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -659,7 +659,7 @@ ScriptedImporter:
       y: 124
       width: 34
       height: 13
-    spriteID: b3642a13751d8fe498fe040fbf953dce
+    spriteID: 5a03a96db1af8054ab7d89da54415649
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -668,9 +668,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 214, y: 124}
-  - name: Main Ship - Weapons - Rockets_Frame_14
+  - name: Hellfire Rocket Pod Sprite_Frame_26
     originalName: 
-    pivot: {x: 0.50000006, y: -0.64705884}
+    pivot: {x: 0.50000006, y: 0.76470584}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -680,7 +680,7 @@ ScriptedImporter:
       y: 124
       width: 34
       height: 17
-    spriteID: a2719e5891dbec043bd0b572a473220c
+    spriteID: 38783b35112dcc2479c22d3136155e6b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -689,9 +689,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 124}
-  - name: Main Ship - Weapons - Rockets_Frame_19
+  - name: Hellfire Rocket Pod Sprite_Frame_27
     originalName: 
-    pivot: {x: 0.51428574, y: -0.57894737}
+    pivot: {x: 0.51428574, y: 0.6842104}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -701,7 +701,7 @@ ScriptedImporter:
       y: 96
       width: 35
       height: 19
-    spriteID: e25ad432adb1b9f478b07375658d6655
+    spriteID: e0106da5828c8f54397dd44cbc860260
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -710,9 +710,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 88, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_20
+  - name: Hellfire Rocket Pod Sprite_Frame_28
     originalName: 
-    pivot: {x: 0.5405405, y: -0.55}
+    pivot: {x: 0.5405405, y: 0.65}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -722,7 +722,7 @@ ScriptedImporter:
       y: 36
       width: 37
       height: 20
-    spriteID: a8b36c8886869e64285e97335dfb0f87
+    spriteID: 3b0dc2dc66a54a549bd3eb08d82a616c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -731,9 +731,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 172, y: 36}
-  - name: Main Ship - Weapons - Rockets_Frame_25
+  - name: Hellfire Rocket Pod Sprite_Frame_29
     originalName: 
-    pivot: {x: 0.55263156, y: -0.64705884}
+    pivot: {x: 0.55263156, y: 0.76470584}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -743,7 +743,7 @@ ScriptedImporter:
       y: 96
       width: 38
       height: 17
-    spriteID: 891899aced10862429d8a76d09a8e8e4
+    spriteID: 6090fec8d92b2b540997f620d1fe4637
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -752,9 +752,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 173, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_26
+  - name: Hellfire Rocket Pod Sprite_Frame_30
     originalName: 
-    pivot: {x: -2.4, y: -0.9166667}
+    pivot: {x: -2.4, y: 1.0833333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -764,7 +764,7 @@ ScriptedImporter:
       y: 96
       width: 5
       height: 12
-    spriteID: ebfff389ab6354b4dbcb2f52201f63bb
+    spriteID: 45b154966a194794a8497322c5ed276c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -773,9 +773,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 219, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_31
+  - name: Hellfire Rocket Pod Sprite_Frame_31
     originalName: 
-    pivot: {x: -2.4, y: -0.8333333}
+    pivot: {x: -2.4, y: 1.1666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -785,7 +785,7 @@ ScriptedImporter:
       y: 96
       width: 5
       height: 12
-    spriteID: 1b23b08dc74283d468c0362b20256835
+    spriteID: 6b6aa26e3fd621c4289e801c849e60bc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -794,9 +794,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 232, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_32
+  - name: Hellfire Rocket Pod Sprite_Frame_32
     originalName: 
-    pivot: {x: -3.2499998, y: -2.5}
+    pivot: {x: -3.2499998, y: 0.50000006}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -806,7 +806,7 @@ ScriptedImporter:
       y: 96
       width: 4
       height: 8
-    spriteID: 304dcc0bcc27313439873d17f30fd52c
+    spriteID: 0f4df0d093357424dbb27d54eecf7b66
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -815,9 +815,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 245, y: 96}
-  - name: Main Ship - Weapons - Rockets_Frame_33
+  - name: Hellfire Rocket Pod Sprite_Frame_33
     originalName: 
-    pivot: {x: -1.5714288, y: -9}
+    pivot: {x: -1.5714288, y: -1}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -827,7 +827,7 @@ ScriptedImporter:
       y: 112
       width: 7
       height: 3
-    spriteID: 25b6766896ca6444088c8bd0ef81b40d
+    spriteID: 79039745d98054840b3c41a52413f677
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -836,9 +836,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 245, y: 112}
-  - name: Main Ship - Weapons - Rockets_Frame_34
+  - name: Hellfire Rocket Pod Sprite_Frame_34
     originalName: 
-    pivot: {x: -0.8181819, y: -5.2000003}
+    pivot: {x: -0.8181819, y: -0.4000002}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -848,7 +848,7 @@ ScriptedImporter:
       y: 149
       width: 11
       height: 5
-    spriteID: 2742ac32f1720244ca1748bfeea22384
+    spriteID: 5bec17850e382f94b9a91f1919e39592
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -857,9 +857,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 46, y: 149}
-  - name: Main Ship - Weapons - Rockets_Frame_35
+  - name: Hellfire Rocket Pod Sprite_Frame_35
     originalName: 
-    pivot: {x: -0.6153847, y: -8.333333}
+    pivot: {x: -0.6153847, y: -0.33333302}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -869,7 +869,7 @@ ScriptedImporter:
       y: 149
       width: 13
       height: 3
-    spriteID: f645f3bf2e486b54381b2b339cb070e5
+    spriteID: 0daabcabf39d60a43a7ded97126f5695
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -881,13 +881,13 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -903457953
-    name: Main Ship - Weapons - Rockets
+    guid: 860757019
+    name: Hellfire Rocket Pod Sprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main Ship - Weapons - Rockets_Frame_0
+    - name: Hellfire Rocket Pod Sprite_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -895,8 +895,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 20
-      spriteId: 47fe6783a0696a147bf6cdfc963b57e9
-    - name: Main Ship - Weapons - Rockets_Frame_1
+      spriteId: 2eec54b7f89ed534283ab31b082bbffe
+    - name: Hellfire Rocket Pod Sprite_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -904,8 +904,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 20
-      spriteId: f452e10441632994fa2ce5bda3a98b23
-    - name: Main Ship - Weapons - Rockets_Frame_2
+      spriteId: cbcc396a92cb6264baab0c5fb9e09208
+    - name: Hellfire Rocket Pod Sprite_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -913,8 +913,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 21
-      spriteId: 0f90ff00ad8e4694082a6e800be36764
-    - name: Main Ship - Weapons - Rockets_Frame_3
+      spriteId: 0259c115fcb36444aaaf6b2a4b691557
+    - name: Hellfire Rocket Pod Sprite_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -922,8 +922,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 23
-      spriteId: 8f84ec4269bfec6408f5f07cf8fa6a14
-    - name: Main Ship - Weapons - Rockets_Frame_4
+      spriteId: ff1b909499c32d84c883ceb1b494388a
+    - name: Hellfire Rocket Pod Sprite_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -931,8 +931,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 24
-      spriteId: a0fd291e2f9d727468b19fd66bfbaa0c
-    - name: Main Ship - Weapons - Rockets_Frame_5
+      spriteId: 3e32ea231430aa74fafea4dd5e04b30e
+    - name: Hellfire Rocket Pod Sprite_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -940,8 +940,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 23
-      spriteId: d17a96fdaf28a514c8fa1f2c025a95bb
-    - name: Main Ship - Weapons - Rockets_Frame_6
+      spriteId: 6ae8484b2d16d334394ce0e129ce5756
+    - name: Hellfire Rocket Pod Sprite_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -949,8 +949,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 20
-      spriteId: a859c7e508bf1a8479aa777bd7301042
-    - name: Main Ship - Weapons - Rockets_Frame_7
+      spriteId: c6159a8e1b3dbb047b09cf6edf161163
+    - name: Hellfire Rocket Pod Sprite_Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -958,8 +958,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 19
-      spriteId: 537cc9a9091332743a837edcdb80159f
-    - name: Main Ship - Weapons - Rockets_Frame_8
+      spriteId: 7fd2ebfe06b24214d9a798b2c0000890
+    - name: Hellfire Rocket Pod Sprite_Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -967,8 +967,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 21
-      spriteId: 0209cc0b6a3c54248a6ab869aca5a2d5
-    - name: Main Ship - Weapons - Rockets_Frame_9
+      spriteId: d6ae723416fc43348ad5026c9a5eb447
+    - name: Hellfire Rocket Pod Sprite_Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -976,8 +976,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 23
-      spriteId: 3365eef9a0b9c2a43a2504b24c75b225
-    - name: Main Ship - Weapons - Rockets_Frame_10
+      spriteId: 0a96269411a737247be61e4386437b76
+    - name: Hellfire Rocket Pod Sprite_Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
@@ -985,8 +985,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 24
-      spriteId: fdf8ab0e8cee83e48acb036d62f35f95
-    - name: Main Ship - Weapons - Rockets_Frame_11
+      spriteId: 83008ebbd0036bb4191787de58d45d59
+    - name: Hellfire Rocket Pod Sprite_Frame_11
       frameIndex: 11
       additiveSortOrder: 0
       cellRect:
@@ -994,8 +994,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 23
-      spriteId: e3232d5b3203b304ea1ba9746f7da399
-    - name: Main Ship - Weapons - Rockets_Frame_12
+      spriteId: 86cb6d6d24135ce43a7ae9a162f23111
+    - name: Hellfire Rocket Pod Sprite_Frame_12
       frameIndex: 12
       additiveSortOrder: 0
       cellRect:
@@ -1003,8 +1003,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 16
-      spriteId: 8fa7ee6d25b9322488c7d5de76ee5592
-    - name: Main Ship - Weapons - Rockets_Frame_13
+      spriteId: d7efd8c80254d9d49a64218499c93109
+    - name: Hellfire Rocket Pod Sprite_Frame_13
       frameIndex: 13
       additiveSortOrder: 0
       cellRect:
@@ -1012,8 +1012,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 16
-      spriteId: b0857482f0463fd49a480abbe9682c63
-    - name: Main Ship - Weapons - Rockets_Frame_14
+      spriteId: 3174148468b07214988f11259f80609b
+    - name: Hellfire Rocket Pod Sprite_Frame_14
       frameIndex: 14
       additiveSortOrder: 0
       cellRect:
@@ -1021,8 +1021,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 21
-      spriteId: 6cba28e112138ea459f8dfc5179d11ab
-    - name: Main Ship - Weapons - Rockets_Frame_15
+      spriteId: efea6f9cf8dc535479f89e69fcb2ef99
+    - name: Hellfire Rocket Pod Sprite_Frame_15
       frameIndex: 15
       additiveSortOrder: 0
       cellRect:
@@ -1030,8 +1030,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 23
-      spriteId: e3370529815ac0f48b12531f3c35fa34
-    - name: Main Ship - Weapons - Rockets_Frame_16
+      spriteId: 32e73aca2bc59894a8022b85d6d4f724
+    - name: Hellfire Rocket Pod Sprite_Frame_16
       frameIndex: 16
       additiveSortOrder: 0
       cellRect:
@@ -1039,8 +1039,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 24
-      spriteId: c94f8f2f5661d254fbb6968a22a114aa
-    - name: Main Ship - Weapons - Rockets_Frame_17
+      spriteId: ea0495c6abf8c754cb689df4bd776e02
+    - name: Hellfire Rocket Pod Sprite_Frame_17
       frameIndex: 17
       additiveSortOrder: 0
       cellRect:
@@ -1048,8 +1048,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 21
-      spriteId: 5eb659c3688a18f41a70cbf873f45270
-    - name: Main Ship - Weapons - Rockets_Frame_18
+      spriteId: fc7b716a40809994295d3fcd04b9ed87
+    - name: Hellfire Rocket Pod Sprite_Frame_18
       frameIndex: 18
       additiveSortOrder: 0
       cellRect:
@@ -1057,8 +1057,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 16
-      spriteId: c36fc0f3403ba2a40a18c93f1ea87a7a
-    - name: Main Ship - Weapons - Rockets_Frame_19
+      spriteId: 3598bf702580f864983665603ca33954
+    - name: Hellfire Rocket Pod Sprite_Frame_19
       frameIndex: 19
       additiveSortOrder: 0
       cellRect:
@@ -1066,8 +1066,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 15
-      spriteId: 6771395f349ba8e4cafa8c5746738df6
-    - name: Main Ship - Weapons - Rockets_Frame_20
+      spriteId: 618a92e90fd433343bb831e9c6d88f3f
+    - name: Hellfire Rocket Pod Sprite_Frame_20
       frameIndex: 20
       additiveSortOrder: 0
       cellRect:
@@ -1075,8 +1075,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 21
-      spriteId: 794c3200893b6354cafaf7b3a4fb05b3
-    - name: Main Ship - Weapons - Rockets_Frame_21
+      spriteId: 565e900d3a76d2347b773d954a1ae945
+    - name: Hellfire Rocket Pod Sprite_Frame_21
       frameIndex: 21
       additiveSortOrder: 0
       cellRect:
@@ -1084,8 +1084,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 23
-      spriteId: a4366ec01e9fae24fa83ff25ed15e315
-    - name: Main Ship - Weapons - Rockets_Frame_22
+      spriteId: ec7b0e20f730fdc4ab0a7c3b7db3c95b
+    - name: Hellfire Rocket Pod Sprite_Frame_22
       frameIndex: 22
       additiveSortOrder: 0
       cellRect:
@@ -1093,8 +1093,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 24
-      spriteId: 9f8741f848c2845488d3ef5de1405b65
-    - name: Main Ship - Weapons - Rockets_Frame_23
+      spriteId: 258895470d17c93488a2da95d2ba84cc
+    - name: Hellfire Rocket Pod Sprite_Frame_23
       frameIndex: 23
       additiveSortOrder: 0
       cellRect:
@@ -1102,8 +1102,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 21
-      spriteId: 22d712cbf524c1247a66ec752a8aca29
-    - name: Main Ship - Weapons - Rockets_Frame_24
+      spriteId: 289b90c830ce7d44e9dc02f942db2993
+    - name: Hellfire Rocket Pod Sprite_Frame_24
       frameIndex: 24
       additiveSortOrder: 0
       cellRect:
@@ -1111,8 +1111,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 12
-      spriteId: dd4134f41bc898048bb5a2460e00949b
-    - name: Main Ship - Weapons - Rockets_Frame_25
+      spriteId: d0df4cfe1746ff2409bb18cd2b808bfb
+    - name: Hellfire Rocket Pod Sprite_Frame_25
       frameIndex: 25
       additiveSortOrder: 0
       cellRect:
@@ -1120,8 +1120,8 @@ ScriptedImporter:
         y: 10
         width: 34
         height: 13
-      spriteId: b3642a13751d8fe498fe040fbf953dce
-    - name: Main Ship - Weapons - Rockets_Frame_26
+      spriteId: 5a03a96db1af8054ab7d89da54415649
+    - name: Hellfire Rocket Pod Sprite_Frame_26
       frameIndex: 26
       additiveSortOrder: 0
       cellRect:
@@ -1129,8 +1129,8 @@ ScriptedImporter:
         y: 11
         width: 34
         height: 17
-      spriteId: a2719e5891dbec043bd0b572a473220c
-    - name: Main Ship - Weapons - Rockets_Frame_27
+      spriteId: 38783b35112dcc2479c22d3136155e6b
+    - name: Hellfire Rocket Pod Sprite_Frame_27
       frameIndex: 27
       additiveSortOrder: 0
       cellRect:
@@ -1138,8 +1138,8 @@ ScriptedImporter:
         y: 11
         width: 35
         height: 19
-      spriteId: e25ad432adb1b9f478b07375658d6655
-    - name: Main Ship - Weapons - Rockets_Frame_28
+      spriteId: e0106da5828c8f54397dd44cbc860260
+    - name: Hellfire Rocket Pod Sprite_Frame_28
       frameIndex: 28
       additiveSortOrder: 0
       cellRect:
@@ -1147,8 +1147,8 @@ ScriptedImporter:
         y: 11
         width: 37
         height: 20
-      spriteId: a8b36c8886869e64285e97335dfb0f87
-    - name: Main Ship - Weapons - Rockets_Frame_29
+      spriteId: 3b0dc2dc66a54a549bd3eb08d82a616c
+    - name: Hellfire Rocket Pod Sprite_Frame_29
       frameIndex: 29
       additiveSortOrder: 0
       cellRect:
@@ -1156,8 +1156,8 @@ ScriptedImporter:
         y: 11
         width: 38
         height: 17
-      spriteId: 891899aced10862429d8a76d09a8e8e4
-    - name: Main Ship - Weapons - Rockets_Frame_30
+      spriteId: 6090fec8d92b2b540997f620d1fe4637
+    - name: Hellfire Rocket Pod Sprite_Frame_30
       frameIndex: 30
       additiveSortOrder: 0
       cellRect:
@@ -1165,8 +1165,8 @@ ScriptedImporter:
         y: 11
         width: 5
         height: 12
-      spriteId: ebfff389ab6354b4dbcb2f52201f63bb
-    - name: Main Ship - Weapons - Rockets_Frame_31
+      spriteId: 45b154966a194794a8497322c5ed276c
+    - name: Hellfire Rocket Pod Sprite_Frame_31
       frameIndex: 31
       additiveSortOrder: 0
       cellRect:
@@ -1174,8 +1174,8 @@ ScriptedImporter:
         y: 10
         width: 5
         height: 12
-      spriteId: 1b23b08dc74283d468c0362b20256835
-    - name: Main Ship - Weapons - Rockets_Frame_32
+      spriteId: 6b6aa26e3fd621c4289e801c849e60bc
+    - name: Hellfire Rocket Pod Sprite_Frame_32
       frameIndex: 32
       additiveSortOrder: 0
       cellRect:
@@ -1183,8 +1183,8 @@ ScriptedImporter:
         y: 20
         width: 4
         height: 8
-      spriteId: 304dcc0bcc27313439873d17f30fd52c
-    - name: Main Ship - Weapons - Rockets_Frame_33
+      spriteId: 0f4df0d093357424dbb27d54eecf7b66
+    - name: Hellfire Rocket Pod Sprite_Frame_33
       frameIndex: 33
       additiveSortOrder: 0
       cellRect:
@@ -1192,8 +1192,8 @@ ScriptedImporter:
         y: 27
         width: 7
         height: 3
-      spriteId: 25b6766896ca6444088c8bd0ef81b40d
-    - name: Main Ship - Weapons - Rockets_Frame_34
+      spriteId: 79039745d98054840b3c41a52413f677
+    - name: Hellfire Rocket Pod Sprite_Frame_34
       frameIndex: 34
       additiveSortOrder: 0
       cellRect:
@@ -1201,8 +1201,8 @@ ScriptedImporter:
         y: 26
         width: 11
         height: 5
-      spriteId: 2742ac32f1720244ca1748bfeea22384
-    - name: Main Ship - Weapons - Rockets_Frame_35
+      spriteId: 5bec17850e382f94b9a91f1919e39592
+    - name: Hellfire Rocket Pod Sprite_Frame_35
       frameIndex: 35
       additiveSortOrder: 0
       cellRect:
@@ -1210,10 +1210,58 @@ ScriptedImporter:
         y: 25
         width: 13
         height: 3
-      spriteId: f645f3bf2e486b54381b2b339cb070e5
+      spriteId: 0daabcabf39d60a43a7ded97126f5695
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: iPhone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 

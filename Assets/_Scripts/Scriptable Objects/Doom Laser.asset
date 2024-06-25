@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6d584b581574c47adab04d2862c1b4, type: 3}
+  m_Name: Doom Laser
+  m_EditorClassIdentifier: 
+  <FiringMethod>k__BackingField: 2
+  <MaxAmmo>k__BackingField: 0
+  <Cooldown>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  ProjectilePrefab: {fileID: 0}
+  <ProjectileVelocity>k__BackingField: 0
+  <WeaponPrefab>k__BackingField: {fileID: -2253911629886400664, guid: e4a5590d36dc26342a95ad4d2c14bcb5, type: 3}

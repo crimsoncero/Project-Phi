@@ -1,7 +1,11 @@
+using Photon.Pun;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ProximityMine", menuName = "Scriptable Objects/ProximityMine")]
-public class ProximityMine : ScriptableObject
+[CreateAssetMenu(fileName = "Proximity Mine", menuName = "Scriptable Objects/Weapons/Proximity Mine")]
+public class ProximityMine : Weapon
 {
-    
+    public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag)
+    {
+        throw new System.NotImplementedException();
+    }
 }

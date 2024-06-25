@@ -320,6 +320,7 @@ MonoBehaviour:
   <SpecialWeapon>k__BackingField: {fileID: 11400000, guid: 1494b4ab1fbf300418b958baf2717441, type: 2}
   _photonView: {fileID: -6896135231121268280}
   _rigidbody2D: {fileID: 705207317605256538}
+  _visuals: {fileID: 6629566599582876085}
 --- !u!60 &4596890544284189676
 PolygonCollider2D:
   m_ObjectHideFlags: 0

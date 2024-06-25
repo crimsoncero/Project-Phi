@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 48
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -75,7 +75,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -88,7 +88,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638549627362157941
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,72 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Main Ship - Weapons - Zapper_Frame_0
+  - name: Mine Weapon Sprite_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
+    pivot: {x: 0.5, y: 0.86363643}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 37
+      width: 24
+      height: 22
+    spriteID: c0953092152d3574e8ba94f62b122435
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 37}
+  - name: Mine Weapon Sprite_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.86363643}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 67
+      width: 24
+      height: 22
+    spriteID: 8ae6a038700ac0945a64a5ba9bf21e7d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 67}
+  - name: Mine Weapon Sprite_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.86363643}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 97
+      width: 24
+      height: 22
+    spriteID: 04c42a620f0ac9247ab50f36c6121521
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 97}
+  - name: Mine Weapon Sprite_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.88}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,8 +196,8 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 24
-      height: 22
-    spriteID: 6b307862f637f4e4997d11185d507b42
+      height: 25
+    spriteID: 7fc8ad8932df17445b5d868979f56440
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,30 +206,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Main Ship - Weapons - Zapper_Frame_1
+  - name: Mine Weapon Sprite_Frame_4
     originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 36
-      y: 4
-      width: 24
-      height: 22
-    spriteID: 7c35604b482d15e46ac1f77cc28ec589
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 36, y: 4}
-  - name: Main Ship - Weapons - Zapper_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
+    pivot: {x: 0.5, y: 0.86363643}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -176,7 +218,7 @@ ScriptedImporter:
       y: 4
       width: 24
       height: 22
-    spriteID: 249ce78a0e8c86e4ab5b8304218d5f08
+    spriteID: f13cd0aca5b68ce4ebddf46a9fea0848
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -185,40 +227,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 4}
-  - name: Main Ship - Weapons - Zapper_Frame_3
+  - name: Mine Weapon Sprite_Frame_5
     originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 100
-      y: 4
-      width: 24
-      height: 22
-    spriteID: 364f3a3e5e2392c4f81cb1404efbb08d
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 100, y: 4}
-  - name: Main Ship - Weapons - Zapper_Frame_4
-    originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
+    pivot: {x: 0.5, y: 0.88}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 4
-      y: 34
+      y: 37
       width: 24
-      height: 22
-    spriteID: 905accacc7678764c9ea461359cd8482
+      height: 25
+    spriteID: 9b5653fa2e1734945a2e07081617f83f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -226,20 +247,41 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 34}
-  - name: Main Ship - Weapons - Zapper_Frame_5
+    uvTransform: {x: 4, y: 37}
+  - name: Mine Weapon Sprite_Frame_6
     originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
+    pivot: {x: 0.5, y: 0.88}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 70
+      width: 24
+      height: 25
+    spriteID: ea49f167e51871841a3b55806d60c87a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 70}
+  - name: Mine Weapon Sprite_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.88}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 36
-      y: 34
+      y: 4
       width: 24
-      height: 22
-    spriteID: e2603a2ba5c8d9247bef9d515a9c9f99
+      height: 25
+    spriteID: ecc4f1941d78f7d41b2b2b2fab38dc68
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -247,10 +289,10 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 36, y: 34}
-  - name: Main Ship - Weapons - Zapper_Frame_6
+    uvTransform: {x: 36, y: 4}
+  - name: Mine Weapon Sprite_Frame_8
     originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
+    pivot: {x: 0.5, y: 0.86363643}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -260,7 +302,7 @@ ScriptedImporter:
       y: 34
       width: 24
       height: 22
-    spriteID: f0f168b9e1bdea0458c9b912feb8253b
+    spriteID: 300b2b70be58b21468bc354c12f439d7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -269,61 +311,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 34}
-  - name: Main Ship - Weapons - Zapper_Frame_7
+  - name: Mine Weapon Sprite_Frame_9
     originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
+    pivot: {x: 0.5, y: 0.8333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 100
-      y: 34
-      width: 24
-      height: 22
-    spriteID: 402270257e0a73d4cab0db8efeb57f60
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 100, y: 34}
-  - name: Main Ship - Weapons - Zapper_Frame_8
-    originalName: 
-    pivot: {x: 0.5, y: -0.77272725}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 64
-      width: 24
-      height: 22
-    spriteID: acf0a10107877e642b2220b259d74eeb
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 64}
-  - name: Main Ship - Weapons - Zapper_Frame_9
-    originalName: 
-    pivot: {x: 0.5, y: -0.9444444}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 94
+      y: 4
       width: 24
       height: 18
-    spriteID: 9eaacca25815fdd42a2bad8fb602b24f
+    spriteID: 3aab9d45cb8ed2a479db53ae804a6277
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -331,20 +331,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 94}
-  - name: Main Ship - Weapons - Zapper_Frame_10
+    uvTransform: {x: 100, y: 4}
+  - name: Mine Weapon Sprite_Frame_10
     originalName: 
-    pivot: {x: 0.5, y: -0.9444444}
+    pivot: {x: 0.5, y: 0.8333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 36
-      y: 94
+      x: 100
+      y: 30
       width: 24
       height: 18
-    spriteID: 3037be6ed96351b46942cc071fa1b45d
+    spriteID: 2a2b40ad4f54ca048b7c9fd63dc0e892
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -352,10 +352,10 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 36, y: 94}
-  - name: Main Ship - Weapons - Zapper_Frame_11
+    uvTransform: {x: 100, y: 30}
+  - name: Mine Weapon Sprite_Frame_11
     originalName: 
-    pivot: {x: 0.5, y: -0.89473677}
+    pivot: {x: 0.5, y: 0.84210515}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -365,7 +365,7 @@ ScriptedImporter:
       y: 64
       width: 24
       height: 19
-    spriteID: 498e934398147bc47b1c44d49914f27c
+    spriteID: 93f1f4af5625bc5488455632d1f27d1f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -374,19 +374,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 64}
-  - name: Main Ship - Weapons - Zapper_Frame_12
+  - name: Mine Weapon Sprite_Frame_12
     originalName: 
-    pivot: {x: 0.5, y: -0.89473677}
+    pivot: {x: 0.5, y: 0.84210515}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 100
-      y: 64
+      x: 68
+      y: 91
       width: 24
       height: 19
-    spriteID: 86942888aa24d1647a5bca74d567a44d
+    spriteID: 8b951cd4451fa6b47906ad63d391431c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -394,20 +394,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 100, y: 64}
-  - name: Main Ship - Weapons - Zapper_Frame_13
+    uvTransform: {x: 68, y: 91}
+  - name: Mine Weapon Sprite_Frame_13
     originalName: 
-    pivot: {x: 0.5, y: -0.85}
+    pivot: {x: 0.5, y: 0.8500001}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 36
-      y: 64
+      x: 4
+      y: 103
       width: 24
       height: 20
-    spriteID: cea0038f68169d34da298e0c9136cfb0
+    spriteID: 0023cd4d38fb3d74b8be1a8265f454c4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -415,145 +415,193 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 36, y: 64}
+    uvTransform: {x: 4, y: 103}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 188541012
-    name: Main Ship - Weapons - Zapper
+    guid: -2106826028
+    name: Mine Weapon Sprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main Ship - Weapons - Zapper_Frame_0
+    - name: Mine Weapon Sprite_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 5
         width: 24
         height: 22
-      spriteId: 6b307862f637f4e4997d11185d507b42
-    - name: Main Ship - Weapons - Zapper_Frame_1
+      spriteId: c0953092152d3574e8ba94f62b122435
+    - name: Mine Weapon Sprite_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 5
         width: 24
         height: 22
-      spriteId: 7c35604b482d15e46ac1f77cc28ec589
-    - name: Main Ship - Weapons - Zapper_Frame_2
+      spriteId: 8ae6a038700ac0945a64a5ba9bf21e7d
+    - name: Mine Weapon Sprite_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 5
         width: 24
         height: 22
-      spriteId: 249ce78a0e8c86e4ab5b8304218d5f08
-    - name: Main Ship - Weapons - Zapper_Frame_3
+      spriteId: 04c42a620f0ac9247ab50f36c6121521
+    - name: Mine Weapon Sprite_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 2
         width: 24
-        height: 22
-      spriteId: 364f3a3e5e2392c4f81cb1404efbb08d
-    - name: Main Ship - Weapons - Zapper_Frame_4
+        height: 25
+      spriteId: 7fc8ad8932df17445b5d868979f56440
+    - name: Mine Weapon Sprite_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 5
         width: 24
         height: 22
-      spriteId: 905accacc7678764c9ea461359cd8482
-    - name: Main Ship - Weapons - Zapper_Frame_5
+      spriteId: f13cd0aca5b68ce4ebddf46a9fea0848
+    - name: Mine Weapon Sprite_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 2
         width: 24
-        height: 22
-      spriteId: e2603a2ba5c8d9247bef9d515a9c9f99
-    - name: Main Ship - Weapons - Zapper_Frame_6
+        height: 25
+      spriteId: 9b5653fa2e1734945a2e07081617f83f
+    - name: Mine Weapon Sprite_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 2
         width: 24
-        height: 22
-      spriteId: f0f168b9e1bdea0458c9b912feb8253b
-    - name: Main Ship - Weapons - Zapper_Frame_7
+        height: 25
+      spriteId: ea49f167e51871841a3b55806d60c87a
+    - name: Mine Weapon Sprite_Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 2
         width: 24
-        height: 22
-      spriteId: 402270257e0a73d4cab0db8efeb57f60
-    - name: Main Ship - Weapons - Zapper_Frame_8
+        height: 25
+      spriteId: ecc4f1941d78f7d41b2b2b2fab38dc68
+    - name: Mine Weapon Sprite_Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 5
         width: 24
         height: 22
-      spriteId: acf0a10107877e642b2220b259d74eeb
-    - name: Main Ship - Weapons - Zapper_Frame_9
+      spriteId: 300b2b70be58b21468bc354c12f439d7
+    - name: Mine Weapon Sprite_Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 9
         width: 24
         height: 18
-      spriteId: 9eaacca25815fdd42a2bad8fb602b24f
-    - name: Main Ship - Weapons - Zapper_Frame_10
+      spriteId: 3aab9d45cb8ed2a479db53ae804a6277
+    - name: Mine Weapon Sprite_Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 9
         width: 24
         height: 18
-      spriteId: 3037be6ed96351b46942cc071fa1b45d
-    - name: Main Ship - Weapons - Zapper_Frame_11
+      spriteId: 2a2b40ad4f54ca048b7c9fd63dc0e892
+    - name: Mine Weapon Sprite_Frame_11
       frameIndex: 11
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 8
         width: 24
         height: 19
-      spriteId: 498e934398147bc47b1c44d49914f27c
-    - name: Main Ship - Weapons - Zapper_Frame_12
+      spriteId: 93f1f4af5625bc5488455632d1f27d1f
+    - name: Mine Weapon Sprite_Frame_12
       frameIndex: 12
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 8
         width: 24
         height: 19
-      spriteId: 86942888aa24d1647a5bca74d567a44d
-    - name: Main Ship - Weapons - Zapper_Frame_13
+      spriteId: 8b951cd4451fa6b47906ad63d391431c
+    - name: Mine Weapon Sprite_Frame_13
       frameIndex: 13
       additiveSortOrder: 0
       cellRect:
         x: 12
-        y: 17
+        y: 7
         width: 24
         height: 20
-      spriteId: cea0038f68169d34da298e0c9136cfb0
+      spriteId: 0023cd4d38fb3d74b8be1a8265f454c4
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: iPhone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 

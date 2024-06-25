@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
-            _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude);
+            _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
             StartCoroutine(WaitForWeaponCooldown(true));
         }
     }
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
         if (!_canFire) return;
         if (Input.SpecialFire.phase == InputActionPhase.Performed)
         {
-            _photonView.RPC(RPC_SPECIAL_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity.magnitude);
+            _photonView.RPC(RPC_SPECIAL_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
             StartCoroutine(WaitForWeaponCooldown(false));
         }
     }

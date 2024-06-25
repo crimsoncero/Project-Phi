@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 48
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -75,7 +75,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -88,7 +88,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638545271353890569
+  platformSettingsDirtyTick: 638549623102266362
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Main Ship - Weapons - Auto Cannon_Frame_0
+  - name: Autocannon Sprite_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.94117653}
+    pivot: {x: 0.5, y: 0.4705882}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -134,7 +134,7 @@ ScriptedImporter:
       y: 39
       width: 24
       height: 17
-    spriteID: a10868aaab1549e40b54875e0eaabd9f
+    spriteID: 292197a5c4a146f4cb1a730117a941ff
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,9 +143,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 71, y: 39}
-  - name: Main Ship - Weapons - Auto Cannon_Frame_1
+  - name: Autocannon Sprite_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.6666667}
+    pivot: {x: 0.5, y: 0.3333333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -155,7 +155,7 @@ ScriptedImporter:
       y: 39
       width: 24
       height: 24
-    spriteID: cfd92b9330ae904488ccb4fbe5531f0a
+    spriteID: 3ef80cd11de8806408fc6ec4fd1d8ec1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -164,9 +164,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 39}
-  - name: Main Ship - Weapons - Auto Cannon_Frame_2
+  - name: Autocannon Sprite_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.61538464}
+    pivot: {x: 0.5, y: 0.3076923}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -176,7 +176,7 @@ ScriptedImporter:
       y: 4
       width: 24
       height: 26
-    spriteID: ec39189a79f55b84f8d23081438d0305
+    spriteID: 35b4761f793d69d4abd87dee5e34a626
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -185,9 +185,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 75, y: 4}
-  - name: Main Ship - Weapons - Auto Cannon_Frame_3
+  - name: Autocannon Sprite_Frame_3
     originalName: 
-    pivot: {x: 0.53846157, y: -0.5925926}
+    pivot: {x: 0.53846157, y: 0.29629627}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -197,7 +197,7 @@ ScriptedImporter:
       y: 4
       width: 26
       height: 27
-    spriteID: 86b2bf77d616e994a8e88dcaded909d9
+    spriteID: 72baf41af2474f84290874eb885d1d42
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -206,9 +206,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 41, y: 4}
-  - name: Main Ship - Weapons - Auto Cannon_Frame_4
+  - name: Autocannon Sprite_Frame_4
     originalName: 
-    pivot: {x: 0.5172414, y: -0.5925926}
+    pivot: {x: 0.5172414, y: 0.29629627}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -218,7 +218,7 @@ ScriptedImporter:
       y: 4
       width: 29
       height: 27
-    spriteID: 2e65b1dfd90a9a247b2b468bd63b19dd
+    spriteID: 0874db126bffce341b6000441fcc9e95
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -227,9 +227,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Main Ship - Weapons - Auto Cannon_Frame_5
+  - name: Autocannon Sprite_Frame_5
     originalName: 
-    pivot: {x: 0.44444445, y: -0.76190484}
+    pivot: {x: 0.44444445, y: 0.3809524}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -239,7 +239,7 @@ ScriptedImporter:
       y: 39
       width: 27
       height: 21
-    spriteID: dd636cd22bdda0e46aba5f4351b77083
+    spriteID: b1a2cb5cc9b391b4dba034037bd3a2d1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -248,9 +248,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 36, y: 39}
-  - name: Main Ship - Weapons - Auto Cannon_Frame_6
+  - name: Autocannon Sprite_Frame_6
     originalName: 
-    pivot: {x: 0.5, y: -0.94117653}
+    pivot: {x: 0.5, y: 0.4705882}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -260,7 +260,7 @@ ScriptedImporter:
       y: 71
       width: 24
       height: 17
-    spriteID: 13d9226c9c1c7534285ebf2b4ee3555c
+    spriteID: 8adf6b0420954954b8c9e3259146aa63
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -272,13 +272,13 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1149162702
-    name: Main Ship - Weapons - Auto Cannon
+    guid: -1430777279
+    name: Autocannon Sprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main Ship - Weapons - Auto Cannon_Frame_0
+    - name: Autocannon Sprite_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -286,8 +286,8 @@ ScriptedImporter:
         y: 16
         width: 24
         height: 17
-      spriteId: a10868aaab1549e40b54875e0eaabd9f
-    - name: Main Ship - Weapons - Auto Cannon_Frame_1
+      spriteId: 292197a5c4a146f4cb1a730117a941ff
+    - name: Autocannon Sprite_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -295,8 +295,8 @@ ScriptedImporter:
         y: 16
         width: 24
         height: 24
-      spriteId: cfd92b9330ae904488ccb4fbe5531f0a
-    - name: Main Ship - Weapons - Auto Cannon_Frame_2
+      spriteId: 3ef80cd11de8806408fc6ec4fd1d8ec1
+    - name: Autocannon Sprite_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -304,8 +304,8 @@ ScriptedImporter:
         y: 16
         width: 24
         height: 26
-      spriteId: ec39189a79f55b84f8d23081438d0305
-    - name: Main Ship - Weapons - Auto Cannon_Frame_3
+      spriteId: 35b4761f793d69d4abd87dee5e34a626
+    - name: Autocannon Sprite_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -313,8 +313,8 @@ ScriptedImporter:
         y: 16
         width: 26
         height: 27
-      spriteId: 86b2bf77d616e994a8e88dcaded909d9
-    - name: Main Ship - Weapons - Auto Cannon_Frame_4
+      spriteId: 72baf41af2474f84290874eb885d1d42
+    - name: Autocannon Sprite_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -322,8 +322,8 @@ ScriptedImporter:
         y: 16
         width: 29
         height: 27
-      spriteId: 2e65b1dfd90a9a247b2b468bd63b19dd
-    - name: Main Ship - Weapons - Auto Cannon_Frame_5
+      spriteId: 0874db126bffce341b6000441fcc9e95
+    - name: Autocannon Sprite_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -331,8 +331,8 @@ ScriptedImporter:
         y: 16
         width: 27
         height: 21
-      spriteId: dd636cd22bdda0e46aba5f4351b77083
-    - name: Main Ship - Weapons - Auto Cannon_Frame_6
+      spriteId: b1a2cb5cc9b391b4dba034037bd3a2d1
+    - name: Autocannon Sprite_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -340,7 +340,7 @@ ScriptedImporter:
         y: 16
         width: 24
         height: 17
-      spriteId: 13d9226c9c1c7534285ebf2b4ee3555c
+      spriteId: 8adf6b0420954954b8c9e3259146aa63
     linkedCells: []
     parentIndex: -1
   platformSettings:

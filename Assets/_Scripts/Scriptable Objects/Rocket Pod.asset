@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28417c7701a62e747a2031cc84f0faf7, type: 3}
+  m_Name: Rocket Pod
+  m_EditorClassIdentifier: 
+  <FiringMethod>k__BackingField: 0
+  <MaxAmmo>k__BackingField: 6
+  <Cooldown>k__BackingField: 1
+  <Damage>k__BackingField: 0
+  ProjectilePrefab: {fileID: 5098727896161035994, guid: e448dcf94f492ab4faa4d5a0f4529c4c, type: 3}
+  <ProjectileVelocity>k__BackingField: 8
+  <WeaponPrefab>k__BackingField: {fileID: -2253911629886400664, guid: efb8128c628c497419c4c8d409f98e80, type: 3}
