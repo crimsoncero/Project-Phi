@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f3f163ebd3bbb5440899c68e01018fb9
+guid: f101e389a5be42546acc37874b07347d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4644068485152610671
-    second: Main Ship - Emission - Full health_0
+      213: -7420010100244808463
+    second: Spaceship Emission Map_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Main Ship - Emission - Full health_0
+      name: Spaceship Emission Map_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
+        width: 192
         height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f699b129eab037040800000000000000
-      internalID: 4644068485152610671
+      spriteID: 1fcf8117024d60990800000000000000
+      internalID: -7420010100244808463
       vertices: []
       indices: 
       edges: []
