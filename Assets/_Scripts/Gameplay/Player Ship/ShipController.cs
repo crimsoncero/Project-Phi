@@ -60,6 +60,8 @@ public class ShipController : MonoBehaviour
         SpecialWeapon.Fire(_photonView, position, rotation, velocity, lag, SpecialAmmo);
         SpecialAmmo--;
 
+        _weaponController.FireAnim();
+
         if(SpecialAmmo == 0)
             ClearSpecialWeapon();
     }
@@ -105,9 +107,6 @@ public class ShipController : MonoBehaviour
             IsOverHeating = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collided");    
-    }
+   
 
 }

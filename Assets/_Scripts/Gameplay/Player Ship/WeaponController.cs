@@ -1,15 +1,17 @@
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    [SerializeField] private PhotonView _photonView;
     [SerializeField] private Animator _autocannon;
     [SerializeField] private Animator _hellfireRocketPod;
     [SerializeField] private Animator _voidMineDispenser;
     [SerializeField] private Animator _doomLaserCannon;
+    public Animator CurrentWeaponAnim { get; private set; }
 
-    public Animator CurrentWeapon { get; private set; }
-
+    private Weapon _currentWeapon = null;
     private void Awake()
     {
         _autocannon.gameObject.SetActive(false);
@@ -25,34 +27,64 @@ public class WeaponController : MonoBehaviour
     public void SetWeapon(Weapon weapon)
     {
         // Disable previous weapon visuals
-        if(!CurrentWeapon.IsUnityNull())
-            CurrentWeapon.gameObject.SetActive(false);
+        if(!CurrentWeaponAnim.IsUnityNull())
+            CurrentWeaponAnim.gameObject.SetActive(false);
 
         if (weapon == null)
         {
-            CurrentWeapon = null;
+            CurrentWeaponAnim = null;
+            _currentWeapon = null;
             return;
         }
 
-        switch (weapon.Name)
+        _currentWeapon = weapon;
+        
+        switch (weapon)
         {
-            case "Autocannon":
-                CurrentWeapon = _autocannon;
+            case Autocannon:
+                CurrentWeaponAnim = _autocannon;
                 break;
-            case "Hellfire Rocket Pod":
-                CurrentWeapon = _hellfireRocketPod;
+            case RocketPod:
+                CurrentWeaponAnim = _hellfireRocketPod;
                 break;
-            case "Void Mine Dispenser":
-                CurrentWeapon = _voidMineDispenser;
+            case ProximityMine:
+                CurrentWeaponAnim = _voidMineDispenser;
                 break;
-            case "Doom Laser Cannon":
-                CurrentWeapon = _doomLaserCannon;
+            case DoomLaser:
+                CurrentWeaponAnim = _doomLaserCannon;
                 break;
 
         }
-
-        CurrentWeapon.gameObject.SetActive(true);
+        CurrentWeaponAnim.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Play the fire animation of the current weapon in use.
+    /// </summary>
+    public void FireAnim()
+    {
+        // Only Trigger the animation if owner.
+        if (!_photonView.IsMine)
+            return;
+
+        switch (_currentWeapon)
+        {
+            case Autocannon:
+                _autocannon.SetTrigger("Fire"); 
+                break;
+            case RocketPod:
+                CurrentWeaponAnim = _hellfireRocketPod;
+                break;
+            case ProximityMine:
+                CurrentWeaponAnim = _voidMineDispenser;
+                break;
+            case DoomLaser:
+                CurrentWeaponAnim = _doomLaserCannon;
+                break;
+
+        }
+    }
+
+    
 
 }

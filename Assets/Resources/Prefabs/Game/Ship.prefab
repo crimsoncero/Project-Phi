@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f9ee3b95abd4429e37a225a378125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _photonView: {fileID: -6896135231121268280}
   _autocannon: {fileID: 5487083370210499572}
   _hellfireRocketPod: {fileID: 5574723648251495682}
   _voidMineDispenser: {fileID: 2393248496131144939}
