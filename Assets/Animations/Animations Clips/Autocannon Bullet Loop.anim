@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hellfire Rocket Loop
+  m_Name: Autocannon Bullet Loop
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 198888386, guid: 9d83c93e656703342b7471bc6bf35a9a, type: 3}
+      value: {fileID: 90302254, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
     - time: 0.1
-      value: {fileID: -1862187646, guid: 9d83c93e656703342b7471bc6bf35a9a, type: 3}
+      value: {fileID: 93601418, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
     - time: 0.2
-      value: {fileID: 1812775879, guid: 9d83c93e656703342b7471bc6bf35a9a, type: 3}
+      value: {fileID: 2102614144, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
+    - time: 0.3
+      value: {fileID: -1456629721, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,15 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 198888386, guid: 9d83c93e656703342b7471bc6bf35a9a, type: 3}
-    - {fileID: -1862187646, guid: 9d83c93e656703342b7471bc6bf35a9a, type: 3}
-    - {fileID: 1812775879, guid: 9d83c93e656703342b7471bc6bf35a9a, type: 3}
+    - {fileID: 90302254, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
+    - {fileID: 93601418, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
+    - {fileID: 2102614144, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
+    - {fileID: -1456629721, guid: 627802cc262b07d44835be2a07f4446c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.3
+    m_StopTime: 0.4
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
