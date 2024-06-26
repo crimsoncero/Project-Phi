@@ -13,8 +13,8 @@ public abstract class Weapon : ScriptableObject
         Beam,
     }
 
-
     [field: Header("Weapon Attributes")]
+    [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public FiringMethods FiringMethod { get; private set; }
     [field: SerializeField] public int MaxAmmo { get; private set; }
     [field: SerializeField] public float FireRate { get; private set; }
@@ -43,20 +43,21 @@ public abstract class Weapon : ScriptableObject
     {
 
         Vector3 direction = shipRotation * Vector2.up;
-        float angle = MathF.Atan2(direction.y, direction.x);
-        float x = MathF.Cos(angle) * shipVelocity.x;
-        float y = MathF.Sin(angle) * shipVelocity.y;
 
-        Vector2 shipVel = new Vector2(x, y);
+        float angle = Mathf.Acos((Vector3.Dot(direction, shipVelocity)) / (direction.magnitude * shipVelocity.magnitude));
 
-        float angleBetween = MathF.Acos(Vector2.Dot(direction, shipVelocity) / (direction.magnitude * shipVelocity.magnitude));
+        if(shipVelocity.magnitude < 0.2f)
+            return ProjectileVelocity;
 
-        float speed = shipVel.magnitude;
-        if (!(angleBetween > 0 && angleBetween < MathF.PI))
-            speed *= -1;
-
-
-        return ProjectileVelocity;
+        if (Mathf.Abs(angle) <= Mathf.PI / 3)
+        {
+            return shipVelocity.magnitude / 2 + ProjectileVelocity;
+        }
+        else
+        {
+            return ProjectileVelocity;
+        }
+       
     }
 
 }

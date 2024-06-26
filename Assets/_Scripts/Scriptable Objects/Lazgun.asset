@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0514358e288056040b33d3946044d759, type: 3}
   m_Name: Lazgun
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Lazgun
   <FiringMethod>k__BackingField: 1
   <MaxAmmo>k__BackingField: 100
   <FireRate>k__BackingField: 2.5
   <Damage>k__BackingField: 0
   <WeaponPrefab>k__BackingField: {fileID: 0}
   ProjectilePrefab: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}
-  <ProjectileVelocity>k__BackingField: 6
+  <ProjectileVelocity>k__BackingField: 10
   _spawnPoint: {x: 0, y: 0, z: 0}
   <CoolingRampCurve>k__BackingField:
     serializedVersion: 2
@@ -44,6 +45,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <SustainFireDuration>k__BackingField: 5
+  <SustainFireDuration>k__BackingField: 50000
   <OverheatPenalty>k__BackingField: 3
   <TimeToCool>k__BackingField: 1

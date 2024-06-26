@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 6937681678044881544}
   - component: {fileID: 4039091083485776396}
   - component: {fileID: -2413830069252014953}
-  m_Layer: 0
+  - component: {fileID: 5970967179800971492}
+  m_Layer: 6
   m_Name: Hellfire Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,3 +153,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 4039091083485776396}
+--- !u!70 &5970967179800971492
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528788008852238651}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 55
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 55
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.011128552, y: -0.01062271}
+  m_Size: {x: 0.09655602, y: 0.25886947}
+  m_Direction: 0

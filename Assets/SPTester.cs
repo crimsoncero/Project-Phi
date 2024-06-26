@@ -38,6 +38,11 @@ public class SPTester : MonoBehaviourPunCallbacks
     {
         float heatVal = Mathf.Lerp(0, 1, _shipController.PrimaryHeat / _shipController.PrimaryWeapon.MaximumHeat);
         _heatBar.size = heatVal;
+    }
 
+
+    public void SetWeapon(Weapon weapon)
+    {
+        _shipController.SetSpecialWeapon(weapon);
     }
 }

@@ -10,7 +10,7 @@ public class ShipController : MonoBehaviour
 
     [SerializeField] private PhotonView _photonView;
     [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private GameObject _visuals;
+    [SerializeField] private WeaponController _weaponController;
 
 
     // Heat and Ammo
@@ -59,15 +59,32 @@ public class ShipController : MonoBehaviour
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
         SpecialWeapon.Fire(_photonView, position, rotation, velocity, lag, SpecialAmmo);
         SpecialAmmo--;
+
+        if(SpecialAmmo == 0)
+            ClearSpecialWeapon();
     }
     #endregion
 
+    #region Special Weapon Handling
+
+    /// <summary>
+    /// Assign a new special weapon to the ship.
+    /// </summary>
+    /// <param name="weapon"></param>
     public void SetSpecialWeapon(Weapon weapon)
     {
         SpecialWeapon = weapon;
-
-        Instantiate(SpecialWeapon.WeaponPrefab, _visuals.transform);
+        SpecialAmmo = SpecialWeapon.MaxAmmo;
+        _weaponController.SetWeapon(SpecialWeapon);
     }
+
+    public void ClearSpecialWeapon()
+    {
+        _weaponController.SetWeapon(null);
+    }
+
+
+    #endregion
 
     private IEnumerator CooldownPrimary()
     {
@@ -86,7 +103,11 @@ public class ShipController : MonoBehaviour
         }
         if(PrimaryHeat == 0)
             IsOverHeating = false;
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collided");    
     }
 
 }

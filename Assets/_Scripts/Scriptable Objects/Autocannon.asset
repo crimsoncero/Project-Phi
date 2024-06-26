@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb4b9d08ebeb07459f9e89f9ba74a86, type: 3}
   m_Name: Autocannon
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Autocannon
   <FiringMethod>k__BackingField: 1
   <MaxAmmo>k__BackingField: 30
   <FireRate>k__BackingField: 2
   <Damage>k__BackingField: 0
   <WeaponPrefab>k__BackingField: {fileID: -2253911629886400664, guid: 5efefbf6f9c6bbf49bd517bc35d91041, type: 3}
   ProjectilePrefab: {fileID: -2413830069252014953, guid: 623e0a71e44ebf946966869c09b58149, type: 3}
-  <ProjectileVelocity>k__BackingField: 5
+  <ProjectileVelocity>k__BackingField: 10
   _leftSpawn: {x: -0.185, y: 0.22, z: 0}
   _rightSpawn: {x: 0.185, y: 0.14, z: 0}
