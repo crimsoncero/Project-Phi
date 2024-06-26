@@ -12,8 +12,7 @@ public class Lazgun : Weapon
     [field: SerializeField] public float OverheatPenalty { get; private set; }
     [field: SerializeField] public float TimeToCool { get; private set; }
 
-    public float MaximumHeat { get { return Mathf.Ceil(SustainFireDuration * (1 / FireRate)); } }
-    private float BaseCoolingRate { get { return 1 / FireRate; } }
+    public float MaximumHeat { get { return Mathf.Ceil(SustainFireDuration * FireRate); } }
 
     public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag, int currentAmmo)
     {
@@ -33,7 +32,8 @@ public class Lazgun : Weapon
         duration = Mathf.Clamp(duration, 0, SustainFireDuration / 2);
         duration = Mathf.Lerp(0, 1, duration / (SustainFireDuration / 2));
 
-        return BaseCoolingRate * CoolingRampCurve.Evaluate(duration) * deltaTime;
+        // Fire Rate = Shots Per Second = Heat Per Second 
+        return FireRate * CoolingRampCurve.Evaluate(duration) * deltaTime;
 
     }
     

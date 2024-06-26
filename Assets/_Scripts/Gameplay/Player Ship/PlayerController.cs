@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
         Weapon weaponFired = isMainWeapon ? PrimaryWeapon : SpecialWeapon;
 
         _canFire = false;
-        yield return new WaitForSeconds(weaponFired.FireRate);
+        yield return new WaitForSeconds(weaponFired.TimeBetweenShots);
         _canFire = true;
 
         // Autofire

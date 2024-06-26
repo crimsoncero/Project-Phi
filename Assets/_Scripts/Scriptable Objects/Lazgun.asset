@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FiringMethod>k__BackingField: 1
   <MaxAmmo>k__BackingField: 100
-  <FireRate>k__BackingField: 0.4
+  <FireRate>k__BackingField: 2.5
   <Damage>k__BackingField: 0
   <WeaponPrefab>k__BackingField: {fileID: 0}
   ProjectilePrefab: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}

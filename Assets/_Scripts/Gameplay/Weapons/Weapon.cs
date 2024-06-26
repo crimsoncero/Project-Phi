@@ -29,6 +29,7 @@ public abstract class Weapon : ScriptableObject
     [field: SerializeField] public float ProjectileVelocity { get; private set; }
 
 
+    public float TimeBetweenShots { get { return 1 / FireRate; } }
     public abstract void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag, int currentAmmo);
 
 
