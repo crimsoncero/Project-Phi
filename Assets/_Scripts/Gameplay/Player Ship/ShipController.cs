@@ -73,15 +73,9 @@ public class ShipController : MonoBehaviour
     {
         // Wait before cooling down, duration dependent if overheating or not. 
         if(PrimaryHeat >= PrimaryWeapon.MaximumHeat)
-        {
             IsOverHeating = true;
-            yield return new WaitForSeconds(PrimaryWeapon.OverheatPenalty);
-            IsOverHeating = false;
-        }
-        else
-        {
-            yield return new WaitForSeconds(PrimaryWeapon.TimeToCool);
-        }
+        
+        yield return new WaitForSeconds(PrimaryWeapon.TimeToCool);
 
         float duration = 0;
         while (PrimaryHeat > 0)
@@ -90,6 +84,8 @@ public class ShipController : MonoBehaviour
             duration += Time.deltaTime;
             yield return null;
         }
+        if(PrimaryHeat == 0)
+            IsOverHeating = false;
 
     }
 

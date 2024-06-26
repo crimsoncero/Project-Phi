@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour
         if (PrimaryWeapon == null) return;
         if (!_canFire) return;
         if(PrimaryHeat >= PrimaryWeapon.MaximumHeat) return;
+        if (_shipController.IsOverHeating) return;
+
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
             _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
