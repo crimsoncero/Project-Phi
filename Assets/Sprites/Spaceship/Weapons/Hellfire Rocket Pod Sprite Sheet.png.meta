@@ -1,0 +1,1161 @@
+fileFormatVersion: 2
+guid: eb4c6feb8b37469428bf60314ab17543
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5146105322657173124
+    second: Hellfire Rocket Pod Sprite Sheet_0
+  - first:
+      213: 5365470968692220698
+    second: Hellfire Rocket Pod Sprite Sheet_1
+  - first:
+      213: 3117421430463628975
+    second: Hellfire Rocket Pod Sprite Sheet_2
+  - first:
+      213: 5002962912770640764
+    second: Hellfire Rocket Pod Sprite Sheet_3
+  - first:
+      213: 8498471267093005514
+    second: Hellfire Rocket Pod Sprite Sheet_4
+  - first:
+      213: -7158433704280634930
+    second: Hellfire Rocket Pod Sprite Sheet_5
+  - first:
+      213: 353154706624054320
+    second: Hellfire Rocket Pod Sprite Sheet_6
+  - first:
+      213: 144694722388783751
+    second: Hellfire Rocket Pod Sprite Sheet_7
+  - first:
+      213: 1929868152929027518
+    second: Hellfire Rocket Pod Sprite Sheet_8
+  - first:
+      213: 8759564659877163962
+    second: Hellfire Rocket Pod Sprite Sheet_9
+  - first:
+      213: 6237456020381321863
+    second: Hellfire Rocket Pod Sprite Sheet_10
+  - first:
+      213: -8551634466186511997
+    second: Hellfire Rocket Pod Sprite Sheet_11
+  - first:
+      213: 3109928579745464769
+    second: Hellfire Rocket Pod Sprite Sheet_12
+  - first:
+      213: 6910990223669986328
+    second: Hellfire Rocket Pod Sprite Sheet_13
+  - first:
+      213: 8228952287742656826
+    second: Hellfire Rocket Pod Sprite Sheet_14
+  - first:
+      213: 5769973280628005907
+    second: Hellfire Rocket Pod Sprite Sheet_15
+  - first:
+      213: -3794618051376037416
+    second: Hellfire Rocket Pod Sprite Sheet_16
+  - first:
+      213: 3990573605266707906
+    second: Hellfire Rocket Pod Sprite Sheet_17
+  - first:
+      213: 1822532221284379275
+    second: Hellfire Rocket Pod Sprite Sheet_18
+  - first:
+      213: -6755980283758626774
+    second: Hellfire Rocket Pod Sprite Sheet_19
+  - first:
+      213: 1405884229672471125
+    second: Hellfire Rocket Pod Sprite Sheet_20
+  - first:
+      213: -7033996953079222591
+    second: Hellfire Rocket Pod Sprite Sheet_21
+  - first:
+      213: 2676674635433252118
+    second: Hellfire Rocket Pod Sprite Sheet_22
+  - first:
+      213: -6050614284747260260
+    second: Hellfire Rocket Pod Sprite Sheet_23
+  - first:
+      213: -1779891789739404488
+    second: Hellfire Rocket Pod Sprite Sheet_24
+  - first:
+      213: 1102944444484183885
+    second: Hellfire Rocket Pod Sprite Sheet_25
+  - first:
+      213: -6355929112708886537
+    second: Hellfire Rocket Pod Sprite Sheet_26
+  - first:
+      213: 5945433396482755891
+    second: Hellfire Rocket Pod Sprite Sheet_27
+  - first:
+      213: -5665939715058412557
+    second: Hellfire Rocket Pod Sprite Sheet_28
+  - first:
+      213: -3095311017077029478
+    second: Hellfire Rocket Pod Sprite Sheet_29
+  - first:
+      213: 966258670533129974
+    second: Hellfire Rocket Pod Sprite Sheet_30
+  - first:
+      213: -6061406415232055749
+    second: Hellfire Rocket Pod Sprite Sheet_31
+  - first:
+      213: -2845815982000805186
+    second: Hellfire Rocket Pod Sprite Sheet_32
+  - first:
+      213: -2422600449057382520
+    second: Hellfire Rocket Pod Sprite Sheet_33
+  - first:
+      213: -3168642153350930788
+    second: Hellfire Rocket Pod Sprite Sheet_34
+  - first:
+      213: 7333890495582268779
+    second: Hellfire Rocket Pod Sprite Sheet_35
+  - first:
+      213: 8084640547786069363
+    second: Hellfire Rocket Pod Sprite Sheet_36
+  - first:
+      213: -1590696893703417689
+    second: Hellfire Rocket Pod Sprite Sheet_37
+  - first:
+      213: -9022267478599419216
+    second: Hellfire Rocket Pod Sprite Sheet_38
+  - first:
+      213: -4596042541151155881
+    second: Hellfire Rocket Pod Sprite Sheet_39
+  - first:
+      213: -2448037388995681607
+    second: Hellfire Rocket Pod Sprite Sheet_40
+  - first:
+      213: -7191763195940975896
+    second: Hellfire Rocket Pod Sprite Sheet_41
+  - first:
+      213: 8904356314732344357
+    second: Hellfire Rocket Pod Sprite Sheet_42
+  - first:
+      213: -4920385864076453887
+    second: Hellfire Rocket Pod Sprite Sheet_43
+  - first:
+      213: 8751332992864261174
+    second: Hellfire Rocket Pod Sprite Sheet_44
+  - first:
+      213: -6012355225576419871
+    second: Hellfire Rocket Pod Sprite Sheet_45
+  - first:
+      213: -1816884616081147535
+    second: Hellfire Rocket Pod Sprite Sheet_46
+  - first:
+      213: -7711217500313325497
+    second: Hellfire Rocket Pod Sprite Sheet_47
+  - first:
+      213: -6291938009336975338
+    second: Hellfire Rocket Pod Sprite Sheet_48
+  - first:
+      213: -5403680824657160461
+    second: Hellfire Rocket Pod Sprite Sheet_49
+  - first:
+      213: 8774033997617603812
+    second: Hellfire Rocket Pod Sprite Sheet_50
+  - first:
+      213: 616784801872764292
+    second: Hellfire Rocket Pod Sprite Sheet_51
+  - first:
+      213: 7072164694496808102
+    second: Hellfire Rocket Pod Sprite Sheet_52
+  - first:
+      213: 6689461512947606304
+    second: Hellfire Rocket Pod Sprite Sheet_53
+  - first:
+      213: 7322930315283606797
+    second: Hellfire Rocket Pod Sprite Sheet_54
+  - first:
+      213: -2768349236774366482
+    second: Hellfire Rocket Pod Sprite Sheet_55
+  - first:
+      213: 1803198922969983840
+    second: Hellfire Rocket Pod Sprite Sheet_56
+  - first:
+      213: -2079034644617307702
+    second: Hellfire Rocket Pod Sprite Sheet_57
+  - first:
+      213: 4328888125063941957
+    second: Hellfire Rocket Pod Sprite Sheet_58
+  - first:
+      213: 7144628606268432668
+    second: Hellfire Rocket Pod Sprite Sheet_59
+  - first:
+      213: -2993738539890361709
+    second: Hellfire Rocket Pod Sprite Sheet_60
+  - first:
+      213: -8203298624104872523
+    second: Hellfire Rocket Pod Sprite Sheet_61
+  - first:
+      213: -4691276811077710079
+    second: Hellfire Rocket Pod Sprite Sheet_62
+  - first:
+      213: 6903795602820512382
+    second: Hellfire Rocket Pod Sprite Sheet_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 48
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a816e407e9cad44795cc68053f80ba4
+      internalID: -185129905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc5c1973b75e25346ade2da4224bc07a
+      internalID: 957123710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96c5ed328f27712419b66e83e222688d
+      internalID: 1391548502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05dd4618bc6125c42953ae1e8c8d040c
+      internalID: -1337085983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14454a7edfbe00140ac3bce7fb3e9dc4
+      internalID: 1617397807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aecfb36537bbfca498a382ae3164d354
+      internalID: -1929879721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 240
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc31c338789063e45b7690566e00334b
+      internalID: 1334151841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba34c243c6e34d740a53962f9f3c4894
+      internalID: -1850542622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b573a233cfc26f42b2d18a5d584fe34
+      internalID: -549594412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 479bc76966927ac439f16a6c646dd7c7
+      internalID: 2118304947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f969c0c2fd5969f4d998dc0a7d05ccd4
+      internalID: 2100798234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95818a3ccb4fa55489ea351f5bd7b19d
+      internalID: 1045886572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d704a7c71ca63a4d88a3f6a7aac937f
+      internalID: 1590047609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 192
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aef5319110ff228408ab970d8f3edffa
+      internalID: -608423261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afac8642b413d33429b6ae993af262d9
+      internalID: 1282009960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 591b1d2b58de4be49bdf2f50d9de10a6
+      internalID: 2026091524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9059268220722934db88ccb39078eb48
+      internalID: -565571273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45e1ae44e4f918240a40872642602170
+      internalID: -492282722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 642e6e7e052eaad48990a1cb817140fb
+      internalID: -956920226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7204fbcfc3b83b747812881bc8d3929e
+      internalID: 1761104992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbc90c5a984aedf45a17e6ac03a5e5d2
+      internalID: 1993581871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 823129ba29a0e6e488e30cc36e3720b5
+      internalID: 1758784884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33862c78ef224b646ae85f2799ff0b2c
+      internalID: 1746797390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 160f753e2121fd6409ac3f128a95e6fb
+      internalID: 741780015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4f40d3456bbc54dab5f5eefe016445
+      internalID: -1715241362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21aedec8cb4729243aa24e97151b5b62
+      internalID: -1013929720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c21b07e42dddee4792d344ff02a58eb
+      internalID: -1923072939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41dde2f500a8cb047803073832437b7e
+      internalID: 117645748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0805c8ae1a03be047a18979135a1eb74
+      internalID: -607015855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3cd124d83162c47825d2620159db0a
+      internalID: -1568885833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea1323479da28bc4a9f01e145f2c2553
+      internalID: 949840496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f97da39a4736b87458ac9e875f830508
+      internalID: 859164755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dd1c2477a347664884394ee5909c8a8
+      internalID: -124457416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f554c580eea74d1418fcbb997fc9c351
+      internalID: -397814961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99d5620e8ab43824e9abb50b90ad3323
+      internalID: -523884638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hellfire Rocket Pod Sprite Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dcbb567e365e664dba13fd59fa6a9c2
+      internalID: -997897664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8a7906db067957b46855ad06d698d553
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Hellfire Rocket Pod Sprite Sheet_0: -185129905
+      Hellfire Rocket Pod Sprite Sheet_1: 957123710
+      Hellfire Rocket Pod Sprite Sheet_10: 2100798234
+      Hellfire Rocket Pod Sprite Sheet_11: 1045886572
+      Hellfire Rocket Pod Sprite Sheet_12: 1590047609
+      Hellfire Rocket Pod Sprite Sheet_13: -608423261
+      Hellfire Rocket Pod Sprite Sheet_14: 1282009960
+      Hellfire Rocket Pod Sprite Sheet_15: 2026091524
+      Hellfire Rocket Pod Sprite Sheet_16: -565571273
+      Hellfire Rocket Pod Sprite Sheet_17: -492282722
+      Hellfire Rocket Pod Sprite Sheet_18: -956920226
+      Hellfire Rocket Pod Sprite Sheet_19: 1761104992
+      Hellfire Rocket Pod Sprite Sheet_2: 1391548502
+      Hellfire Rocket Pod Sprite Sheet_20: 1993581871
+      Hellfire Rocket Pod Sprite Sheet_21: 1758784884
+      Hellfire Rocket Pod Sprite Sheet_22: 1746797390
+      Hellfire Rocket Pod Sprite Sheet_23: 741780015
+      Hellfire Rocket Pod Sprite Sheet_24: -1715241362
+      Hellfire Rocket Pod Sprite Sheet_25: -1013929720
+      Hellfire Rocket Pod Sprite Sheet_26: -1923072939
+      Hellfire Rocket Pod Sprite Sheet_27: 117645748
+      Hellfire Rocket Pod Sprite Sheet_28: -607015855
+      Hellfire Rocket Pod Sprite Sheet_29: -1568885833
+      Hellfire Rocket Pod Sprite Sheet_3: -1337085983
+      Hellfire Rocket Pod Sprite Sheet_30: 949840496
+      Hellfire Rocket Pod Sprite Sheet_31: 859164755
+      Hellfire Rocket Pod Sprite Sheet_32: -124457416
+      Hellfire Rocket Pod Sprite Sheet_33: -397814961
+      Hellfire Rocket Pod Sprite Sheet_34: -523884638
+      Hellfire Rocket Pod Sprite Sheet_35: -997897664
+      Hellfire Rocket Pod Sprite Sheet_4: 1617397807
+      Hellfire Rocket Pod Sprite Sheet_5: -1929879721
+      Hellfire Rocket Pod Sprite Sheet_6: 1334151841
+      Hellfire Rocket Pod Sprite Sheet_7: -1850542622
+      Hellfire Rocket Pod Sprite Sheet_8: -549594412
+      Hellfire Rocket Pod Sprite Sheet_9: 2118304947
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
