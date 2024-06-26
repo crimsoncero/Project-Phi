@@ -124,7 +124,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Doom Cannon Sprite_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0.20000003}
+    pivot: {x: 0.5, y: 0.4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -145,7 +145,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Doom Cannon Sprite_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: 0.20000003}
+    pivot: {x: 0.5, y: 0.3}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -271,15 +271,15 @@ ScriptedImporter:
     uvTransform: {x: 30, y: 60}
   - name: Doom Cannon Sprite_Frame_7
     originalName: 
-    pivot: {x: 0.4705882, y: 0.50000006}
+    pivot: {x: 0.5, y: 0.20000003}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 56
+      x: 30
       y: 88
-      width: 17
+      width: 18
       height: 20
     spriteID: 19fb7020aa432934eaef513482cad24c
     spriteBone: []
@@ -289,17 +289,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 56, y: 88}
+    uvTransform: {x: 30, y: 88}
   - name: Doom Cannon Sprite_Frame_8
     originalName: 
-    pivot: {x: 0.5, y: 0.50000006}
+    pivot: {x: 0.5, y: 0.20000003}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 30
-      y: 88
+      x: 56
+      y: 4
       width: 18
       height: 20
     spriteID: c0d00272da8773247b2d63820f35043b
@@ -310,17 +310,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 30, y: 88}
+    uvTransform: {x: 56, y: 4}
   - name: Doom Cannon Sprite_Frame_9
     originalName: 
-    pivot: {x: 0.5, y: 0.4}
+    pivot: {x: 0.5, y: 0.20000003}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 56
-      y: 4
+      y: 32
       width: 18
       height: 20
     spriteID: 80e7f3e65971ef34fa0d656f63684494
@@ -331,7 +331,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 56, y: 4}
+    uvTransform: {x: 56, y: 32}
   - name: Doom Cannon Sprite_Frame_10
     originalName: 
     pivot: {x: 0.5, y: 0.3}
@@ -341,7 +341,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 56
-      y: 32
+      y: 60
       width: 18
       height: 20
     spriteID: c5dff0ffd3fd61b439c7b115332f04f7
@@ -352,17 +352,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 56, y: 32}
+    uvTransform: {x: 56, y: 60}
   - name: Doom Cannon Sprite_Frame_11
     originalName: 
-    pivot: {x: 0.5, y: 0.20000003}
+    pivot: {x: 0.5, y: 0.4}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
       x: 56
-      y: 60
+      y: 88
       width: 18
       height: 20
     spriteID: c36181fc85258844dbad4825f89a0dcf
@@ -373,7 +373,49 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 56, y: 60}
+    uvTransform: {x: 56, y: 88}
+  - name: Doom Cannon Sprite_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: 0.50000006}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 4
+      width: 18
+      height: 20
+    spriteID: 2605a4c34e1c36b41874a6b0c1f6d16d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 4}
+  - name: Doom Cannon Sprite_Frame_13
+    originalName: 
+    pivot: {x: 0.4705882, y: 0.50000006}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 32
+      width: 17
+      height: 20
+    spriteID: b02e4fb9621de4e48b664a44d8425218
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 32}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -388,7 +430,7 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 15
-        y: 20
+        y: 16
         width: 18
         height: 20
       spriteId: 52212fa371f8e7249bd287e2a6fd5616
@@ -397,7 +439,7 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 15
-        y: 20
+        y: 18
         width: 18
         height: 20
       spriteId: 5490dba466b00a3489f6965cd1cef1fa
@@ -450,9 +492,9 @@ ScriptedImporter:
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
-        x: 16
-        y: 14
-        width: 17
+        x: 15
+        y: 20
+        width: 18
         height: 20
       spriteId: 19fb7020aa432934eaef513482cad24c
     - name: Doom Cannon Sprite_Frame_8
@@ -460,7 +502,7 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 15
-        y: 14
+        y: 20
         width: 18
         height: 20
       spriteId: c0d00272da8773247b2d63820f35043b
@@ -469,7 +511,7 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 15
-        y: 16
+        y: 20
         width: 18
         height: 20
       spriteId: 80e7f3e65971ef34fa0d656f63684494
@@ -487,10 +529,28 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 15
-        y: 20
+        y: 16
         width: 18
         height: 20
       spriteId: c36181fc85258844dbad4825f89a0dcf
+    - name: Doom Cannon Sprite_Frame_12
+      frameIndex: 12
+      additiveSortOrder: 0
+      cellRect:
+        x: 15
+        y: 14
+        width: 18
+        height: 20
+      spriteId: 2605a4c34e1c36b41874a6b0c1f6d16d
+    - name: Doom Cannon Sprite_Frame_13
+      frameIndex: 13
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 14
+        width: 17
+        height: 20
+      spriteId: b02e4fb9621de4e48b664a44d8425218
     linkedCells: []
     parentIndex: -1
   platformSettings:
