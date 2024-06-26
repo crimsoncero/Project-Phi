@@ -17,7 +17,7 @@ public abstract class Weapon : ScriptableObject
     [field: Header("Weapon Attributes")]
     [field: SerializeField] public FiringMethods FiringMethod { get; private set; }
     [field: SerializeField] public int MaxAmmo { get; private set; }
-    [field: SerializeField] public float Cooldown { get; private set; }
+    [field: SerializeField] public float FireRate { get; private set; }
     [field: SerializeField] public int Damage { get; private set; }
     [field: SerializeField] public GameObject WeaponPrefab { get; set; }
 
@@ -29,7 +29,7 @@ public abstract class Weapon : ScriptableObject
     [field: SerializeField] public float ProjectileVelocity { get; private set; }
 
 
-    public abstract void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag);
+    public abstract void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag, int currentAmmo);
 
 
     protected Vector3 AdjustPosition(Vector3 point, Vector3 shipPosition, Quaternion shipRotation)

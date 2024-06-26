@@ -34,9 +34,10 @@ public class PlayerController : MonoBehaviour
     
     // Weapons
     private bool _canFire = true;
-    private Weapon PrimaryWeapon { get { return _shipController.PrimaryWeapon; } }
+    private Lazgun PrimaryWeapon { get { return _shipController.PrimaryWeapon; } }
     private Weapon SpecialWeapon { get { return _shipController.SpecialWeapon; } }
-    private int SpecialAmmo { get { return _shipController.SpecialAmmo; } set { _shipController.SpecialAmmo = value; } }
+    private int SpecialAmmo { get { return _shipController.SpecialAmmo; } }
+    private float PrimaryHeat { get { return _shipController.PrimaryHeat; } }
 
 
 
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         if (PrimaryWeapon == null) return;
         if (!_canFire) return;
+        if(PrimaryHeat >= PrimaryWeapon.MaximumHeat) return;
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
         {
             _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
@@ -150,7 +152,7 @@ public class PlayerController : MonoBehaviour
         Weapon weaponFired = isMainWeapon ? PrimaryWeapon : SpecialWeapon;
 
         _canFire = false;
-        yield return new WaitForSeconds(weaponFired.Cooldown);
+        yield return new WaitForSeconds(weaponFired.FireRate);
         _canFire = true;
 
         // Autofire
