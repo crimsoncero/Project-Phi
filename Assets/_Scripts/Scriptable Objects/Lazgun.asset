@@ -17,6 +17,6 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 0.3
   <Damage>k__BackingField: 0
   <WeaponPrefab>k__BackingField: {fileID: 0}
-  ProjectilePrefab: {fileID: 2267390870902065815, guid: 333715c838bc2234cb4e94c7e27b5ce7, type: 3}
+  ProjectilePrefab: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}
   <ProjectileVelocity>k__BackingField: 6
   _spawnPoint: {x: 0, y: 0, z: 0}
