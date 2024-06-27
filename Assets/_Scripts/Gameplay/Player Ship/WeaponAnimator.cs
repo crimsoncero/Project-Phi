@@ -2,22 +2,22 @@ using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class WeaponAnimator : MonoBehaviour
 {
     [SerializeField] private PhotonView _photonView;
     [SerializeField] private Animator _autocannon;
-    [SerializeField] private Animator _hellfireRocketPod;
-    [SerializeField] private Animator _voidMineDispenser;
-    [SerializeField] private Animator _doomLaserCannon;
+    [SerializeField] private Animator _rocketPod;
+    [SerializeField] private Animator _mineDispenser;
+    [SerializeField] private Animator _doomLaser;
     public Animator CurrentWeaponAnim { get; private set; }
 
     private Weapon _currentWeapon = null;
     private void Awake()
     {
         _autocannon.gameObject.SetActive(false);
-        _hellfireRocketPod.gameObject.SetActive(false);
-        _voidMineDispenser.gameObject.SetActive(false);
-        _doomLaserCannon.gameObject.SetActive(false);
+        _rocketPod.gameObject.SetActive(false);
+        _mineDispenser.gameObject.SetActive(false);
+        _doomLaser.gameObject.SetActive(false);
     }
 
 
@@ -45,13 +45,13 @@ public class WeaponController : MonoBehaviour
                 CurrentWeaponAnim = _autocannon;
                 break;
             case RocketPod:
-                CurrentWeaponAnim = _hellfireRocketPod;
+                CurrentWeaponAnim = _rocketPod;
                 break;
             case ProximityMine:
-                CurrentWeaponAnim = _voidMineDispenser;
+                CurrentWeaponAnim = _mineDispenser;
                 break;
             case DoomLaser:
-                CurrentWeaponAnim = _doomLaserCannon;
+                CurrentWeaponAnim = _doomLaser;
                 break;
 
         }
@@ -73,13 +73,11 @@ public class WeaponController : MonoBehaviour
                 _autocannon.SetTrigger("Fire"); 
                 break;
             case RocketPod:
-                CurrentWeaponAnim = _hellfireRocketPod;
+                _rocketPod.speed = 1;
                 break;
             case ProximityMine:
-                CurrentWeaponAnim = _voidMineDispenser;
                 break;
             case DoomLaser:
-                CurrentWeaponAnim = _doomLaserCannon;
                 break;
 
         }

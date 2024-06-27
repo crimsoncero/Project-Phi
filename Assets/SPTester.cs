@@ -8,7 +8,7 @@ public class SPTester : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _player;
     [SerializeField] private Scrollbar _heatBar;
     private PlayerController _playerController;
-    private ShipController _shipController;
+    private Spaceship _shipController;
     private void Start()
     {
         PhotonNetwork.OfflineMode = true;
@@ -29,7 +29,7 @@ public class SPTester : MonoBehaviourPunCallbacks
     private void Init()
     {
         _playerController = _player.GetComponent<PlayerController>();
-        _shipController = _player.GetComponent<ShipController>();
+        _shipController = _player.GetComponent<Spaceship>();
         _playerController.enabled = true;
         _player.GetComponent<PlayerInput>().enabled = true;
     }

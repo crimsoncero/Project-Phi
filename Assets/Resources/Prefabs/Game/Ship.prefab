@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -6896135231121268280}
   - component: {fileID: -804836445776876065}
   - component: {fileID: 1454928307704693278}
-  - component: {fileID: 1990376866714872790}
+  - component: {fileID: 3418695992773287557}
   m_Layer: 3
   m_Name: Ship
   m_TagString: Untagged
@@ -218,7 +218,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 705207317605256538}
   _mainCamera: {fileID: 0}
   _photonView: {fileID: -6896135231121268280}
-  _shipController: {fileID: 1990376866714872790}
+  _spaceship: {fileID: 3418695992773287557}
   <MoveSpeed>k__BackingField: 1000
   <RotationSpeed>k__BackingField: 10
 --- !u!50 &705207317605256538
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &1990376866714872790
+--- !u!114 &3418695992773287557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,10 +374,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 100
   <PrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 1494b4ab1fbf300418b958baf2717441, type: 2}
-  <SpecialWeapon>k__BackingField: {fileID: 11400000, guid: 8aee4c2b3d4a5d444bf26ace0b4f8998, type: 2}
+  <SpecialWeapon>k__BackingField: {fileID: 0}
+  _globalCooldown: 0.4
   _photonView: {fileID: -6896135231121268280}
   _rigidbody2D: {fileID: 705207317605256538}
-  _weaponController: {fileID: 98204500983031879}
+  _weaponAnimator: {fileID: 98204500983031879}
+  _playerController: {fileID: -855393122673354210}
 --- !u!1 &6629566599582876085
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,9 +462,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _photonView: {fileID: -6896135231121268280}
   _autocannon: {fileID: 5487083370210499572}
-  _hellfireRocketPod: {fileID: 5574723648251495682}
-  _voidMineDispenser: {fileID: 2393248496131144939}
-  _doomLaserCannon: {fileID: 5515279424598151560}
+  _rocketPod: {fileID: 5574723648251495682}
+  _mineDispenser: {fileID: 2393248496131144939}
+  _doomLaser: {fileID: 5515279424598151560}
 --- !u!1 &8466454385443944283
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +732,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6678825253685392178, guid: 67c74e42df66f7442bf7bd57d16a9b74, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6840610003407024264, guid: 67c74e42df66f7442bf7bd57d16a9b74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -804,6 +810,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1714020312185358955}
     m_Modifications:
+    - target: {fileID: 1070521358719687706, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
+      propertyPath: m_SynchronizeLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070521358719687706, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070521358719687706, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].Name
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070521358719687706, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].Type
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3641837638708620099, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
       propertyPath: m_Name
       value: Autocannon
@@ -811,6 +833,10 @@ PrefabInstance:
     - target: {fileID: 3641837638708620099, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641837638708620099, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6316385429960973470, guid: ee17a37dc5006594d9213b752dd522ef, type: 3}
       propertyPath: m_LocalPosition.x

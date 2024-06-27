@@ -2,15 +2,17 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour
+public class Spaceship : MonoBehaviour
 {
     [field: SerializeField] public int Health { get; private set; }
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
     [field: SerializeField] public Weapon SpecialWeapon { get; private set; }
+    [SerializeField] private float _globalCooldown;
 
     [SerializeField] private PhotonView _photonView;
     [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private WeaponController _weaponController;
+    [SerializeField] private WeaponAnimator _weaponAnimator;
+    [SerializeField] private PlayerController _playerController;
 
 
     // Heat and Ammo
@@ -29,6 +31,12 @@ public class ShipController : MonoBehaviour
 		set { _specialAmmo = Mathf.Clamp(value, 0, SpecialWeapon.MaxAmmo); }
 	}
 
+    // Fire Control
+
+    public bool CanGlobalFire { get; private set; } = true;
+    public bool CanPrimaryFire { get; private set; } = true;
+    public bool CanSpecialFire { get; private set; } = true;
+
     private void OnEnable()
     {
         if(SpecialWeapon != null)
@@ -42,6 +50,10 @@ public class ShipController : MonoBehaviour
     [PunRPC] // NEED TO ADD Current Position and rotation and velocity of the ship when message was sent
     private void FirePrimary(Vector3 position, Quaternion rotation,  Vector2 velocity, PhotonMessageInfo info)
     {
+        // Reduce overhead in other clients, cooldown tracking is only useful for special weapons.
+        if (_photonView.IsMine)
+            StartCoroutine(WaitForCanFire(true));
+
         if(_cooldownRoutine != null)
             StopCoroutine(_cooldownRoutine);
 
@@ -56,14 +68,16 @@ public class ShipController : MonoBehaviour
     [PunRPC]
     private void FireSpecial(Vector3 position, Quaternion rotation, Vector2 velocity, PhotonMessageInfo info)
     {
+        StartCoroutine(WaitForCanFire(false));
+
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
         SpecialWeapon.Fire(_photonView, position, rotation, velocity, lag, SpecialAmmo);
         SpecialAmmo--;
 
-        _weaponController.FireAnim();
+        _weaponAnimator.FireAnim();
 
         if(SpecialAmmo == 0)
-            ClearSpecialWeapon();
+            StartCoroutine(ClearSpecialWeapon());
     }
     #endregion
 
@@ -77,12 +91,14 @@ public class ShipController : MonoBehaviour
     {
         SpecialWeapon = weapon;
         SpecialAmmo = SpecialWeapon.MaxAmmo;
-        _weaponController.SetWeapon(SpecialWeapon);
+        _weaponAnimator.SetWeapon(SpecialWeapon);
     }
 
-    public void ClearSpecialWeapon()
+    public IEnumerator ClearSpecialWeapon()
     {
-        _weaponController.SetWeapon(null);
+        yield return new WaitUntil(() => CanSpecialFire);
+        _weaponAnimator.SetWeapon(null);
+        SpecialWeapon = null;
     }
 
 
@@ -106,7 +122,47 @@ public class ShipController : MonoBehaviour
         if(PrimaryHeat == 0)
             IsOverHeating = false;
     }
+    private IEnumerator WaitForCanFire(bool isPrimary)
+    {
+        Weapon weaponFired = isPrimary ? PrimaryWeapon : SpecialWeapon;
 
-   
+        if (isPrimary)
+        {
+            
+
+            CanPrimaryFire = false;
+        }
+        else
+            CanSpecialFire = false;
+
+        StartCoroutine(WaitForGCD());
+
+        yield return new WaitForSeconds(weaponFired.TimeBetweenShots);
+
+        if (isPrimary)
+            CanPrimaryFire = true;
+        else
+            CanSpecialFire = true;
+
+
+        if (_photonView.IsMine)
+        {
+            // Autofire
+            if (weaponFired.FiringMethod == Weapon.FiringMethods.Auto)
+            {
+                if (isPrimary)
+                    _playerController.FirePrimary();
+                else
+                    _playerController.FireSpecial();
+            }
+        }
+    }
+
+    private IEnumerator WaitForGCD()
+    {
+        CanGlobalFire = false;
+        yield return new WaitForSeconds(_globalCooldown);
+        CanGlobalFire = true;
+    }
 
 }

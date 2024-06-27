@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 3617541843515836679}
   - component: {fileID: 1451160896192373721}
   - component: {fileID: 4535078102725913161}
+  - component: {fileID: 4541264813061528084}
   m_Layer: 0
   m_Name: Hellfire Rocket Pod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6840610003407024264
 Transform:
   m_ObjectHideFlags: 0
@@ -57,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6d7506c80898924fae2fb602fa69af1, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 6678825253685392178}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df1a88293a39a3c46a7c62baafcf7d5f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -126,4 +127,20 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+--- !u!114 &4541264813061528084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678825253685392178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2eeb1a852d56848a3ddeeb2b1d2824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1451160896192373721}
+  _renderer: {fileID: 3617541843515836679}

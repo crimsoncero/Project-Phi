@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody2D _rigidbody2D;
     [SerializeField] Camera _mainCamera;
     [SerializeField] PhotonView _photonView;
-    [SerializeField] ShipController _shipController;
+    [SerializeField] Spaceship _spaceship;
 
     [field: Header("Movement Variables")]
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1000;
@@ -32,12 +32,11 @@ public class PlayerController : MonoBehaviour
     // Movement
     private Vector2 _lookDirection;
     
-    // Weapons
-    private bool _canFire = true;
-    private Lazgun PrimaryWeapon { get { return _shipController.PrimaryWeapon; } }
-    private Weapon SpecialWeapon { get { return _shipController.SpecialWeapon; } }
-    private int SpecialAmmo { get { return _shipController.SpecialAmmo; } }
-    private float PrimaryHeat { get { return _shipController.PrimaryHeat; } }
+    // Weapons - Shortcuts from spaceship script
+    private Lazgun PrimaryWeapon { get { return _spaceship.PrimaryWeapon; } }
+    private Weapon SpecialWeapon { get { return _spaceship.SpecialWeapon; } }
+    private int SpecialAmmo { get { return _spaceship.SpecialAmmo; } }
+    private float PrimaryHeat { get { return _spaceship.PrimaryHeat; } }
 
 
 
@@ -108,27 +107,28 @@ public class PlayerController : MonoBehaviour
     public void FirePrimary()
     {
         if (PrimaryWeapon == null) return;
-        if (!_canFire) return;
+        
+        if (!_spaceship.CanGlobalFire) return;
+        if (!_spaceship.CanPrimaryFire) return;
+
         if(PrimaryHeat >= PrimaryWeapon.MaximumHeat) return;
-        if (_shipController.IsOverHeating) return;
+        if (_spaceship.IsOverHeating) return;
 
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
-        {
             _photonView.RPC(RPC_PRIMARY_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
-            StartCoroutine(WaitForWeaponCooldown(true));
-        }
     }
 
     public void FireSpecial()
     {
         if (SpecialWeapon == null) return;
+
+        if (!_spaceship.CanGlobalFire) return;
+        if (!_spaceship.CanSpecialFire) return;
+
         if (SpecialAmmo <= 0) return;
-        if (!_canFire) return;
+        
         if (Input.SpecialFire.phase == InputActionPhase.Performed)
-        {
             _photonView.RPC(RPC_SPECIAL_FIRE, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
-            StartCoroutine(WaitForWeaponCooldown(false));
-        }
     }
 
     public void OnControlsChanged(PlayerInput input)
@@ -149,24 +149,4 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private IEnumerator WaitForWeaponCooldown(bool isMainWeapon)
-    {
-        Weapon weaponFired = isMainWeapon ? PrimaryWeapon : SpecialWeapon;
-
-        _canFire = false;
-        yield return new WaitForSeconds(weaponFired.TimeBetweenShots);
-        _canFire = true;
-
-        // Autofire
-        if (weaponFired.FiringMethod == Weapon.FiringMethods.Auto)
-        {
-            if (isMainWeapon)
-                FirePrimary();
-            else
-                FireSpecial();
-        }
-           
-    }
-
-
-}
+  }

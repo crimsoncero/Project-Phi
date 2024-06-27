@@ -130,6 +130,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 419149861806970345, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5640804680741608825, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
       propertyPath: m_Name
       value: Player Ship
@@ -173,6 +177,10 @@ PrefabInstance:
     - target: {fileID: 6713496527832334060, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731270545662308316, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
