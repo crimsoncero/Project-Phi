@@ -9,6 +9,7 @@ public class WeaponAnimator : MonoBehaviour
     [SerializeField] private Animator _rocketPod;
     [SerializeField] private Animator _mineDispenser;
     [SerializeField] private Animator _doomLaser;
+
     public Animator CurrentWeaponAnim { get; private set; }
 
     private Weapon _currentWeapon = null;
@@ -63,10 +64,6 @@ public class WeaponAnimator : MonoBehaviour
     /// </summary>
     public void FireAnim()
     {
-        // Only Trigger the animation if owner.
-        if (!_photonView.IsMine)
-            return;
-
         switch (_currentWeapon)
         {
             case Autocannon:
@@ -79,7 +76,6 @@ public class WeaponAnimator : MonoBehaviour
                 break;
             case DoomLaser:
                 break;
-
         }
     }
 

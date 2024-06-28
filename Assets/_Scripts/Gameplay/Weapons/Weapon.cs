@@ -1,8 +1,6 @@
 using Photon.Pun;
-using Photon.Realtime;
-using System;
-using Unity.Mathematics;
 using UnityEngine;
+
 
 public abstract class Weapon : ScriptableObject
 {
@@ -57,7 +55,5 @@ public abstract class Weapon : ScriptableObject
         {
             return ProjectileVelocity;
         }
-       
     }
-
 }

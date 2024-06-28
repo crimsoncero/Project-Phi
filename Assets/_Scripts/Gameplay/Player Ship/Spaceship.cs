@@ -2,17 +2,19 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
-public class Spaceship : MonoBehaviour
+public class Spaceship : MonoBehaviourPun
 {
+
+
     [field: SerializeField] public int Health { get; private set; }
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
     [field: SerializeField] public Weapon SpecialWeapon { get; private set; }
     [SerializeField] private float _globalCooldown;
 
-    [SerializeField] private PhotonView _photonView;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private WeaponAnimator _weaponAnimator;
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private WeaponList _weaponList;
 
 
     // Heat and Ammo
@@ -47,62 +49,76 @@ public class Spaceship : MonoBehaviour
     }
 
     #region Pun RPC
-    [PunRPC] // NEED TO ADD Current Position and rotation and velocity of the ship when message was sent
-    private void FirePrimary(Vector3 position, Quaternion rotation,  Vector2 velocity, PhotonMessageInfo info)
+
+    /* Method names are prefixed with RPC_MethodName
+     * Before every RPC method add a public string const of the method name.
+     * string names are formatted with uppercase and '_' between words:  RPC_METHOD_NAME.
+     */
+
+    public const string RPC_FIRE_PRIMARY = "RPC_FirePrimary";
+    [PunRPC]
+    private void RPC_FirePrimary(Vector3 position, Quaternion rotation,  Vector2 velocity, PhotonMessageInfo info)
     {
         // Reduce overhead in other clients, cooldown tracking is only useful for special weapons.
-        if (_photonView.IsMine)
+        if (photonView.IsMine)
             StartCoroutine(WaitForCanFire(true));
 
         if(_cooldownRoutine != null)
             StopCoroutine(_cooldownRoutine);
 
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-        PrimaryWeapon.Fire(_photonView, position, rotation, velocity, lag, (int)PrimaryHeat);
+        PrimaryWeapon.Fire(photonView, position, rotation, velocity, lag, (int)PrimaryHeat);
         PrimaryHeat += 1f;
 
         _cooldownRoutine = StartCoroutine(CooldownPrimary());
 
     }
 
+    public const string RPC_FIRE_SPECIAL = "RPC_FireSpecial";
     [PunRPC]
-    private void FireSpecial(Vector3 position, Quaternion rotation, Vector2 velocity, PhotonMessageInfo info)
+    private void RPC_FireSpecial(Vector3 position, Quaternion rotation, Vector2 velocity, PhotonMessageInfo info)
     {
         StartCoroutine(WaitForCanFire(false));
 
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
-        SpecialWeapon.Fire(_photonView, position, rotation, velocity, lag, SpecialAmmo);
+        SpecialWeapon.Fire(photonView, position, rotation, velocity, lag, SpecialAmmo);
         SpecialAmmo--;
 
         _weaponAnimator.FireAnim();
 
-        if(SpecialAmmo == 0)
-            StartCoroutine(ClearSpecialWeapon());
+        if (SpecialAmmo == 0)
+            photonView.RPC(RPC_CLEAR_SPECIAL, RpcTarget.All);
     }
-    #endregion
 
-    #region Special Weapon Handling
-
-    /// <summary>
-    /// Assign a new special weapon to the ship.
-    /// </summary>
-    /// <param name="weapon"></param>
-    public void SetSpecialWeapon(Weapon weapon)
+    public const string RPC_SET_SPECIAL = "RPC_SetSpecial";
+    [PunRPC]
+    private void RPC_SetSpecial(WeaponEnum weaponEnum)
     {
-        SpecialWeapon = weapon;
+        SpecialWeapon = _weaponList.GetWeapon(weaponEnum);
         SpecialAmmo = SpecialWeapon.MaxAmmo;
         _weaponAnimator.SetWeapon(SpecialWeapon);
     }
 
-    public IEnumerator ClearSpecialWeapon()
+    public const string RPC_CLEAR_SPECIAL = "RPC_ClearSpecial";
+    [PunRPC]
+    private void RPC_ClearSpecial()
+    {
+        StartCoroutine(ClearSpecial());
+    }
+
+    #endregion
+
+    public void SetSpecial(Weapon weapon)
+    {
+        photonView.RPC(RPC_SET_SPECIAL, RpcTarget.All, weapon);
+    } 
+    
+    public IEnumerator ClearSpecial()
     {
         yield return new WaitUntil(() => CanSpecialFire);
         _weaponAnimator.SetWeapon(null);
         SpecialWeapon = null;
     }
-
-
-    #endregion
 
     private IEnumerator CooldownPrimary()
     {
@@ -145,7 +161,7 @@ public class Spaceship : MonoBehaviour
             CanSpecialFire = true;
 
 
-        if (_photonView.IsMine)
+        if (photonView.IsMine)
         {
             // Autofire
             if (weaponFired.FiringMethod == Weapon.FiringMethods.Auto)

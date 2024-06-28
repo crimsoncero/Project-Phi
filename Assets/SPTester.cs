@@ -43,6 +43,6 @@ public class SPTester : MonoBehaviourPunCallbacks
 
     public void SetWeapon(Weapon weapon)
     {
-        _shipController.SetSpecialWeapon(weapon);
+        _shipController.photonView.RPC(Spaceship.RPC_SET_SPECIAL, Photon.Pun.RpcTarget.All, weapon);
     }
 }

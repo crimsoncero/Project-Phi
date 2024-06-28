@@ -41,6 +41,14 @@ MonoBehaviour:
   - RespawnSpaceship
   - FirePrimary
   - FireSpecial
+  - ClearSpecialWeapon
+  - SetSpecialWeapon
+  - RPC_FireSpecial
+  - RPC_FirePrimary
+  - RPC_ClearSpecial
+  - RPC_SetSpecial
+  - FireAnim
+  - RPC_FireAnim
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
