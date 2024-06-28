@@ -1,4 +1,5 @@
-using NUnit.Framework;
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     private ConnectionManager Con { get { return ConnectionManager.Instance; } }
 
     private List<GameObject> _panelList;
+
+    [Header("Panels")]
     [SerializeField] private LoginPanel _loginPanel;
     [SerializeField] private MenuPanel _menuPanel;
     [SerializeField] private GameObject _optionsPanel;
@@ -19,6 +22,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _createMatchPanel;
     [SerializeField] private GameObject _joinMatchPanel;
     [SerializeField] private WaitingRoomPanel _waitingRoomPanel;
+
 
     private void Awake()
     {
@@ -112,5 +116,11 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         ActivateWaitingRoomPanel();
     }
+    #endregion
+
+    #region UI Sound
+
+    
+
     #endregion
 }
