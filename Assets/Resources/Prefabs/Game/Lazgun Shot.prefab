@@ -128,4 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13868e32188aea14aa70a82e0cdf5d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 3539986279596239875}
+  _distanceToSnap: 0.2
+  _rigidbody2D: {fileID: 3539986279596239875}
+  _multiplier: 0.7

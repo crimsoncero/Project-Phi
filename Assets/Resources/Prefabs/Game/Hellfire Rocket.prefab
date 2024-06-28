@@ -152,7 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13868e32188aea14aa70a82e0cdf5d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 4039091083485776396}
+  _distanceToSnap: 0.1
+  _rigidbody2D: {fileID: 4039091083485776396}
+  _multiplier: 0.7
 --- !u!70 &5970967179800971492
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
