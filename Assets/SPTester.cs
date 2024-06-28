@@ -9,6 +9,7 @@ public class SPTester : MonoBehaviourPunCallbacks
     [SerializeField] private Scrollbar _heatBar;
     private PlayerController _playerController;
     private Spaceship _shipController;
+    
     private void Start()
     {
         PhotonNetwork.OfflineMode = true;
@@ -41,8 +42,10 @@ public class SPTester : MonoBehaviourPunCallbacks
     }
 
 
-    public void SetWeapon(Weapon weapon)
+    public void SetWeapon(int weaponEnum)
     {
-        _shipController.photonView.RPC(Spaceship.RPC_SET_SPECIAL, Photon.Pun.RpcTarget.All, weapon);
+        _shipController.photonView.RPC(Spaceship.RPC_SET_SPECIAL, Photon.Pun.RpcTarget.All, (WeaponEnum)weaponEnum);
+
+
     }
 }

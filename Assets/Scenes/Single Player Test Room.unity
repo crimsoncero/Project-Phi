@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7333829496454105374, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7731270545662308316, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -641,6 +645,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7333829496454105374, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b484224cef5c2614ba2b3ff96ac1d45e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -737,11 +745,11 @@ MonoBehaviour:
       - m_Target: {fileID: 675492220}
         m_TargetAssemblyTypeName: SPTester, Assembly-CSharp
         m_MethodName: SetWeapon
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 8aee4c2b3d4a5d444bf26ace0b4f8998, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Weapon, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1075,11 +1083,11 @@ MonoBehaviour:
       - m_Target: {fileID: 675492220}
         m_TargetAssemblyTypeName: SPTester, Assembly-CSharp
         m_MethodName: SetWeapon
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 8477271a84c93454482a077c3ea3f73b, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Weapon, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1823,11 +1831,11 @@ MonoBehaviour:
       - m_Target: {fileID: 675492220}
         m_TargetAssemblyTypeName: SPTester, Assembly-CSharp
         m_MethodName: SetWeapon
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2eeac9efccf2481488103e872b797742, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Weapon, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2158,11 +2166,11 @@ MonoBehaviour:
       - m_Target: {fileID: 675492220}
         m_TargetAssemblyTypeName: SPTester, Assembly-CSharp
         m_MethodName: SetWeapon
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 894518f17cdcb814db03fbff563139a0, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Weapon, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

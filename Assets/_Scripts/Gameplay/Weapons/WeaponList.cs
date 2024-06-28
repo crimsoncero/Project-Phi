@@ -20,7 +20,6 @@ public class WeaponList : ScriptableObject
     [SerializeField] private ProximityMine _mineDispenser;
     [SerializeField] private DoomLaser _doomLaser;
 
-
     public Weapon GetWeapon(WeaponEnum weaponEnum)
     {
         switch (weaponEnum)
@@ -37,6 +36,25 @@ public class WeaponList : ScriptableObject
                 return _doomLaser;
             default:
                 return null;
+        }
+    }
+
+    public WeaponEnum GetWeaponEnum(Weapon weapon)
+    {
+        switch(weapon)
+        {
+            case Lazgun:
+                return WeaponEnum.Lazgun;
+            case Autocannon:
+                return WeaponEnum.Autocannon;
+            case RocketPod:
+                return WeaponEnum.RocketPod;
+            case ProximityMine:
+                return WeaponEnum.MineDispenser;
+            case DoomLaser:
+                return WeaponEnum.DoomLaser;
+            default:
+                throw new NotImplementedException("Need to add the new weapon class to the list.");
         }
     }
 }

@@ -29,7 +29,6 @@ public class Projectile : MonoBehaviour
 
     private IEnumerator LatencyCatchup(Vector2 baseVelocity, Vector2 startingPosition, float lag)
     {
-
         while (true)
         {
             // Calculate the expected position of the projectile based on latency, and the distance from the current position.

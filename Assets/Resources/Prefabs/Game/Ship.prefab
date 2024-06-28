@@ -371,7 +371,7 @@ MonoBehaviour:
   <Health>k__BackingField: 100
   <PrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 1494b4ab1fbf300418b958baf2717441, type: 2}
   <SpecialWeapon>k__BackingField: {fileID: 0}
-  _globalCooldown: 0.4
+  _globalCooldown: 0.3
   _rigidbody2D: {fileID: 705207317605256538}
   _weaponAnimator: {fileID: 98204500983031879}
   _playerController: {fileID: -855393122673354210}

@@ -144,8 +144,6 @@ public class Spaceship : MonoBehaviourPun
 
         if (isPrimary)
         {
-            
-
             CanPrimaryFire = false;
         }
         else
