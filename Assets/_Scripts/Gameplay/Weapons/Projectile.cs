@@ -40,16 +40,12 @@ public class Projectile : MonoBehaviour
 
         StartCoroutine(LatencyCatchup(originalDirection * velocity, transform.position, lag));
 
-        // Until we make a culling box.
-        StartCoroutine(DelayDestroy(2f));
     }
 
-    /// <summary>
-    /// Use this method instead of Destroy(gameObject), so the projectile will go back to the pool.
-    /// </summary>
-    private void Destroy()
+    private void OnDisable()
     {
-        _pool.Release(this);
+        if (_pool != null)
+            _pool.Release(this);
     }
 
     public void Init(Player owner, int damage, float velocity, Quaternion shipRotation, float lag)
@@ -82,16 +78,6 @@ public class Projectile : MonoBehaviour
             yield return null;
             lag += Time.deltaTime;
         }
-    }
-
-
-
-
-
-    private IEnumerator DelayDestroy(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy();
     }
 
 }

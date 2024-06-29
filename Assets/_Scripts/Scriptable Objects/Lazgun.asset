@@ -19,7 +19,7 @@ MonoBehaviour:
   <Damage>k__BackingField: 0
   <WeaponPrefab>k__BackingField: {fileID: 0}
   ProjectilePrefab: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}
-  <ProjectileVelocity>k__BackingField: 5
+  <ProjectileVelocity>k__BackingField: 7
   _spawnPoint: {x: 0, y: 0, z: 0}
   <HeatPerShot>k__BackingField: 10
   <CoolingRampCurve>k__BackingField:
