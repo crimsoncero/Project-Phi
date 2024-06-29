@@ -4,16 +4,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+   
+
+
 
     [Header("Components")]
     [SerializeField] Rigidbody2D _rigidbody2D;
     [SerializeField] Camera _mainCamera;
     [SerializeField] PhotonView _photonView;
-    [SerializeField] Spaceship _spaceship;
+    [field: SerializeField] public Spaceship Spaceship { get; private set; }
 
     [field: Header("Movement Variables")]
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1000;
@@ -31,10 +35,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 _lookDirection;
     
     // Weapons - Shortcuts from spaceship script
-    private Lazgun PrimaryWeapon { get { return _spaceship.PrimaryWeapon; } }
-    private Weapon SpecialWeapon { get { return _spaceship.SpecialWeapon; } }
-    private int SpecialAmmo { get { return _spaceship.SpecialAmmo; } }
-    private float PrimaryHeat { get { return _spaceship.PrimaryHeat; } }
+    private Lazgun PrimaryWeapon { get { return Spaceship.PrimaryWeapon; } }
+    private Weapon SpecialWeapon { get { return Spaceship.SpecialWeapon; } }
+    private int SpecialAmmo { get { return Spaceship.SpecialAmmo; } }
+    private float PrimaryHeat { get { return Spaceship.PrimaryHeat; } }
 
 
 
@@ -106,27 +110,31 @@ public class PlayerController : MonoBehaviour
     {
         if (PrimaryWeapon == null) return;
         
-        if (!_spaceship.CanGlobalFire) return;
-        if (!_spaceship.CanPrimaryFire) return;
+        if (!Spaceship.CanGlobalFire) return;
+        if (!Spaceship.CanPrimaryFire) return;
 
-        if(PrimaryHeat >= PrimaryWeapon.MaximumHeat) return;
-        if (_spaceship.IsOverHeating) return;
+        if(PrimaryHeat >= PrimaryWeapon.MaxHeat) return;
+        if (Spaceship.IsOverHeating) return;
 
         if (Input.PrimaryFire.phase == InputActionPhase.Performed)
+        {
             _photonView.RPC(Spaceship.RPC_FIRE_PRIMARY, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+        }
     }
 
     public void FireSpecial()
     {
         if (SpecialWeapon == null) return;
 
-        if (!_spaceship.CanGlobalFire) return;
-        if (!_spaceship.CanSpecialFire) return;
+        if (!Spaceship.CanGlobalFire) return;
+        if (!Spaceship.CanSpecialFire) return;
 
         if (SpecialAmmo <= 0) return;
         
         if (Input.SpecialFire.phase == InputActionPhase.Performed)
+        {
             _photonView.RPC(Spaceship.RPC_FIRE_SPECIAL, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+        }
     }
 
     public void OnControlsChanged(PlayerInput input)

@@ -19,16 +19,17 @@ MonoBehaviour:
   <Damage>k__BackingField: 0
   <WeaponPrefab>k__BackingField: {fileID: 0}
   ProjectilePrefab: {fileID: 6407908488154854414, guid: 9195f163aa3ff3f4794e4dd4f56ba894, type: 3}
-  <ProjectileVelocity>k__BackingField: 10
+  <ProjectileVelocity>k__BackingField: 5
   _spawnPoint: {x: 0, y: 0, z: 0}
+  <HeatPerShot>k__BackingField: 10
   <CoolingRampCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -45,6 +46,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <SustainFireDuration>k__BackingField: 10
+  <PercentageToMaxRamp>k__BackingField: 0.5
+  <SustainFireDuration>k__BackingField: 5
   <OverheatPenalty>k__BackingField: 3
   <TimeToCool>k__BackingField: 1

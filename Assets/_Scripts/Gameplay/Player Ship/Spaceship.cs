@@ -1,9 +1,11 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Spaceship : MonoBehaviourPun
 {
+    public event Action<float> OnHeatChanged;
 
 
     [field: SerializeField] public int Health { get; private set; }
@@ -24,7 +26,7 @@ public class Spaceship : MonoBehaviourPun
     public float PrimaryHeat
     {
         get { return _primaryHeat; }
-        set { _primaryHeat = Mathf.Clamp(value, 0, PrimaryWeapon.MaximumHeat); }
+        set { _primaryHeat = Mathf.Clamp(value, 0, PrimaryWeapon.MaxHeat); }
     }
     private int _specialAmmo;
 	public int SpecialAmmo
@@ -68,8 +70,8 @@ public class Spaceship : MonoBehaviourPun
 
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
         PrimaryWeapon.Fire(photonView, position, rotation, velocity, lag, (int)PrimaryHeat);
-        PrimaryHeat += 1f;
-
+        PrimaryHeat += PrimaryWeapon.HeatPerShot;
+        OnHeatChanged?.Invoke(PrimaryHeat/PrimaryWeapon.MaxHeat);
         _cooldownRoutine = StartCoroutine(CooldownPrimary());
 
     }
@@ -123,7 +125,7 @@ public class Spaceship : MonoBehaviourPun
     private IEnumerator CooldownPrimary()
     {
         // Wait before cooling down, duration dependent if overheating or not. 
-        if(PrimaryHeat >= PrimaryWeapon.MaximumHeat)
+        if(PrimaryHeat >= PrimaryWeapon.MaxHeat)
             IsOverHeating = true;
         
         yield return new WaitForSeconds(PrimaryWeapon.TimeToCool);
@@ -131,8 +133,10 @@ public class Spaceship : MonoBehaviourPun
         float duration = 0;
         while (PrimaryHeat > 0)
         {
-            PrimaryHeat -= PrimaryWeapon.CalcCooling(duration, Time.deltaTime);
-            duration += Time.deltaTime;
+            float time = Time.deltaTime;
+            PrimaryHeat -= PrimaryWeapon.CalcCooling(duration, time);
+            OnHeatChanged?.Invoke(PrimaryHeat/PrimaryWeapon.MaxHeat);
+            duration += time;
             yield return null;
         }
         if(PrimaryHeat == 0)
