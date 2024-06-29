@@ -2,6 +2,8 @@ using Photon.Realtime;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
+using UnityEngine.UIElements;
 
 public class Projectile : MonoBehaviour
 {
@@ -14,18 +16,46 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private float _multiplier = 0.7f;
 
-    public void Init(Player owner, int damage, float velocity, Quaternion shipRotation, float lag)
-    {
-        Vector3 originalDirection = shipRotation * Vector2.up;
+    private ObjectPool<Projectile> _pool;
 
+    public Projectile Initialize(ObjectPool<Projectile> pool)
+    {
+        _pool = pool;
+        _rigidbody2D.velocity = Vector2.zero;
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+
+        return this;
+    }
+
+    public void Set(Vector3 position, Player owner, int damage, float velocity, Quaternion shipRotation, float lag)
+    {
+        transform.position = position;
+
+        Vector3 originalDirection = shipRotation * Vector2.up;
         Owner = owner;
         Damage = damage;
 
         transform.up = originalDirection;
 
         StartCoroutine(LatencyCatchup(originalDirection * velocity, transform.position, lag));
+
+        // Until we make a culling box.
+        StartCoroutine(DelayDestroy(2f));
     }
 
+    /// <summary>
+    /// Use this method instead of Destroy(gameObject), so the projectile will go back to the pool.
+    /// </summary>
+    private void Destroy()
+    {
+        _pool.Release(this);
+    }
+
+    public void Init(Player owner, int damage, float velocity, Quaternion shipRotation, float lag)
+    {
+        
+    }
 
     private IEnumerator LatencyCatchup(Vector2 baseVelocity, Vector2 startingPosition, float lag)
     {
@@ -53,4 +83,15 @@ public class Projectile : MonoBehaviour
             lag += Time.deltaTime;
         }
     }
+
+
+
+
+
+    private IEnumerator DelayDestroy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy();
+    }
+
 }

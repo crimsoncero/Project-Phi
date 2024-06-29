@@ -218,7 +218,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 705207317605256538}
   _mainCamera: {fileID: 0}
   _photonView: {fileID: -6896135231121268280}
-  _spaceship: {fileID: 3418695992773287557}
+  <Spaceship>k__BackingField: {fileID: 3418695992773287557}
   <MoveSpeed>k__BackingField: 1000
   <RotationSpeed>k__BackingField: 10
 --- !u!50 &705207317605256538

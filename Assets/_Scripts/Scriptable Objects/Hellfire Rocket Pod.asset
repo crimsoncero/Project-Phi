@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Hellfire Rocket Pod
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Hellfire Rocket Pod
+  <WeaponEnum>k__BackingField: 2
   <FiringMethod>k__BackingField: 0
   <MaxAmmo>k__BackingField: 6
   <FireRate>k__BackingField: 1

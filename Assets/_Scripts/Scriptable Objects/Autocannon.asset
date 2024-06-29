@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Autocannon
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Autocannon
+  <WeaponEnum>k__BackingField: 1
   <FiringMethod>k__BackingField: 1
   <MaxAmmo>k__BackingField: 30
   <FireRate>k__BackingField: 2

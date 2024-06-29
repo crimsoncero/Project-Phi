@@ -39,7 +39,11 @@ public class RocketPod : Weapon
             default: return;
         }
 
-        Instantiate(ProjectilePrefab, AdjustPosition(spawn, shipPosition, shipRotation), Quaternion.identity)
-            .Init(photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
+        InitProjectile().Set(AdjustPosition(spawn, shipPosition, shipRotation), photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
+    }
+
+    private Projectile InitProjectile()
+    {
+        return GetProjectile().Initialize(ProjectilePool.Instance.RocketPool);
     }
 }

@@ -10,12 +10,14 @@ public class Autocannon : Weapon
 
     public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag, int currentAmmo)
     {
-        Instantiate(ProjectilePrefab, AdjustPosition(_leftSpawn, shipPosition, shipRotation), Quaternion.identity)
-            .Init(photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
+        InitProjectile().Set(AdjustPosition(_leftSpawn, shipPosition, shipRotation), photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
 
-        Instantiate(ProjectilePrefab, AdjustPosition(_rightSpawn, shipPosition, shipRotation), Quaternion.identity)
-            .Init(photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
+        InitProjectile().Set(AdjustPosition(_rightSpawn, shipPosition, shipRotation), photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
     }
 
-    
+    private Projectile InitProjectile()
+    {
+        return GetProjectile().Initialize(ProjectilePool.Instance.AutocannonPool);
+    }
+
 }

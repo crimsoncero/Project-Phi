@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Doom Laser Cannon
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Doom Laser Cannon
+  <WeaponEnum>k__BackingField: 4
   <FiringMethod>k__BackingField: 2
   <MaxAmmo>k__BackingField: 1
   <FireRate>k__BackingField: 0

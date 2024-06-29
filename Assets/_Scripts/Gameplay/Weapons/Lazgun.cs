@@ -20,8 +20,12 @@ public class Lazgun : Weapon
 
     public override void Fire(PhotonView photonView, Vector3 shipPosition, Quaternion shipRotation, Vector2 shipVelocity, float lag, int currentAmmo)
     {
-        Instantiate(ProjectilePrefab, AdjustPosition(_spawnPoint, shipPosition, shipRotation), Quaternion.identity)
-             .Init(photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
+        InitProjectile().Set(AdjustPosition(_spawnPoint, shipPosition, shipRotation), photonView.Owner, Damage, AdjustVelocity(shipVelocity, shipRotation), shipRotation, lag);
+    }
+
+    private Projectile InitProjectile()
+    {
+        return GetProjectile().Initialize(ProjectilePool.Instance.LazgunPool);
     }
 
     /// <summary>
@@ -36,7 +40,6 @@ public class Lazgun : Weapon
         duration = Mathf.Clamp(duration, 0, SustainFireDuration * PercentageToMaxRamp);
         duration = Mathf.Lerp(0, 1, duration / (SustainFireDuration  * PercentageToMaxRamp));
 
-        Debug.Log(HeatPerShot * FireRate * CoolingRampCurve.Evaluate(duration) * deltaTime);
         // Fire Rate * Heat Per Shot = Heat Per Second 
         return HeatPerShot * FireRate * CoolingRampCurve.Evaluate(duration) * deltaTime;
 

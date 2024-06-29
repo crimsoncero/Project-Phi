@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Void Mine Dispenser
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Void Mine Dispenser
+  <WeaponEnum>k__BackingField: 3
   <FiringMethod>k__BackingField: 0
   <MaxAmmo>k__BackingField: 3
   <FireRate>k__BackingField: 0

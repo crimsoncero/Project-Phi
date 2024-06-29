@@ -20,7 +20,6 @@ public abstract class Weapon : ScriptableObject
     [field: SerializeField] public GameObject WeaponPrefab { get; set; }
 
 
-
     [Space]
     [Header("Projectile Attributes")]
     [field: SerializeField] public Projectile ProjectilePrefab;
@@ -55,5 +54,14 @@ public abstract class Weapon : ScriptableObject
         {
             return ProjectileVelocity;
         }
+    }
+
+    /// <summary>
+    /// Easy access to the projectile pool get projectile.
+    /// </summary>
+    /// <returns></returns>
+    protected Projectile GetProjectile()
+    {
+        return ProjectilePool.Instance.GetProjectile(this);
     }
 }
