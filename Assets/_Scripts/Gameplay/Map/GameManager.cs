@@ -8,11 +8,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     // !!!!REMOVE AFTER TESTING!!!
     [SerializeField] private MPTester _tester;
-
+    [SerializeField] private bool _isOffline;
 
     private void Start()
     {
-       InitPlayer();
+        if(_isOffline)
+            PhotonNetwork.OfflineMode = true;
+
+        if (!PhotonNetwork.OfflineMode)
+            InitPlayer();
     }
 
     private void InitPlayer()
