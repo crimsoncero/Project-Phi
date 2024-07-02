@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             ClientSpaceship = spaceship;
     }
 
+
+
     public Spaceship FindSpaceship(GameObject shipObject)
     {
         if (shipObject.IsUnityNull()) return null;

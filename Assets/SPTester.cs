@@ -2,7 +2,7 @@ using MoreMountains.Tools;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+
 
 public class SPTester : MonoBehaviourPunCallbacks
 {

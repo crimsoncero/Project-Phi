@@ -87,7 +87,7 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.tag == "Player")
             {
                 Spaceship shipHit = GameManager.Instance.FindSpaceship(collision.gameObject);
-                if (shipHit != null) ;
+                if (shipHit != null)
                     shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, Damage);
             }
         }
