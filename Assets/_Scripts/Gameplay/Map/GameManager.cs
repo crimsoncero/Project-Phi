@@ -57,13 +57,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         ClientSpaceship = ship.GetComponent<Spaceship>();
         ship.GetComponent<PlayerController>().enabled = true;
         ship.GetComponent<PlayerInput>().enabled = true;
-        ship.name = $"{PhotonNetwork.LocalPlayer.NickName}'s Ship";
     }
 
     public void RegisterSpaceship(Spaceship spaceship)
     {
-        if(!SpaceshipList.Contains(spaceship))
+        if (!SpaceshipList.Contains(spaceship))
+        {
             SpaceshipList.Add(spaceship);
+            spaceship.name = $"{spaceship.photonView.Owner.NickName}'s Ship";
+        }
 
         if (spaceship.photonView.CreatorActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
         {

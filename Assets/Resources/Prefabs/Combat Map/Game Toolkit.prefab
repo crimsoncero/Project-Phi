@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad615032d859274aa273c152570dd78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _followCamera: {fileID: 0}
+  _followCamera: {fileID: 6204159845356095732}
   _isOffline: 0
 --- !u!1 &4296472201247268403
 GameObject:
@@ -485,11 +485,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0.5
   m_Points:
-  - {x: -925, y: -975.5193}
-  - {x: -925, y: -1025.5193}
-  - {x: -995, y: -1025.5193}
-  - {x: -995, y: -975.5193}
-  - {x: -925, y: -975.5193}
+  - {x: 35, y: 25}
+  - {x: 35, y: -25}
+  - {x: -35, y: -25}
+  - {x: -35, y: 25}
+  - {x: 35, y: 25}
   m_AdjacentStartPoint: {x: -8, y: 2}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -531,11 +531,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -935, y: -985.5193}
-  - {x: -935, y: -1015.5193}
-  - {x: -985, y: -1015.5193}
-  - {x: -985, y: -985.5193}
-  - {x: -935, y: -985.5193}
+  - {x: 25, y: 15}
+  - {x: 25, y: -15}
+  - {x: -25, y: -15}
+  - {x: -25, y: 15}
+  - {x: 25, y: 15}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -627,13 +627,13 @@ Transform:
   m_GameObject: {fileID: 9088440923934125076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 1000.5193, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2016803138585640616}
   - {fileID: 966113598892226109}
   - {fileID: 4001488301974794294}
-  - {fileID: 2016803138585640616}
   - {fileID: 8711107503718784215}
   - {fileID: 1743261759328717783}
   m_Father: {fileID: 0}
