@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
+    [Header("Components")]
+    [SerializeField] private CinemachineCamera _followCamera;
+
     /// <summary>
     /// The Spaceship is controlled by this client player.
     /// </summary>
@@ -22,7 +26,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// </summary>
     public List<Spaceship> SpaceshipList { get; private set; } = new List<Spaceship>();
 
-
+    [Header("Settings")]
     [SerializeField] private bool _isOffline;
 
     private void Awake()
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         ClientSpaceship = ship.GetComponent<Spaceship>();
         ship.GetComponent<PlayerController>().enabled = true;
         ship.GetComponent<PlayerInput>().enabled = true;
+        ship.name = $"{PhotonNetwork.LocalPlayer.NickName}'s Ship";
     }
 
     public void RegisterSpaceship(Spaceship spaceship)
@@ -60,8 +65,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(!SpaceshipList.Contains(spaceship))
             SpaceshipList.Add(spaceship);
 
-        if (spaceship.photonView.AmOwner)
+        if (spaceship.photonView.CreatorActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
             ClientSpaceship = spaceship;
+            _followCamera.Follow = spaceship.transform;
+        }
+            
+
     }
 
 
