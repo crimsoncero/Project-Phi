@@ -7,7 +7,6 @@ public class Spaceship : MonoBehaviourPun
 {
     public event Action<float> OnHeatChanged;
 
-
     [field: SerializeField] public int Health { get; private set; }
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
     [field: SerializeField] public Weapon SpecialWeapon { get; private set; }
@@ -41,13 +40,16 @@ public class Spaceship : MonoBehaviourPun
     public bool CanPrimaryFire { get; private set; } = true;
     public bool CanSpecialFire { get; private set; } = true;
 
+    private void Awake()
+    {
+        GameManager.Instance.RegisterSpaceship(this);
+    }
     private void OnEnable()
     {
         if(SpecialWeapon != null)
             SpecialAmmo = SpecialWeapon.MaxAmmo;
         if (PrimaryWeapon != null)
             PrimaryHeat = 0;
-
     }
 
     #region Pun RPC
@@ -106,6 +108,12 @@ public class Spaceship : MonoBehaviourPun
     private void RPC_ClearSpecial()
     {
         StartCoroutine(ClearSpecial());
+    }
+    public const string RPC_HIT = "RPC_Hit";
+    [PunRPC]
+    private void RPC_Hit(int damageTaken)
+    {
+        Debug.Log($"Hit for {damageTaken} damage");
     }
 
     #endregion

@@ -49,6 +49,7 @@ MonoBehaviour:
   - RPC_SetSpecial
   - FireAnim
   - RPC_FireAnim
+  - RPC_Hit
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

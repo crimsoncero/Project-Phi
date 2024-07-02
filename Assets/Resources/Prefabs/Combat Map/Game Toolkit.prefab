@@ -131,7 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad615032d859274aa273c152570dd78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tester: {fileID: 0}
   _isOffline: 0
 --- !u!1 &6474143786233473175
 GameObject:
@@ -220,11 +219,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0.5
   m_Points:
-  - {x: 35, y: 25}
-  - {x: 35, y: -25}
-  - {x: -35, y: -25}
-  - {x: -35, y: 25}
-  - {x: 35, y: 25}
+  - {x: -925, y: -975.5193}
+  - {x: -925, y: -1025.5193}
+  - {x: -995, y: -1025.5193}
+  - {x: -995, y: -975.5193}
+  - {x: -925, y: -975.5193}
   m_AdjacentStartPoint: {x: -8, y: 2}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -266,11 +265,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 25, y: 15}
-  - {x: 25, y: -15}
-  - {x: -25, y: -15}
-  - {x: -25, y: 15}
-  - {x: 25, y: 15}
+  - {x: -935, y: -985.5193}
+  - {x: -935, y: -1015.5193}
+  - {x: -985, y: -1015.5193}
+  - {x: -985, y: -985.5193}
+  - {x: -935, y: -985.5193}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0

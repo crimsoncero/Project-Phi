@@ -1,6 +1,8 @@
+using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
@@ -48,11 +50,6 @@ public class Projectile : MonoBehaviour
             _pool.Release(this);
     }
 
-    public void Init(Player owner, int damage, float velocity, Quaternion shipRotation, float lag)
-    {
-        
-    }
-
     private IEnumerator LatencyCatchup(Vector2 baseVelocity, Vector2 startingPosition, float lag)
     {
         while (true)
@@ -78,6 +75,28 @@ public class Projectile : MonoBehaviour
             yield return null;
             lag += Time.deltaTime;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Don't hit your owner.
+        if (collision.gameObject == GameManager.Instance.FindSpaceship(Owner).gameObject)
+            return;
+        if(PhotonNetwork.LocalPlayer == Owner)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                Spaceship shipHit = GameManager.Instance.FindSpaceship(collision.gameObject);
+                if (shipHit != null) ;
+                    shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, Damage);
+            }
+        }
+        
+
+
+
+
+        this.gameObject.SetActive(false);
     }
 
 }

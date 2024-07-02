@@ -6,17 +6,13 @@ using UnityEngine.UI;
 
 public class SPTester : MonoBehaviourPunCallbacks
 {
+
+    private const string SpaceshipPrefabPath = "Prefabs\\Game\\Ship";
+    [SerializeField] private Transform _trainingDummySpawn;
     [SerializeField] private MMProgressBar _heatBar;
-    [SerializeField] private GameObject _player;
-    private PlayerController _playerController;
     private Spaceship _shipController;
     
     
-    private void Start()
-    {
-        PhotonNetwork.OfflineMode = true;
-    }
-
     public override void OnEnable()
     {
         base.OnEnable();
@@ -41,11 +37,16 @@ public class SPTester : MonoBehaviourPunCallbacks
 
     private void Init()
     {
-        _playerController = _player.GetComponent<PlayerController>();
-        _shipController = _player.GetComponent<Spaceship>();
-        _playerController.enabled = true;
-        _player.GetComponent<PlayerInput>().enabled = true;
+        GameObject ship = PhotonNetwork.Instantiate(SpaceshipPrefabPath, Vector3.zero, Quaternion.identity);
+        ship.name = "PlayerShip";
+        ship.GetComponent<PlayerController>().enabled = true;
+        ship.GetComponent<PlayerInput>().enabled = true;
+        _shipController = ship.GetComponent<Spaceship>();
         _shipController.OnHeatChanged += UpdateHeatBar;
+
+
+        GameObject dummy = PhotonNetwork.InstantiateRoomObject(SpaceshipPrefabPath, _trainingDummySpawn.position, _trainingDummySpawn.rotation);
+        dummy.name = "Training Dummy";
     }
 
     public void SetWeapon(int weaponEnum)
