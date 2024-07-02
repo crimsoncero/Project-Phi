@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// <summary>
     /// The Spaceship is controlled by this client player.
     /// </summary>
-    public Spaceship ClientSpaceship { get; private set; }
+    public Spaceship ClientSpaceship { get; private set; } = null;
 
     /// <summary>
     /// A list of all registered spaceships in the game.
@@ -67,13 +67,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             spaceship.name = $"{spaceship.photonView.Owner.NickName}'s Ship";
         }
 
+        // Actions to do after registering the client's ship.
         if (spaceship.photonView.CreatorActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             ClientSpaceship = spaceship;
             _followCamera.Follow = spaceship.transform;
-        }
-            
 
+            UIManager.Instance.Init(); // Init UI after player's ship was added.
+        }
     }
 
 

@@ -21,7 +21,7 @@ public class SPTester : MonoBehaviourPunCallbacks
     public override void OnDisable()
     {
         base.OnDisable();
-        _shipController.OnHeatChanged -= UpdateHeatBar;
+   
     }
     public override void OnConnectedToMaster()
     {
@@ -42,7 +42,6 @@ public class SPTester : MonoBehaviourPunCallbacks
         ship.GetComponent<PlayerController>().enabled = true;
         ship.GetComponent<PlayerInput>().enabled = true;
         _shipController = ship.GetComponent<Spaceship>();
-        _shipController.OnHeatChanged += UpdateHeatBar;
 
 
         GameObject dummy = PhotonNetwork.InstantiateRoomObject(SpaceshipPrefabPath, _trainingDummySpawn.position, _trainingDummySpawn.rotation);
@@ -54,8 +53,5 @@ public class SPTester : MonoBehaviourPunCallbacks
         _shipController.photonView.RPC(Spaceship.RPC_SET_SPECIAL, Photon.Pun.RpcTarget.All, (WeaponEnum)weaponEnum);
     }
 
-    public void UpdateHeatBar(float progress)
-    {
-        _heatBar.UpdateBar(_shipController.PrimaryHeat, 0, _shipController.PrimaryWeapon.MaxHeat);
-    }
+    
 }

@@ -1,3 +1,5 @@
+using ExitGames.Client.Photon;
+using MSLIMA.Serializer;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
@@ -24,6 +26,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             RoomList = new List<RoomInfo>();
         }
     }
+
+    private void RegisterCustomTypes()
+    {
+    }
+
 
     // General settings to setup when connecting to the game.
     private void SettingsSetup()
@@ -62,6 +69,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
         PhotonNetwork.JoinLobby(TypedLobby.Default);
         Debug.Log($"{PhotonNetwork.NickName} Connected to Master");
+
+        RegisterCustomTypes();
     }
     public override void OnJoinedLobby()
     {

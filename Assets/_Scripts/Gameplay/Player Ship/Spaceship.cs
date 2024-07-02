@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,8 +7,9 @@ using UnityEngine;
 public class Spaceship : MonoBehaviourPun
 {
     public event Action<float> OnHeatChanged;
+    public event Action OnHealthChanged;
 
-    [field: SerializeField] public int Health { get; private set; }
+    [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
     [field: SerializeField] public Weapon SpecialWeapon { get; private set; }
     [SerializeField] private float _globalCooldown;
@@ -16,6 +18,20 @@ public class Spaceship : MonoBehaviourPun
     [SerializeField] private WeaponAnimator _weaponAnimator;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private WeaponList _weaponList;
+    [SerializeField] private ShipFeedbacks _shipFeedbacks;
+
+
+    // Health
+    private int _currentHealth;
+    public int CurrentHealth
+    {
+        get { return _currentHealth; }
+        set 
+        { 
+            _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
+            OnHealthChanged?.Invoke();
+        }
+    }
 
 
     // Heat and Ammo
@@ -33,7 +49,7 @@ public class Spaceship : MonoBehaviourPun
 		get { return _specialAmmo; }
 		set { _specialAmmo = Mathf.Clamp(value, 0, SpecialWeapon.MaxAmmo); }
 	}
-
+    
     // Fire Control
 
     public bool CanGlobalFire { get; private set; } = true;
@@ -46,10 +62,7 @@ public class Spaceship : MonoBehaviourPun
     }
     private void OnEnable()
     {
-        if(SpecialWeapon != null)
-            SpecialAmmo = SpecialWeapon.MaxAmmo;
-        if (PrimaryWeapon != null)
-            PrimaryHeat = 0;
+        Init();
     }
 
     #region Pun RPC
@@ -111,12 +124,28 @@ public class Spaceship : MonoBehaviourPun
     }
     public const string RPC_HIT = "RPC_Hit";
     [PunRPC]
-    private void RPC_Hit(int damageTaken)
+    private void RPC_Hit(int damage, Player owner, Vector3 position)
     {
-        Debug.Log($"Hit for {damageTaken} damage");
+        
+        if(owner.IsLocal)
+            _shipFeedbacks.TriggerDamageText(damage, position);
+
+        TakeDamage(damage);
+
     }
 
     #endregion
+
+
+    public void Init()
+    {
+        if (SpecialWeapon != null)
+            SpecialAmmo = SpecialWeapon.MaxAmmo;
+        if (PrimaryWeapon != null)
+            PrimaryHeat = 0;
+
+        CurrentHealth = MaxHealth;
+    }
 
     public void SetSpecial(Weapon weapon)
     {
@@ -128,6 +157,12 @@ public class Spaceship : MonoBehaviourPun
         yield return new WaitUntil(() => CanSpecialFire);
         _weaponAnimator.SetWeapon(null);
         SpecialWeapon = null;
+    }
+
+    private void TakeDamage(int damage)
+    {
+        if (damage <= 0) return;
+        CurrentHealth -= damage;
     }
 
     private IEnumerator CooldownPrimary()

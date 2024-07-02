@@ -1,14 +1,15 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.UIElements;
+
 
 public class Projectile : MonoBehaviour
 {
+
     public Player Owner { get; private set; }
     public int Damage { get; private set; }
 
@@ -88,7 +89,7 @@ public class Projectile : MonoBehaviour
             {
                 Spaceship shipHit = GameManager.Instance.FindSpaceship(collision.gameObject);
                 if (shipHit != null)
-                    shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, Damage);
+                    shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, Damage, Owner, transform.position);
             }
         }
         
