@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         Input.Disable();
     }
 
-    // Update is called once per frame
+    // UpdateTag is called once per frame
     void FixedUpdate()
     {
         Movement();

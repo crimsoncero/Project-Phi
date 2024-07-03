@@ -10,9 +10,12 @@ public class PlayerTag : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI _nickname;
     [SerializeField] private Image _masterSign;
     [SerializeField] private Image _tagBackground;
+    [SerializeField] private Image _colorImage;
 
 
     [SerializeField] private Color _inActiveColor;
+
+    private SpaceshipConfig _config = null;
 
     private Player _playerInfo = null;
     public Player PlayerInfo
@@ -21,29 +24,27 @@ public class PlayerTag : MonoBehaviour
         set
         {
             _playerInfo = value;
-            Update();
+            UpdateTag();
         }
     }
 
     public bool IsEmpty { get { return _playerInfo == null; } }
 
-    public void Update()
+    public void UpdateTag()
     {
         // Empty Tag Settings
         if(_playerInfo == null)
         {
             _nickname.text = string.Empty;
             _masterSign.enabled = false;
+            _colorImage.enabled = false;
         }
         // Init for current player info
         else
         {
             _nickname.text = PlayerInfo.NickName;
             _masterSign.enabled = PlayerInfo.IsMasterClient;
-
-            PlayerProperties prop = new PlayerProperties(PlayerInfo);
-            
-
+            UpdateColor();
         }
     }
 
@@ -53,5 +54,12 @@ public class PlayerTag : MonoBehaviour
         _tagBackground.color = _inActiveColor;
     }
 
+    private void UpdateColor()
+    {
+        if (_playerInfo.GetShipConfigID() < 0) return;
+        _config = MainMenuManager.Instance.ShipConfigList.GetConfig(_playerInfo.GetShipConfigID());
+        _colorImage.enabled = true;
+        _colorImage.color = _config.Color;
+    }
     
 }

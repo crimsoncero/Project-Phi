@@ -17,7 +17,6 @@ public class Spaceship : MonoBehaviourPun
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private WeaponAnimator _weaponAnimator;
     [SerializeField] private PlayerController _playerController;
-    [SerializeField] private WeaponList _weaponList;
     [SerializeField] private ShipFeedbacks _shipFeedbacks;
     [SerializeField] private SpriteRenderer _renderer;
 
@@ -55,6 +54,8 @@ public class Spaceship : MonoBehaviourPun
     public bool CanGlobalFire { get; private set; } = true;
     public bool CanPrimaryFire { get; private set; } = true;
     public bool CanSpecialFire { get; private set; } = true;
+
+    private SpaceshipConfig _config;
 
     private void Awake()
     {
@@ -111,7 +112,7 @@ public class Spaceship : MonoBehaviourPun
     [PunRPC]
     private void RPC_SetSpecial(WeaponEnum weaponEnum)
     {
-        SpecialWeapon = _weaponList.GetWeapon(weaponEnum);
+        SpecialWeapon = GameManager.Instance.WeaponList.GetWeapon(weaponEnum);
         SpecialAmmo = SpecialWeapon.MaxAmmo;
         _weaponAnimator.SetWeapon(SpecialWeapon);
     }
@@ -140,6 +141,8 @@ public class Spaceship : MonoBehaviourPun
             PrimaryHeat = 0;
 
         CurrentHealth = MaxHealth;
+        _config = GameManager.Instance.ShipConfigList.GetPlayerConfig(photonView.Owner);
+        _renderer.material = _config.Material;
     }
 
     public void SetSpecial(Weapon weapon)

@@ -40,7 +40,7 @@ public class GameListPanel : MonoBehaviour
             }
         }
 
-        // Add/Update room in the list.
+        // Add/UpdateTag room in the list.
         foreach (RoomInfo info in roomList)
         {
             if(_gamesList.ContainsKey(info.Name))
@@ -52,7 +52,7 @@ public class GameListPanel : MonoBehaviour
             }
         }
 
-        // Update all Game Tags
+        // UpdateTag all Game Tags
         foreach(var tag in _gamesList)
         {
             tag.Value.UpdateTag();

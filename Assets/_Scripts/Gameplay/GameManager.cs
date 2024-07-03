@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
+    
     [Header("Components")]
     [SerializeField] private CinemachineCamera _followCamera;
 
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Settings")]
     [SerializeField] private bool _isOffline;
+    [field: SerializeField] public WeaponList WeaponList { get; set; }
+    [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
 
     private void Awake()
     {

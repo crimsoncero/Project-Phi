@@ -14,6 +14,8 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
 
     private List<GameObject> _panelList;
 
+    [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
+
     [Header("Panels")]
     [SerializeField] private LoginPanel _loginPanel;
     [SerializeField] private MenuPanel _menuPanel;

@@ -494,6 +494,18 @@ PrefabInstance:
       propertyPath: _followCamera
       value: 
       objectReference: {fileID: 1923665865}
+    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
+      propertyPath: <WeaponList>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 02507e23c9b6b5140b0852911ea721fd, type: 2}
+    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
+      propertyPath: <ShipConfigList>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: eb12e5de41f59af40b5bbf482cf98d8d, type: 2}
+    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
+      propertyPath: <ShipconfigList>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: eb12e5de41f59af40b5bbf482cf98d8d, type: 2}
     - target: {fileID: 1871914566491049166, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: ChannelMode
       value: 0

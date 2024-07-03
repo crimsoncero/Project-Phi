@@ -10,8 +10,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 {
     private static ConnectionManager _instance;
     public static ConnectionManager Instance { get { return _instance; } }
-
-    [SerializeField] private SpaceshipConfig _baseConfig;
     public List<RoomInfo> RoomList {  get; private set; }
 
     public bool IsConnected { get { return PhotonNetwork.IsConnectedAndReady; } }
@@ -36,6 +34,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     private void SettingsSetup()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LocalPlayer.CustomProperties = PlayerProperties.Init();
     }
 
     // Actions

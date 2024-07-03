@@ -34,7 +34,7 @@ namespace TMPro.Examples
         }
 
 
-        // Update is called once per frame
+        // UpdateTag is called once per frame
         void Update()
         {
             switch (Motion)

@@ -14,7 +14,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
     [SerializeField] private List<PlayerTag> _playerTags = new List<PlayerTag>(RoomSettings.MAXPLAYERS);
 
-    [SerializeField] private List<SpaceshipConfig> _spaceshipConfigs;
 
     private Dictionary<int, bool> _configsInUse = new Dictionary<int, bool>();
     private bool InRoom { get { return PhotonNetwork.InRoom; } }
@@ -24,17 +23,22 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     private void Awake()
     {
         // Init configs in use dict
-        foreach (var config in _spaceshipConfigs)
+        foreach (var config in MainMenuManager.Instance.ShipConfigList.ConfigList)
             _configsInUse.Add(config.ID, false);
     }
     public override void OnEnable()
     {
         base.OnEnable();
 
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
+        {
             _startButton.SetActive(true);
+            AssignConfig(PhotonNetwork.LocalPlayer);
+        }
         else
+        {
             _startButton.SetActive(false);
+        }
 
 
         InitPlayerTags();
@@ -92,6 +96,12 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
             _playerTags[i].PlayerInfo = null;
     }
 
+    private void UpdatePlayerTags()
+    {
+        foreach (PlayerTag tag in _playerTags)
+            tag.UpdateTag();
+    }
+
     public void OnStartMatch()
     {
         CurrentRoom.PlayerTtl = -1;
@@ -100,10 +110,37 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         StartCoroutine(LoadAsyncScene());
     }
 
+    private void AssignConfig(Player player)
+    {
+        int[] freeConfigs = _configsInUse.Where((c) => c.Value == false).Select((k) => k.Key).ToArray();
+
+        if (freeConfigs.Length <= 0) return;
+
+        int index = Random.Range(0, freeConfigs.Length);
+
+        int configID = freeConfigs[index];
+        _configsInUse[configID] = true;
+
+        player.SetShipConfigID(configID);
+        Debug.Log("Assigned Player Config:" +  configID);
+
+    }
+
+    private void ReleaseConfig(Player player)
+    {
+        int configID = player.GetShipConfigID();
+
+        _configsInUse[configID] = false;
+    }
+
+
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
+        if (PhotonNetwork.IsMasterClient)
+            AssignConfig(newPlayer);
 
 
         AddPlayerTag(newPlayer);
@@ -115,9 +152,17 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         base.OnPlayerLeftRoom(otherPlayer);
         RemovePlayerTag(otherPlayer);
 
+        ReleaseConfig(otherPlayer);
     }
 
-    
-    
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+
+        Debug.Log(targetPlayer.GetShipConfigID());
+        UpdatePlayerTags();
+    }
+
+
 
 }
