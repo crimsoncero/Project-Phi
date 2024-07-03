@@ -9,11 +9,11 @@ public class PlayerProperties
 {
     public Hashtable HashTable {  get; private set; }
 
-	private SpaceshipConfig _spaceshipConfig = null;
+	private int _spaceshipConfig;
 
-	public SpaceshipConfig SpaceshipConfig
+	public int SpaceshipConfig
 	{
-		get { return (SpaceshipConfig)HashTable['c']; }
+		get { return (int)HashTable['c']; }
 		set
 		{
 			_spaceshipConfig = value;
@@ -25,9 +25,15 @@ public class PlayerProperties
 	{
 		HashTable = new Hashtable()
 		{
-			{'c', _spaceshipConfig },
+			{'c', 0 },
 		};
 		
+	}
+
+	public PlayerProperties(SpaceshipConfig config)
+	{
+		PlayerProperties prop = new PlayerProperties();
+		prop.SpaceshipConfig = config.ID;
 	}
 
 	public PlayerProperties (Hashtable customProperties)

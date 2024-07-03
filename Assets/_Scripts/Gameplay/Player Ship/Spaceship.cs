@@ -19,7 +19,7 @@ public class Spaceship : MonoBehaviourPun
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private WeaponList _weaponList;
     [SerializeField] private ShipFeedbacks _shipFeedbacks;
-    [SerializeField] private Material _shipMaterial;
+    [SerializeField] private SpriteRenderer _renderer;
 
     // Health
     private int _currentHealth;
@@ -140,7 +140,6 @@ public class Spaceship : MonoBehaviourPun
             PrimaryHeat = 0;
 
         CurrentHealth = MaxHealth;
-        _shipMaterial = new PlayerProperties(photonView.Owner.CustomProperties).SpaceshipConfig.Material;
     }
 
     public void SetSpecial(Weapon weapon)

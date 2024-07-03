@@ -615,6 +615,7 @@ MonoBehaviour:
   _playerController: {fileID: -855393122673354210}
   _weaponList: {fileID: 11400000, guid: 02507e23c9b6b5140b0852911ea721fd, type: 2}
   _shipFeedbacks: {fileID: 3434609470133087810}
+  _renderer: {fileID: 7333829496454105374}
 --- !u!1 &6629566599582876085
 GameObject:
   m_ObjectHideFlags: 0

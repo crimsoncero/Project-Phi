@@ -37,8 +37,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
             _startButton.SetActive(false);
 
 
-        photonView.RPC(RPC_AssingPlayerProp, RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
-
         InitPlayerTags();
 
 
@@ -116,47 +114,10 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     {
         base.OnPlayerLeftRoom(otherPlayer);
         RemovePlayerTag(otherPlayer);
-        ReclaimPlayerProp(otherPlayer);
 
     }
 
-    public static string RPC_UpdatePlayerTags = "UpdatePlayerTags";
-    [PunRPC]
-    private void UpdatePlayerTags()
-    {
-        foreach(var tag in _playerTags)
-            tag.Update();
-    }
-
-
-    public static string RPC_AssingPlayerProp = "AssignPlayerProp";
-    [PunRPC]
-    private void AssignPlayerProp(Player player)
-    {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        var freeConfigs = _configsInUse.Where((p) => p.Value == false).ToArray();
-
-        int index = Random.Range(0, freeConfigs.Length);
-
-        int configID = freeConfigs[index].Key;
-        SpaceshipConfig config = _spaceshipConfigs[index];
-
-        _configsInUse[config.ID] = true;
-        PlayerProperties prop = new PlayerProperties();
-        prop.SpaceshipConfig = config;
-        player.CustomProperties = prop.HashTable;
-
-        photonView.RPC(RPC_UpdatePlayerTags, RpcTarget.All);
-    }
-
-    private void ReclaimPlayerProp(Player player)
-    {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        SpaceshipConfig config = new PlayerProperties(player).SpaceshipConfig;
-
-        _configsInUse[config.ID] = false;
-    }
+    
+    
 
 }

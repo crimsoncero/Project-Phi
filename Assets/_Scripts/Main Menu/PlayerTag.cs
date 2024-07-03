@@ -10,7 +10,6 @@ public class PlayerTag : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI _nickname;
     [SerializeField] private Image _masterSign;
     [SerializeField] private Image _tagBackground;
-    [SerializeField] private Image _colorImage;
 
 
     [SerializeField] private Color _inActiveColor;
@@ -35,7 +34,6 @@ public class PlayerTag : MonoBehaviour
         {
             _nickname.text = string.Empty;
             _masterSign.enabled = false;
-            _colorImage.enabled = false;
         }
         // Init for current player info
         else
@@ -44,10 +42,7 @@ public class PlayerTag : MonoBehaviour
             _masterSign.enabled = PlayerInfo.IsMasterClient;
 
             PlayerProperties prop = new PlayerProperties(PlayerInfo);
-            if (prop.SpaceshipConfig == null) return;
-
-            _colorImage.enabled = true;
-            _colorImage.color = prop.SpaceshipConfig.Color;
+            
 
         }
     }
