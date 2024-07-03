@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class RoomProperties
 {
-    public Hashtable Hashtable {  get; private set; }
+    public Hashtable Hashtable { get; private set; }
 
 	private Maps _map = Maps.Random;
     public Maps Map

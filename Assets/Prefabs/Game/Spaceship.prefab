@@ -134,7 +134,7 @@ MonoBehaviour:
       data:
         Active: 1
         UniqueID: -1025692718
-        Label: Floating Text
+        Label: Damage Floating Text
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -232,9 +232,9 @@ MonoBehaviour:
           m_ColorSpace: -1
           m_NumColorKeys: 2
           m_NumAlphaKeys: 2
-        ForceLifetime: 0
+        ForceLifetime: 1
         Lifetime: 0.5
-        PositionMode: 1
+        PositionMode: 2
         TargetTransform: {fileID: 0}
         Direction: {x: 0, y: 0, z: 0}
 --- !u!1 &5640804680741608825
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 1454928307704693278}
   - component: {fileID: 3418695992773287557}
   m_Layer: 3
-  m_Name: Ship
+  m_Name: Spaceship
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -494,6 +494,10 @@ PrefabInstance:
       propertyPath: _followCamera
       value: 
       objectReference: {fileID: 1923665865}
+    - target: {fileID: 1871914566491049166, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
+      propertyPath: ChannelMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5816296936220756941, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: m_Points.Array.data[0].x
       value: 35
@@ -1866,37 +1870,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061309478}
   m_CullTransparentMesh: 1
---- !u!1 &2127935143
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2127935144}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2127935144
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2127935143}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2358854, y: 0.12748925, z: 0.3675284}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7611299192443604413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2006,4 +1979,3 @@ SceneRoots:
   - {fileID: 1196557480}
   - {fileID: 686439458}
   - {fileID: 308548845}
-  - {fileID: 2127935144}

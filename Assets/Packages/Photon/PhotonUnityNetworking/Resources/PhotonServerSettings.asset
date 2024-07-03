@@ -50,6 +50,8 @@ MonoBehaviour:
   - FireAnim
   - RPC_FireAnim
   - RPC_Hit
+  - AssignPlayerProp
+  - UpdatePlayerTags
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class SPTester : MonoBehaviourPunCallbacks
 {
 
-    private const string SpaceshipPrefabPath = "Prefabs\\Game\\Ship";
+    private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     [SerializeField] private Transform _trainingDummySpawn;
     [SerializeField] private MMProgressBar _heatBar;
     private Spaceship _shipController;

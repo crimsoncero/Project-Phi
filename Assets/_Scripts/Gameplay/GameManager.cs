@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    private const string SpaceshipPrefabPath = "Prefabs\\Game\\Ship";
+    private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
 
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
