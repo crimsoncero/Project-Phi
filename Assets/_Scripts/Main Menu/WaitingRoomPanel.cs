@@ -122,7 +122,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         _configsInUse[configID] = true;
 
         player.SetShipConfigID(configID);
-        Debug.Log("Assigned Player Config:" +  configID);
 
     }
 
@@ -159,7 +158,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
-        Debug.Log(targetPlayer.GetShipConfigID());
         UpdatePlayerTags();
     }
 
