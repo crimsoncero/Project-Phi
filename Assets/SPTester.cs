@@ -10,8 +10,9 @@ public class SPTester : MonoBehaviourPunCallbacks
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     [SerializeField] private Transform _trainingDummySpawn;
     [SerializeField] private MMProgressBar _heatBar;
-    private Spaceship _shipController;
-    
+    private Spaceship _playerShip;
+
+    private Spaceship _dummyShip;
     
     public override void OnEnable()
     {
@@ -21,7 +22,6 @@ public class SPTester : MonoBehaviourPunCallbacks
     public override void OnDisable()
     {
         base.OnDisable();
-   
     }
     public override void OnConnectedToMaster()
     {
@@ -39,18 +39,17 @@ public class SPTester : MonoBehaviourPunCallbacks
     {
         GameObject ship = PhotonNetwork.Instantiate(SpaceshipPrefabPath, Vector3.zero, Quaternion.identity);
         ship.name = "PlayerShip";
-        ship.GetComponent<PlayerController>().enabled = true;
-        ship.GetComponent<PlayerInput>().enabled = true;
-        _shipController = ship.GetComponent<Spaceship>();
-
+        
+        _playerShip = ship.GetComponent<Spaceship>();
 
         GameObject dummy = PhotonNetwork.InstantiateRoomObject(SpaceshipPrefabPath, _trainingDummySpawn.position, _trainingDummySpawn.rotation);
         dummy.name = "Training Dummy";
+        _dummyShip = dummy.GetComponent<Spaceship>();
     }
 
     public void SetWeapon(int weaponEnum)
     {
-        _shipController.photonView.RPC(Spaceship.RPC_SET_SPECIAL, Photon.Pun.RpcTarget.All, (WeaponEnum)weaponEnum);
+        _playerShip.photonView.RPC(Spaceship.RPC_SET_SPECIAL, Photon.Pun.RpcTarget.All, (WeaponEnum)weaponEnum);
     }
 
     

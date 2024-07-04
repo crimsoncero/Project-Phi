@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
@@ -8,6 +9,10 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    public event Action OnGameStarted;
+
+
+
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
 
     private static GameManager _instance;
@@ -29,6 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Settings")]
     [SerializeField] private bool _isOffline;
+    [Min(0)][SerializeField] private int _npcCount;
     [field: SerializeField] public WeaponList WeaponList { get; set; }
     [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
 
@@ -54,20 +60,41 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+
+    /// <summary>
+    /// Kickstarts the game at the same time for all players. Only the master client can use this method.
+    /// </summary>
+    private void StartGame()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        OnGameStarted?.Invoke();
+
+        foreach(var spaceship in SpaceshipList)
+            spaceship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, Vector3.zero, Quaternion.identity);
+
+    }
+
+
+
     private void InitPlayer()
     {
         GameObject ship = PhotonNetwork.Instantiate(SpaceshipPrefabPath, Vector3.zero, Quaternion.identity);
         ClientSpaceship = ship.GetComponent<Spaceship>();
-        ship.GetComponent<PlayerController>().enabled = true;
-        ship.GetComponent<PlayerInput>().enabled = true;
+        
     }
-
     public void RegisterSpaceship(Spaceship spaceship)
     {
+        // Register ship and set its initial state.
         if (!SpaceshipList.Contains(spaceship))
         {
             SpaceshipList.Add(spaceship);
             spaceship.name = $"{spaceship.photonView.Owner.NickName}'s Ship";
+
+            spaceship.SetConfig();
+
+            // Deactivate ship until master client starts the game.
+            spaceship.gameObject.SetActive(false);
         }
 
         // Actions to do after registering the client's ship.
@@ -76,12 +103,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             ClientSpaceship = spaceship;
             _followCamera.Follow = spaceship.transform;
 
-            UIManager.Instance.Init(); // Init UI after player's ship was added.
+            UIManager.Instance.Init(); // Initialize UI after player's ship was added.
         }
+
+
+
+        // Master client check if all players ships are ready to start the game:
+        if (PhotonNetwork.IsMasterClient && SpaceshipList.Count == PhotonNetwork.CurrentRoom.PlayerCount + _npcCount)
+            StartGame();
     }
-
-
-
     public Spaceship FindSpaceship(GameObject shipObject)
     {
         if (shipObject.IsUnityNull()) return null;

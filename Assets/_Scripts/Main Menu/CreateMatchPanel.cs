@@ -76,7 +76,7 @@ public class CreateMatchPanel : MonoBehaviour
 
 
 
-        // Init values
+        // Initialize values
         _mapName.text = CurrentMap.ToString();
         _nicknameInputField.text = CurrentNickname;
         _maxPlayerValue.text = CurrentMaxPlayers.ToString();

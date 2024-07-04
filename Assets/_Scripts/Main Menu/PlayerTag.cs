@@ -39,7 +39,7 @@ public class PlayerTag : MonoBehaviour
             _masterSign.enabled = false;
             _colorImage.enabled = false;
         }
-        // Init for current player info
+        // Initialize for current player info
         else
         {
             _nickname.text = PlayerInfo.NickName;

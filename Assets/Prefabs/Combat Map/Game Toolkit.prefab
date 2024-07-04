@@ -580,6 +580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _followCamera: {fileID: 6204159845356095732}
   _isOffline: 0
+  _npcCount: 0
   <WeaponList>k__BackingField: {fileID: 11400000, guid: 02507e23c9b6b5140b0852911ea721fd, type: 2}
   <ShipConfigList>k__BackingField: {fileID: 11400000, guid: eb12e5de41f59af40b5bbf482cf98d8d, type: 2}
 --- !u!1 &4296472201247268403

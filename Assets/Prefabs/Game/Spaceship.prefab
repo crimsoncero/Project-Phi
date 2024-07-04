@@ -613,6 +613,7 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 705207317605256538}
   _weaponAnimator: {fileID: 98204500983031879}
   _playerController: {fileID: -855393122673354210}
+  _playerInput: {fileID: 3588039821323028832}
   _shipFeedbacks: {fileID: 3434609470133087810}
   _renderer: {fileID: 7333829496454105374}
 --- !u!1 &6629566599582876085

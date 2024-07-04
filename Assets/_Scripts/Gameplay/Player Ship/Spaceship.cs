@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Spaceship : MonoBehaviourPun
 {
@@ -17,6 +18,7 @@ public class Spaceship : MonoBehaviourPun
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private WeaponAnimator _weaponAnimator;
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private ShipFeedbacks _shipFeedbacks;
     [SerializeField] private SpriteRenderer _renderer;
 
@@ -63,7 +65,7 @@ public class Spaceship : MonoBehaviourPun
     }
     private void OnEnable()
     {
-        Init();
+        Initialize();
     }
 
     #region Pun RPC
@@ -123,6 +125,7 @@ public class Spaceship : MonoBehaviourPun
     {
         StartCoroutine(ClearSpecial());
     }
+    
     public const string RPC_HIT = "RPC_Hit";
     [PunRPC]
     private void RPC_Hit(int damage, Player owner, Vector3 position)
@@ -130,18 +133,71 @@ public class Spaceship : MonoBehaviourPun
         TakeDamage(damage);
     }
 
+    /// <summary>
+    /// Spawns the ship in the designated location and activates it.
+    /// </summary>
+    public const string RPC_SPAWN = "RPC_Spawn";
+    [PunRPC]
+    private void RPC_Spawn(Vector3 position, Quaternion rotation)
+    {
+        transform.position = position;
+        transform.rotation = rotation;
+
+        gameObject.SetActive(true);
+        
+        if(photonView.IsMine)
+            SetInputActive(true);
+
+    }
+
     #endregion
 
-
-    public void Init()
+    /// <summary>
+    /// Initialize Spaceship stats to default starting values.
+    /// </summary>
+    public void Initialize()
     {
-        if (SpecialWeapon != null)
-            SpecialAmmo = SpecialWeapon.MaxAmmo;
+        
         if (PrimaryWeapon != null)
             PrimaryHeat = 0;
 
+        SpecialWeapon = null;
+
         CurrentHealth = MaxHealth;
-        _config = GameManager.Instance.ShipConfigList.GetPlayerConfig(photonView.Owner);
+
+    }
+
+    /// <summary>
+    /// sets the input and player controller active or deactive. Only works if localplayer is the owner.
+    /// </summary>
+    /// <param name="activate"></param>
+    private void SetInputActive(bool activate)
+    {
+        if (!photonView.IsMine) return; // Not mine
+        if (photonView.IsRoomView) return; // Technically mine, but not really.
+
+        _playerController.enabled = activate;
+        _playerInput.enabled = activate;
+    }
+
+    /// <summary>
+    /// Sets the ship config, if no config is given uses the owner player config.
+    /// </summary>
+    /// <param name="config"></param>
+    public void SetConfig(SpaceshipConfig config = null)
+    {
+        if (config == null)
+        {
+            if (!PhotonNetwork.OfflineMode)
+                _config = GameManager.Instance.ShipConfigList.GetPlayerConfig(photonView.Owner);
+            else
+                _config = GameManager.Instance.ShipConfigList.GetConfig(0);
+        }
+        else
+            _config = config;
+
+
+
         _renderer.material = _config.Material;
     }
 

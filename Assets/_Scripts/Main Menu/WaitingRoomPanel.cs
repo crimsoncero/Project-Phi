@@ -22,7 +22,7 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        // Init configs in use dict
+        // Initialize configs in use dict
         foreach (var config in MainMenuManager.Instance.ShipConfigList.ConfigList)
             _configsInUse.Add(config.ID, false);
     }

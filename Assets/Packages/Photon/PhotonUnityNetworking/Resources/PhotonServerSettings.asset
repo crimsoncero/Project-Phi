@@ -52,6 +52,7 @@ MonoBehaviour:
   - RPC_Hit
   - AssignPlayerProp
   - UpdatePlayerTags
+  - RPC_Spawn
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
