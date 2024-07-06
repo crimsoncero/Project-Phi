@@ -1,11 +1,15 @@
 using Photon.Pun;
+using Photon.Pun.Demo.Asteroids;
 using Photon.Realtime;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -21,22 +25,34 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     [Header("Components")]
     [SerializeField] private CinemachineCamera _followCamera;
+    [SerializeField] private GameObject _spawnPointContainer;
+    [field: SerializeField] public WeaponList WeaponList { get; set; }
+    [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
 
+    [Header("Settings", order = 0)]
+
+    [Header("Offline and NPCs", order = 1)]
+    [SerializeField] private bool _isOffline;
+    [Min(0)][SerializeField] private int _npcCount;
+
+    [Header("Gameplay", order = 1)]
+    [SerializeField] private float _timeToSpawn;
+    [SerializeField] private float _spawnPointCD;
+    
     /// <summary>
     /// The Spaceship is controlled by this client player.
     /// </summary>
     public Spaceship ClientSpaceship { get; private set; } = null;
-
     /// <summary>
     /// A list of all registered spaceships in the game.
     /// </summary>
     public List<Spaceship> SpaceshipList { get; private set; } = new List<Spaceship>();
 
-    [Header("Settings")]
-    [SerializeField] private bool _isOffline;
-    [Min(0)][SerializeField] private int _npcCount;
-    [field: SerializeField] public WeaponList WeaponList { get; set; }
-    [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
+    /// <summary>
+    /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
+    /// </summary>
+    private Dictionary<Transform, bool> _spawnPoints;
+    
 
     private void Awake()
     {
@@ -45,6 +61,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             _instance = this;
+        }
+
+        // Init Spawn Point Dictionary:
+
+        _spawnPoints = new Dictionary<Transform, bool>();
+        foreach (Transform child in _spawnPointContainer.transform)
+        {
+            if (child == _spawnPointContainer.transform) return;
+            _spawnPoints.Add(child, true);
         }
     }
 
@@ -58,6 +83,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             InitPlayer();
         }
+
+        
+
     }
 
 
@@ -71,8 +99,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         OnGameStarted?.Invoke();
 
         foreach(var spaceship in SpaceshipList)
-            spaceship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, Vector3.zero, Quaternion.identity);
-
+        {
+            SpawnShip(spaceship);
+        }
     }
 
 
@@ -127,6 +156,58 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (shipIndex < 0) return null;
 
         return SpaceshipList[shipIndex];
+    }
+
+    private void SpawnShip(Spaceship ship)
+    {
+        Transform transform = GetSpawnPoint();
+        ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation);
+    }
+
+    private Transform GetSpawnPoint()
+    {
+        // default spawn point if there no spawn points were made.
+        Transform p = transform;
+        p.position = Vector3.zero;
+        p.rotation = Quaternion.identity;
+
+        if (_spawnPoints == null || _spawnPoints.Count == 0) return p; 
+
+        // Create array of all the spawn points that are currently ready.
+        Transform[] readySpawns = _spawnPoints.Where((p) => p.Value).Select((p) => p.Key).ToArray();
+        
+        // If there are no available spawn points, reset all the spawn points and try again.
+        if(readySpawns.Length == 0)
+        {
+            ResetSpawnPoints();
+            return GetSpawnPoint();
+        }
+
+
+        int index = Random.Range(0, readySpawns.Length);
+
+        StartCoroutine(SpawnPointCooldown(readySpawns[index]));
+
+        return readySpawns[index];
+    }
+
+    private void ResetSpawnPoints()
+    {
+        if (_spawnPoints.Count == 0) return;
+
+        foreach(var key in  _spawnPoints.Keys)
+        {
+            _spawnPoints[key] = true;
+        }
+    }
+
+    private IEnumerator SpawnPointCooldown(Transform spawnPoint)
+    {
+        _spawnPoints[spawnPoint] = false;
+
+        yield return new WaitForSeconds(_spawnPointCD);
+
+        _spawnPoints[spawnPoint] = true;
     }
 
 }

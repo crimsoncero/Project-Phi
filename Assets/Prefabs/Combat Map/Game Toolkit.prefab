@@ -579,10 +579,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followCamera: {fileID: 6204159845356095732}
-  _isOffline: 0
-  _npcCount: 0
+  _spawnPointContainer: {fileID: 4931804518204113182}
   <WeaponList>k__BackingField: {fileID: 11400000, guid: 02507e23c9b6b5140b0852911ea721fd, type: 2}
   <ShipConfigList>k__BackingField: {fileID: 11400000, guid: eb12e5de41f59af40b5bbf482cf98d8d, type: 2}
+  _isOffline: 0
+  _npcCount: 0
+  _timeToSpawn: 2
+  _spawnPointCD: 4
 --- !u!1 &4296472201247268403
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,6 +681,37 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 0, z: -10}
+--- !u!1 &4931804518204113182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7654530862307922369}
+  m_Layer: 0
+  m_Name: Spawn Points Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7654530862307922369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931804518204113182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6614064135903813612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6474143786233473175
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +724,7 @@ GameObject:
   - component: {fileID: 7256249807791851472}
   - component: {fileID: 5816296936220756941}
   - component: {fileID: 282012410896677512}
+  - component: {fileID: 3436760287049562084}
   m_Layer: 0
   m_Name: Map Bounderies
   m_TagString: Untagged
@@ -725,9 +760,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cullingBoxCollider: {fileID: 5816296936220756941}
-  _mapBoundsCollider: {fileID: 282012410896677512}
+  _mapBorderCollider: {fileID: 282012410896677512}
+  _mapReturnCollider: {fileID: 3436760287049562084}
   _mapSize: {x: 50, y: 30}
   _distanceToCulling: 20
+  _distanceToReturn: 5
+  _cullingColor: {r: 0.5943396, g: 0, b: 0.43928093, a: 0}
+  _borderColor: {r: 0.5471698, g: 0, b: 0, a: 0}
+  _returnColor: {r: 0.7924528, g: 0.2703039, b: 0, a: 0}
+  _showCulling: 0
+  _showBorder: 0
+  _showReturn: 0
 --- !u!68 &5816296936220756941
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -804,7 +847,7 @@ EdgeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -816,6 +859,52 @@ EdgeCollider2D:
   - {x: -25, y: -15}
   - {x: -25, y: 15}
   - {x: 25, y: 15}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!68 &3436760287049562084
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474143786233473175}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 22.5, y: 12.5}
+  - {x: 22.5, y: -12.5}
+  - {x: -22.5, y: -12.5}
+  - {x: -22.5, y: 12.5}
+  - {x: 22.5, y: 12.5}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -917,5 +1006,6 @@ Transform:
   - {fileID: 8711107503718784215}
   - {fileID: 1743261759328717783}
   - {fileID: 5413362752526998624}
+  - {fileID: 7654530862307922369}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
