@@ -555,10 +555,12 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: -804836445776876065}
   - {fileID: 1454928307704693278}
+  - {fileID: 3418695992773287557}
+  - {fileID: 5074847370300067775}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -616,6 +618,7 @@ MonoBehaviour:
   _playerInput: {fileID: 3588039821323028832}
   _shipFeedbacks: {fileID: 3434609470133087810}
   _renderer: {fileID: 7333829496454105374}
+  _shipAnimator: {fileID: 8072868581241268954}
 --- !u!1 &6629566599582876085
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +761,8 @@ GameObject:
   - component: {fileID: 699244922617804077}
   - component: {fileID: 7333829496454105374}
   - component: {fileID: 367877662459287232}
+  - component: {fileID: 8072868581241268954}
+  - component: {fileID: 5074847370300067775}
   m_Layer: 3
   m_Name: Ship
   m_TagString: Untagged
@@ -849,6 +854,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Library: []
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 833323d9e3307124a8df14fbd9918dea, type: 3}
+--- !u!95 &8072868581241268954
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8466454385443944283}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ff87937d6f22b743bed74593643e0a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5074847370300067775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8466454385443944283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 3
+    SynchronizeType: 1
+    Name: HealthState
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1001 &2620417640169599131
 PrefabInstance:
   m_ObjectHideFlags: 0

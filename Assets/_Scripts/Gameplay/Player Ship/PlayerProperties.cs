@@ -8,6 +8,7 @@ using Photon.Realtime;
 public static class PlayerProperties
 {
     public const string SHIP_CONFIG = "c";
+    public const string SCORE = "s";
 
     public static bool SetShipConfigID(this Player player, int id)
     {
@@ -15,6 +16,7 @@ public static class PlayerProperties
         if (id < 0) return false;
 
         Hashtable t = new Hashtable() { { SHIP_CONFIG, id } };
+
 
         return player.SetCustomProperties(t);
     }
@@ -31,6 +33,7 @@ public static class PlayerProperties
         Hashtable t = new Hashtable()
         {
             { SHIP_CONFIG, -1 },
+            { SCORE, 0}
         };
 
         return t;

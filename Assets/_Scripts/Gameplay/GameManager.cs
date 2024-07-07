@@ -1,5 +1,4 @@
 using Photon.Pun;
-using Photon.Pun.Demo.Asteroids;
 using Photon.Realtime;
 using System;
 using System.Collections;
@@ -8,7 +7,6 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -166,6 +164,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private Transform GetSpawnPoint()
     {
+        if (!PhotonNetwork.IsMasterClient)
+            throw new Exception("Can't run this on non master client");
+
         // default spawn point if there no spawn points were made.
         Transform p = transform;
         p.position = Vector3.zero;

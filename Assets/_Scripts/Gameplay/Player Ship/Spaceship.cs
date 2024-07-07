@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Spaceship : MonoBehaviourPun
+public class Spaceship : MonoBehaviourPun, IPunObservable
 {
     public event Action<float> OnHeatChanged;
     public event Action OnHealthChanged;
@@ -21,6 +21,7 @@ public class Spaceship : MonoBehaviourPun
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private ShipFeedbacks _shipFeedbacks;
     [SerializeField] private SpriteRenderer _renderer;
+    [SerializeField] private Animator _shipAnimator;
 
     // Health
     private int _currentHealth;
@@ -31,6 +32,9 @@ public class Spaceship : MonoBehaviourPun
         { 
             _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
             OnHealthChanged?.Invoke();
+
+            if (photonView.IsMine)
+                UpdateAnimator();
         }
     }
 
@@ -130,7 +134,8 @@ public class Spaceship : MonoBehaviourPun
     [PunRPC]
     private void RPC_Hit(int damage, Player owner, Vector3 position)
     {
-        TakeDamage(damage);
+        if(photonView.IsMine)
+            TakeDamage(damage);
     }
 
     /// <summary>
@@ -280,4 +285,37 @@ public class Spaceship : MonoBehaviourPun
         CanGlobalFire = true;
     }
 
+    private void UpdateAnimator()
+    {
+        if (!photonView.IsMine) return;
+
+        // Check Health State:
+        int healthState = 0;
+
+        if (_currentHealth > 75)
+            healthState = 0;
+        else if(_currentHealth > 50)
+            healthState = 1;
+        else if(_currentHealth > 25)
+            healthState = 2;
+        else
+            healthState = 3;
+
+        _shipAnimator.SetInteger("HealthState", healthState);
+
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Send Data
+            stream.SendNext(CurrentHealth); // HP Sync
+        }
+        else
+        {
+            // Reciece Data
+            CurrentHealth = (int)stream.ReceiveNext(); // HP Sync
+        }
+    }
 }
