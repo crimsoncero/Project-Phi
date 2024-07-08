@@ -132,10 +132,10 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     
     public const string RPC_HIT = "RPC_Hit";
     [PunRPC]
-    private void RPC_Hit(int damage, Player owner, Vector3 position)
+    private void RPC_Hit(HitData hitData)
     {
         if(photonView.IsMine)
-            TakeDamage(damage);
+            TakeDamage(hitData.Damage);
     }
 
     /// <summary>
