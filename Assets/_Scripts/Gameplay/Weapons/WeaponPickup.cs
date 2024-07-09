@@ -23,23 +23,31 @@ public class WeaponPickup : MonoBehaviourPun
     private InputActionMap _inputMap;
     private InputAction _onInteract;
 
-
     private void Start()
     {
         _inputMap = _inputAsset.FindActionMap("Player");
         _onInteract = _inputMap.FindAction("Interact");
+        
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
         _onInteract.performed += OnInteract;
 
         _canvas.enabled = false;
     }
 
+    private void OnDisable()
+    {
+        _onInteract.performed -= OnInteract;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Enter Collision");
         if (!other.gameObject.CompareTag("Player")) return; // Only consider collisions with player objects.
         if (other.gameObject != GameManager.Instance.ClientSpaceship.gameObject) return; // Only consider collisions with the clients spaceship.
 
-        Debug.Log("Checked");
         IsPickable = true;
         _canvas.enabled = true;
     }
@@ -60,7 +68,6 @@ public class WeaponPickup : MonoBehaviourPun
          
         if (!IsPickable) return;
         if (!IsAvailable) return;
-        Debug.Log("Interacted");
 
         photonView.RPC(RPC_PICkUP_WEAPON, RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
 
@@ -79,5 +86,17 @@ public class WeaponPickup : MonoBehaviourPun
 
         ship.photonView.RPC(Spaceship.RPC_SET_SPECIAL, RpcTarget.All, WeaponEnum);
 
+        gameObject.SetActive(false);
     }
+
+    public static string RPC_SPAWN_WEAPON_PICKUP = "RPC_SpawnWeaponPickup";
+    [PunRPC]
+    private void RPC_ActivateWeaponPickup(WeaponEnum weapon)
+    {
+        WeaponEnum = weapon;
+        gameObject.SetActive(true);
+    }
+
+    
+
 }

@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Gameplay", order = 1)]
     [SerializeField] private float _timeToSpawn;
     [SerializeField] private float _spawnPointCD;
+    [SerializeField] private float _weaponSpawnCD;
+    [SerializeField] private int _startingWeaponCount;
     
     /// <summary>
     /// The Spaceship is controlled by this client player.

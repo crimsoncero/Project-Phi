@@ -54,6 +54,8 @@ MonoBehaviour:
   - UpdatePlayerTags
   - RPC_Spawn
   - RPC_PickupWeapon
+  - RPC_SpawnWeaponPickup
+  - RPC_ActivateWeaponPickup
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
