@@ -562,9 +562,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponRenderer: {fileID: 1577393990837051744}
   _canvas: {fileID: 3858177220379661299}
-  _autoCannonSprite: {fileID: 0}
-  _rocketPodSprite: {fileID: 0}
-  _mineDispenserSprite: {fileID: 0}
-  _doomLaserSprite: {fileID: 0}
+  _autoCannonSprite: {fileID: -2297256138115590949, guid: 936949550f66ab444aca90817582bd92, type: 3}
+  _rocketPodSprite: {fileID: -185129905, guid: eb4c6feb8b37469428bf60314ab17543, type: 3}
+  _mineDispenserSprite: {fileID: -90755004, guid: d14396b3255e1fc4c900fc37492c9ca9, type: 3}
+  _doomLaserSprite: {fileID: -1521184502, guid: d87f488a56b1ac649b351f6edc649a94, type: 3}
   <WeaponEnum>k__BackingField: 1
   _inputAsset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

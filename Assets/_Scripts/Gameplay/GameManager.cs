@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
+    private const string WeaponPickupPrefabPath = "Photon Prefabs\\Weapon Pickup";
 
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
@@ -24,6 +27,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Components")]
     [SerializeField] private CinemachineCamera _followCamera;
     [SerializeField] private GameObject _spawnPointContainer;
+    [SerializeField] private GameObject _weaponSpawnersContainer;
     [field: SerializeField] public WeaponList WeaponList { get; set; }
     [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
 
@@ -102,6 +106,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             SpawnShip(spaceship);
         }
+
+        SpawnWeapons();
     }
 
 
@@ -158,6 +164,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         return SpaceshipList[shipIndex];
     }
 
+    public void WeaponPickedUp(WeaponPickup weapon, bool isInit = false)
+    {
+        if(!isInit)
+            weapon.photonView.RPC(WeaponPickup.RPC_DEACTIVATE, RpcTarget.All);
+        
+        StartCoroutine(SpawnNewWeapon(weapon));
+    }
+
     private void SpawnShip(Spaceship ship)
     {
         Transform transform = GetSpawnPoint();
@@ -211,6 +225,52 @@ public class GameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(_spawnPointCD);
 
         _spawnPoints[spawnPoint] = true;
+    }
+
+    private void SpawnWeapons()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        if (_weaponSpawnersContainer == null) return;
+
+        List<Transform> positions = new();
+
+        foreach(Transform child in _weaponSpawnersContainer.transform)
+        {
+            if (child == _weaponSpawnersContainer.transform) return;
+            positions.Add(child);
+           
+        }
+
+        positions.MMShuffle();
+        int spawnedWeapon = 0;
+        foreach(var position in positions)
+        {
+            object[] data = new object[2];
+            bool isReady = false;
+            data[0] = isReady;
+            if(spawnedWeapon < _startingWeaponCount)
+            {
+                spawnedWeapon++;
+                WeaponEnum w = WeaponList.GetRandomWeaponEnum();
+                isReady = true;
+
+                data[0] = isReady;
+                data[1] = w;
+            }
+
+            GameObject weapon = PhotonNetwork.InstantiateRoomObject(WeaponPickupPrefabPath, position.position, position.rotation, 0, data);
+            weapon.transform.SetParent(_weaponSpawnersContainer.transform);
+
+        }
+    }
+
+    private IEnumerator SpawnNewWeapon(WeaponPickup weapon)
+    {
+        yield return new WaitForSeconds(_weaponSpawnCD);
+
+        WeaponEnum w = WeaponList.GetRandomWeaponEnum();
+
+        weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
     }
 
 }

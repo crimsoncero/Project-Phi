@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class WeaponPickup : MonoBehaviourPun
+public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
 {
     [Header("Components")]
     [SerializeField] private SpriteRenderer _weaponRenderer;
@@ -16,7 +16,6 @@ public class WeaponPickup : MonoBehaviourPun
     [SerializeField] private Sprite _doomLaserSprite;
 
     [field: SerializeField] public WeaponEnum WeaponEnum { get; private set; }
-    public bool IsPickable { get; private set; } = false;
     public bool IsAvailable { get; private set; } = true;
 
     [SerializeField] private InputActionAsset _inputAsset;
@@ -27,20 +26,16 @@ public class WeaponPickup : MonoBehaviourPun
     {
         _inputMap = _inputAsset.FindActionMap("Player");
         _onInteract = _inputMap.FindAction("Interact");
-        
-        gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        _onInteract.performed += OnInteract;
-
         _canvas.enabled = false;
+        IsAvailable = true;
     }
 
     private void OnDisable()
     {
-        _onInteract.performed -= OnInteract;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,7 +43,7 @@ public class WeaponPickup : MonoBehaviourPun
         if (!other.gameObject.CompareTag("Player")) return; // Only consider collisions with player objects.
         if (other.gameObject != GameManager.Instance.ClientSpaceship.gameObject) return; // Only consider collisions with the clients spaceship.
 
-        IsPickable = true;
+        _onInteract.performed += OnInteract;
         _canvas.enabled = true;
     }
 
@@ -57,16 +52,14 @@ public class WeaponPickup : MonoBehaviourPun
         if (!other.gameObject.CompareTag("Player")) return; // Only consider collisions with player objects.
         if (other.gameObject != GameManager.Instance.ClientSpaceship.gameObject) return; // Only consider collisions with the clients spaceship.
 
-        IsPickable = false;
+        _onInteract.performed -= OnInteract;
         _canvas.enabled = false;
 
     }
 
-
     public void OnInteract(InputAction.CallbackContext obj)
     {
          
-        if (!IsPickable) return;
         if (!IsAvailable) return;
 
         photonView.RPC(RPC_PICkUP_WEAPON, RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
@@ -81,22 +74,60 @@ public class WeaponPickup : MonoBehaviourPun
         if (!IsAvailable) return; // Weapon already picked;
 
         IsAvailable = false;
-
         Spaceship ship = GameManager.Instance.SpaceshipList.Where((p) => p.photonView.Owner == player).FirstOrDefault();
-
         ship.photonView.RPC(Spaceship.RPC_SET_SPECIAL, RpcTarget.All, WeaponEnum);
 
+        GameManager.Instance.WeaponPickedUp(this);
+    }
+
+    public static string RPC_DEACTIVATE = "RPC_Deactivate";
+    [PunRPC]
+    private void RPC_Deactivate()
+    {
         gameObject.SetActive(false);
     }
 
-    public static string RPC_SPAWN_WEAPON_PICKUP = "RPC_SpawnWeaponPickup";
+    public static string RPC_ACTIVATE_WEAPON_PICKUP = "RPC_ActivateWeaponPickup";
     [PunRPC]
     private void RPC_ActivateWeaponPickup(WeaponEnum weapon)
     {
         WeaponEnum = weapon;
+
+        switch (weapon)
+        {
+            case WeaponEnum.Autocannon:
+                _weaponRenderer.sprite = _autoCannonSprite;
+                break;
+            case WeaponEnum.RocketPod:
+                _weaponRenderer.sprite = _rocketPodSprite;
+                break;
+            case WeaponEnum.MineDispenser:
+                _weaponRenderer.sprite = _mineDispenserSprite;
+                break;
+            case WeaponEnum.DoomLaser:
+                _weaponRenderer.sprite = _doomLaserSprite;
+                break;
+        }
+
         gameObject.SetActive(true);
     }
 
-    
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        object[] data = info.photonView.InstantiationData;
 
+        if ((bool)data[0])
+        {
+            RPC_ActivateWeaponPickup((WeaponEnum)data[1]);
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+                GameManager.Instance.WeaponPickedUp(this, true);
+
+            gameObject.SetActive(false);
+        }
+
+
+    }
 }

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &94107028429922939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7705917923208431913}
+  m_Layer: 0
+  m_Name: Weapon Spawners Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7705917923208431913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94107028429922939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6614064135903813612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319834858811942145
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +424,7 @@ Transform:
   m_GameObject: {fileID: 1546239874609828939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -580,12 +611,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _followCamera: {fileID: 6204159845356095732}
   _spawnPointContainer: {fileID: 4931804518204113182}
+  _weaponSpawnersContainer: {fileID: 94107028429922939}
   <WeaponList>k__BackingField: {fileID: 11400000, guid: 02507e23c9b6b5140b0852911ea721fd, type: 2}
   <ShipConfigList>k__BackingField: {fileID: 11400000, guid: eb12e5de41f59af40b5bbf482cf98d8d, type: 2}
   _isOffline: 0
   _npcCount: 0
   _timeToSpawn: 2
   _spawnPointCD: 4
+  _weaponSpawnCD: 5
+  _startingWeaponCount: 2
 --- !u!1 &4296472201247268403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,5 +1041,6 @@ Transform:
   - {fileID: 1743261759328717783}
   - {fileID: 5413362752526998624}
   - {fileID: 7654530862307922369}
+  - {fileID: 7705917923208431913}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
