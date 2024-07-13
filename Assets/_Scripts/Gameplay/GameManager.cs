@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public event Action OnGameStarted;
 
-
-
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     private const string WeaponPickupPrefabPath = "Photon Prefabs\\Weapon Pickup";
 

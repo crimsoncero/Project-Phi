@@ -153,6 +153,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         if(photonView.IsMine)
             SetInputActive(true);
 
+
+
     }
 
     #endregion
@@ -222,6 +224,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     {
         if (damage <= 0) return;
         CurrentHealth -= damage;
+
     }
 
     private IEnumerator CooldownPrimary()
@@ -318,4 +321,5 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
             CurrentHealth = (int)stream.ReceiveNext(); // HP Sync
         }
     }
+
 }

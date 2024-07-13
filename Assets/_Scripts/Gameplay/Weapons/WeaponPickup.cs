@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
 {
     [Header("Components")]
     [SerializeField] private SpriteRenderer _weaponRenderer;
-    [SerializeField] private Canvas _canvas;
+    [SerializeField] private TMP_Text _nameText;
 
     [SerializeField] private Sprite _autoCannonSprite;
     [SerializeField] private Sprite _rocketPodSprite;
@@ -30,7 +31,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
 
     private void OnEnable()
     {
-        _canvas.enabled = false;
+        _nameText.enabled = false;
         IsAvailable = true;
     }
 
@@ -44,7 +45,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
         if (other.gameObject != GameManager.Instance.ClientSpaceship.gameObject) return; // Only consider collisions with the clients spaceship.
 
         _onInteract.performed += OnInteract;
-        _canvas.enabled = true;
+        _nameText.enabled = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -53,7 +54,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
         if (other.gameObject != GameManager.Instance.ClientSpaceship.gameObject) return; // Only consider collisions with the clients spaceship.
 
         _onInteract.performed -= OnInteract;
-        _canvas.enabled = false;
+        _nameText.enabled = false;
 
     }
 
@@ -62,11 +63,11 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
          
         if (!IsAvailable) return;
 
-        photonView.RPC(RPC_PICkUP_WEAPON, RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
+        photonView.RPC(RPC_PICKUP_WEAPON, RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
 
     }
 
-    public static string RPC_PICkUP_WEAPON = "RPC_PickupWeapon";
+    public static string RPC_PICKUP_WEAPON = "RPC_PickupWeapon";
     [PunRPC]
     private void RPC_PickupWeapon(Player player)
     {
@@ -109,6 +110,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
                 break;
         }
 
+        _nameText.text = GameManager.Instance.WeaponList.GetWeapon(WeaponEnum).Name;
         gameObject.SetActive(true);
     }
 
@@ -127,7 +129,6 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
 
             gameObject.SetActive(false);
         }
-
-
     }
+
 }

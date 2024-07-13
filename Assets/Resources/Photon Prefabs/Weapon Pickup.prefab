@@ -407,7 +407,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponRenderer: {fileID: 1577393990837051744}
-  _canvas: {fileID: 3858177220379661299}
+  _nameText: {fileID: 638168873336405256}
   _autoCannonSprite: {fileID: -2297256138115590949, guid: 936949550f66ab444aca90817582bd92, type: 3}
   _rocketPodSprite: {fileID: -185129905, guid: eb4c6feb8b37469428bf60314ab17543, type: 3}
   _mineDispenserSprite: {fileID: -90755004, guid: d14396b3255e1fc4c900fc37492c9ca9, type: 3}

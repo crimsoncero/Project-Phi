@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62033c1bc70e36d409d0080a2a0e8c9c, type: 3}
+  m_Name: WeaponList Laser Only
+  m_EditorClassIdentifier: 
+  _lazgun: {fileID: 11400000, guid: 1494b4ab1fbf300418b958baf2717441, type: 2}
+  _autocannon: {fileID: 11400000, guid: 8477271a84c93454482a077c3ea3f73b, type: 2}
+  _autocannonSpawnWeight: 0
+  _rocketPod: {fileID: 11400000, guid: 8aee4c2b3d4a5d444bf26ace0b4f8998, type: 2}
+  _rocketPodSpawnWeight: 0
+  _mineDispenser: {fileID: 11400000, guid: 2eeac9efccf2481488103e872b797742, type: 2}
+  _mineDispenserSpawnWeight: 0
+  _doomLaser: {fileID: 11400000, guid: 894518f17cdcb814db03fbff563139a0, type: 2}
+  _doomLaserSpawnWeight: 1
