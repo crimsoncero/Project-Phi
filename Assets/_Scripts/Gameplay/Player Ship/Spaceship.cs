@@ -151,26 +151,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         // Start ship respawn and raise player score
         if (PhotonNetwork.IsMasterClient)
         {
-
-            /* BUG REPORT!
-             * For some reason, when the master client kills another player,
-             * the hitData that is passed to this method has a null Owner field.
-             * I checked all the methods passing the hitData but couldn't find the point where it breaks.
-             * This only happens with the master client though, after checking for a while.
-             * So the temporary fix is that whenever the owner is null, use the master client instead.
-             * 
-             * This needs further examination.
-             */
-            Player p;
-            if(hitData.Owner == null)
-                p = PhotonNetwork.LocalPlayer;
-            else
-                p = hitData.Owner;
             int k = hitData.Owner.GetPlayerKills() + 1;
             hitData.Owner.SetPlayerKills(k);
-
-            
-            
             GameManager.Instance.SpawnShip(this, true);
         }
 
