@@ -436,6 +436,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8bdaa426-4fbb-448e-9ea8-fac34451bef9
     m_ActionName: 'Player/Special Fire[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ddd94270-109a-47af-969d-f9d3840cb9a3
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -612,6 +616,7 @@ MonoBehaviour:
   <PrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 1494b4ab1fbf300418b958baf2717441, type: 2}
   <SpecialWeapon>k__BackingField: {fileID: 0}
   _globalCooldown: 0.3
+  _immuneTime: 2
   _rigidbody2D: {fileID: 705207317605256538}
   _weaponAnimator: {fileID: 98204500983031879}
   _playerController: {fileID: -855393122673354210}

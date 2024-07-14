@@ -57,6 +57,7 @@ MonoBehaviour:
   - RPC_SpawnWeaponPickup
   - RPC_ActivateWeaponPickup
   - RPC_Deactivate
+  - RPC_Destroyed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

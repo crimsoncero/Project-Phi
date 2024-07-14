@@ -75,7 +75,7 @@ public struct HitData
 
             int actorNumber = -1;
             Protocol.Deserialize(out actorNumber, memHitData, ref index);
-            data.Owner = PhotonNetwork.PlayerListOthers.Where((p) => p.ActorNumber == actorNumber).FirstOrDefault();
+            data.Owner = PhotonNetwork.PlayerList.Where((p) => p.ActorNumber == actorNumber).FirstOrDefault();
 
             Protocol.Deserialize(out data._damage, memHitData, ref index);
             

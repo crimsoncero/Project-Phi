@@ -170,10 +170,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(SpawnNewWeapon(weapon));
     }
 
-    private void SpawnShip(Spaceship ship)
+    public void SpawnShip(Spaceship ship, bool isRespawn = false)
     {
-        Transform transform = GetSpawnPoint();
-        ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation);
+        if (isRespawn)
+            StartCoroutine(WaitForRespawn(ship));
+        else
+        {
+            Transform transform = GetSpawnPoint();
+            ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation);
+        }
+    }
+    private IEnumerator WaitForRespawn(Spaceship ship)
+    {
+        yield return new WaitForSeconds(_timeToSpawn);
+        SpawnShip(ship, false);
     }
 
     private Transform GetSpawnPoint()
@@ -270,5 +280,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
     }
+
 
 }

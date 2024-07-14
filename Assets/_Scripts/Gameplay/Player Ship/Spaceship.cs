@@ -14,6 +14,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
     [field: SerializeField] public Weapon SpecialWeapon { get; private set; }
     [SerializeField] private float _globalCooldown;
+    [SerializeField] private float _immuneTime;
 
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private WeaponAnimator _weaponAnimator;
@@ -38,6 +39,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         }
     }
 
+    public bool IsImmune { get; private set; }
 
     // Heat and Ammo
     public bool IsOverHeating { get; private set; }
@@ -134,8 +136,46 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RPC_Hit(HitData hitData)
     {
+        
+        
+        if (IsImmune)
+            return;
         if(photonView.IsMine)
-            TakeDamage(hitData.Damage);
+            TakeDamage(hitData);
+    }
+
+    public const string RPC_DESTROYED = "RPC_Destroyed";
+    [PunRPC]
+    private void RPC_Destroyed(HitData hitData)
+    {
+        // Start ship respawn and raise player score
+        if (PhotonNetwork.IsMasterClient)
+        {
+
+            /* BUG REPORT!
+             * For some reason, when the master client kills another player,
+             * the hitData that is passed to this method has a null Owner field.
+             * I checked all the methods passing the hitData but couldn't find the point where it breaks.
+             * This only happens with the master client though, after checking for a while.
+             * So the temporary fix is that whenever the owner is null, use the master client instead.
+             * 
+             * This needs further examination.
+             */
+            Player p;
+            if(hitData.Owner == null)
+                p = PhotonNetwork.LocalPlayer;
+            else
+                p = hitData.Owner;
+            int k = hitData.Owner.GetPlayerKills() + 1;
+            hitData.Owner.SetPlayerKills(k);
+
+            
+            
+            GameManager.Instance.SpawnShip(this, true);
+        }
+
+        this.gameObject.SetActive(false);
+
     }
 
     /// <summary>
@@ -143,8 +183,10 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     /// </summary>
     public const string RPC_SPAWN = "RPC_Spawn";
     [PunRPC]
-    private void RPC_Spawn(Vector3 position, Quaternion rotation)
+    private void RPC_Spawn(Vector3 position, Quaternion rotation, PhotonMessageInfo info)
     {
+        float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
+
         transform.position = position;
         transform.rotation = rotation;
 
@@ -153,8 +195,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         if(photonView.IsMine)
             SetInputActive(true);
 
-
-
+        StartCoroutine(ImmuneCoroutine(lag));
+    
     }
 
     #endregion
@@ -171,6 +213,12 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         SpecialWeapon = null;
 
         CurrentHealth = MaxHealth;
+
+        if (photonView.IsMine)
+        {
+            SetInputActive(false);
+            SetInputActive(true);
+        }
 
     }
 
@@ -220,11 +268,13 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         SpecialWeapon = null;
     }
 
-    private void TakeDamage(int damage)
+    private void TakeDamage(HitData hitData)
     {
-        if (damage <= 0) return;
-        CurrentHealth -= damage;
+        if (hitData.Damage <= 0) return;
+        CurrentHealth -= hitData.Damage;
 
+        if (CurrentHealth <= 0)
+            photonView.RPC(RPC_DESTROYED, RpcTarget.All, hitData);
     }
 
     private IEnumerator CooldownPrimary()
@@ -322,4 +372,19 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         }
     }
 
+    private IEnumerator ImmuneCoroutine(float lag)
+    {
+
+        IsImmune = true;
+        _shipAnimator.SetBool("IsImmune", true);
+
+        // reduce the wait time with the time it took to recieve the message.
+        float timeAdjusted = _immuneTime - lag;
+
+        if(timeAdjusted > 0)
+            yield return new WaitForSeconds(timeAdjusted);
+
+        IsImmune = false;
+        _shipAnimator.SetBool("IsImmune", false);
+    }
 }
