@@ -167,6 +167,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RPC_Spawn(Vector3 position, Quaternion rotation, PhotonMessageInfo info)
     {
+
         float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
 
         transform.position = position;
@@ -356,7 +357,6 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
 
     private IEnumerator ImmuneCoroutine(float lag)
     {
-
         IsImmune = true;
         _shipAnimator.SetBool("IsImmune", true);
 

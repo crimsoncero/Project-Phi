@@ -22,6 +22,8 @@ public static class PlayerProperties
     }
     public static int GetShipConfigID(this Player player)
     {
+        if (player == null) return -1;
+
         if (player.CustomProperties.ContainsKey(SHIP_CONFIG))
             return (int) player.CustomProperties[SHIP_CONFIG];
         

@@ -11,14 +11,13 @@ using System.Linq;
 public struct HitData
 {
     private Player _owner;
-
     public Player Owner
     {
         get { return _owner; }
         private set { _owner = value; }
     }
-    private int _damage;
 
+    private int _damage;
     public int Damage
     {
         get { return _damage; }
@@ -26,7 +25,6 @@ public struct HitData
     }
 
     private Vector3 _position;
-
     public Vector3 Position
     {
         get { return _position; }

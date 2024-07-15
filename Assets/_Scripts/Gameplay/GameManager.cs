@@ -8,7 +8,6 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -50,6 +49,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// </summary>
     public List<Spaceship> SpaceshipList { get; private set; } = new List<Spaceship>();
 
+    
     /// <summary>
     /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
     /// </summary>
@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (child == _spawnPointContainer.transform) return;
             _spawnPoints.Add(child, true);
+
         }
     }
 
@@ -234,7 +235,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         _spawnPoints[spawnPoint] = true;
     }
-
     private void SpawnWeapons()
     {
         if (!PhotonNetwork.IsMasterClient) return;
@@ -271,7 +271,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
     }
-
     private IEnumerator SpawnNewWeapon(WeaponPickup weapon)
     {
         yield return new WaitForSeconds(_weaponSpawnCD);

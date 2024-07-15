@@ -619,6 +619,10 @@ PrefabInstance:
       propertyPath: ChannelMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2276956239383794872, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3436760287049562084, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: m_Points.Array.data[0].x
       value: 22.5
