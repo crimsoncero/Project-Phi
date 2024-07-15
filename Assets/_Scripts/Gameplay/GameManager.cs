@@ -193,6 +193,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void SendMessageToChat()
     {
+        if (photonView == null)
+            Debug.Log("photon view is null");
+        photonView.RPC("RPC_SendPublicMessage",RpcTarget.All, PhotonNetwork.LocalPlayer);
+    }
+
+    public void StopTyping()
+    {
+        if (!_chatInputField.IsActive()) return;
+        _chatInputField.text = null;
+        _chatInputField.DeactivateInputField();
+    }
+
+    public const string RPC_SEND_MESSAGE = "RPC_SendPublicMessage";
+    [PunRPC]
+    private void RPC_SendPublicMessage()
+    {
+        Debug.Log("test");
         if (_chatInputField == null || _chatInputField.text == "") return;
         if (_messageList.Count >= _maxMessages)
         {
@@ -223,14 +240,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         newMessage.TextObject.text = $"{PhotonNetwork.NickName}: {newMessage.Text}";
         _messageList.Add(newMessage);
     }
-
-    public void StopTyping()
-    {
-        if (!_chatInputField.IsActive()) return;
-        _chatInputField.text = null;
-        _chatInputField.DeactivateInputField();
-    }
-
     private void SpawnShip(Spaceship ship)
     {
         Transform transform = GetSpawnPoint();
