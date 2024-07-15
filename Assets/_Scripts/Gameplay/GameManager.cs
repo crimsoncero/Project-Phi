@@ -205,7 +205,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         switch (_chatDropDownColor.captionText.text)
         {
             case RED:
-                Debug.Log("selected red");
                 newText.color = Color.red;
                 break;
             case GREEN:
@@ -221,7 +220,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 break;
         }
         newMessage.TextObject = newText;
-        newMessage.TextObject.text = newMessage.Text;
+        newMessage.TextObject.text = $"{PhotonNetwork.NickName}: {newMessage.Text}";
         _messageList.Add(newMessage);
     }
 
