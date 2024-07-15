@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Space]
     [Header("Chat")]
     [SerializeField] private TMP_InputField _chatInputField;
-    [SerializeField] private List<Message> _messageList = new();
-    [SerializeField] private int _maxMessages = 10;
 
     /// <summary>
     /// The Spaceship is controlled by this client player.
