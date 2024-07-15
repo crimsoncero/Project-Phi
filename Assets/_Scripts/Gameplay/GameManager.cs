@@ -21,7 +21,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     private const string WeaponPickupPrefabPath = "Photon Prefabs\\Weapon Pickup";
-
+    private const string RED = "Red";
+    private const string GREEN = "Green";
+    private const string BLUE = "Blue";
+    private const string YELLOW = "Yellow";
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField _chatInputField;
     [SerializeField] private GameObject _chatBox;
     [SerializeField] private TMP_Text _chatText;
+    [SerializeField] private TMP_Dropdown _chatDropDownColor;
     [SerializeField] private List<Message> _messageList = new();
     [SerializeField] private int _maxMessages = 10;
 
@@ -182,22 +186,43 @@ public class GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(SpawnNewWeapon(weapon));
     }
 
-    public void SendMessageToChat(string text)
+    public void EnableChatTyping()
     {
-        if (text == null) return;
         _chatInputField.ActivateInputField();
+    }
+
+    public void SendMessageToChat()
+    {
+        if (_chatInputField == null || _chatInputField.text == "") return;
         if (_messageList.Count >= _maxMessages)
         {
             Destroy(_messageList[0].TextObject.gameObject);
             _messageList.RemoveAt(0);
         }
         Message newMessage = new();
-        newMessage.Text = text;
+        newMessage.Text = _chatInputField.text;
         TMP_Text newText = Instantiate(_chatText, _chatBox.transform);
+        switch (_chatDropDownColor.captionText.text)
+        {
+            case RED:
+                Debug.Log("selected red");
+                newText.color = Color.red;
+                break;
+            case GREEN:
+                newText.color = Color.green;
+                break;
+            case BLUE:
+                newText.color = Color.blue;
+                break;
+            case YELLOW:
+                newText.color = Color.yellow;
+                break;
+            default:
+                break;
+        }
         newMessage.TextObject = newText;
         newMessage.TextObject.text = newMessage.Text;
         _messageList.Add(newMessage);
-        Debug.Log("sent message " + text);
     }
 
     public void StopTyping()

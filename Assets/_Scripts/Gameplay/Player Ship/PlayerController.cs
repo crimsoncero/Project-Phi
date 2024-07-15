@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private InputSystem _inputSystem;
     private Vector2 _moveInput;
     private bool _isGamepad = true;
+    private bool _isChatting = false;
     private InputSystem.PlayerActions Input { get { return _inputSystem.Player; } }
 
     // Movement
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
     
     private void Movement()
     {
+        if (_isChatting)
+            return;
         // Translate
         _rigidbody2D.AddForce(_moveInput *  Time.deltaTime * MoveSpeed);
 
@@ -83,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look(CallbackContext context)
     {
+        if (_isChatting)
+            return; 
         if (_isGamepad)
         {
             Vector2 dir = context.action.ReadValue<Vector2>();
@@ -101,12 +106,16 @@ public class PlayerController : MonoBehaviour
 
     public void Move(CallbackContext context)
     {
+        if (_isChatting)
+            return; 
         _moveInput = context.action.ReadValue<Vector2>();
     }
 
 
     public void FirePrimary()
     {
+        if (_isChatting)
+            return; 
         if (PrimaryWeapon == null) return;
         
         if (!Spaceship.CanGlobalFire) return;
@@ -123,6 +132,8 @@ public class PlayerController : MonoBehaviour
 
     public void FireSpecial()
     {
+        if (_isChatting)
+            return; 
         if (SpecialWeapon == null) return;
 
         if (!Spaceship.CanGlobalFire) return;
@@ -144,12 +155,14 @@ public class PlayerController : MonoBehaviour
     public void StartTypingIntoChat(CallbackContext context)
     {
         if (!context.started) return;
-        GameManager.Instance.SendMessageToChat("test");
+        GameManager.Instance.EnableChatTyping();
+        _isChatting = true;
     }
     public void StopTyping(CallbackContext context)
     {
         if (!context.started) return;
         GameManager.Instance.StopTyping();
+        _isChatting = false;
     }
 
     private void OnDrawGizmos()

@@ -623,6 +623,7 @@ MonoBehaviour:
   _chatInputField: {fileID: 0}
   _chatBox: {fileID: 0}
   _chatText: {fileID: 0}
+  _chatDropDownColor: {fileID: 0}
   _messageList: []
   _maxMessages: 10
 --- !u!1 &4296472201247268403
