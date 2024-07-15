@@ -4,12 +4,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
-using System;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-   
 
 
 
@@ -141,7 +140,18 @@ public class PlayerController : MonoBehaviour
     {
         _isGamepad = input.currentControlScheme.Equals("Gamepad");
     }
-    
+
+    public void StartTypingIntoChat(CallbackContext context)
+    {
+        if (!context.started) return;
+        GameManager.Instance.SendMessageToChat("test");
+    }
+    public void StopTyping(CallbackContext context)
+    {
+        if (!context.started) return;
+        GameManager.Instance.StopTyping();
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

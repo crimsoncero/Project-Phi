@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Spaceship : MonoBehaviourPun, IPunObservable
 {
@@ -169,7 +170,6 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         SpecialWeapon = null;
 
         CurrentHealth = MaxHealth;
-
     }
 
     /// <summary>

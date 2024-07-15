@@ -12,6 +12,126 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionId
+      value: ddd94270-109a-47af-969d-f9d3840cb9a3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
+      value: 7458cd8f-fe90-4b20-9f44-75afcbc7948e
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      value: 47d95d7f-1957-4e20-b9e9-064128ac72a7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionName
+      value: 'Player/Interact[/Keyboard/e]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
+      value: 'Player/Enter Chat[/Keyboard/ctrl]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      value: 'Player/Exit Chat[/Keyboard/escape]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5605191159397541297}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5605191159397541297}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5605191159397541297}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartTypingIntoChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartTypingIntoChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StopTyping
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588039821323028832, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5640804680741608825, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
       propertyPath: m_Name
       value: Spaceship Photon
@@ -61,3 +181,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+--- !u!114 &5605191159397541297 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -855393122673354210, guid: 59f94a8432d75ba4295ec46c8605d863, type: 3}
+  m_PrefabInstance: {fileID: 4172773989727535023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277f2b5a39634684898dec63130a3fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

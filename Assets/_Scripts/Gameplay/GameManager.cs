@@ -9,7 +9,9 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using TMPro;
 using Random = UnityEngine.Random;
+using static UnityEngine.InputSystem.InputAction;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    
+
     [Header("Components")]
     [SerializeField] private CinemachineCamera _followCamera;
     [SerializeField] private GameObject _spawnPointContainer;
@@ -35,14 +37,22 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Offline and NPCs", order = 1)]
     [SerializeField] private bool _isOffline;
-    [Min(0)][SerializeField] private int _npcCount;
+    [Min(0)] [SerializeField] private int _npcCount;
 
     [Header("Gameplay", order = 1)]
     [SerializeField] private float _timeToSpawn;
     [SerializeField] private float _spawnPointCD;
     [SerializeField] private float _weaponSpawnCD;
     [SerializeField] private int _startingWeaponCount;
-    
+
+    [Space]
+    [Header("Chat")]
+    [SerializeField] private TMP_InputField _chatInputField;
+    [SerializeField] private GameObject _chatBox;
+    [SerializeField] private TMP_Text _chatText;
+    [SerializeField] private List<Message> _messageList = new();
+    [SerializeField] private int _maxMessages = 10;
+
     /// <summary>
     /// The Spaceship is controlled by this client player.
     /// </summary>
@@ -56,7 +66,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
     /// </summary>
     private Dictionary<Transform, bool> _spawnPoints;
-    
 
     private void Awake()
     {
@@ -87,8 +96,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             InitPlayer();
         }
+        //_chatInputField.ActivateInputField();
 
-        
+
 
     }
 
@@ -102,7 +112,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         OnGameStarted?.Invoke();
 
-        foreach(var spaceship in SpaceshipList)
+        foreach (var spaceship in SpaceshipList)
         {
             SpawnShip(spaceship);
         }
@@ -116,7 +126,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject ship = PhotonNetwork.Instantiate(SpaceshipPrefabPath, Vector3.zero, Quaternion.identity);
         ClientSpaceship = ship.GetComponent<Spaceship>();
-        
+
     }
     public void RegisterSpaceship(Spaceship spaceship)
     {
@@ -151,13 +161,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (shipObject.IsUnityNull()) return null;
         int shipIndex = SpaceshipList.FindIndex((s) => s.gameObject == shipObject);
-        if(shipIndex < 0 ) return null;
+        if (shipIndex < 0) return null;
 
         return SpaceshipList[shipIndex];
     }
     public Spaceship FindSpaceship(Player player)
     {
-        if(player == null) return null;
+        if (player == null) return null;
         int shipIndex = SpaceshipList.FindIndex((s) => s.photonView.Owner == player);
         if (shipIndex < 0) return null;
 
@@ -166,10 +176,35 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void WeaponPickedUp(WeaponPickup weapon, bool isInit = false)
     {
-        if(!isInit)
+        if (!isInit)
             weapon.photonView.RPC(WeaponPickup.RPC_DEACTIVATE, RpcTarget.All);
-        
+
         StartCoroutine(SpawnNewWeapon(weapon));
+    }
+
+    public void SendMessageToChat(string text)
+    {
+        if (text == null) return;
+        _chatInputField.ActivateInputField();
+        if (_messageList.Count >= _maxMessages)
+        {
+            Destroy(_messageList[0].TextObject.gameObject);
+            _messageList.RemoveAt(0);
+        }
+        Message newMessage = new();
+        newMessage.Text = text;
+        TMP_Text newText = Instantiate(_chatText, _chatBox.transform);
+        newMessage.TextObject = newText;
+        newMessage.TextObject.text = newMessage.Text;
+        _messageList.Add(newMessage);
+        Debug.Log("sent message " + text);
+    }
+
+    public void StopTyping()
+    {
+        if (!_chatInputField.IsActive()) return;
+        _chatInputField.text = null;
+        _chatInputField.DeactivateInputField();
     }
 
     private void SpawnShip(Spaceship ship)
