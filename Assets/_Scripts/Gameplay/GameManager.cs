@@ -50,11 +50,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Space]
     [Header("Chat")]
-    [SerializeField] private PhotonView _chatPhotonView;
     [SerializeField] private TMP_InputField _chatInputField;
-    [SerializeField] private GameObject _chatBox;
-    [SerializeField] private TMP_Text _chatText;
-    [SerializeField] private TMP_Dropdown _chatDropDownColor;
     [SerializeField] private List<Message> _messageList = new();
     [SerializeField] private int _maxMessages = 10;
 
@@ -192,54 +188,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         _chatInputField.ActivateInputField();
     }
 
-    public void SendMessageToChat()
-    {
-        if (_chatPhotonView == null)
-            Debug.Log("photon view is null");
-        _chatPhotonView.RPC("RPC_SendPublicMessage",RpcTarget.All, PhotonNetwork.LocalPlayer);
-    }
-
     public void StopTyping()
     {
         if (!_chatInputField.IsActive()) return;
         _chatInputField.text = null;
         _chatInputField.DeactivateInputField();
-    }
-
-    public const string RPC_SEND_MESSAGE = "RPC_SendPublicMessage";
-    [PunRPC]
-    private void RPC_SendPublicMessage()
-    {
-        Debug.Log("test");
-        if (_chatInputField == null || _chatInputField.text == "") return;
-        if (_messageList.Count >= _maxMessages)
-        {
-            Destroy(_messageList[0].TextObject.gameObject);
-            _messageList.RemoveAt(0);
-        }
-        Message newMessage = new();
-        newMessage.Text = _chatInputField.text;
-        TMP_Text newText = Instantiate(_chatText, _chatBox.transform);
-        switch (_chatDropDownColor.captionText.text)
-        {
-            case RED:
-                newText.color = Color.red;
-                break;
-            case GREEN:
-                newText.color = Color.green;
-                break;
-            case BLUE:
-                newText.color = Color.blue;
-                break;
-            case YELLOW:
-                newText.color = Color.yellow;
-                break;
-            default:
-                break;
-        }
-        newMessage.TextObject = newText;
-        newMessage.TextObject.text = $"{PhotonNetwork.NickName}: {newMessage.Text}";
-        _messageList.Add(newMessage);
     }
     private void SpawnShip(Spaceship ship)
     {

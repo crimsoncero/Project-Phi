@@ -29,19 +29,17 @@ public class MessageSender : MonoBehaviourPun
 
     public const string RPC_SEND_MESSAGE = "RPC_SendPublicMessage";
     [PunRPC]
-    private void RPC_SendPublicMessage(Player player)
+    private void RPC_SendPublicMessage(Player player, string playerName, string message, string color)
     {
-        if(_chatPhotonView.IsMine)
-        if (_chatInputField == null || _chatInputField.text == "") return;
         if (_messageList.Count >= _maxMessages)
         {
             Destroy(_messageList[0].TextObject.gameObject);
             _messageList.RemoveAt(0);
         }
         Message newMessage = new();
-        newMessage.Text = _chatInputField.text;
+        newMessage.Text = message;
         TMP_Text newText = Instantiate(_chatText, _chatBox.transform);
-        switch (_chatDropDownColor.captionText.text)
+        switch (color)
         {
             case RED:
                 newText.color = Color.red;
@@ -56,16 +54,21 @@ public class MessageSender : MonoBehaviourPun
                 newText.color = Color.yellow;
                 break;
             default:
+                newText.color = Color.white; 
                 break;
         }
         newMessage.TextObject = newText;
-        newMessage.TextObject.text = $"{PhotonNetwork.NickName}: {newMessage.Text}";
+        newMessage.TextObject.text = $"{playerName}: {newMessage.Text}";
         _messageList.Add(newMessage);
     }
     public void SendMessageToChat()
     {
+        if (_chatInputField == null || string.IsNullOrEmpty(_chatInputField.text)) return; 
         if (_chatPhotonView == null)
             Debug.Log("photon view is null");
-        _chatPhotonView.RPC("RPC_SendPublicMessage", RpcTarget.All, PhotonNetwork.LocalPlayer);
+        string message = _chatInputField.text;
+        string color = _chatDropDownColor.captionText.text; 
+        _chatPhotonView.RPC("RPC_SendPublicMessage", RpcTarget.All, PhotonNetwork.LocalPlayer, PhotonNetwork.NickName, message, color);
+        _chatInputField.text = "";
     }
 }
