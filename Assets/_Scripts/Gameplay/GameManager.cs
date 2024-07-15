@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Space]
     [Header("Chat")]
+    [SerializeField] private PhotonView _chatPhotonView;
     [SerializeField] private TMP_InputField _chatInputField;
     [SerializeField] private GameObject _chatBox;
     [SerializeField] private TMP_Text _chatText;
@@ -193,9 +194,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void SendMessageToChat()
     {
-        if (photonView == null)
+        if (_chatPhotonView == null)
             Debug.Log("photon view is null");
-        photonView.RPC("RPC_SendPublicMessage",RpcTarget.All, PhotonNetwork.LocalPlayer);
+        _chatPhotonView.RPC("RPC_SendPublicMessage",RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
 
     public void StopTyping()

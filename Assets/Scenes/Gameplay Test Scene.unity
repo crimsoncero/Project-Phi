@@ -1860,8 +1860,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5127265126077500137}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 2064742172}
+        m_TargetAssemblyTypeName: MessageSender, Assembly-CSharp
         m_MethodName: SendMessageToChat
         m_Mode: 1
         m_Arguments:
@@ -4602,6 +4602,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2064742170}
+  - component: {fileID: 2064742171}
+  - component: {fileID: 2064742172}
   m_Layer: 5
   m_Name: Chat Box
   m_TagString: Untagged
@@ -4632,6 +4634,47 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2064742171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064742169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &2064742172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064742169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96faa2a3553d2a2468d810497203a1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chatPhotonView: {fileID: 2064742171}
+  _chatInputField: {fileID: 209072708}
+  _chatBox: {fileID: 26974658}
+  _chatText: {fileID: 7821192465620384115, guid: 83bc900401060b4489f6a601480adfb5, type: 3}
+  _chatDropDownColor: {fileID: 2024464466}
+  _messageList: []
+  _maxMessages: 10
 --- !u!1 &2136394186
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,6 +4877,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 209072708}
     - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
+      propertyPath: _chatPhotonView
+      value: 
+      objectReference: {fileID: 2064742171}
+    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: _chatDropDownColor
       value: 
       objectReference: {fileID: 2024464466}
@@ -5011,17 +5058,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7705917923208431913, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
   m_PrefabInstance: {fileID: 5127265126077500134}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5127265126077500137 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
-  m_PrefabInstance: {fileID: 5127265126077500134}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 28027892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad615032d859274aa273c152570dd78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

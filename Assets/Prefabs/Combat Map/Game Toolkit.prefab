@@ -620,6 +620,7 @@ MonoBehaviour:
   _spawnPointCD: 4
   _weaponSpawnCD: 5
   _startingWeaponCount: 2
+  _chatPhotonView: {fileID: 0}
   _chatInputField: {fileID: 0}
   _chatBox: {fileID: 0}
   _chatText: {fileID: 0}

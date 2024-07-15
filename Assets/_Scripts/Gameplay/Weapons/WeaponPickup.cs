@@ -61,7 +61,6 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
          
         if (!IsAvailable) return;
-        Debug.Log(photonView);
         photonView.RPC(RPC_PICkUP_WEAPON, RpcTarget.MasterClient, PhotonNetwork.LocalPlayer);
 
     }
