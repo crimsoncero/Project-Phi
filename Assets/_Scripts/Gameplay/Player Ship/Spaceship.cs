@@ -74,6 +74,16 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         Initialize();
     }
 
+    private void OnDisable()
+    {
+        if (photonView.IsMine)
+        {
+            SetInputActive(false);
+        }
+        if (_cooldownRoutine != null)
+            StopCoroutine(_cooldownRoutine);
+    }
+
     #region Pun RPC
 
     /* Method names are prefixed with RPC_MethodName
@@ -194,7 +204,9 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
             PrimaryHeat = 0;
 
         SpecialWeapon = null;
-
+        CanGlobalFire = true;
+        CanPrimaryFire = true;
+        CanSpecialFire = true;
         CurrentHealth = MaxHealth;
 
         if (photonView.IsMine)
