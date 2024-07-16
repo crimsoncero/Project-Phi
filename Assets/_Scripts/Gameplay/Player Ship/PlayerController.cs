@@ -155,13 +155,13 @@ public class PlayerController : MonoBehaviour
     public void StartTypingIntoChat(CallbackContext context)
     {
         if (!context.started) return;
-        GameManager.Instance.EnableChatTyping();
+        ChatManager.Instance.EnableChatTyping();
         _isChatting = true;
     }
     public void StopTyping(CallbackContext context)
     {
         if (!context.started) return;
-        GameManager.Instance.StopTyping();
+        ChatManager.Instance.StopTyping();
         _isChatting = false;
     }
 

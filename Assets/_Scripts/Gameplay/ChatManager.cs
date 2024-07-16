@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MessageSender : MonoBehaviourPun
+public class ChatManager : MonoBehaviourPun
 {
     [SerializeField] private PhotonView _chatPhotonView;
     [SerializeField] private TMP_InputField _chatInputField;
@@ -19,6 +19,9 @@ public class MessageSender : MonoBehaviourPun
     private const string BLUE = "Blue";
     private const string YELLOW = "Yellow";
 
+    private static ChatManager _instance;
+    public static ChatManager Instance { get => _instance; }
+
 
     private void OnValidate()
     {
@@ -27,7 +30,30 @@ public class MessageSender : MonoBehaviourPun
         _chatDropDownColor = GetComponentInChildren<TMP_Dropdown>();
     }
 
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
+        {
+            _instance = this;
+        }
+    }
+
+    public void EnableChatTyping()
+    {
+        _chatInputField.ActivateInputField();
+    }
+
+    public void StopTyping()
+    {
+        if (!_chatInputField.IsActive()) return;
+        _chatInputField.text = null;
+        _chatInputField.DeactivateInputField();
+    }
+
     public const string RPC_SEND_MESSAGE = "RPC_SendPublicMessage";
+
     [PunRPC]
     private void RPC_SendPublicMessage(Player player, string playerName, string message, string color)
     {

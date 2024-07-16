@@ -48,10 +48,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private float _weaponSpawnCD;
     [SerializeField] private int _startingWeaponCount;
 
-    [Space]
-    [Header("Chat")]
-    [SerializeField] private TMP_InputField _chatInputField;
-
     /// <summary>
     /// The Spaceship is controlled by this client player.
     /// </summary>
@@ -181,17 +177,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(SpawnNewWeapon(weapon));
     }
 
-    public void EnableChatTyping()
-    {
-        _chatInputField.ActivateInputField();
-    }
-
-    public void StopTyping()
-    {
-        if (!_chatInputField.IsActive()) return;
-        _chatInputField.text = null;
-        _chatInputField.DeactivateInputField();
-    }
     private void SpawnShip(Spaceship ship)
     {
         Transform transform = GetSpawnPoint();
