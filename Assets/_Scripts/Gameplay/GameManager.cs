@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    
     [Header("Components")]
     [SerializeField] private CinemachineCamera _followCamera;
     [SerializeField] private GameObject _spawnPointContainer;
@@ -49,7 +48,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// </summary>
     public List<Spaceship> SpaceshipList { get; private set; } = new List<Spaceship>();
 
-    
+    /// <summary>
+    /// Time elapsed in the game in seconds
+    /// </summary>
+    public int Timer { get; private set; } = -1;
+    public int SetTimer { get; private set; }
     /// <summary>
     /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
     /// </summary>
@@ -86,9 +89,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             InitPlayer();
         }
-
-        
-
     }
 
 
@@ -109,7 +109,21 @@ public class GameManager : MonoBehaviourPunCallbacks
         SpawnWeapons();
     }
 
+    private void EndGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.PlayerTtl = 0;
+            PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
+        }
 
+
+        // DISPLAY SCOREBOARD FOR PLAYERS
+
+
+        
+    }
 
     private void InitPlayer()
     {
@@ -280,5 +294,54 @@ public class GameManager : MonoBehaviourPunCallbacks
         weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
     }
 
+
+    #region Timer
+
+    public void OnStarted(PhotonMessageInfo info)
+    {
+        float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
+
+        InitialTimerSecond(lag);
+    
+    }
+
+    private IEnumerator InitialTimerSecond(float lag)
+    {
+        yield return new WaitForSeconds(1 - lag);
+
+        SetTimer = (int)PhotonNetwork.CurrentRoom.CustomProperties["t"];
+
+        if (SetTimer == 0)
+            Timer = 1;
+        else
+            Timer = SetTimer - 1;
+
+
+        StartCoroutine(TimerTick());
+    }
+
+    private IEnumerator TimerTick()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            
+            if(SetTimer == 0)
+                Timer += 1;
+            else
+                Timer -= 1;
+
+            if(Timer == 0)
+            {
+
+
+            }
+
+
+        }
+        
+    }
+
+    #endregion
 
 }

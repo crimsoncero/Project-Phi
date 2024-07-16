@@ -1,3 +1,5 @@
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
@@ -107,7 +109,6 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         PrimaryHeat += PrimaryWeapon.HeatPerShot;
         OnHeatChanged?.Invoke(PrimaryHeat/PrimaryWeapon.MaxHeat);
         _cooldownRoutine = StartCoroutine(CooldownPrimary());
-
     }
 
     public const string RPC_FIRE_SPECIAL = "RPC_FireSpecial";
