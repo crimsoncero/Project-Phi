@@ -105,36 +105,65 @@ public class PlayerController : MonoBehaviour
         _moveInput = context.action.ReadValue<Vector2>();
     }
 
-
-    public void FirePrimary()
+    private bool CanFirePrimary
     {
-        if (PrimaryWeapon == null) return;
-        
-        if (!Spaceship.CanGlobalFire) return;
-        if (!Spaceship.CanPrimaryFire) return;
-
-        if(PrimaryHeat >= PrimaryWeapon.MaxHeat) return;
-        if (Spaceship.IsOverHeating) return;
-
-        if (Input.PrimaryFire.phase == InputActionPhase.Performed)
+        get
         {
-            _photonView.RPC(Spaceship.RPC_FIRE_PRIMARY, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+            if (Spaceship.IsImmune) return false;
+
+            if (!Spaceship.CanGlobalFire) return false;
+            if (!Spaceship.CanPrimaryFire) return false;
+
+            if (PrimaryHeat >= PrimaryWeapon.MaxHeat) return false;
+            if (Spaceship.IsOverHeating) return false;
+
+            return true;
         }
     }
 
+    private bool CanFireSpecial
+    {
+        get
+        {
+            if (Spaceship.IsImmune) return false;
+
+            if (!Spaceship.CanGlobalFire) return false;
+            if (!Spaceship.CanSpecialFire) return false;
+
+            if (SpecialAmmo <= 0) return false;
+
+            return true;
+        }
+    }
+
+    public void FirePrimary()
+    {
+        if(PrimaryWeapon == null) return;
+
+        if (CanFirePrimary)
+        {
+            if (Input.PrimaryFire.phase == InputActionPhase.Performed)
+                _photonView.RPC(Spaceship.RPC_FIRE_PRIMARY, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+        }
+        else if (Input.PrimaryFire.phase == InputActionPhase.Performed)
+            StartCoroutine(RapidFire(true));
+    }
+
+
+
     public void FireSpecial()
     {
-        if (SpecialWeapon == null) return;
+        if(SpecialWeapon == null) return;
 
-        if (!Spaceship.CanGlobalFire) return;
-        if (!Spaceship.CanSpecialFire) return;
-
-        if (SpecialAmmo <= 0) return;
-        
-        if (Input.SpecialFire.phase == InputActionPhase.Performed)
+        if(CanFireSpecial)
         {
-            _photonView.RPC(Spaceship.RPC_FIRE_SPECIAL, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+            if (Input.SpecialFire.phase == InputActionPhase.Performed)
+                _photonView.RPC(Spaceship.RPC_FIRE_SPECIAL, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+
         }
+        else if (SpecialWeapon.FiringMethod == Weapon.FiringMethods.Auto)
+            if (Input.SpecialFire.phase == InputActionPhase.Performed)
+                StartCoroutine(RapidFire(false));
     }
 
     public void OnControlsChanged(PlayerInput input)
@@ -151,8 +180,16 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.blue;
         Vector3 accel = _acceleration * 5;
         Gizmos.DrawLine(transform.position, transform.position + accel);
+    }
 
+    private IEnumerator RapidFire(bool isPrimary)
+    {
+        yield return new WaitForSeconds(0.1f);
 
+        if(isPrimary)
+            FirePrimary();
+        else
+            FireSpecial();
     }
 
   }
