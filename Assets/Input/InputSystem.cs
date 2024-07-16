@@ -81,6 +81,24 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter Chat"",
+                    ""type"": ""Button"",
+                    ""id"": ""7458cd8f-fe90-4b20-9f44-75afcbc7948e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit Chat"",
+                    ""type"": ""Button"",
+                    ""id"": ""47d95d7f-1957-4e20-b9e9-064128ac72a7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -273,17 +291,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b3c1c7f0-bd20-4ee7-a0f1-899b24bca6d7"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Primary Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""17286bec-0118-4df8-8557-5012260720d9"",
                     ""path"": ""<Pointer>/position"",
                     ""interactions"": """",
@@ -336,6 +343,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c6ea0fe-fdd1-41cb-9561-4e8bd8587a37"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Enter Chat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f7b6192-91af-433a-b97b-2457a3e239f6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Exit Chat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -356,7 +385,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -927,6 +956,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player_PrimaryFire = m_Player.FindAction("Primary Fire", throwIfNotFound: true);
         m_Player_SpecialFire = m_Player.FindAction("Special Fire", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_EnterChat = m_Player.FindAction("Enter Chat", throwIfNotFound: true);
+        m_Player_ExitChat = m_Player.FindAction("Exit Chat", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1012,6 +1043,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PrimaryFire;
     private readonly InputAction m_Player_SpecialFire;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_EnterChat;
+    private readonly InputAction m_Player_ExitChat;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
@@ -1022,6 +1055,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @PrimaryFire => m_Wrapper.m_Player_PrimaryFire;
         public InputAction @SpecialFire => m_Wrapper.m_Player_SpecialFire;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @EnterChat => m_Wrapper.m_Player_EnterChat;
+        public InputAction @ExitChat => m_Wrapper.m_Player_ExitChat;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1049,6 +1084,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @EnterChat.started += instance.OnEnterChat;
+            @EnterChat.performed += instance.OnEnterChat;
+            @EnterChat.canceled += instance.OnEnterChat;
+            @ExitChat.started += instance.OnExitChat;
+            @ExitChat.performed += instance.OnExitChat;
+            @ExitChat.canceled += instance.OnExitChat;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1071,6 +1112,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @EnterChat.started -= instance.OnEnterChat;
+            @EnterChat.performed -= instance.OnEnterChat;
+            @EnterChat.canceled -= instance.OnEnterChat;
+            @ExitChat.started -= instance.OnExitChat;
+            @ExitChat.performed -= instance.OnExitChat;
+            @ExitChat.canceled -= instance.OnExitChat;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1259,6 +1306,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnPrimaryFire(InputAction.CallbackContext context);
         void OnSpecialFire(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnEnterChat(InputAction.CallbackContext context);
+        void OnExitChat(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -4,12 +4,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
-using System;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-   
 
 
 
@@ -74,6 +73,8 @@ public class PlayerController : MonoBehaviour
     
     private void Movement()
     {
+        if (ChatManager.Instance.IsChatting)
+            return;
         // Translate
         _rigidbody2D.AddForce(_moveInput *  Time.deltaTime * MoveSpeed);
 
@@ -84,6 +85,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look(CallbackContext context)
     {
+        if (ChatManager.Instance.IsChatting)
+            return; 
         if (_isGamepad)
         {
             Vector2 dir = context.action.ReadValue<Vector2>();
@@ -102,12 +105,16 @@ public class PlayerController : MonoBehaviour
 
     public void Move(CallbackContext context)
     {
+        if (ChatManager.Instance.IsChatting)
+            return; 
         _moveInput = context.action.ReadValue<Vector2>();
     }
 
 
     public void FirePrimary()
     {
+        if (ChatManager.Instance.IsChatting)
+            return; 
         if (PrimaryWeapon == null) return;
         
         if (!Spaceship.CanGlobalFire) return;
@@ -124,6 +131,8 @@ public class PlayerController : MonoBehaviour
 
     public void FireSpecial()
     {
+        if (ChatManager.Instance.IsChatting)
+            return; 
         if (SpecialWeapon == null) return;
 
         if (!Spaceship.CanGlobalFire) return;
@@ -141,7 +150,18 @@ public class PlayerController : MonoBehaviour
     {
         _isGamepad = input.currentControlScheme.Equals("Gamepad");
     }
-    
+
+    public void StartTypingIntoChat(CallbackContext context)
+    {
+        if (!context.started) return;
+        ChatManager.Instance.EnableChatTyping();
+    }
+    public void StopTyping(CallbackContext context)
+    {
+        if (!context.started) return;
+        ChatManager.Instance.StopTyping();
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
