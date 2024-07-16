@@ -46,7 +46,29 @@ public class PlayerController : MonoBehaviour
     private Vector2 _acceleration = Vector3.zero;
     private Vector2 _prevVelocity = Vector3.zero;
 
-
+    private bool CanFirePrimary
+    {
+        get
+        {
+            if (Spaceship.IsImmune) return false;
+            if (!Spaceship.CanGlobalFire) return false;
+            if (!Spaceship.CanPrimaryFire) return false;
+            if (PrimaryHeat >= PrimaryWeapon.MaxHeat) return false;
+            if (Spaceship.IsOverHeating) return false;
+            return true;
+        }
+    }
+    private bool CanFireSpecial
+    {
+        get
+        {
+            if (Spaceship.IsImmune) return false;
+            if (!Spaceship.CanGlobalFire) return false;
+            if (!Spaceship.CanSpecialFire) return false;
+            if (SpecialAmmo <= 0) return false;
+            return true;
+        }
+    }
     private void Awake()
     {
         _inputSystem = new InputSystem();
@@ -105,36 +127,7 @@ public class PlayerController : MonoBehaviour
         _moveInput = context.action.ReadValue<Vector2>();
     }
 
-    private bool CanFirePrimary
-    {
-        get
-        {
-            if (Spaceship.IsImmune) return false;
-
-            if (!Spaceship.CanGlobalFire) return false;
-            if (!Spaceship.CanPrimaryFire) return false;
-
-            if (PrimaryHeat >= PrimaryWeapon.MaxHeat) return false;
-            if (Spaceship.IsOverHeating) return false;
-
-            return true;
-        }
-    }
-
-    private bool CanFireSpecial
-    {
-        get
-        {
-            if (Spaceship.IsImmune) return false;
-
-            if (!Spaceship.CanGlobalFire) return false;
-            if (!Spaceship.CanSpecialFire) return false;
-
-            if (SpecialAmmo <= 0) return false;
-
-            return true;
-        }
-    }
+    
 
     public void FirePrimary()
     {
@@ -184,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator RapidFire(bool isPrimary)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
 
         if(isPrimary)
             FirePrimary();

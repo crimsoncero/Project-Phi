@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Hellfire Rocket Pod
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Hellfire Rocket Pod
-  <FiringMethod>k__BackingField: 0
+  <FiringMethod>k__BackingField: 1
   <MaxAmmo>k__BackingField: 6
   <FireRate>k__BackingField: 1
-  <Damage>k__BackingField: 20
+  <Damage>k__BackingField: 25
   <WeaponPrefab>k__BackingField: {fileID: -2253911629886400664, guid: efb8128c628c497419c4c8d409f98e80, type: 3}
   ProjectilePrefab: {fileID: -2413830069252014953, guid: 36cc702647eb85047a2e88b5291ae599, type: 3}
-  <ProjectileVelocity>k__BackingField: 15
+  <ProjectileVelocity>k__BackingField: 13
   _firstRocket: {x: -0.125, y: 0.35, z: 0}
   _secondRocket: {x: 0.125, y: 0.35, z: 0}
   _thirdRocket: {x: -0.21, y: 0.27, z: 0}
