@@ -4537,19 +4537,19 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: 
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: Red
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       m_Color: {r: 1, g: 0, b: 0, a: 1}
     - m_Text: Green
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       m_Color: {r: 0, g: 1, b: 0.036482334, a: 1}
     - m_Text: Blue
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       m_Color: {r: 0, g: 0.16169977, b: 1, a: 1}
     - m_Text: Yellow
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
       m_Color: {r: 0.929603, g: 1, b: 0, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:

@@ -14,11 +14,6 @@ public class ChatManager : MonoBehaviourPun
     [SerializeField] private List<Message> _messageList = new();
     [SerializeField] private int _maxMessages = 10;
 
-    private const string RED = "Red";
-    private const string GREEN = "Green";
-    private const string BLUE = "Blue";
-    private const string YELLOW = "Yellow";
-
     private static ChatManager _instance;
     public static ChatManager Instance { get => _instance; }
 
@@ -55,7 +50,7 @@ public class ChatManager : MonoBehaviourPun
     public const string RPC_SEND_MESSAGE = "RPC_SendPublicMessage";
 
     [PunRPC]
-    private void RPC_SendPublicMessage(Player player, string playerName, string message, string color)
+    private void RPC_SendPublicMessage(Player player, string playerName, string message, Vector3 colorVector)
     {
         if (_messageList.Count >= _maxMessages)
         {
@@ -65,24 +60,8 @@ public class ChatManager : MonoBehaviourPun
         Message newMessage = new();
         newMessage.Text = message;
         TMP_Text newText = Instantiate(_chatText, _chatBox.transform);
-        switch (color)
-        {
-            case RED:
-                newText.color = Color.red;
-                break;
-            case GREEN:
-                newText.color = Color.green;
-                break;
-            case BLUE:
-                newText.color = Color.blue;
-                break;
-            case YELLOW:
-                newText.color = Color.yellow;
-                break;
-            default:
-                newText.color = Color.white; 
-                break;
-        }
+        Color color = new Color(colorVector.x, colorVector.y, colorVector.z); 
+        newText.color = color; 
         newMessage.TextObject = newText;
         newMessage.TextObject.text = $"{playerName}: {newMessage.Text}";
         _messageList.Add(newMessage);
@@ -93,8 +72,9 @@ public class ChatManager : MonoBehaviourPun
         if (_chatPhotonView == null)
             Debug.Log("photon view is null");
         string message = _chatInputField.text;
-        string color = _chatDropDownColor.captionText.text; 
-        _chatPhotonView.RPC("RPC_SendPublicMessage", RpcTarget.All, PhotonNetwork.LocalPlayer, PhotonNetwork.NickName, message, color);
+        Color color = _chatDropDownColor.options[_chatDropDownColor.value].color;
+        Vector3 colorVector = new Vector3(color.r, color.g, color.b); 
+        _chatPhotonView.RPC("RPC_SendPublicMessage", RpcTarget.All, PhotonNetwork.LocalPlayer, PhotonNetwork.NickName, message, colorVector);
         _chatInputField.text = "";
     }
 }
