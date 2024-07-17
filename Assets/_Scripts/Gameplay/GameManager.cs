@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         set 
         { 
             _timer = value;
-            Debug.Log("Timer changed:" + _timer);
             OnTimerUpdated?.Invoke(_timer);
         }
     }
@@ -321,7 +320,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void OnStarted(PhotonMessageInfo info)
     {
-        Debug.Log("Started");
         UIManager.Instance.Init(); // Initialize UI after player's ship was added.
         float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
         
