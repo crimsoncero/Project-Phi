@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public event Action OnGameStarted;
+    public event Action<int> OnTimerUpdated;
 
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     private const string WeaponPickupPrefabPath = "Photon Prefabs\\Weapon Pickup";
@@ -51,8 +52,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// <summary>
     /// Time elapsed in the game in seconds
     /// </summary>
-    public int Timer { get; private set; } = -1;
-    public int SetTimer { get; private set; }
+    /// 
+    private int _timer = -1;
+
+    public int Timer
+    {
+        get { return _timer; }
+        set 
+        { 
+            _timer = value;
+            Debug.Log("Timer changed:" + _timer);
+            OnTimerUpdated?.Invoke(_timer);
+        }
+    }
+
+    public int RoomTimer { get; private set; }
+    public int RoomScoreGoal { get; private set; }
     /// <summary>
     /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
     /// </summary>
@@ -84,10 +99,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (_isOffline)
         {
             PhotonNetwork.OfflineMode = true;
+            Timer = 1;
+
+            RoomTimer = 0;
+            RoomScoreGoal = 0;
         }
         else
         {
             InitPlayer();
+
+            RoomTimer = (int)PhotonNetwork.CurrentRoom.CustomProperties["t"];
+            RoomScoreGoal = (int)PhotonNetwork.CurrentRoom.CustomProperties["s"];
         }
     }
 
@@ -118,7 +140,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
         }
 
-
+        Time.timeScale = 0;
         // DISPLAY SCOREBOARD FOR PLAYERS
 
 
@@ -151,7 +173,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             ClientSpaceship = spaceship;
             _followCamera.Follow = spaceship.transform;
 
-            UIManager.Instance.Init(); // Initialize UI after player's ship was added.
+            
         }
 
 
@@ -299,22 +321,32 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void OnStarted(PhotonMessageInfo info)
     {
+        Debug.Log("Started");
+        UIManager.Instance.Init(); // Initialize UI after player's ship was added.
         float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
+        
+        
+        if (!PhotonNetwork.OfflineMode) // All the stuff that don't work in offline mode.
+        {
+            StartCoroutine(InitialTimerSecond(lag));
 
-        InitialTimerSecond(lag);
-    
+        }
+
     }
 
     private IEnumerator InitialTimerSecond(float lag)
     {
-        yield return new WaitForSeconds(1 - lag);
+        Timer = 0;
 
-        SetTimer = (int)PhotonNetwork.CurrentRoom.CustomProperties["t"];
+        float timeToWait = Mathf.Ceil(lag) - lag;
 
-        if (SetTimer == 0)
-            Timer = 1;
+        yield return new WaitForSeconds(timeToWait);
+
+
+        if (RoomTimer == 0)
+            Timer = Mathf.CeilToInt(lag);
         else
-            Timer = SetTimer - 1;
+            Timer = RoomTimer - Mathf.CeilToInt(lag);
 
 
         StartCoroutine(TimerTick());
@@ -326,22 +358,30 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             yield return new WaitForSeconds(1);
             
-            if(SetTimer == 0)
+            if(RoomTimer == 0)
                 Timer += 1;
             else
                 Timer -= 1;
 
             if(Timer == 0)
             {
-
-
+                EndGame();
             }
-
-
         }
         
     }
 
     #endregion
+
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+
+        if(RoomScoreGoal != 0 && targetPlayer.GetPlayerKills() >= RoomScoreGoal)
+        {
+            EndGame();
+        }
+    }
 
 }
