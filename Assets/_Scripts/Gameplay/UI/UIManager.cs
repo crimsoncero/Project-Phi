@@ -31,14 +31,24 @@ public class UIManager : MonoBehaviourPunCallbacks
         {
             _instance = this;
         }
+
+        Synchronizer.OnMatchStarted += OnMatchStarted;
+        Synchronizer.OnTimerUpdated += UpdateTimerText;
     }
+
+    private void OnDestroy()
+    {
+        Synchronizer.OnMatchStarted -= OnMatchStarted;
+        Synchronizer.OnTimerUpdated -= UpdateTimerText;
+    }
+
+
     public void Init()
     {
 
         _scoreboardTags = new List<ScoreTag>();
 
         _playerHUD.Init();
-        GameManager.OnTimerUpdated += UpdateTimerText;
 
         foreach(var spaceship in GameManager.Instance.SpaceshipList)
         {
@@ -62,6 +72,12 @@ public class UIManager : MonoBehaviourPunCallbacks
         {
             tag.UpdateScore();
         }
+    }
+
+
+    private void OnMatchStarted()
+    {
+        Init();
     }
 
 }

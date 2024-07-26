@@ -8,6 +8,8 @@ public class SPTester : MonoBehaviourPunCallbacks
 {
 
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
+    private const string SynchronizerPrefabPath = "Photon Prefabs\\Synchronizer";
+
     [SerializeField] private Transform _trainingDummySpawn;
     [SerializeField] private MMProgressBar _heatBar;
     private Spaceship _playerShip;
@@ -37,6 +39,8 @@ public class SPTester : MonoBehaviourPunCallbacks
 
     private void Init()
     {
+        PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
+
         GameObject ship = PhotonNetwork.Instantiate(SpaceshipPrefabPath, Vector3.zero, Quaternion.identity);
         ship.name = "PlayerShip";
         

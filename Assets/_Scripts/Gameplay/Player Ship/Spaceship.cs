@@ -179,13 +179,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RPC_Spawn(Vector3 position, Quaternion rotation, PhotonMessageInfo info)
     {
-        
-
-
         float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
-
-        if (GameManager.Instance.Timer == -1)
-            GameManager.Instance.OnStarted(info);
 
         transform.position = position;
         transform.rotation = rotation;
