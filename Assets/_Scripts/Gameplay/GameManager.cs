@@ -48,15 +48,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// A list of all registered spaceships in the game.
     /// </summary>
     public List<Spaceship> SpaceshipList { get; private set; } = new List<Spaceship>();
-
-
-    public int RoomScoreGoal { get; private set; }
+    
     /// <summary>
     /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
     /// </summary>
     private Dictionary<Transform, bool> _spawnPoints;
 
     private Synchronizer _synchronizer;
+    private PlayerScoreHandler _scoreHandler;
 
     private void Awake()
     {
@@ -75,6 +74,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (child == _spawnPointContainer.transform) return;
             _spawnPoints.Add(child, true);
         }
+
+        Synchronizer.OnMatchFinished += EndGame;
+
     }
 
     private void Start()
@@ -83,18 +85,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (_isOffline)
         {
             PhotonNetwork.OfflineMode = true;
-            RoomScoreGoal = 0;
         }
         else
         {
             PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
             
             InitPlayer();
-            RoomScoreGoal = (int)PhotonNetwork.CurrentRoom.CustomProperties["s"];
         }
-
-       
-
     }
 
 
@@ -103,17 +100,20 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// </summary>
     private void StartGame()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        OnGameStarted?.Invoke();
-
-        foreach(var spaceship in SpaceshipList)
+        _scoreHandler = new(PhotonNetwork.CurrentRoom.Players.Values.ToList());
+        
+        if (PhotonNetwork.IsMasterClient)
         {
-            SpawnShip(spaceship);
-        }
+            OnGameStarted?.Invoke();
 
-        _synchronizer.photonView.RPC(Synchronizer.RPC_START_MATCH, RpcTarget.All);
-        SpawnWeapons();
+            foreach (var spaceship in SpaceshipList)
+            {
+                SpawnShip(spaceship);
+            }
+
+            _synchronizer.photonView.RPC(Synchronizer.RPC_START_MATCH, RpcTarget.All);
+            SpawnWeapons();
+        }
     }
 
     private void EndGame()
@@ -166,8 +166,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             
         }
 
-        // Master client check if all players ships are ready to start the game:
-        if (PhotonNetwork.IsMasterClient && SpaceshipList.Count == PhotonNetwork.CurrentRoom.PlayerCount + _npcCount)
+        if (SpaceshipList.Count == PhotonNetwork.CurrentRoom.PlayerCount + _npcCount)
             StartGame();
     }
 
@@ -305,14 +304,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
     }
 
+
+    public void IncreasePlayerScore(Player player, int amount)
+    {
+        _scoreHandler.IncreasePlayerScore(player, amount);
+    }
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
-        if(RoomScoreGoal != 0 && targetPlayer.GetPlayerKills() >= RoomScoreGoal)
-        {
-            EndGame();
-        }
+        _scoreHandler.UnlockPlayerScore(targetPlayer);
     }
 
 }

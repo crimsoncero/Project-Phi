@@ -59,6 +59,7 @@ MonoBehaviour:
   - RPC_Deactivate
   - RPC_Destroyed
   - RPC_StartMatch
+  - RPC_EndMatch
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -163,8 +163,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         // Start ship respawn and raise player score
         if (PhotonNetwork.IsMasterClient)
         {
-            int k = hitData.Owner.GetPlayerKills() + 1;
-            hitData.Owner.SetPlayerKills(k);
+            GameManager.Instance.IncreasePlayerScore(hitData.Owner, 1);
             GameManager.Instance.SpawnShip(this, true);
         }
 

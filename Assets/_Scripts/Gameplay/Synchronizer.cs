@@ -1,9 +1,10 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using UnityEngine;
 
-public class Synchronizer : MonoBehaviourPun, IPunObservable
+public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 {
     public static event Action<int> OnTimerUpdated;
 	public static event Action OnMatchStarted;
@@ -16,7 +17,6 @@ public class Synchronizer : MonoBehaviourPun, IPunObservable
 		get { return _timer; }
 		set 
 		{
-            Debug.Log("Updated Timer");
 			_timer = value;
 			OnTimerUpdated?.Invoke(value);
 		}
@@ -51,8 +51,9 @@ public class Synchronizer : MonoBehaviourPun, IPunObservable
 
     private IEnumerator TimerTick()
 	{
+        if (!PhotonNetwork.IsMasterClient) yield break;
+        
         Timer = MatchTimerGoal;
-
 
         while (true)
         {
@@ -63,23 +64,10 @@ public class Synchronizer : MonoBehaviourPun, IPunObservable
             else
                 Timer -= 1;
 
-            if (Timer == 0)
+            if (Timer == 0 && MatchTimerGoal > 0)
             {
+                photonView.RPC(RPC_END_MATCH, RpcTarget.All);
             }
-        }
-    }
-
-
-    public static string RPC_START_MATCH = "RPC_StartMatch";
-    [PunRPC]
-    public void RPC_StartMatch()
-    {
-        OnMatchStarted?.Invoke();
-
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            StartCoroutine(TimerTick());
         }
     }
 
@@ -97,4 +85,41 @@ public class Synchronizer : MonoBehaviourPun, IPunObservable
         }
 
     }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if(MatchScoreGoal > 0 && targetPlayer.GetPlayerKills() == MatchScoreGoal)
+            {
+                photonView.RPC(RPC_END_MATCH, RpcTarget.All);
+            }
+        }
+    }
+
+    public static string RPC_START_MATCH = "RPC_StartMatch";
+    [PunRPC]
+    public void RPC_StartMatch()
+    {
+        OnMatchStarted?.Invoke();
+
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(TimerTick());
+        }
+    }
+
+    public static string RPC_END_MATCH = "RPC_EndMatch";
+    [PunRPC]
+    public void RPC_EndMatch()
+    {
+        OnMatchFinished?.Invoke();
+    }
+
+
+
 }
