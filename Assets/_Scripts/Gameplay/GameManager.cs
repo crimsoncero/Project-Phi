@@ -140,7 +140,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void RegisterSynchronizer(Synchronizer synchronizer)
     {
         _synchronizer = synchronizer;
-        Debug.Log("Registered Synchro");
     }
 
     public void RegisterSpaceship(Spaceship spaceship)
