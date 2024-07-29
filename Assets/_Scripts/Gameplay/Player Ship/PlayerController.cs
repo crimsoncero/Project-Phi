@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
         }
         else if (SpecialWeapon.FiringMethod == Weapon.FiringMethods.Auto)
-            if (Input.SpecialFire.phase == InputActionPhase.Performed)
+            if (Input.SpecialFire.phase == InputActionPhase.Performed && gameObject.activeSelf)
                 StartCoroutine(RapidFire(false));
     }
 
