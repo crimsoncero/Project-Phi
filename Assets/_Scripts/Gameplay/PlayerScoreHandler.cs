@@ -1,6 +1,5 @@
 using Photon.Realtime;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 public class PlayerScoreHandler
@@ -48,7 +47,6 @@ public class PlayerScoreHandler
         }
     }
 
-    
     public void UnlockPlayerScore(Player player)
     {
         if(! _scoreMemory.ContainsKey(player)) return;
@@ -63,7 +61,6 @@ public class PlayerScoreHandler
             _scoreMemory[player].ScoreCarry = 0;
             player.SetPlayerKills(newScore);
         }
-
     }
 
 

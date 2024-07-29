@@ -83,15 +83,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
         if (_isOffline)
         {
             PhotonNetwork.OfflineMode = true;
         }
         else
         {
-            PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
-            
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
+            }
+
             InitPlayer();
         }
     }
@@ -137,7 +139,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject ship = PhotonNetwork.Instantiate(SpaceshipPrefabPath, Vector3.zero, Quaternion.identity);
         ClientSpaceship = ship.GetComponent<Spaceship>();
-        
     }
 
     public void RegisterSynchronizer(Synchronizer synchronizer)
