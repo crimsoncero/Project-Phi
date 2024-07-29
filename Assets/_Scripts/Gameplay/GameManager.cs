@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Photon.Pun;
 using Photon.Realtime;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _weaponSpawnersContainer;
     [field: SerializeField] public WeaponList WeaponList { get; set; }
     [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
+    [SerializeField] private MMF_Player _bgmPlayer;
 
     [Header("Settings", order = 0)]
 
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void StartGame()
     {
         _scoreHandler = new(PhotonNetwork.CurrentRoom.Players.Values.ToList());
+        _bgmPlayer.PlayFeedbacks();
         
         if (PhotonNetwork.IsMasterClient)
         {

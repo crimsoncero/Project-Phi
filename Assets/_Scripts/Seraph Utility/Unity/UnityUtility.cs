@@ -14,5 +14,19 @@ namespace SeraphUtil
 
             Gamepad.current.ResetHaptics();
         }
+
+        /// <summary>
+        /// Returns a random element from the given array. Using Unity Random
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static T Random<T> (this T[] t)
+        {
+            int index = UnityEngine.Random.Range(0, t.Length);
+
+            return t[index];
+        }
+
     }
 }

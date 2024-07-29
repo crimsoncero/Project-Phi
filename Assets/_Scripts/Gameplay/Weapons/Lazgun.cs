@@ -1,5 +1,5 @@
+using MoreMountains.Feedbacks;
 using Photon.Pun;
-using Unity.Cinemachine;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Lazgun", menuName = "Scriptable Objects/Weapons/Lazgun")]

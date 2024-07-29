@@ -110,6 +110,10 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         PrimaryHeat += PrimaryWeapon.HeatPerShot;
         OnHeatChanged?.Invoke(PrimaryHeat/PrimaryWeapon.MaxHeat);
         _cooldownRoutine = StartCoroutine(CooldownPrimary());
+
+        // Feedback
+
+        _shipFeedbacks.FireWeaponSFX(PrimaryWeapon, photonView.IsMine);
     }
 
     public const string RPC_FIRE_SPECIAL = "RPC_FireSpecial";
@@ -126,6 +130,11 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
 
         if (SpecialAmmo == 0)
             photonView.RPC(RPC_CLEAR_SPECIAL, RpcTarget.All);
+        
+        
+        // Feedback
+        _shipFeedbacks.FireWeaponSFX(SpecialWeapon, photonView.IsMine);
+
     }
 
     public const string RPC_SET_SPECIAL = "RPC_SetSpecial";
