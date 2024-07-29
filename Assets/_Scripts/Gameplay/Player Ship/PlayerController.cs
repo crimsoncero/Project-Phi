@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
             if (Input.PrimaryFire.phase == InputActionPhase.Performed)
                 _photonView.RPC(Spaceship.RPC_FIRE_PRIMARY, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
         }
-        else if (Input.PrimaryFire.phase == InputActionPhase.Performed)
+        else if (Input.PrimaryFire.phase == InputActionPhase.Performed && gameObject.activeSelf)
             StartCoroutine(RapidFire(true));
     }
 
