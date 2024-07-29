@@ -319,4 +319,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         _scoreHandler.UnlockPlayerScore(targetPlayer);
     }
 
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+
+
+
+    }
 }
