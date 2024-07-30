@@ -1,4 +1,6 @@
 using MoreMountains.Tools;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +15,12 @@ public class PlayerHUD : MonoBehaviour
     [GradientUsage(false)][SerializeField] private Gradient _heatBarGradient;
     private Image _heatBarImage;
 
-    
+    [Header("Ammo Counter")]
+    [SerializeField] private Image _ammoImage;
+    [SerializeField] private TMP_Text _ammoCounterText;
+    [SerializeField] private Sprite _autocannonAmmo;
+    [SerializeField] private Sprite _rocketAmmo;
+
 
     private Spaceship _playerSpaceship;
 
@@ -44,12 +51,50 @@ public class PlayerHUD : MonoBehaviour
         {
             _playerSpaceship.OnHeatChanged += UpdateHeatBar;
             _playerSpaceship.OnHealthChanged += UpdateHealthBar;
+            _playerSpaceship.OnSpecialFired += UpdateAmmoCounter;
+            _playerSpaceship.OnSpecialChanged += UpdateAmmoSprite;
         }
         else
         {
             _playerSpaceship.OnHeatChanged -= UpdateHeatBar;
             _playerSpaceship.OnHealthChanged -= UpdateHealthBar;
+            _playerSpaceship.OnSpecialFired -= UpdateAmmoCounter;
+            _playerSpaceship.OnSpecialChanged -= UpdateAmmoSprite;
+
         }
+    }
+
+    private void UpdateAmmoSprite()
+    {
+        Weapon weapon = _playerSpaceship.SpecialWeapon;
+
+        if(weapon == null)
+        {
+            _ammoImage.gameObject.SetActive(false);
+            _ammoCounterText.gameObject.SetActive(false);
+        }
+        else
+        {
+            _ammoImage.gameObject.SetActive(true);
+            _ammoCounterText.gameObject.SetActive(true);
+
+            switch (weapon)
+            {
+                case Autocannon:
+                    _ammoImage.sprite = _autocannonAmmo;
+                    break;
+                case RocketPod:
+                    _ammoImage.sprite = _rocketAmmo;
+                    break;
+            }
+
+            UpdateAmmoCounter();
+        }
+    }
+
+    private void UpdateAmmoCounter()
+    {
+        _ammoCounterText.text = $"{_playerSpaceship.SpecialAmmo}/{_playerSpaceship.SpecialWeapon.MaxAmmo}";
     }
 
     public void Init()

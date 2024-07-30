@@ -10,7 +10,9 @@ using UnityEngine.InputSystem;
 public class Spaceship : MonoBehaviourPun, IPunObservable
 {
     public event Action<float> OnHeatChanged;
+    public event Action OnSpecialFired;
     public event Action OnHealthChanged;
+    public event Action OnSpecialChanged;
 
     [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
@@ -134,6 +136,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         
         // Feedback
         _shipFeedbacks.FireWeaponSFX(SpecialWeapon, photonView.IsMine);
+        OnSpecialFired?.Invoke();
 
     }
 
@@ -144,6 +147,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         SpecialWeapon = GameManager.Instance.WeaponList.GetWeapon(weaponEnum);
         SpecialAmmo = SpecialWeapon.MaxAmmo;
         _weaponAnimator.SetWeapon(SpecialWeapon);
+        OnSpecialChanged?.Invoke();
     }
 
     public const string RPC_CLEAR_SPECIAL = "RPC_ClearSpecial";
@@ -151,8 +155,9 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     private void RPC_ClearSpecial()
     {
         StartCoroutine(ClearSpecial());
+
     }
-    
+
     public const string RPC_HIT = "RPC_Hit";
     [PunRPC]
     private void RPC_Hit(HitData hitData)
@@ -270,6 +275,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         yield return new WaitUntil(() => CanSpecialFire);
         _weaponAnimator.SetWeapon(null);
         SpecialWeapon = null;
+        OnSpecialChanged?.Invoke();
+
     }
 
     private void TakeDamage(HitData hitData)
