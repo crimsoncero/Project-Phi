@@ -118,7 +118,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   DecreasingDelay: 1
   LerpDecreasingDelayedBar: 1
-  LerpDecreasingDelayedBarSpeed: 15
+  LerpDecreasingDelayedBarSpeed: 0.7
   LerpDecreasingDelayedBarDuration: 0.2
   LerpDecreasingDelayedBarCurve:
     serializedVersion: 2
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -560,9 +560,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  DecreasingDelay: 1
+  DecreasingDelay: 0.5
   LerpDecreasingDelayedBar: 1
-  LerpDecreasingDelayedBarSpeed: 15
+  LerpDecreasingDelayedBarSpeed: 0.7
   LerpDecreasingDelayedBarDuration: 0.2
   LerpDecreasingDelayedBarCurve:
     serializedVersion: 2
