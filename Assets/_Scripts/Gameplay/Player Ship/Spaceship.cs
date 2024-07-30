@@ -13,7 +13,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     public event Action OnSpecialFired;
     public event Action OnHealthChanged;
     public event Action OnSpecialChanged;
-
+    public event Action OnSpawn;
+    public event Action OnDestroyed;
     [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public Lazgun PrimaryWeapon { get; private set; }
     [field: SerializeField] public Weapon SpecialWeapon { get; private set; }
@@ -180,7 +181,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
             GameManager.Instance.IncreasePlayerScore(hitData.Owner, 1);
             GameManager.Instance.SpawnShip(this, true);
         }
-
+        OnDestroyed?.Invoke();
         this.gameObject.SetActive(false);
 
     }
@@ -222,7 +223,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         CanPrimaryFire = true;
         CanSpecialFire = true;
         CurrentHealth = MaxHealth;
-
+        OnSpawn?.Invoke();
         if (photonView.IsMine)
         {
             SetInputActive(false);

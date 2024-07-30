@@ -52,6 +52,8 @@ public class PlayerHUD : MonoBehaviour
             _playerSpaceship.OnHealthChanged += UpdateHealthBar;
             _playerSpaceship.OnSpecialFired += UpdateAmmoCounter;
             _playerSpaceship.OnSpecialChanged += UpdateAmmoSprite;
+            _playerSpaceship.OnSpawn += UpdateAmmoSprite;
+            _playerSpaceship.OnSpawn += UpdateAmmoCounter;
         }
         else
         {
@@ -59,6 +61,8 @@ public class PlayerHUD : MonoBehaviour
             _playerSpaceship.OnHealthChanged -= UpdateHealthBar;
             _playerSpaceship.OnSpecialFired -= UpdateAmmoCounter;
             _playerSpaceship.OnSpecialChanged -= UpdateAmmoSprite;
+            _playerSpaceship.OnSpawn -= UpdateAmmoSprite;
+            _playerSpaceship.OnSpawn -= UpdateAmmoCounter;
 
         }
     }
