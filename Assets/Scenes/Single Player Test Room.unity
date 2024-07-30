@@ -2459,14 +2459,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 978070449798092420, guid: 5bb2fba14d4dbf944a79817d157ba622, type: 3}
-      propertyPath: DecreasingDelay
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 978070449798092420, guid: 5bb2fba14d4dbf944a79817d157ba622, type: 3}
-      propertyPath: LerpDecreasingDelayedBarSpeed
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 7675337729855708873, guid: 5bb2fba14d4dbf944a79817d157ba622, type: 3}
       propertyPath: m_Name
       value: Game Canvas
