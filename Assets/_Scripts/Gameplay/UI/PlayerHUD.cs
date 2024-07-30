@@ -8,7 +8,6 @@ public class PlayerHUD : MonoBehaviour
 {
     [Header("Health Bar")]
     [SerializeField] private MMProgressBar _healthBar;
-    private Image _healthBarImage;
 
     [Header("Heat Bar")]
     [SerializeField] private MMProgressBar _heatBar;
