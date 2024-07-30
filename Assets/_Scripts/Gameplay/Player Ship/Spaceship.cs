@@ -191,23 +191,40 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     /// </summary>
     public const string RPC_SPAWN = "RPC_Spawn";
     [PunRPC]
-    private void RPC_Spawn(Vector3 position, Quaternion rotation, PhotonMessageInfo info)
+    private void RPC_Spawn(Vector3 position, Quaternion rotation, int spawnTime, PhotonMessageInfo info)
     {
-        float lag = (PhotonNetwork.ServerTimestamp - info.SentServerTimestamp) * 0.001f;
-
+        
         transform.position = position;
         transform.rotation = rotation;
 
-        gameObject.SetActive(true);
-        
-        if(photonView.IsMine)
-            SetInputActive(true);
-
-        StartCoroutine(ImmuneCoroutine(lag));
+        GameManager.Instance.DelaySpawnShip(this, spawnTime);
     
     }
 
     #endregion
+
+    public IEnumerator DelayedSpawn(int spawnTime)
+    {
+        int delta = spawnTime - PhotonNetwork.ServerTimestamp;
+        // Wait for server time to pass spawn time (optimize for lowest wait time between checks)
+        
+        while(delta > 0)
+        {
+            yield return new WaitForSeconds(0.1f);
+            delta = spawnTime - PhotonNetwork.ServerTimestamp;
+        }
+
+        // Spawn ship
+
+        gameObject.SetActive(true);
+
+        if (photonView.IsMine)
+            SetInputActive(true);
+
+        float lag = delta * -0.001f;
+
+        StartCoroutine(ImmuneCoroutine(lag));
+    }
 
     /// <summary>
     /// Initialize Spaceship stats to default starting values.

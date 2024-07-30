@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Min(0)][SerializeField] private int _npcCount;
 
     [Header("Gameplay", order = 1)]
-    [SerializeField] private float _timeToSpawn;
+    [SerializeField] private int _timeToSpawn;
     [SerializeField] private float _spawnPointCD;
     [SerializeField] private float _weaponSpawnCD;
     [SerializeField] private int _startingWeaponCount;
@@ -198,18 +198,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void SpawnShip(Spaceship ship, bool isRespawn = false)
     {
+        Transform transform = GetSpawnPoint();
+        int spawnTime = PhotonNetwork.ServerTimestamp;
+        spawnTime += isRespawn ? _timeToSpawn : 0;
+
         if (isRespawn)
-            StartCoroutine(WaitForRespawn(ship));
+            ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation, spawnTime);
         else
-        {
-            Transform transform = GetSpawnPoint();
-            ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation);
-        }
+            ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation, spawnTime);
     }
-    private IEnumerator WaitForRespawn(Spaceship ship)
+
+    public void DelaySpawnShip(Spaceship ship, int spawnTime)
     {
-        yield return new WaitForSeconds(_timeToSpawn);
-        SpawnShip(ship, false);
+        StartCoroutine(ship.DelayedSpawn(spawnTime));
     }
 
     private Transform GetSpawnPoint()

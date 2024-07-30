@@ -97,6 +97,7 @@ public class PlayerHUD : MonoBehaviour
 
     private void UpdateAmmoCounter()
     {
+        if (_playerSpaceship.SpecialWeapon == null) return;
         _ammoCounterText.text = $"{_playerSpaceship.SpecialAmmo}/{_playerSpaceship.SpecialWeapon.MaxAmmo}";
     }
 
