@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Combat Playlist
   m_EditorClassIdentifier: 
   Track: 1
-  PlayOrder: 2
+  PlayOrder: 3
   RandomizeOrderSeed: 1
   PlayMode: 0
   MaxAmountOfPlays: 10
