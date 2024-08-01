@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Spaceship Config 3
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 3
-  <Color>k__BackingField: {r: 1, g: 0, b: 0.86198235, a: 1}
+  <Color>k__BackingField: {r: 0.017781325, g: 0.8490566, b: 0, a: 1}
   <Material>k__BackingField: {fileID: 2100000, guid: a0974b39ec77820449a492c412523c8f, type: 2}

@@ -26,7 +26,7 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Emission_Color: {r: 2.9960785, g: 0, b: 0.8636681, a: 1}
+    - _Emission_Color: {r: 2, g: 0, b: 0.07791138, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1623197154675867249
