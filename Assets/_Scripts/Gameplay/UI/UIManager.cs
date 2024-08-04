@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerHUD _playerHUD;
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private RectTransform _scoreboard;
+    [SerializeField] private EndgameScreen _endGameScreen;
 
     private List<ScoreTag> _scoreboardTags;
 
@@ -34,12 +35,16 @@ public class UIManager : MonoBehaviourPunCallbacks
 
         Synchronizer.OnMatchStarted += OnMatchStarted;
         Synchronizer.OnTimerUpdated += UpdateTimerText;
+        Synchronizer.OnMatchFinished += OnMatchFinished;
     }
+
+    
 
     private void OnDestroy()
     {
         Synchronizer.OnMatchStarted -= OnMatchStarted;
         Synchronizer.OnTimerUpdated -= UpdateTimerText;
+        Synchronizer.OnMatchFinished -= OnMatchFinished;
     }
 
 
@@ -78,6 +83,16 @@ public class UIManager : MonoBehaviourPunCallbacks
     private void OnMatchStarted()
     {
         Init();
+    }
+
+    private void OnMatchFinished(EndGamePlayerData[] data)
+    {
+        _scoreboard.gameObject.SetActive(false);
+        _playerHUD.gameObject.SetActive(false);
+        _timerText.gameObject.SetActive(false);
+
+        _endGameScreen.gameObject.SetActive(true);
+        _endGameScreen.Init(data);
     }
 
 }

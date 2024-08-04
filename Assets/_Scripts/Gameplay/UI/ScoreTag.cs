@@ -28,5 +28,15 @@ public class ScoreTag : MonoBehaviour
         _score.text = Player.GetPlayerKills().ToString();
     }
 
+    public void InitEndgame(EndGamePlayerData playerData)
+    {
+        _name.text = playerData.Name;
+        SpaceshipConfig config = GameManager.Instance.ShipConfigList.GetConfig(playerData.ConfigID);
+        _color = config.Color;
+        _name.color = _color;
+        _score.color = _color;
+        _score.text = playerData.Score.ToString();
+    }
+    
 
 }

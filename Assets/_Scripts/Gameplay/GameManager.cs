@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Synchronizer.OnMatchFinished += EndGame;
 
+
     }
 
     private void Start()
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void EndGame()
+    private void EndGame(EndGamePlayerData[] data)
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -128,8 +129,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
         }
 
-        Time.timeScale = 0;
-        // DISPLAY SCOREBOARD FOR PLAYERS
         
     }
 

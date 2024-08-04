@@ -27,10 +27,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     private void RegisterCustomTypes()
     {
-        if (PhotonPeer.RegisterType(typeof(HitData), (byte)'H', HitData.SerializeHitData, HitData.DeserializeHitData))
-            Debug.Log("Success");
-        else
-            Debug.Log("Failed");
+        PhotonPeer.RegisterType(typeof(HitData), (byte)'H', HitData.SerializeHitData, HitData.DeserializeHitData);
+        PhotonPeer.RegisterType(typeof(EndGamePlayerData), (byte)'E', EndGamePlayerData.Serialize, EndGamePlayerData.Deserialize);
     }
 
 

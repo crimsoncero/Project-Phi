@@ -1,14 +1,17 @@
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 {
     public static event Action<int> OnTimerUpdated;
 	public static event Action OnMatchStarted;
-	public static event Action OnMatchFinished;
+	public static event Action<EndGamePlayerData[]> OnMatchFinished;
 
 
 	private int _timer = 0;
@@ -66,7 +69,8 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
             if (Timer == 0 && MatchTimerGoal > 0)
             {
-                photonView.RPC(RPC_END_MATCH, RpcTarget.All);
+                
+                photonView.RPC(RPC_END_MATCH, RpcTarget.AllViaServer, CreateEndGameData());
             }
         }
     }
@@ -86,6 +90,23 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+    public EndGamePlayerData[] CreateEndGameData()
+    {
+        Player[] players = PhotonNetwork.CurrentRoom.Players.Values.ToArray();
+
+        EndGamePlayerData[] data = new EndGamePlayerData[players.Length];
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            data[i] = new EndGamePlayerData();
+            data[i].ActorNumber = players[i].ActorNumber;
+            data[i].ConfigID = players[i].GetShipConfigID();
+            data[i].Score = players[i].GetPlayerKills();
+        }
+
+        return data;
+    }
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
@@ -95,10 +116,13 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         {
             if(MatchScoreGoal > 0 && targetPlayer.GetPlayerKills() == MatchScoreGoal)
             {
-                photonView.RPC(RPC_END_MATCH, RpcTarget.All);
+                photonView.RPC(RPC_END_MATCH, RpcTarget.AllViaServer, CreateEndGameData());
             }
         }
     }
+
+
+
 
     public static string RPC_START_MATCH = "RPC_StartMatch";
     [PunRPC]
@@ -115,11 +139,10 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
     public static string RPC_END_MATCH = "RPC_EndMatch";
     [PunRPC]
-    public void RPC_EndMatch()
+    public void RPC_EndMatch(EndGamePlayerData[] endGameData)
     {
-        OnMatchFinished?.Invoke();
+        OnMatchFinished?.Invoke(endGameData);
     }
-
 
 
 }
