@@ -1,4 +1,4 @@
-using Photon.Pun;
+    using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -122,7 +122,7 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         _configsInUse[configID] = true;
 
         player.SetShipConfigID(configID);
-
+        player.SetPlayerKills(0);
     }
 
     private void ReleaseConfig(Player player)

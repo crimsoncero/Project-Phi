@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class LoginPanel : MonoBehaviour
 {
 
-    const string PlayerNamePrefKey = "PlayerName";
 
     private bool isInitialConnect = true;
 
@@ -22,9 +21,9 @@ public class LoginPanel : MonoBehaviour
     {
         string defaultName = string.Empty;
         if(_inputField != null)
-            if (PlayerPrefs.HasKey(PlayerNamePrefKey))
+            if (PlayerPrefsHandler.HasNameKey())
             {
-                defaultName = PlayerPrefs.GetString(PlayerNamePrefKey);
+                defaultName = PlayerPrefsHandler.GetName();
                 _inputField.text = defaultName;
             }
 
@@ -45,7 +44,7 @@ public class LoginPanel : MonoBehaviour
         }
 
         PhotonNetwork.NickName = value;
-        PlayerPrefs.SetString(PlayerNamePrefKey, value);
+        PlayerPrefsHandler.SetName(value);
     }
 
     public void Connect()

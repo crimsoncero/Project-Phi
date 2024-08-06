@@ -1,12 +1,15 @@
+using ExitGames.Client.Photon;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenuManager : MonoBehaviourPunCallbacks
 {
+
     private static MainMenuManager _instance;
     public static MainMenuManager Instance { get { return _instance; } }
 
@@ -57,6 +60,8 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         {
             ActivateLoginPanel();
         }
+
+        Debug.Log(PlayerPrefsHandler.GetRoomId());
     }
 
 
@@ -112,6 +117,16 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         ActivateMenuPanel();
+
+        
+    
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        Debug.Log("Score " + PhotonNetwork.LocalPlayer.GetScore());
+
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -123,6 +138,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        PlayerPrefsHandler.SetRoomId(PhotonNetwork.CurrentRoom.Name);    
         ActivateWaitingRoomPanel();
     }
     #endregion

@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 {
+
     public static event Action<int> OnTimerUpdated;
 	public static event Action OnMatchStarted;
 	public static event Action<EndGamePlayerData[]> OnMatchFinished;
@@ -129,7 +130,7 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     public void RPC_StartMatch()
     {
         OnMatchStarted?.Invoke();
-
+        Debug.Log(PlayerPrefsHandler.GetRoomId());
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -143,6 +144,8 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     {
         IsMatchActive = false;
         OnMatchFinished?.Invoke(endGameData);
+
+        PlayerPrefsHandler.SetRoomId("");
 
         // Lock Room
         if (PhotonNetwork.IsMasterClient)

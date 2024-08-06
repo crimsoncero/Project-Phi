@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private CinemachineCamera _followCamera;
     [SerializeField] private GameObject _spawnPointContainer;
     [SerializeField] private GameObject _weaponSpawnersContainer;
+    [SerializeField] private Synchronizer _synchronizer;
+
     [field: SerializeField] public WeaponList WeaponList { get; set; }
     [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
 
@@ -55,7 +57,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// </summary>
     private Dictionary<Transform, bool> _spawnPoints;
 
-    private Synchronizer _synchronizer;
     private PlayerScoreHandler _scoreHandler;
 
     private void Awake()
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
+                //PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
             }
 
             InitPlayer();
