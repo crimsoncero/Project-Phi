@@ -61,7 +61,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             ActivateLoginPanel();
         }
 
-        Debug.Log(PlayerPrefsHandler.GetRoomId());
     }
 
 
@@ -138,7 +137,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        PlayerPrefsHandler.SetRoomId(PhotonNetwork.CurrentRoom.Name);    
         ActivateWaitingRoomPanel();
     }
     #endregion

@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private RectTransform _scoreboard;
     [SerializeField] private EndgameScreen _endGameScreen;
+    [SerializeField] private TMP_Text _ping;
 
     private List<ScoreTag> _scoreboardTags;
 
@@ -62,6 +64,8 @@ public class UIManager : MonoBehaviourPunCallbacks
             tag.InitTag(spaceship);
             _scoreboardTags.Add(tag);
         }
+
+        StartCoroutine(UpdatePing());
     }
 
     private void UpdateTimerText(int time)
@@ -70,7 +74,7 @@ public class UIManager : MonoBehaviourPunCallbacks
         _timerText.text = s;
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
@@ -101,5 +105,14 @@ public class UIManager : MonoBehaviourPunCallbacks
         }
 
         SceneManager.LoadSceneAsync("Main Menu");
+    }
+
+    private IEnumerator UpdatePing()
+    {
+        while (true)
+        {
+            _ping.text = PhotonNetwork.GetPing().ToString();
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }

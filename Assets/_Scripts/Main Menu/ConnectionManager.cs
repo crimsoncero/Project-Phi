@@ -104,6 +104,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        PlayerPrefsHandler.SetRoomId(PhotonNetwork.CurrentRoom.Name);
         Debug.Log($"Joined Room Successfuly, Room Name: {PhotonNetwork.CurrentRoom.Name}");
     }
     public override void OnJoinRoomFailed(short returnCode, string message)

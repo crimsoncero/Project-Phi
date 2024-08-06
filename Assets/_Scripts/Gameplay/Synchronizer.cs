@@ -130,7 +130,6 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     public void RPC_StartMatch()
     {
         OnMatchStarted?.Invoke();
-        Debug.Log(PlayerPrefsHandler.GetRoomId());
 
         if (PhotonNetwork.IsMasterClient)
         {
