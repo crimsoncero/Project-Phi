@@ -253,7 +253,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     /// sets the input and player controller active or deactive. Only works if localplayer is the owner.
     /// </summary>
     /// <param name="activate"></param>
-    private void SetInputActive(bool activate)
+    public void SetInputActive(bool activate)
     {
         if (!photonView.IsMine) return; // Not mine
         if (photonView.IsRoomView) return; // Technically mine, but not really.

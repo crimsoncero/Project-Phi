@@ -26,9 +26,9 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 	}
 
     public int MatchStartTime { get; private set; }
-
     public int MatchTimerGoal { get; private set; }
     public int MatchScoreGoal { get; private set; }
+    public bool IsMatchActive { get; private set; }
 
 
     private void Awake()
@@ -49,6 +49,7 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
         MatchTimerGoal = props.Time;
         MatchScoreGoal = props.Score;
+        IsMatchActive = true;
     }
 
 
@@ -69,7 +70,6 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
             if (Timer == 0 && MatchTimerGoal > 0)
             {
-                
                 photonView.RPC(RPC_END_MATCH, RpcTarget.AllViaServer, CreateEndGameData());
             }
         }
@@ -141,7 +141,33 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void RPC_EndMatch(EndGamePlayerData[] endGameData)
     {
+        IsMatchActive = false;
         OnMatchFinished?.Invoke(endGameData);
+
+        // Lock Room
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.PlayerTtl = 0;
+            PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
+
+            StartCoroutine(WaitEmpty());
+        }
+        else
+        {
+            PhotonNetwork.LeaveRoom(false);
+        }
+
+    }
+
+    private IEnumerator WaitEmpty()
+    {
+        while(PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        PhotonNetwork.LeaveRoom(false);
     }
 
 

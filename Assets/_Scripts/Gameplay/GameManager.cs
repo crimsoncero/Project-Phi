@@ -122,14 +122,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void EndGame(EndGamePlayerData[] data)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.PlayerTtl = 0;
-            PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
-        }
+        // Deactivate ship control.
+        ClientSpaceship.SetInputActive(false);
 
-        
+        // Deactivated SFX;
+        MMSoundManager.Current.MuteSfx();
     }
 
     private void InitPlayer()

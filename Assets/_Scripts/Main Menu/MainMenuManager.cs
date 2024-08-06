@@ -49,7 +49,14 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        ActivateLoginPanel();
+        if (PhotonNetwork.IsConnected)
+        {
+            ActivateMenuPanel();
+        }
+        else
+        {
+            ActivateLoginPanel();
+        }
     }
 
 

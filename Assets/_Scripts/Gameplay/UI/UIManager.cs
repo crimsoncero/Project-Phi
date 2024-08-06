@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviourPunCallbacks
 {
@@ -16,7 +17,7 @@ public class UIManager : MonoBehaviourPunCallbacks
 
 
     [SerializeField] private ScoreTag _scoreTagPrefab;
-
+    [SerializeField] private RectTransform _gameUI;
     [SerializeField] private PlayerHUD _playerHUD;
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private RectTransform _scoreboard;
@@ -87,12 +88,18 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     private void OnMatchFinished(EndGamePlayerData[] data)
     {
-        _scoreboard.gameObject.SetActive(false);
-        _playerHUD.gameObject.SetActive(false);
-        _timerText.gameObject.SetActive(false);
-
+        _gameUI.gameObject.SetActive(false);
         _endGameScreen.gameObject.SetActive(true);
         _endGameScreen.Init(data);
     }
 
+    public void OnReturnToMenu()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom(false);
+        }
+
+        SceneManager.LoadSceneAsync("Main Menu");
+    }
 }
