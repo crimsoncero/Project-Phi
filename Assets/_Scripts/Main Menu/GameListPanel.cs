@@ -35,6 +35,12 @@ public class GameListPanel : MonoBehaviour
     {
         List<RoomInfo> roomList = Con.RoomList;
 
+        for(int i = 0;i < roomList.Count; i++)
+        {
+            if (roomList[i].PlayerCount >= roomList[i].MaxPlayers)
+                roomList.RemoveAt(i);
+        }
+
         // Check to remove before adding new tags.
 
         string[] namesArr = _gamesList.Keys.ToArray();

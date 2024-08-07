@@ -78,9 +78,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         Debug.Log($"{PhotonNetwork.NickName} Joined Lobby " + PhotonNetwork.CurrentLobby);
-        RoomList = new List<RoomInfo>();
         SettingsSetup();
 
+    }
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        RoomList = new List<RoomInfo>();
     }
     public override void OnRoomListUpdate(List<RoomInfo> updatedRooms)
     {
