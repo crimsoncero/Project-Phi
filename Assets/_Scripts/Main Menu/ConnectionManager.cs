@@ -1,14 +1,14 @@
 using ExitGames.Client.Photon;
-using MSLIMA.Serializer;
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
+    public event Action OnUpdatedRoomList;
+
     private static ConnectionManager _instance;
     public static ConnectionManager Instance { get { return _instance; } }
     public List<RoomInfo> RoomList {  get; private set; }
@@ -78,6 +78,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         Debug.Log($"{PhotonNetwork.NickName} Joined Lobby " + PhotonNetwork.CurrentLobby);
+        RoomList = new List<RoomInfo>();
         SettingsSetup();
 
     }
@@ -100,6 +101,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
                 RoomList.Add(room);
             }
         }
+
+        OnUpdatedRoomList?.Invoke();
     }
     public override void OnJoinedRoom()
     {
