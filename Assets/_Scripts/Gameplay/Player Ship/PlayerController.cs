@@ -90,8 +90,8 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
 
-        _acceleration = _rigidbody2D.velocity - _prevVelocity;
-        _prevVelocity = _rigidbody2D.velocity;
+        _acceleration = _rigidbody2D.linearVelocity - _prevVelocity;
+        _prevVelocity = _rigidbody2D.linearVelocity;
     }
     
     private void Movement()
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (CanFirePrimary)
         {
             if (Input.PrimaryFire.phase == InputActionPhase.Performed)
-                _photonView.RPC(Spaceship.RPC_FIRE_PRIMARY, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+                _photonView.RPC(Spaceship.RPC_FIRE_PRIMARY, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.linearVelocity);
         }
         else if (Input.PrimaryFire.phase == InputActionPhase.Performed && gameObject.activeSelf)
             StartCoroutine(RapidFire(true));
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         if(CanFireSpecial)
         {
             if (Input.SpecialFire.phase == InputActionPhase.Performed)
-                _photonView.RPC(Spaceship.RPC_FIRE_SPECIAL, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.velocity);
+                _photonView.RPC(Spaceship.RPC_FIRE_SPECIAL, RpcTarget.All, transform.position, transform.rotation, _rigidbody2D.linearVelocity);
 
         }
         else if (SpecialWeapon.FiringMethod == Weapon.FiringMethods.Auto)
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector3 velocity = _rigidbody2D.velocity;
+        Vector3 velocity = _rigidbody2D.linearVelocity;
         Gizmos.DrawLine(transform.position, transform.position + velocity);
 
         Gizmos.color = Color.blue;

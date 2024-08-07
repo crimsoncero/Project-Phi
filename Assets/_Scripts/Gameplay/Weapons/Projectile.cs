@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
     public Projectile Initialize(ObjectPool<Projectile> pool)
     {
         _pool = pool;
-        _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.linearVelocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
         transform.position = Vector3.zero;
 
@@ -62,14 +62,14 @@ public class Projectile : MonoBehaviour
             // Snap the position and end the catchup if below the threshold. 
             if(distanceFromExpected < _distanceToSnap)
             {
-                _rigidbody2D.velocity = baseVelocity;
+                _rigidbody2D.linearVelocity = baseVelocity;
                 transform.position = expectedPosition;
                 yield break;
             }
 
             float velocityMultiplier = Mathf.Log(_multiplier * distanceFromExpected + MathF.E, MathF.E);
 
-            _rigidbody2D.velocity = baseVelocity * velocityMultiplier;
+            _rigidbody2D.linearVelocity = baseVelocity * velocityMultiplier;
 
 
             // Wait for next frame and aggregate the lag.
