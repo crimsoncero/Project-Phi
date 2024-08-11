@@ -97,4 +97,8 @@ public class GameListPanel : MonoBehaviour
         UpdateList();
     }
 
+    public void DirectJoinMatch()
+    {
+        MainMenu.ActivateDirectJoinPanel();
+    }
 }

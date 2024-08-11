@@ -27,6 +27,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _createMatchPanel;
     [SerializeField] private GameObject _joinMatchPanel;
     [SerializeField] private WaitingRoomPanel _waitingRoomPanel;
+    [SerializeField] private DirectJoinPanel _directJoinPanel;
 
 
     private void Awake()
@@ -44,7 +45,8 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             _createMatchPanel.gameObject,
             _joinMatchPanel.gameObject,
             _optionsPanel.gameObject,
-            _waitingRoomPanel.gameObject
+            _waitingRoomPanel.gameObject,
+            _directJoinPanel.gameObject
             };
         }
         
@@ -100,6 +102,11 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     {
         DeactivatePanels();
         _loginPanel.gameObject.SetActive(true);
+    }
+    public void ActivateDirectJoinPanel()
+    {
+        DeactivatePanels();
+        _directJoinPanel.gameObject.SetActive(true);
     }
     public void DeactivatePanels()
     {
