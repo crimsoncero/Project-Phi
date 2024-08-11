@@ -30,6 +30,11 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
 
+        foreach(var config in MainMenuManager.Instance.ShipConfigList.ConfigList)
+        {
+            _configsInUse[config.ID] = false;
+        }
+
         if (PhotonNetwork.IsMasterClient)
         {
             _startButton.SetActive(true);
@@ -45,7 +50,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
 
     }
-
     
     private IEnumerator LoadAsyncScene()
     {
@@ -131,7 +135,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
         _configsInUse[configID] = false;
     }
-
 
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
