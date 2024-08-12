@@ -61,4 +61,11 @@ public class UIOrbiter : MonoBehaviourPunCallbacks
 
         UpdateShips();
     }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+
+        UpdateShips();
+    }
 }
