@@ -118,6 +118,88 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &260791620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5812602220438693012, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
+  m_PrefabInstance: {fileID: 3973106255330714592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &260791621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260791620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2b35cd0da71894d92b885cf5e55c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Channel: 0
+  Playlist: {fileID: 11400000, guid: bd487f6c268f8774bb1cd84879ab38f1, type: 2}
+  PlayOnStart: 1
+  VolumeMultiplier: 1
+  PitchMultiplier: 1
+  Persistent: 0
+  AutomaticallyUnparentOnAwake: 1
+  AutoHandleApplicationPause: 1
+  FadeIn: 0
+  FadeOut: 0
+  FadeDuration: 1
+  FadeTween:
+    MMTweenDefinitionType: 0
+    MMTweenCurve: 4
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Initialized: 0
+  BindPitchToTimeScale: 0
+  TimescaleRemapFrom: {x: 0, y: 2}
+  TimescaleRemapTo: {x: 0.8, y: 1.2}
+  DebugCurrentManagerState: 0
+  CurrentSongIndex: -1
+  CurrentSongName: 
+  CurrentTime: 0
+  CurrentTimeLeft: 0
+  CurrentClipDuration: 0
+  CurrentProgress: 0
+  PlayButton: 0
+  StopButton: 0
+  PauseButton: 0
+  PreviousButton: 0
+  NextButton: 0
+  TargetSongIndex: 0
+  TargetSongButton: 0
+  QueueTargetSongButton: 0
+  SetLoopTargetSongButton: 0
+  StopLoopTargetSongButton: 0
+  TestPlaylist: {fileID: 0}
+  SetTargetPlaylistButton: 0
+  PlayTargetPlaylistButton: 0
+  ResetPlayCountButton: 0
+  TestVolumeControl: 1
+  TestPlaybackSpeedControl: 1
 --- !u!1 &301705696
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,26 +467,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 441946003302814790, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 441946003302814790, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 441946003302814790, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 441946003302814790, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 441946003302814790, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 923591222045171569, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -414,16 +476,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 923591222045171569, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 923591222045171569, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 923591222045171569, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3083958758722377028, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3207070842599891830, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
       propertyPath: sceneViewId
@@ -442,6 +504,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6239386599817320750, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6239386599817320750, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -453,18 +519,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 877193487}
-    - target: {fileID: 6625389820627651348, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6625389820627651348, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6625389820627651348, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7211258343478589312, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -552,7 +606,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5812602220438693012, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 260791621}
   m_SourcePrefab: {fileID: 100100000, guid: 0e20f03e95f811b409abf0f314ce54bd, type: 3}
 --- !u!1001 &5405018582808637006
 PrefabInstance:

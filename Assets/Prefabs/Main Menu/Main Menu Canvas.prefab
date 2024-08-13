@@ -3482,6 +3482,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Waiting Room Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 9165949331244370425, guid: acba995b2933eef4ebb34bf4c58037b1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165949331244370425, guid: acba995b2933eef4ebb34bf4c58037b1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165949331244370425, guid: acba995b2933eef4ebb34bf4c58037b1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
