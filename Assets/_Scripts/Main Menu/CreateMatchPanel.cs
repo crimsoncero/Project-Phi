@@ -67,15 +67,8 @@ public class CreateMatchPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        if(_roomSettings == null)
-            _roomSettings = new RoomSettings();
-        else
-        {
-            _roomSettings.GenerateRoomName();
-        }
-
-
-
+        _roomSettings = new RoomSettings();
+        
         // Initialize values
         _mapName.text = CurrentMap.ToString();
         _nicknameInputField.text = CurrentNickname;
@@ -153,7 +146,7 @@ public class CreateMatchPanel : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        MainMenu.ActivateMenuPanel();
+        MainMenu.ActivateJoinMatchPanel();
     }
 
     public void CreateGame()

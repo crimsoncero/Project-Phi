@@ -1,5 +1,7 @@
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,27 +18,40 @@ public class GameListPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        Con.OnUpdatedRoomList += RefreshList;
+
         if(_gamesList == null)
             _gamesList = new Dictionary<string, GameTag>();
 
         UpdateList();
     }
 
+    private void OnDisable()
+    {
+        Con.OnUpdatedRoomList -= RefreshList;
+    }
+
     private void UpdateList()
     {
         List<RoomInfo> roomList = Con.RoomList;
 
+        for(int i = 0;i < roomList.Count; i++)
+        {
+            if (roomList[i].PlayerCount >= roomList[i].MaxPlayers)
+                roomList.RemoveAt(i);
+        }
+
         // Check to remove before adding new tags.
 
-
+        string[] namesArr = _gamesList.Keys.ToArray();
         // Remove rooms from the list that are not in roomList.
-        foreach(string gameName in _gamesList.Keys)
+        for(int i = 0; i < namesArr.Length; i++)
         {
             // Check if there is no game with the given id currently in the roomList.
-            if(roomList.FindIndex((r) => r.Name == gameName) == -1)
+            if(roomList.FindIndex((r) => r.Name == namesArr[i]) == -1)
             {
                 // Remove tag from list.
-                RemoveGameTag(gameName);
+                RemoveGameTag(namesArr[i]);
             }
         }
 
@@ -70,5 +85,20 @@ public class GameListPanel : MonoBehaviour
     {
         Destroy(_gamesList[gameName].gameObject);
         _gamesList.Remove(gameName);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        MainMenu.ActivateMenuPanel();
+    }
+
+    public void RefreshList()
+    {
+        UpdateList();
+    }
+
+    public void DirectJoinMatch()
+    {
+        MainMenu.ActivateDirectJoinPanel();
     }
 }
