@@ -1,65 +1,69 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerTag : MonoBehaviour
 {
 
-    [SerializeField] private TMPro.TextMeshProUGUI _nickname;
-    [SerializeField] private Image _masterSign;
-    [SerializeField] private Image _tagBackground;
-    [SerializeField] private Image _colorImage;
-
-
-    [SerializeField] private Color _inActiveColor;
+    [SerializeField] private TMP_Text _nickname;
+    [SerializeField] private Image _ship;
+    [SerializeField] private RectTransform _tagTransform;
 
     private SpaceshipConfig _config = null;
+    private Quaternion _lastParentRotation;
+    private Quaternion _lastTagRotation;
 
-    private Player _playerInfo = null;
-    public Player PlayerInfo
+    private void Update()
     {
-        get { return _playerInfo; }
-        set
-        {
-            _playerInfo = value;
-            UpdateTag();
-        }
+        // Inverse Tag rotation to keep name tag and other stuff in the correct orientation
+        transform.localRotation = Quaternion.Inverse(transform.parent.localRotation) *
+                                  _lastParentRotation * transform.localRotation;
+        _lastParentRotation = transform.parent.localRotation;
+
+        // Inverse the inverse to keep the ship rotation correct.
+        _ship.transform.localRotation = Quaternion.Inverse(transform.localRotation) *
+                                  _lastTagRotation * _ship.transform.localRotation;
+        _lastTagRotation = _ship.transform.parent.localRotation;
+
+        // Great Success!!
     }
 
-    public bool IsEmpty { get { return _playerInfo == null; } }
-
-    public void UpdateTag()
+    public void InitTag(Player player, float angle, float radius, float rotationSpeed)
     {
-        // Empty Tag Settings
-        if(_playerInfo == null)
-        {
-            _nickname.text = string.Empty;
-            _masterSign.enabled = false;
-            _colorImage.enabled = false;
-        }
-        // Initialize for current player info
-        else
-        {
-            _nickname.text = PlayerInfo.NickName;
-            _masterSign.enabled = PlayerInfo.IsMasterClient;
-            UpdateColor();
-        }
+        _nickname.text = player.NickName;
+        _config = MainMenuManager.Instance.ShipConfigList.GetPlayerConfig(player);
+        _nickname.color = _config.Color;
+        _ship.material = _config.Material;
+
+        SetTransform(angle, radius);
+
+        _lastParentRotation = transform.parent.localRotation;
+        _lastTagRotation = transform.localRotation;
+
+        gameObject.SetActive(true);
     }
 
-    public void SetNotOpenSlot()
+    public void HideTag()
     {
-        _playerInfo = null;
-        _tagBackground.color = _inActiveColor;
+        gameObject.SetActive(false);
     }
 
-    private void UpdateColor()
+    private void SetTransform(float angle, float radius)
     {
-        if (_playerInfo.GetShipConfigID() < 0) return;
-        _config = MainMenuManager.Instance.ShipConfigList.GetConfig(_playerInfo.GetShipConfigID());
-        _colorImage.enabled = true;
-        _colorImage.color = _config.Color;
+        Vector2 position = new Vector2();
+
+        
+        position.x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
+        position.y = Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+
+        _tagTransform.anchoredPosition = position;
+        _tagTransform.rotation = Quaternion.identity;
+        _ship.rectTransform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
+    
     
 }
