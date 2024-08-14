@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject _startButton;
     [SerializeField] private ShipConfigList _shipConfigList;
+    [SerializeField] private WaitingRoomDetails _waitingRoomDetails;
     /// <summary>
     /// A key value pairs of Configs IDs and whether they are in use or not.
     /// </summary>
@@ -28,6 +28,8 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
 
+        _waitingRoomDetails.Init();
+
         foreach(var config in _shipConfigList.ConfigList)
         {
             _configsInUse[config.ID] = false;
@@ -35,13 +37,9 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            _startButton.SetActive(true);
             AssignConfig(PhotonNetwork.LocalPlayer);
         }
-        else
-        {
-            _startButton.SetActive(false);
-        }
+        
 
     }
     
