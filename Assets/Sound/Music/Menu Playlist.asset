@@ -26,7 +26,7 @@ MonoBehaviour:
       Initialized: 1
       MmSoundManagerTrack: 1
       AudioGroup: {fileID: 0}
-      Loop: 1
+      Loop: 0
       Volume: 1
       Pitch: 1
       ID: 0

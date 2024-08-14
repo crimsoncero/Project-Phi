@@ -10,6 +10,9 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject _startButton;
     [SerializeField] private ShipConfigList _shipConfigList;
+    /// <summary>
+    /// A key value pairs of Configs IDs and whether they are in use or not.
+    /// </summary>
     private Dictionary<int, bool> _configsInUse = new Dictionary<int, bool>();
     private bool InRoom { get { return PhotonNetwork.InRoom; } }
     private Room CurrentRoom { get { return PhotonNetwork.CurrentRoom; } }
@@ -88,7 +91,9 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
 
         if (PhotonNetwork.IsMasterClient)
+        {
             AssignConfig(newPlayer);
+        }
 
     }
 
@@ -97,6 +102,32 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         base.OnPlayerLeftRoom(otherPlayer);
 
         ReleaseConfig(otherPlayer);
+    }
+
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+
+
+
+        // Handle becoming the master client, need to sync up the available configs.
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Reset the cofig list (in case something weird happened)
+            foreach (var config in _shipConfigList.ConfigList)
+                _configsInUse[config.ID] = false;
+
+            // Check what configs the current players got, and sync back the data.
+            foreach (var player in PhotonNetwork.CurrentRoom.Players.Values)
+            {
+                int configID = player.GetShipConfigID();
+
+                if (configID < 0) continue; // Invalid config, player was not assigned a config yet
+
+                _configsInUse[configID] = true;
+            }
+        }
     }
 
 }
