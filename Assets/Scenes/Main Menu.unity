@@ -143,8 +143,8 @@ MonoBehaviour:
   Persistent: 0
   AutomaticallyUnparentOnAwake: 1
   AutoHandleApplicationPause: 1
-  FadeIn: 0
-  FadeOut: 0
+  FadeIn: 1
+  FadeOut: 1
   FadeDuration: 1
   FadeTween:
     MMTweenDefinitionType: 0
