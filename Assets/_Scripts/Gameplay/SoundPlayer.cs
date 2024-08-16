@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum MusicPackEnum
@@ -21,6 +22,7 @@ public enum ButtonSFX
     Positive,
     Negetive,
 }
+
 
 public class SoundPlayer : MonoBehaviour
 {
@@ -48,6 +50,9 @@ public class SoundPlayer : MonoBehaviour
     [SerializeField] private MMF_Player _buttonPositiveSFX;
     [SerializeField] private MMF_Player _buttonNegetiveSFX;
 
+
+    public bool IsMusicPlayerReady { get { return _playlistManager.didStart; } }
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -58,7 +63,7 @@ public class SoundPlayer : MonoBehaviour
         }
     }
 
-    public void PlayMusic(MusicType musicType)
+    public bool PlayMusic(MusicType musicType)
     {
         MusicPack pack;
 
@@ -93,8 +98,14 @@ public class SoundPlayer : MonoBehaviour
                 list = pack.MenuMusic;
                 break;
         }
+        
+        if (_playlistManager.didStart)
+        {
+            _playlistManager.ChangePlaylistAndPlay(list);
+            return true;
+        }
 
-        _playlistManager.ChangePlaylistAndPlay(list);
+        return false;
     }
 
     public void SetMusicPack(MusicPackEnum musicPack)

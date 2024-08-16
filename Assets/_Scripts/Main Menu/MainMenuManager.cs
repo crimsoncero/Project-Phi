@@ -4,6 +4,7 @@ using MoreMountains.Tools;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,7 +53,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
         if (PhotonNetwork.IsConnected)
         {
@@ -63,6 +64,8 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             ActivateLoginPanel();
         }
 
+        yield return new WaitUntil(() => SoundPlayer.Instance.IsMusicPlayerReady);
+        
         SoundPlayer.Instance.PlayMusic(MusicType.Menu);
 
     }
@@ -125,7 +128,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         ActivateMenuPanel();
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
         Debug.Log("Score " + PhotonNetwork.LocalPlayer.GetScore());
