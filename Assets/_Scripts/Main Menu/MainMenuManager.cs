@@ -131,8 +131,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
-        Debug.Log("Score " + PhotonNetwork.LocalPlayer.GetScore());
-
     }
 
     public override void OnDisconnected(DisconnectCause cause)
