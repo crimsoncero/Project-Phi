@@ -62,6 +62,10 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
         StartCoroutine(LoadAsyncScene());
     }
 
+    public void OnLeaveMatch()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
     private void AssignConfig(Player player)
     {
         int[] freeConfigs = _configsInUse.Where((c) => c.Value == false).Select((k) => k.Key).ToArray();

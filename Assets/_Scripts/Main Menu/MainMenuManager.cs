@@ -63,9 +63,9 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             ActivateLoginPanel();
         }
 
+        SoundPlayer.Instance.PlayMusic(MusicType.Menu);
+
     }
-
-
 
     #region Panel Activation
     public void ActivateMenuPanel()
@@ -123,9 +123,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         ActivateMenuPanel();
-
-        
-    
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -148,9 +145,5 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    #region UI Sound
-
     
-
-    #endregion
 }

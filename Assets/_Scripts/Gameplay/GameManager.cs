@@ -97,6 +97,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             InitPlayer();
         }
+
+        SoundPlayer.Instance.PlayMusic(MusicType.Combat);
     }
 
 
