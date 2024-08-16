@@ -338,6 +338,7 @@ GameObject:
   - component: {fileID: 4504296407473975065}
   - component: {fileID: 1603872232435350454}
   - component: {fileID: 775771008334561342}
+  - component: {fileID: 7334010457687184513}
   m_Layer: 5
   m_Name: Return Button
   m_TagString: Untagged
@@ -458,6 +459,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7334010457687184513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299242110947716034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544e236184b4cfd459fede56b348fd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPositive: 0
 --- !u!1 &6167115524092307555
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +693,7 @@ GameObject:
   - component: {fileID: 8962556287353767891}
   - component: {fileID: 7665908275570606771}
   - component: {fileID: 1832400427464323740}
+  - component: {fileID: 6528241642950036226}
   m_Layer: 5
   m_Name: Join Match Button
   m_TagString: Untagged
@@ -788,8 +803,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuPanel, Assembly-CSharp
+      - m_Target: {fileID: 6950549160343827959}
+        m_TargetAssemblyTypeName: DirectJoinPanel, Assembly-CSharp
         m_MethodName: OnDirectJoinConfirm
         m_Mode: 1
         m_Arguments:
@@ -800,6 +815,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6528241642950036226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385892595670913109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544e236184b4cfd459fede56b348fd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPositive: 1
 --- !u!1 &6399044845088237172
 GameObject:
   m_ObjectHideFlags: 0

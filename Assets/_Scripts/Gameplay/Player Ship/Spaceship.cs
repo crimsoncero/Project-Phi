@@ -278,8 +278,6 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         else
             _config = config;
 
-
-
         _renderer.material = _config.Material;
     }
 
