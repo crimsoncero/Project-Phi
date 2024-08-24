@@ -27,8 +27,6 @@ public class MultiplayerGameManager : MonoBehaviourPunCallbacks
     public void RejoinRoom()
     {
         PhotonNetwork.RejoinRoom(_roomName);
-        PhotonMessageInfo info = new();
-        photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation, info);
     }
 
     public const string UPDATE_PLAYER_LEAVE_TEXT = "RPC_UdatePlayerLeaveText";
