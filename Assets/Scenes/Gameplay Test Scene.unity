@@ -1931,7 +1931,7 @@ PrefabInstance:
       objectReference: {fileID: 2106349327}
     - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: _weaponSpawnCD
-      value: 10
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: _startingWeaponCount

@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Gameplay", order = 1)]
     [SerializeField] private int _timeToSpawn;
     [SerializeField] private float _spawnPointCD;
-    [SerializeField] private float _weaponSpawnCD;
+    [SerializeField] private int _weaponSpawnCD;
     [SerializeField] private int _startingWeaponCount;
     
     /// <summary>
@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                //PhotonNetwork.InstantiateRoomObject(SynchronizerPrefabPath, Vector3.zero, Quaternion.identity);
             }
 
             InitPlayer();
@@ -191,8 +190,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if(!isInit)
             weapon.photonView.RPC(WeaponPickup.RPC_DEACTIVATE, RpcTarget.All);
-        
-        StartCoroutine(SpawnNewWeapon(weapon));
+
+        int spawnTime = PhotonNetwork.ServerTimestamp;
+        spawnTime += isInit ? 0 : _weaponSpawnCD;
+
+        WeaponEnum w = WeaponList.GetRandomWeaponEnum();
+        weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w, spawnTime);
     }
 
     public void SpawnShip(Spaceship ship, bool isRespawn = false)
@@ -201,10 +204,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         int spawnTime = PhotonNetwork.ServerTimestamp;
         spawnTime += isRespawn ? _timeToSpawn : 0;
 
-        if (isRespawn)
-            ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation, spawnTime);
-        else
-            ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation, spawnTime);
+        ship.photonView.RPC(Spaceship.RPC_SPAWN, RpcTarget.AllViaServer, transform.position, transform.rotation, spawnTime);
+
     }
 
     public void DelaySpawnShip(Spaceship ship, int spawnTime)
@@ -212,6 +213,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(ship.DelayedSpawn(spawnTime));
     }
 
+    public void DelaySpawnPickup(WeaponPickup pickup, int spawnTime)
+    {
+        StartCoroutine(pickup.DelayedSpawn(spawnTime));
+    }
     private Transform GetSpawnPoint()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -296,15 +301,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
     }
-    private IEnumerator SpawnNewWeapon(WeaponPickup weapon)
-    {
-        yield return new WaitForSeconds(_weaponSpawnCD);
-
-        WeaponEnum w = WeaponList.GetRandomWeaponEnum();
-
-        weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
-    }
-
 
     public void IncreasePlayerScore(Player player, int amount)
     {
