@@ -11,6 +11,10 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
     private void Start()
     {
         ActivateMasterClientButton();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(RPC_UPDATE_MASTER_CLIENT_TEXT, RpcTarget.All, PhotonNetwork.MasterClient);
+        }
     }
 
     private void ActivateMasterClientButton()
