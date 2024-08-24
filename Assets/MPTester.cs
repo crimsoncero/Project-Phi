@@ -35,7 +35,7 @@ public class MPTester : MonoBehaviourPun
 
     public void Reconnect()
     {
-        if(PhotonNetwork.InLobby)
+        //if(PhotonNetwork.InLobby)
             PhotonNetwork.RejoinRoom(_roomName);
     }
 }

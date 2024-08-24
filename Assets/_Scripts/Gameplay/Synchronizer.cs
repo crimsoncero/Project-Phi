@@ -70,10 +70,12 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     }
     
     public const string RPC_UPDATE_DISCONNECT_NAME = "RPC_UpdateDisconnectName";
+    private const string DISCONNECTED_MESSAGE = " disconnected";
+
     [PunRPC]
     public void RPC_UpdateDisconnectName(Player disconnectedPlayer)
     {
-        _disconnectedText.text = disconnectedPlayer.ToString();
+        _disconnectedText.text = disconnectedPlayer.ToString() + DISCONNECTED_MESSAGE;
     }
 
     private IEnumerator TimerTick(bool initTime = false)
