@@ -2,7 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class MPTester : MonoBehaviourPun
+public class MPTester : MonoBehaviourPunCallbacks
 {
     public Spaceship PlayerShip { get { return GameManager.Instance.ClientSpaceship; } }
 
@@ -35,7 +35,24 @@ public class MPTester : MonoBehaviourPun
 
     public void Reconnect()
     {
-        //if(PhotonNetwork.InLobby)
+        if (PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InLobby)
+        {
             PhotonNetwork.RejoinRoom(_roomName);
+        }
+        else if (PhotonNetwork.IsConnectedAndReady && !PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
+        else if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
+    }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        Debug.Log("Joined Lobby.");
+        PhotonNetwork.RejoinRoom(_roomName);
     }
 }
