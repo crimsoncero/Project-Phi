@@ -34,6 +34,8 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         base.OnMasterClientSwitched(newMasterClient);
+        ActivateMasterClientButton();
+        photonView.RPC(RPC_ENABLE_WEAPON_SPAWN, RpcTarget.MasterClient);
         photonView.RPC(RPC_UPDATE_MASTER_CLIENT_TEXT, RpcTarget.All, newMasterClient);
         photonView.RPC(RPC_RESET_COOLDOWN_TIMERS, RpcTarget.All);
     }
@@ -46,6 +48,7 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
             Debug.Log("There isn't an active player to switch to.");
             return;
         }
+        photonView.RPC(RPC_DISABLE_WEAPON_SPAWN, RpcTarget.MasterClient);
 
         Player candidateMC = PhotonNetwork.LocalPlayer.GetNext();
 
@@ -55,6 +58,7 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
 
     private bool CanSwitch()
     {
+        // is current master client the only player
         return GameManager.Instance.SpaceshipList.Where(s => s.photonView.IsOwnerActive).Count() > 1;
     }
 
@@ -63,7 +67,6 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
     public void RPC_UpdateMCName(Player newMasterClient)
     {
         _masterClientNameText.text = newMasterClient.ToString();
-        ActivateMasterClientButton();
     }
     
     public const string RPC_RESET_COOLDOWN_TIMERS = "RPC_ResetCooldownTimers";
@@ -80,6 +83,25 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             ChangeMasterClient();
+        }
+    }
+
+    public const string RPC_DISABLE_WEAPON_SPAWN = "RPC_DisableWeaponSpawn";
+    [PunRPC]
+    public void RPC_DisableWeaponSpawn()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.Instance.CanSpawnWeapons = false;
+        }
+    }
+    public const string RPC_ENABLE_WEAPON_SPAWN = "RPC_EnableWeaponSpawn";
+    [PunRPC]
+    public void RPC_EnableWeaponSpawn()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.Instance.CanSpawnWeapons = true;
         }
     }
 }

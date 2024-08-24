@@ -9,7 +9,6 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -19,7 +18,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     private const string WeaponPickupPrefabPath = "Photon Prefabs\\Weapon Pickup";
     private const string SynchronizerPrefabPath = "Photon Prefabs\\Synchronizer";
-    private const string MENU_SCENE_NAME = "Main Menu";
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -28,6 +26,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _spawnPointContainer;
     [SerializeField] private GameObject _weaponSpawnersContainer;
     [SerializeField] private Synchronizer _synchronizer;
+
 
     [field: SerializeField] public WeaponList WeaponList { get; set; }
     [field: SerializeField] public ShipConfigList ShipConfigList { get; set; }
@@ -53,6 +52,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     /// </summary>
     public List<Spaceship> SpaceshipList { get; private set; } = new List<Spaceship>();
     
+    public bool CanSpawnWeapons { get; set; }
+
     /// <summary>
     /// A Dictionary of all the spawn points as keys, and whether they are ready to be used or not as their value.
     /// </summary>
@@ -304,6 +305,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(_weaponSpawnCD + _weaponSpawnTimerIncreaser);
         _weaponSpawnTimerIncreaser = 0;
+        if (!CanSpawnWeapons) yield return null;
         WeaponEnum w = WeaponList.GetRandomWeaponEnum();
 
         weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
@@ -330,16 +332,5 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void IncreaseShipCooldown()
     {
         _shipSpawnTimerIncreaser = _spawnPointCD;
-    }
-
-    public void LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom(true);
-    }
-
-    public override void OnLeftRoom()
-    {
-        base.OnLeftRoom();
-        SceneManager.LoadScene(MENU_SCENE_NAME);
     }
 }
