@@ -6,9 +6,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 {
+    [SerializeField] TMP_Text _masterClientText;
+    [SerializeField] TMP_Text _disconnectedText;
 
     public static event Action<int> OnTimerUpdated;
 	public static event Action OnMatchStarted;
@@ -51,6 +54,27 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         IsMatchActive = true;
     }
 
+    private void Start()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(RPC_UPDATE_MC_NAME, RpcTarget.All, PhotonNetwork.MasterClient);
+        }
+    }
+
+    public const string RPC_UPDATE_MC_NAME = "RPC_UpdateMCName";
+    [PunRPC]
+    public void RPC_UpdateMCName(Player newMasterClient)
+    {
+        _masterClientText.text = newMasterClient.ToString();
+    }
+    
+    public const string RPC_UPDATE_DISCONNECT_NAME = "RPC_UpdateDisconnectName";
+    [PunRPC]
+    public void RPC_UpdateDisconnectName(Player disconnectedPlayer)
+    {
+        _disconnectedText.text = disconnectedPlayer.ToString();
+    }
 
     private IEnumerator TimerTick(bool initTime = false)
 	{
@@ -131,8 +155,8 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (gameObject.activeSelf)
                 StartCoroutine(TimerTick());
+            photonView.RPC(RPC_UPDATE_MC_NAME, RpcTarget.All, PhotonNetwork.MasterClient);
         }
-
     }
 
 
@@ -200,5 +224,9 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         }
 
     }
-
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        photonView.RPC(RPC_UPDATE_DISCONNECT_NAME, RpcTarget.All, otherPlayer);
+    }
 }
