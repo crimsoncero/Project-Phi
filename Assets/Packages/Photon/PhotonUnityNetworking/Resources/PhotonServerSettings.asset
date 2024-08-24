@@ -61,6 +61,7 @@ MonoBehaviour:
   - RPC_StartMatch
   - RPC_EndMatch
   - RPC_UpdateMCName
+  - RPC_ResetCooldownTimers
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

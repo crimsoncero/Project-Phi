@@ -9,6 +9,7 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private const string SpaceshipPrefabPath = "Photon Prefabs\\Spaceship Photon";
     private const string WeaponPickupPrefabPath = "Photon Prefabs\\Weapon Pickup";
     private const string SynchronizerPrefabPath = "Photon Prefabs\\Synchronizer";
-
+    private const string MENU_SCENE_NAME = "Main Menu";
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -58,6 +59,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     private Dictionary<Transform, bool> _spawnPoints;
 
     private PlayerScoreHandler _scoreHandler;
+
+    private float _weaponSpawnTimerIncreaser = 0f;
+    private float _shipSpawnTimerIncreaser = 0f;
 
     private void Awake()
     {
@@ -256,8 +260,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         _spawnPoints[spawnPoint] = false;
 
-        yield return new WaitForSeconds(_spawnPointCD);
-
+        yield return new WaitForSeconds(_spawnPointCD + _shipSpawnTimerIncreaser);
+        _shipSpawnTimerIncreaser = 0;
         _spawnPoints[spawnPoint] = true;
     }
     private void SpawnWeapons()
@@ -298,8 +302,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private IEnumerator SpawnNewWeapon(WeaponPickup weapon)
     {
-        yield return new WaitForSeconds(_weaponSpawnCD);
-
+        yield return new WaitForSeconds(_weaponSpawnCD + _weaponSpawnTimerIncreaser);
+        _weaponSpawnTimerIncreaser = 0;
         WeaponEnum w = WeaponList.GetRandomWeaponEnum();
 
         weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w);
@@ -316,5 +320,26 @@ public class GameManager : MonoBehaviourPunCallbacks
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
         _scoreHandler.UnlockPlayerScore(targetPlayer);
+    }
+
+    public void IncreaseWeaponCooldown()
+    {
+        _weaponSpawnTimerIncreaser = _weaponSpawnCD;
+    }
+
+    public void IncreaseShipCooldown()
+    {
+        _shipSpawnTimerIncreaser = _spawnPointCD;
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom(true);
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        SceneManager.LoadScene(MENU_SCENE_NAME);
     }
 }

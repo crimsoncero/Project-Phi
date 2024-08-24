@@ -2,6 +2,8 @@ using Photon.Pun;
 using UnityEngine;
 using TMPro;
 using Photon.Realtime;
+using System;
+using System.Linq;
 
 public class MasterClientHandler : MonoBehaviourPunCallbacks
 {
@@ -33,15 +35,27 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
     {
         base.OnMasterClientSwitched(newMasterClient);
         photonView.RPC(RPC_UPDATE_MASTER_CLIENT_TEXT, RpcTarget.All, newMasterClient);
+        photonView.RPC(RPC_RESET_COOLDOWN_TIMERS, RpcTarget.All);
     }
 
     [ContextMenu("Switch Master Client")]
     public void ChangeMasterClient()
     {
+        if (!CanSwitch())
+        {
+            Debug.Log("There isn't an active player to switch to.");
+            return;
+        }
+
         Player candidateMC = PhotonNetwork.LocalPlayer.GetNext();
 
         bool success = PhotonNetwork.SetMasterClient(candidateMC);
         Debug.Log("set master client result " + success);
+    }
+
+    private bool CanSwitch()
+    {
+        return GameManager.Instance.SpaceshipList.Where(s => s.photonView.IsOwnerActive).Count() > 1;
     }
 
     public const string RPC_UPDATE_MASTER_CLIENT_TEXT = "RPC_UpdateMCName";
@@ -50,5 +64,22 @@ public class MasterClientHandler : MonoBehaviourPunCallbacks
     {
         _masterClientNameText.text = newMasterClient.ToString();
         ActivateMasterClientButton();
+    }
+    
+    public const string RPC_RESET_COOLDOWN_TIMERS = "RPC_ResetCooldownTimers";
+    [PunRPC]
+    public void RPC_ResetCooldownTimers()
+    {
+        GameManager.Instance.IncreaseShipCooldown();
+        GameManager.Instance.IncreaseWeaponCooldown();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            ChangeMasterClient();
+        }
     }
 }
