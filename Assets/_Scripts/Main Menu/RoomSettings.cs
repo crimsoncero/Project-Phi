@@ -48,7 +48,7 @@ public class RoomSettings
         RoomOptions.PlayerTtl = 0;
         RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.PublishUserId = true;
-
+        RoomOptions.CleanupCacheOnLeave = true;
         UpdateRoomProperties();
 
     }

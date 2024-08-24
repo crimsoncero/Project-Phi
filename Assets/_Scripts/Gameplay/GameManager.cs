@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Synchronizer.OnMatchFinished += EndGame;
 
-
     }
 
     private void Start()
@@ -171,6 +170,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public Spaceship FindSpaceship(GameObject shipObject)
     {
+        if(shipObject == null) return null;
         if (shipObject.IsUnityNull()) return null;
         int shipIndex = SpaceshipList.FindIndex((s) => s.gameObject == shipObject);
         if(shipIndex < 0 ) return null;
@@ -210,12 +210,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void DelaySpawnShip(Spaceship ship, int spawnTime)
     {
-        StartCoroutine(ship.DelayedSpawn(spawnTime));
+        if(gameObject.activeSelf)
+            StartCoroutine(ship.DelayedSpawn(spawnTime));
     }
 
     public void DelaySpawnPickup(WeaponPickup pickup, int spawnTime)
     {
-        StartCoroutine(pickup.DelayedSpawn(spawnTime));
+        if (gameObject.activeSelf)
+            StartCoroutine(pickup.DelayedSpawn(spawnTime));
     }
     private Transform GetSpawnPoint()
     {
@@ -241,8 +243,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
         int index = Random.Range(0, readySpawns.Length);
-
-        StartCoroutine(SpawnPointCooldown(readySpawns[index]));
+        if (gameObject.activeSelf)
+            StartCoroutine(SpawnPointCooldown(readySpawns[index]));
 
         return readySpawns[index];
     }

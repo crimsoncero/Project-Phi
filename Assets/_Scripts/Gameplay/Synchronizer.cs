@@ -14,7 +14,6 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 	public static event Action OnMatchStarted;
 	public static event Action<EndGamePlayerData[]> OnMatchFinished;
 
-
 	private int _timer = 0;
 	public int Timer
 	{
@@ -30,7 +29,6 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     public int MatchTimerGoal { get; private set; }
     public int MatchScoreGoal { get; private set; }
     public bool IsMatchActive { get; private set; }
-
 
     private void Awake()
     {
@@ -54,14 +52,17 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-    private IEnumerator TimerTick()
+    private IEnumerator TimerTick(bool initTime = false)
 	{
         if (!PhotonNetwork.IsMasterClient) yield break;
         
-        Timer = MatchTimerGoal;
+        if(initTime)
+            Timer = MatchTimerGoal;
 
         while (true)
         {
+            if (!PhotonNetwork.IsMasterClient) yield break;
+
             yield return new WaitForSeconds(1);
 
             if (MatchTimerGoal == 0)
@@ -122,6 +123,17 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if (gameObject.activeSelf)
+                StartCoroutine(TimerTick());
+        }
+
+    }
 
 
 
@@ -133,7 +145,8 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
         if (PhotonNetwork.IsMasterClient)
         {
-            StartCoroutine(TimerTick());
+            if (gameObject.activeSelf)
+                StartCoroutine(TimerTick(true));
         }
     }
 
@@ -152,8 +165,8 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.PlayerTtl = 0;
             PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
-
-            StartCoroutine(WaitEmpty());
+            if (gameObject.activeSelf)
+                StartCoroutine(WaitEmpty());
         }
         else
         {
@@ -172,5 +185,20 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LeaveRoom(false);
     }
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        if (IsMatchActive)
+        {
+            foreach(var ship in GameManager.Instance.SpaceshipList)
+            {
+                if(ship.isActiveAndEnabled)
+                    ship.photonView.RPC(Spaceship.RPC_ACTIVATE, newPlayer);
+            }
+        }
+
+    }
 
 }
