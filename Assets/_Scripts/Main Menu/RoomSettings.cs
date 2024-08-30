@@ -8,25 +8,19 @@ public enum Maps
 {
     Random = 0,
     Graveyard = 1,
-    B = 2,
-    C = 3
+    AsteroidField = 2,
 }
 
 public enum WeaponSpawnPattern
 {
     All = 0,
     PrimaryOnly = 1,
-    LaserOnly = 2
 }
 
 public class RoomSettings
 {
     public static readonly int MAXPLAYERS = 6;
     public static readonly int MINPLAYERS = 1;
-
-
-
-
 
     public RoomOptions RoomOptions {  get; private set; }
     public string RoomName { get; private set; }
@@ -48,7 +42,7 @@ public class RoomSettings
         RoomOptions.PlayerTtl = 0;
         RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.PublishUserId = true;
-
+        RoomOptions.CustomRoomPropertiesForLobby = new string[]{RoomProperties.MAP_PROP_KEY} ;
         UpdateRoomProperties();
 
     }
