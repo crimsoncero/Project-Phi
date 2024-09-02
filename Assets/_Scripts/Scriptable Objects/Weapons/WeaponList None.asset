@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62033c1bc70e36d409d0080a2a0e8c9c, type: 3}
-  m_Name: WeaponList Laser Only
+  m_Name: WeaponList None
   m_EditorClassIdentifier: 
   _lazgun: {fileID: 11400000, guid: 1494b4ab1fbf300418b958baf2717441, type: 2}
   _autocannon: {fileID: 11400000, guid: 8477271a84c93454482a077c3ea3f73b, type: 2}
@@ -20,4 +20,4 @@ MonoBehaviour:
   _mineDispenser: {fileID: 11400000, guid: 2eeac9efccf2481488103e872b797742, type: 2}
   _mineDispenserSpawnWeight: 0
   _doomLaser: {fileID: 11400000, guid: 894518f17cdcb814db03fbff563139a0, type: 2}
-  _doomLaserSpawnWeight: 1
+  _doomLaserSpawnWeight: 0

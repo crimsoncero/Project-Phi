@@ -51,14 +51,18 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         MatchTimerGoal = props.Time;
         MatchScoreGoal = props.Score;
         IsMatchActive = true;
+
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Timer = MatchTimerGoal;
+        }
     }
 
 
     private IEnumerator TimerTick()
 	{
         if (!PhotonNetwork.IsMasterClient) yield break;
-        
-        Timer = MatchTimerGoal;
 
         while (true)
         {
@@ -172,5 +176,13 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LeaveRoom(false);
     }
 
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
 
+        if(PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(TimerTick());
+        }
+    }
 }
