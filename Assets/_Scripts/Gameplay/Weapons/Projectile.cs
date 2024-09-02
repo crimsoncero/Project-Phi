@@ -80,24 +80,20 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //// Don't hit your owner.
-        //if (collision.gameObject == GameManager.Instance.FindSpaceship(Owner).gameObject)
-        //    return;
-        //if(PhotonNetwork.LocalPlayer == Owner)
-        //{
-        //    if (collision.gameObject.tag == "Player")
-        //    {
-        //        HitData hitData = new HitData(Owner, Damage, transform.position);
+        // Don't hit your owner.
+        if (collision.gameObject == GameManager.Instance.FindSpaceship(Owner).gameObject)
+            return;
+        if (PhotonNetwork.LocalPlayer == Owner)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                HitData hitData = new HitData(Owner, Damage, transform.position);
 
-        //        Spaceship shipHit = GameManager.Instance.FindSpaceship(collision.gameObject);
-        //        if (shipHit != null)
-        //            shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, hitData);
-        //    }
-        //}
-        
-
-
-
+                Spaceship shipHit = GameManager.Instance.FindSpaceship(collision.gameObject);
+                if (shipHit != null)
+                    shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, hitData);
+            }
+        }
 
         this.gameObject.SetActive(false);
     }
