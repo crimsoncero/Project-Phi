@@ -57,9 +57,9 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.CreateRoom(settings.RoomName, settings.RoomOptions, TypedLobby.Default);
     }
-    public void QuickPlay()
+    public void QuickPlay(Hashtable expectedCustomRoomProprties)
     {
-        PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.JoinRandomRoom(expectedCustomRoomProprties, 0);
     }
     public void JoinRoom(string roomName)
     {
@@ -122,8 +122,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
-        RoomSettings settings = new RoomSettings();
-        settings.CreateRoomUsingSettings(this);
+
     }
     public override void OnLeftLobby()
     {

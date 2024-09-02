@@ -10,12 +10,22 @@ public class WaitingRoomDetails : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_Text _scoreGoalText;
     [SerializeField] private TMP_Text _timeLimitText;
     [SerializeField] private TMP_Text _playerCountText;
+    [SerializeField] private TMP_Text _mapText;
 
     [SerializeField] private Button _startMatchButton;
 
     public void Init()
     {
         RoomProperties roomProps = new RoomProperties(PhotonNetwork.CurrentRoom.CustomProperties);
+
+        if(roomProps.Map == Maps.Random)
+        {
+            _mapText.text = "Unkown";
+        }
+        else
+        {
+            _mapText.text = roomProps.Map.ToString();
+        }
 
         if (roomProps.Score > 0)
             _scoreGoalText.text = roomProps.Score.ToString();

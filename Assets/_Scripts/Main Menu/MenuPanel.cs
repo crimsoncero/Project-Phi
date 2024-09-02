@@ -6,10 +6,19 @@ public class MenuPanel : MonoBehaviour
     private ConnectionManager Con { get { return ConnectionManager.Instance; } }
     private MainMenuManager MainMenu { get { return MainMenuManager.Instance; } }
 
+    [SerializeField] private QuickplayFiltering _quickplayMenu;
+    [SerializeField] private Transform _menuButtons;
 
     public void OnQuickplay()
     {
-        Con.QuickPlay();
+        _menuButtons.gameObject.SetActive(false);
+        _quickplayMenu.gameObject.SetActive(true);
+    }
+
+    public void OnQuickplayReturn()
+    {
+        _quickplayMenu.gameObject.SetActive(false);
+        _menuButtons.gameObject.SetActive(true);
     }
 
     public void OnCreateMatch()

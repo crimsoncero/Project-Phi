@@ -102,7 +102,6 @@ public class CreateMatchPanel : MonoBehaviour
     {
         CurrentMap = (Maps)value;
         _mapName.text = CurrentMap.ToString();
-
     }
     public void UpdateMaxPlayers(int value, bool wasIncreased)
     {

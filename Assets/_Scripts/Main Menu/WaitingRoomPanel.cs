@@ -16,7 +16,6 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
     private Dictionary<int, bool> _configsInUse = new Dictionary<int, bool>();
     private bool InRoom { get { return PhotonNetwork.InRoom; } }
     private Room CurrentRoom { get { return PhotonNetwork.CurrentRoom; } }
-    private AsyncOperation _asyncLoad;
 
     private void Awake()
     {
@@ -43,23 +42,19 @@ public class WaitingRoomPanel : MonoBehaviourPunCallbacks
 
     }
     
-    private IEnumerator LoadAsyncScene()
-    {
-        _asyncLoad = SceneManager.LoadSceneAsync("Gameplay Test Scene");
-
-        while(!_asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-    }
+    
 
     public void OnStartMatch()
     {
-        CurrentRoom.PlayerTtl = -1;
-        CurrentRoom.IsOpen = false;
-        CurrentRoom.IsVisible = false;
-        StartCoroutine(LoadAsyncScene());
+        if(PhotonNetwork.IsMasterClient)
+        {
+            CurrentRoom.PlayerTtl = -1;
+            CurrentRoom.IsOpen = false;
+            CurrentRoom.IsVisible = false;
+
+            RoomProperties props = new RoomProperties(CurrentRoom.CustomProperties);
+            SceneLoader.LoadCombatMap(props.Map);
+        }
     }
 
     public void OnLeaveMatch()
