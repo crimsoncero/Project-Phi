@@ -1696,17 +1696,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &2106349327 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6237607474476668279, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
-  m_PrefabInstance: {fileID: 5127265126077500134}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f783f4b99be803849833e9e725b3fe8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2114145509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,18 +1913,6 @@ PrefabInstance:
     - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: _tester
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
-      propertyPath: _synchronizer
-      value: 
-      objectReference: {fileID: 2106349327}
-    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
-      propertyPath: _weaponSpawnCD
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 822677625619776568, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
-      propertyPath: _startingWeaponCount
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 966113598892226109, guid: 5d5d340d1a737854baf41d4dd1db2079, type: 3}
       propertyPath: m_LocalPosition.z

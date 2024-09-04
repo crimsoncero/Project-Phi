@@ -697,8 +697,8 @@ MonoBehaviour:
   _npcCount: 0
   _timeToSpawn: 2000
   _spawnPointCD: 4
-  _weaponSpawnCD: 5
-  _startingWeaponCount: 2
+  _weaponSpawnCD: 5000
+  _startingWeaponCount: 3
 --- !u!1 &4296472201247268403
 GameObject:
   m_ObjectHideFlags: 0

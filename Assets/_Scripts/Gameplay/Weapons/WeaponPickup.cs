@@ -127,7 +127,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
         else
         {
             if (PhotonNetwork.IsMasterClient)
-                GameManager.Instance.WeaponPickedUp(this, true);
+                GameManager.Instance.WeaponPickedUp(this, false);
 
             gameObject.SetActive(false);
         }

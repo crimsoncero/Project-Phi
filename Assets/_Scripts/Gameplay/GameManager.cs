@@ -117,7 +117,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             _synchronizer.photonView.RPC(Synchronizer.RPC_START_MATCH, RpcTarget.All);
-            SpawnWeapons();
+
+            RoomProperties props = new RoomProperties(PhotonNetwork.CurrentRoom.CustomProperties);
+            if(props.WeaponSpawnPattern != WeaponSpawnPattern.PrimaryOnly)
+            {
+                SpawnWeapons();
+            }
         }
     }
 
@@ -188,14 +193,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void WeaponPickedUp(WeaponPickup weapon, bool isInit = false)
     {
-        if(!isInit)
-            weapon.photonView.RPC(WeaponPickup.RPC_DEACTIVATE, RpcTarget.All);
-
         int spawnTime = PhotonNetwork.ServerTimestamp;
         spawnTime += isInit ? 0 : _weaponSpawnCD;
 
         WeaponEnum w = WeaponList.GetRandomWeaponEnum();
         weapon.photonView.RPC(WeaponPickup.RPC_ACTIVATE_WEAPON_PICKUP, RpcTarget.All, w, spawnTime);
+
+        if (!isInit)
+            weapon.photonView.RPC(WeaponPickup.RPC_DEACTIVATE, RpcTarget.All);
     }
 
     public void SpawnShip(Spaceship ship, bool isRespawn = false)

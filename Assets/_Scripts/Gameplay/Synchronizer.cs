@@ -34,7 +34,6 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
-        GameManager.Instance.RegisterSynchronizer(this);
 
         RoomProperties props = new RoomProperties();
 
@@ -57,6 +56,11 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
         {
             Timer = MatchTimerGoal;
         }
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.RegisterSynchronizer(this);
     }
 
 

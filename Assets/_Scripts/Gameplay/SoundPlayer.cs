@@ -1,5 +1,6 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using Photon.Pun;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,7 +23,12 @@ public enum ButtonSFX
     Positive,
     Negetive,
 }
-
+public enum AudioGroups
+{
+    Master,
+    SFX,
+    Music,
+}
 
 public class SoundPlayer : MonoBehaviour
 {
@@ -49,6 +55,8 @@ public class SoundPlayer : MonoBehaviour
     [SerializeField] private MMF_Player _buttonHoverSFX;
     [SerializeField] private MMF_Player _buttonPositiveSFX;
     [SerializeField] private MMF_Player _buttonNegetiveSFX;
+
+    
 
 
     public bool IsMusicPlayerReady { get { return _playlistManager.didStart; } }
@@ -110,7 +118,12 @@ public class SoundPlayer : MonoBehaviour
 
     public void SetMusicPack(MusicPackEnum musicPack)
     {
+        if (musicPack == _musicPackSelector) return;
         _musicPackSelector = musicPack;
+        if(PhotonNetwork.InRoom)
+            PlayMusic(MusicType.Combat);
+        else
+            PlayMusic(MusicType.Menu);
     }
 
     public void PlayButtonSFX(ButtonSFX buttonSFX)
@@ -129,4 +142,5 @@ public class SoundPlayer : MonoBehaviour
         }
     }
 
+    
 }

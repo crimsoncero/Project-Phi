@@ -33,7 +33,7 @@ public class MenuPanel : MonoBehaviour
 
     public void OnOptions()
     {
-
+        MainMenu.ActivateOptionsPanel();
     }
 
     public void OnExit()
