@@ -4,7 +4,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class QuickplayFiltering : MonoBehaviourPunCallbacks
+public class QuickplayFiltering : UIPanel
 {
     [SerializeField] private TMP_Text _mapName;
     [SerializeField] private IntSelector _mapSelector;

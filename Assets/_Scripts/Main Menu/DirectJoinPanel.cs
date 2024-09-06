@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DirectJoinPanel : MonoBehaviour
+public class DirectJoinPanel : UIPanel
 {
     private string _directJoinMatchID;
 

@@ -4,7 +4,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class CreateMatchPanel : MonoBehaviour
+public class CreateMatchPanel : UIPanel
 {
     private ConnectionManager Con { get { return ConnectionManager.Instance; } }
     private MainMenuManager MainMenu { get { return MainMenuManager.Instance; } }

@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class MenuPanel : MonoBehaviour
+public class MenuPanel : UIPanel
 {
     private ConnectionManager Con { get { return ConnectionManager.Instance; } }
     private MainMenuManager MainMenu { get { return MainMenuManager.Instance; } }

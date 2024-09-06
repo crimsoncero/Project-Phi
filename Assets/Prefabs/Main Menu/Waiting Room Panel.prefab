@@ -2012,6 +2012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081d31115165de64ab4bf2e52750197b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <FirstSelect>k__BackingField: {fileID: 7549784453388978788}
   _shipConfigList: {fileID: 11400000, guid: eb12e5de41f59af40b5bbf482cf98d8d, type: 2}
   _waitingRoomDetails: {fileID: 7552703999036801234}
 --- !u!114 &6165472035966664393

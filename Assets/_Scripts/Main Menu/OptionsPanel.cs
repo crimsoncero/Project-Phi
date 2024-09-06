@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsPanel : MonoBehaviour
+public class OptionsPanel : UIPanel
 {
     [SerializeField] private Button _chiptuneButton;
     [SerializeField] private Button _metalButton;
