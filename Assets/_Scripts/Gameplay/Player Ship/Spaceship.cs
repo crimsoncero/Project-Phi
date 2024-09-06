@@ -24,11 +24,14 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private WeaponAnimator _weaponAnimator;
     [SerializeField] private PlayerController _playerController;
+    public PlayerController PlayerController { get { return _playerController; } }
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private ShipFeedbacks _shipFeedbacks;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private Animator _shipAnimator;
-
+    [SerializeField] private Explosion _explosionPrefab;
+    
+    
     // Health
     private int _currentHealth;
     public int CurrentHealth
@@ -185,6 +188,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
             GameManager.Instance.SpawnShip(this, true);
         }
         OnDestroyed?.Invoke();
+        Instantiate(_explosionPrefab, transform.position, transform.rotation);
         this.gameObject.SetActive(false);
 
     }
@@ -272,6 +276,11 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         _playerInput.enabled = activate;
     }
 
+    public void FlashInput()
+    {
+        SetInputActive(false);
+        SetInputActive(true);
+    }
     /// <summary>
     /// Sets the ship config, if no config is given uses the owner player config.
     /// </summary>

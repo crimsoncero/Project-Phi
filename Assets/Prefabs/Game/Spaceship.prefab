@@ -1844,6 +1844,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ddd94270-109a-47af-969d-f9d3840cb9a3
     m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -855393122673354210}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ac5ec135-b45f-4f21-82eb-fe74c9cffb70
+    m_ActionName: 'Player/Pause[/Keyboard/escape,/Keyboard/p,/XInputControllerWindows/start]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1864,12 +1880,13 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 705207317605256538}
   _mainCamera: {fileID: 0}
   _photonView: {fileID: -6896135231121268280}
+  _playerInputComp: {fileID: 3588039821323028832}
   <Spaceship>k__BackingField: {fileID: 3418695992773287557}
   <MoveSpeed>k__BackingField: 1000
   <RotationSpeed>k__BackingField: 10
 --- !u!50 &705207317605256538
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1880,8 +1897,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 3
-  m_AngularDrag: 0.05
+  m_LinearDamping: 3
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -2028,6 +2045,7 @@ MonoBehaviour:
   _shipFeedbacks: {fileID: 3434609470133087810}
   _renderer: {fileID: 7333829496454105374}
   _shipAnimator: {fileID: 8072868581241268954}
+  _explosionPrefab: {fileID: 5862785317438267675, guid: 4a6a907464e2e734087232753b56f685, type: 3}
 --- !u!1 &6629566599582876085
 GameObject:
   m_ObjectHideFlags: 0
