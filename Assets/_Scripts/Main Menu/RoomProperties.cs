@@ -5,56 +5,62 @@ using Photon.Pun;
 
 public class RoomProperties
 {
+    public static string MAP_PROP_KEY = "m";
+    public static string TIME_PROP_KEY = "t";
+    public static string SCORE_PROP_KEY = "s";
+    public static string NICKNAME_PROP_KEY = "n";
+    public static string WEAPON_PROP_KEY = "w";
+
     public Hashtable Hashtable { get; private set; }
 
 	private Maps _map = Maps.Random;
     public Maps Map
     {
-        get { return (Maps)Hashtable["m"]; }
+        get { return (Maps)Hashtable[MAP_PROP_KEY]; }
         set
         {
             _map = value;
-            Hashtable["m"] = _map;
+            Hashtable[MAP_PROP_KEY] = _map;
         }
     }
-    private int _time = 120;
+    private int _time = 300;
     public int Time
     {
-        get { return (int)Hashtable["t"]; }
+        get { return (int)Hashtable[TIME_PROP_KEY]; }
         set
         {
             _time = value;
-            Hashtable["t"] = _time;
+            Hashtable[TIME_PROP_KEY] = _time;
         }
     }
     private int _score = 0;
     public int Score
     {
-        get { return (int)Hashtable["s"]; }
+        get { return (int)Hashtable[SCORE_PROP_KEY]; }
         set
         {
             _score = value;
-            Hashtable["s"] = _score;
+            Hashtable[SCORE_PROP_KEY] = _score;
         }
     }
     private string _nickname = PhotonNetwork.NickName + "'s Game";
     public string Nickname
     {
-        get { return (string)Hashtable["n"]; }
+        get { return (string)Hashtable[NICKNAME_PROP_KEY]; }
         set
         {
             _nickname = value;
-            Hashtable["n"] = _nickname;
+            Hashtable[NICKNAME_PROP_KEY] = _nickname;
         }
     }
     private WeaponSpawnPattern _weaponSpawnPattern;
     public WeaponSpawnPattern WeaponSpawnPattern
     {
-        get { return (WeaponSpawnPattern)Hashtable["w"]; }
+        get { return (WeaponSpawnPattern)Hashtable[WEAPON_PROP_KEY]; }
         set
         {
             _weaponSpawnPattern = value;
-            Hashtable["w"] = _weaponSpawnPattern;
+            Hashtable[WEAPON_PROP_KEY] = _weaponSpawnPattern;
         }
     }
 
@@ -62,11 +68,11 @@ public class RoomProperties
     {
         Hashtable = new Hashtable()
         {
-            { "m", _map },
-            { "t", _time },
-            { "n", _nickname },
-            { "s", _score },
-            { "w", _weaponSpawnPattern },
+            { MAP_PROP_KEY, _map },
+            { TIME_PROP_KEY, _time },
+            { NICKNAME_PROP_KEY, _nickname },
+            { SCORE_PROP_KEY, _score },
+            { WEAPON_PROP_KEY, _weaponSpawnPattern },
         };
     }
 

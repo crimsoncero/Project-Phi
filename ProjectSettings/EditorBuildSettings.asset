@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 4bc69695acb77884397622abf09bb91d
   - enabled: 1
-    path: Assets/Scenes/Gameplay Test Scene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Maps/ShipGraveyard.unity
+    guid: cf1f0062975812a4dbc492521cd1643c
+  - enabled: 1
+    path: Assets/Scenes/Maps/AsteroidField.unity
+    guid: c81ee0ffda2bfdc409a5ba7ef6ea288c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dfcf8db30a53b054996d892dc8a5ba10, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
