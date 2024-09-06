@@ -1,5 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -90,7 +92,49 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
 
     public static string RPC_ACTIVATE_WEAPON_PICKUP = "RPC_ActivateWeaponPickup";
     [PunRPC]
-    private void RPC_ActivateWeaponPickup(WeaponEnum weapon)
+    private void RPC_ActivateWeaponPickup(WeaponEnum weapon, int spawnTime, PhotonMessageInfo info)
+    {
+        WeaponEnum = weapon;
+
+        switch (weapon)
+        {
+            case WeaponEnum.Autocannon:
+                _weaponRenderer.sprite = _autoCannonSprite;
+                break;
+            case WeaponEnum.RocketPod:
+                _weaponRenderer.sprite = _rocketPodSprite;
+                break;
+            case WeaponEnum.MineDispenser:
+                _weaponRenderer.sprite = _mineDispenserSprite;
+                break;
+            case WeaponEnum.DoomLaser:
+                _weaponRenderer.sprite = _doomLaserSprite;
+                break;
+        }
+
+        _nameText.text = GameManager.Instance.WeaponList.GetWeapon(WeaponEnum).Name;
+        GameManager.Instance.DelaySpawnPickup(this, spawnTime);
+    }
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        object[] data = info.photonView.InstantiationData;
+
+        if ((bool)data[0])
+        {
+            InitSpawn((WeaponEnum)data[1]);
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+                GameManager.Instance.WeaponPickedUp(this, false);
+
+            gameObject.SetActive(false);
+        }
+    }
+
+
+    public void InitSpawn(WeaponEnum weapon)
     {
         WeaponEnum = weapon;
 
@@ -113,22 +157,22 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
         _nameText.text = GameManager.Instance.WeaponList.GetWeapon(WeaponEnum).Name;
         gameObject.SetActive(true);
     }
-
-    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    public IEnumerator DelayedSpawn(int spawnTime)
     {
-        object[] data = info.photonView.InstantiationData;
+        int delta = spawnTime - PhotonNetwork.ServerTimestamp;
+        // Wait for server time to pass spawn time (optimize for lowest wait time between checks)
 
-        if ((bool)data[0])
+        while (delta > 0)
         {
-            RPC_ActivateWeaponPickup((WeaponEnum)data[1]);
+            yield return new WaitForSeconds(0.1f);
+            delta = spawnTime - PhotonNetwork.ServerTimestamp;
         }
-        else
-        {
-            if (PhotonNetwork.IsMasterClient)
-                GameManager.Instance.WeaponPickedUp(this, true);
 
-            gameObject.SetActive(false);
-        }
+
+        gameObject.SetActive(true);
+
+        
+
+
     }
-
 }

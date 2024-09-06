@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WaitingRoomPanel : MonoBehaviourPunCallbacks
+public class WaitingRoomPanel : UIPanel
 {
     [SerializeField] private ShipConfigList _shipConfigList;
     [SerializeField] private WaitingRoomDetails _waitingRoomDetails;

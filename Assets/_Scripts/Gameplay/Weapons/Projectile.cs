@@ -83,7 +83,7 @@ public class Projectile : MonoBehaviour
         // Don't hit your owner.
         if (collision.gameObject == GameManager.Instance.FindSpaceship(Owner).gameObject)
             return;
-        if(PhotonNetwork.LocalPlayer == Owner)
+        if (PhotonNetwork.LocalPlayer == Owner)
         {
             if (collision.gameObject.tag == "Player")
             {
@@ -94,10 +94,6 @@ public class Projectile : MonoBehaviour
                     shipHit.photonView.RPC(Spaceship.RPC_HIT, RpcTarget.All, hitData);
             }
         }
-        
-
-
-
 
         this.gameObject.SetActive(false);
     }

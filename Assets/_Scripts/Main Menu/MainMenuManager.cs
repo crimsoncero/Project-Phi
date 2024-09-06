@@ -7,6 +7,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviourPunCallbacks
 {
@@ -23,14 +24,14 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     [Header("Panels")]
     [SerializeField] private LoginPanel _loginPanel;
     [SerializeField] private MenuPanel _menuPanel;
-    [SerializeField] private GameObject _optionsPanel;
+    [SerializeField] private OptionsPanel _optionsPanel;
     [SerializeField] private GameObject _creditsPanel;
-    [SerializeField] private GameObject _createMatchPanel;
-    [SerializeField] private GameObject _joinMatchPanel;
+    [SerializeField] private CreateMatchPanel _createMatchPanel;
+    [SerializeField] private GameListPanel _joinMatchPanel;
     [SerializeField] private WaitingRoomPanel _waitingRoomPanel;
     [SerializeField] private DirectJoinPanel _directJoinPanel;
 
-
+    [SerializeField] private EventSystem _eventSystem;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -75,41 +76,50 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     {
         DeactivatePanels();
         _menuPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _menuPanel.FirstSelect;
     }
     public void ActivateWaitingRoomPanel()
     {
         DeactivatePanels();
         _waitingRoomPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _waitingRoomPanel.FirstSelect;
+
     }
     public void ActivateOptionsPanel()
     {
         DeactivatePanels();
         _optionsPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _optionsPanel.FirstSelect;
+
     }
-    public void ActivateCreditsPanel()
-    {
-        DeactivatePanels();
-        _creditsPanel.gameObject.SetActive(true);
-    }
+    
     public void ActivateCreateMatchPanel()
     {
         DeactivatePanels();
         _createMatchPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _createMatchPanel.FirstSelect;
+
     }
     public void ActivateJoinMatchPanel()
     {
         DeactivatePanels();
         _joinMatchPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _joinMatchPanel.FirstSelect;
+
     }
     public void ActivateLoginPanel()
     {
         DeactivatePanels();
         _loginPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _loginPanel.FirstSelect;
+
     }
     public void ActivateDirectJoinPanel()
     {
         DeactivatePanels();
         _directJoinPanel.gameObject.SetActive(true);
+        _eventSystem.firstSelectedGameObject = _directJoinPanel.FirstSelect;
+
     }
     public void DeactivatePanels()
     {

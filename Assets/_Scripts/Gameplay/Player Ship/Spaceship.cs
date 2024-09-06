@@ -24,11 +24,14 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private WeaponAnimator _weaponAnimator;
     [SerializeField] private PlayerController _playerController;
+    public PlayerController PlayerController { get { return _playerController; } }
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private ShipFeedbacks _shipFeedbacks;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private Animator _shipAnimator;
-
+    [SerializeField] private Explosion _explosionPrefab;
+    
+    
     // Health
     private int _currentHealth;
     public int CurrentHealth
@@ -102,7 +105,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     private void RPC_FirePrimary(Vector3 position, Quaternion rotation,  Vector2 velocity, PhotonMessageInfo info)
     {
         // Reduce overhead in other clients, cooldown tracking is only useful for special weapons.
-        if (photonView.IsMine)
+        if (photonView.IsMine && gameObject.activeSelf)
             StartCoroutine(WaitForCanFire(true));
 
         if(_cooldownRoutine != null)
@@ -112,7 +115,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         PrimaryWeapon.Fire(photonView, position, rotation, velocity, lag, (int)PrimaryHeat);
         PrimaryHeat += PrimaryWeapon.HeatPerShot;
         OnHeatChanged?.Invoke(PrimaryHeat/PrimaryWeapon.MaxHeat);
-        _cooldownRoutine = StartCoroutine(CooldownPrimary());
+        if (gameObject.activeSelf)
+            _cooldownRoutine = StartCoroutine(CooldownPrimary());
 
         // Feedback
 
@@ -123,7 +127,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RPC_FireSpecial(Vector3 position, Quaternion rotation, Vector2 velocity, PhotonMessageInfo info)
     {
-        StartCoroutine(WaitForCanFire(false));
+        if (gameObject.activeSelf)
+            StartCoroutine(WaitForCanFire(false));
 
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
         SpecialWeapon.Fire(photonView, position, rotation, velocity, lag, SpecialAmmo);
@@ -155,7 +160,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RPC_ClearSpecial()
     {
-        StartCoroutine(ClearSpecial());
+        if (gameObject.activeSelf)
+            StartCoroutine(ClearSpecial());
 
     }
 
@@ -182,6 +188,7 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
             GameManager.Instance.SpawnShip(this, true);
         }
         OnDestroyed?.Invoke();
+        Instantiate(_explosionPrefab, transform.position, transform.rotation);
         this.gameObject.SetActive(false);
 
     }
@@ -201,6 +208,13 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
     
     }
 
+    public const string RPC_ACTIVATE = "RPC_Activate";
+    [PunRPC]
+    private void RPC_Activate()
+    {
+        GameManager.Instance.RegisterSpaceship(this);
+        gameObject.SetActive(true);
+    }
     #endregion
 
     public IEnumerator DelayedSpawn(int spawnTime)
@@ -222,8 +236,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
             SetInputActive(true);
 
         float lag = delta * -0.001f;
-
-        StartCoroutine(ImmuneCoroutine(lag));
+        if(gameObject.activeSelf)
+            StartCoroutine(ImmuneCoroutine(lag));
     }
 
     /// <summary>
@@ -262,6 +276,11 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         _playerInput.enabled = activate;
     }
 
+    public void FlashInput()
+    {
+        SetInputActive(false);
+        SetInputActive(true);
+    }
     /// <summary>
     /// Sets the ship config, if no config is given uses the owner player config.
     /// </summary>
@@ -334,8 +353,8 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         }
         else
             CanSpecialFire = false;
-
-        StartCoroutine(WaitForGCD());
+        if (gameObject.activeSelf)
+            StartCoroutine(WaitForGCD());
 
         yield return new WaitForSeconds(weaponFired.TimeBetweenShots);
 

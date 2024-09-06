@@ -14,9 +14,10 @@ public class UIManager : MonoBehaviourPunCallbacks
     private static UIManager _instance;
     public static UIManager Instance { get { return _instance; } }
     
+
     private GameManager GameManager { get { return GameManager.Instance; } }
 
-
+    [SerializeField] private PauseHandler _pauseHandler;
     [SerializeField] private ScoreTag _scoreTagPrefab;
     [SerializeField] private RectTransform _gameUI;
     [SerializeField] private PlayerHUD _playerHUD;
@@ -39,6 +40,8 @@ public class UIManager : MonoBehaviourPunCallbacks
         Synchronizer.OnMatchStarted += OnMatchStarted;
         Synchronizer.OnTimerUpdated += UpdateTimerText;
         Synchronizer.OnMatchFinished += OnMatchFinished;
+        PlayerController.OnPause += OnPause;
+
     }
 
     
@@ -48,6 +51,8 @@ public class UIManager : MonoBehaviourPunCallbacks
         Synchronizer.OnMatchStarted -= OnMatchStarted;
         Synchronizer.OnTimerUpdated -= UpdateTimerText;
         Synchronizer.OnMatchFinished -= OnMatchFinished;
+        PlayerController.OnPause -= OnPause;
+
     }
 
 
@@ -114,5 +119,16 @@ public class UIManager : MonoBehaviourPunCallbacks
             _ping.text = PhotonNetwork.GetPing().ToString();
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    private void OnPause(bool isPaused)
+    {
+        _pauseHandler.gameObject.SetActive(isPaused);
+    }
+
+    public void OnResumeFromPause()
+    {
+        GameManager.Instance.ClientSpaceship.PlayerController.Unpause();
+        OnPause(false);
     }
 }

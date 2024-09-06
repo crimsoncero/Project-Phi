@@ -9,7 +9,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-   
+    public static event Action<bool> OnPause;
 
 
 
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody2D _rigidbody2D;
     [SerializeField] Camera _mainCamera;
     [SerializeField] PhotonView _photonView;
+    [SerializeField] PlayerInput _playerInputComp;
     [field: SerializeField] public Spaceship Spaceship { get; private set; }
 
     [field: Header("Movement Variables")]
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private int SpecialAmmo { get { return Spaceship.SpecialAmmo; } }
     private float PrimaryHeat { get { return Spaceship.PrimaryHeat; } }
 
-
+    private bool _isPausing = false;
 
     // Gizmos feedback
     private Vector2 _acceleration = Vector3.zero;
@@ -78,7 +79,6 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         Input.Enable();
-        
     }
     private void OnDisable()
     {
@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look(CallbackContext context)
     {
+        if (_isPausing) return;
+
         if (_isGamepad)
         {
             Vector2 dir = context.action.ReadValue<Vector2>();
@@ -124,14 +126,38 @@ public class PlayerController : MonoBehaviour
 
     public void Move(CallbackContext context)
     {
+        if (_isPausing) return;
         _moveInput = context.action.ReadValue<Vector2>();
     }
 
+    public void Pause(CallbackContext context)
+    {
+        _moveInput = Vector2.zero;
+
+        if(!_isPausing)
+        {
+            _isPausing = true;
+            OnPause.Invoke(true);
+        }
+        else
+        {
+            Unpause();
+            OnPause.Invoke(false);
+        }
+    }
     
+    public void Unpause()
+    {
+        _moveInput = Vector2.zero;
+
+        _isPausing = false;
+    }
 
     public void FirePrimary()
     {
-        if(PrimaryWeapon == null) return;
+        if (_isPausing) return;
+
+        if (PrimaryWeapon == null) return;
 
         if (CanFirePrimary)
         {
@@ -146,7 +172,9 @@ public class PlayerController : MonoBehaviour
 
     public void FireSpecial()
     {
-        if(SpecialWeapon == null) return;
+        if (_isPausing) return;
+
+        if (SpecialWeapon == null) return;
 
         if(CanFireSpecial)
         {
@@ -184,6 +212,7 @@ public class PlayerController : MonoBehaviour
         else
             FireSpecial();
     }
+
 
 
 

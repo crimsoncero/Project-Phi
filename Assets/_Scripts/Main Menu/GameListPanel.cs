@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GameListPanel : MonoBehaviour
+public class GameListPanel : UIPanel
 {
     [SerializeField] private GameTag _gameTagPrefab;
     [SerializeField] private GameObject _tagContainer;

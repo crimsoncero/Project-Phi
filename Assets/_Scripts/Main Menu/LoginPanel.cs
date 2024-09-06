@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginPanel : MonoBehaviour
+public class LoginPanel : UIPanel
 {
 
 
