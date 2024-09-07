@@ -33,7 +33,12 @@ public class AsteroidLogic : MonoBehaviour
     private void Start()
     {
         StartingPosition = A.position*StartingRatio + (1-StartingRatio)*B.position;
+        Asteroid.position = StartingPosition;
+        RatioSpeed = Speed * (A.position - B.position).magnitude;
+        Asteroid.rotation = Quaternion.Euler(new Vector3(0, 0, StartingRotation));
         CurrentRotation = StartingRotation;
+
+
         Synchronizer.OnTimerUpdated += SyncPosition;
     }
 

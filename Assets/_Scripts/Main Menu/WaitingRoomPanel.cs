@@ -46,12 +46,21 @@ public class WaitingRoomPanel : UIPanel
 
     public void OnStartMatch()
     {
+        
+
+
         if(PhotonNetwork.IsMasterClient)
         {
+            // if a player plays solo, set timer and score to 0, so it doesnt break some methods.
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+                CurrentRoom.CustomProperties["t"] = 0;
+                CurrentRoom.CustomProperties["s"] = 0;
+            }
+
             CurrentRoom.PlayerTtl = -1;
             CurrentRoom.IsOpen = false;
             CurrentRoom.IsVisible = false;
-
             RoomProperties props = new RoomProperties(CurrentRoom.CustomProperties);
             SceneLoader.LoadCombatMap(props.Map);
         }
@@ -89,6 +98,7 @@ public class WaitingRoomPanel : UIPanel
 
         if (PhotonNetwork.IsMasterClient)
         {
+            PhotonNetwork.CurrentRoom.AddPlayer(newPlayer);
             AssignConfig(newPlayer);
         }
 

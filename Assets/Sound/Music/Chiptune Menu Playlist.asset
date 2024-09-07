@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chiptune Menu Playlist
   m_EditorClassIdentifier: 
   Track: 1
-  PlayOrder: 3
+  PlayOrder: 0
   RandomizeOrderSeed: 1
   PlayMode: 0
   MaxAmountOfPlays: 10
@@ -26,7 +26,7 @@ MonoBehaviour:
       Initialized: 1
       MmSoundManagerTrack: 1
       AudioGroup: {fileID: 0}
-      Loop: 0
+      Loop: 1
       Volume: 1
       Pitch: 1
       ID: 0

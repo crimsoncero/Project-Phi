@@ -25,7 +25,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     [SerializeField] private LoginPanel _loginPanel;
     [SerializeField] private MenuPanel _menuPanel;
     [SerializeField] private OptionsPanel _optionsPanel;
-    [SerializeField] private GameObject _creditsPanel;
     [SerializeField] private CreateMatchPanel _createMatchPanel;
     [SerializeField] private GameListPanel _joinMatchPanel;
     [SerializeField] private WaitingRoomPanel _waitingRoomPanel;
@@ -43,7 +42,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             {
             _loginPanel.gameObject,
             _menuPanel.gameObject,
-            _creditsPanel.gameObject,
             _createMatchPanel.gameObject,
             _joinMatchPanel.gameObject,
             _optionsPanel.gameObject,

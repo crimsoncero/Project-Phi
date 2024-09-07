@@ -43,6 +43,7 @@ public class RoomSettings
         RoomOptions.EmptyRoomTtl = 0;
         RoomOptions.PublishUserId = true;
         RoomOptions.CustomRoomPropertiesForLobby = new string[]{RoomProperties.MAP_PROP_KEY} ;
+        RoomOptions.CleanupCacheOnLeave = false;
         UpdateRoomProperties();
 
     }

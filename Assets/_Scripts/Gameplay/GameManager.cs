@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private float _spawnPointCD;
     [SerializeField] private int _weaponSpawnCD;
     [SerializeField] private int _startingWeaponCount;
-    
+
+    public bool IsMatchActive { get { return _synchronizer.IsMatchActive; } }
     /// <summary>
     /// The Spaceship is controlled by this client player.
     /// </summary>
@@ -129,7 +130,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void EndGame(EndGamePlayerData[] data)
     {
         // Deactivate ship control.
-        ClientSpaceship.SetInputActive(false);
+        if (!ClientSpaceship.IsUnityNull())
+        {
+            ClientSpaceship.SetInputActive(false);
+        }
 
         // Deactivated SFX;
         MMSoundManager.Current.MuteSfx();

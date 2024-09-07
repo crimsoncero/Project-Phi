@@ -224,12 +224,14 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         
         while(delta > 0)
         {
+            if (GameManager.Instance.IsMatchActive) yield break;
+            
             yield return new WaitForSeconds(0.1f);
             delta = spawnTime - PhotonNetwork.ServerTimestamp;
         }
 
         // Spawn ship
-
+       
         gameObject.SetActive(true);
 
         if (photonView.IsMine)

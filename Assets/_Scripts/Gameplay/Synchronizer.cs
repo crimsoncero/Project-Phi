@@ -77,9 +77,10 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
             else
                 Timer -= 1;
 
-            if (Timer == 0 && MatchTimerGoal > 0)
+            if (Timer <= 0 && MatchTimerGoal > 0)
             {
                 photonView.RPC(RPC_END_MATCH, RpcTarget.AllViaServer, CreateEndGameData());
+                yield break;
             }
         }
     }
@@ -101,19 +102,37 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 
     public EndGamePlayerData[] CreateEndGameData()
     {
-        Player[] players = PhotonNetwork.CurrentRoom.Players.Values.ToArray();
-
-        EndGamePlayerData[] data = new EndGamePlayerData[players.Length];
-
-        for (int i = 0; i < players.Length; i++)
+        if(PhotonNetwork.CurrentRoom == null)
         {
-            data[i] = new EndGamePlayerData();
-            data[i].ActorNumber = players[i].ActorNumber;
-            data[i].ConfigID = players[i].GetShipConfigID();
-            data[i].Score = players[i].GetPlayerKills();
-        }
+            EndGamePlayerData[] dataPacifist = new EndGamePlayerData[GameManager.Instance.SpaceshipList.Count];
 
-        return data;
+            for (int i = 0; i < dataPacifist.Length; i++)
+            {
+                dataPacifist[i] = new EndGamePlayerData();
+                dataPacifist[i].ActorNumber = GameManager.Instance.SpaceshipList[i].photonView.OwnerActorNr;
+                dataPacifist[i].ConfigID = GameManager.Instance.SpaceshipList[i].Config.ID;
+                dataPacifist[i].Score = 0;
+
+            }
+
+            return dataPacifist;
+        }
+        else
+        {
+            Player[] players = PhotonNetwork.CurrentRoom.Players.Values.ToArray();
+            EndGamePlayerData[] data = new EndGamePlayerData[players.Length];
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                data[i] = new EndGamePlayerData();
+                data[i].ActorNumber = players[i].ActorNumber;
+                data[i].ConfigID = players[i].GetShipConfigID();
+                data[i].Score = players[i].GetPlayerKills();
+            }
+
+            return data;
+        }
+       
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

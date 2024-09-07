@@ -159,20 +159,21 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
     }
     public IEnumerator DelayedSpawn(int spawnTime)
     {
+
         int delta = spawnTime - PhotonNetwork.ServerTimestamp;
         // Wait for server time to pass spawn time (optimize for lowest wait time between checks)
 
         while (delta > 0)
         {
+            if (GameManager.Instance.IsMatchActive) yield break;
+
             yield return new WaitForSeconds(0.1f);
             delta = spawnTime - PhotonNetwork.ServerTimestamp;
         }
 
-
-        gameObject.SetActive(true);
-
-        
-
-
+        if (GameManager.Instance.IsMatchActive)
+        {
+            gameObject.SetActive(true);
+        }
     }
 }
