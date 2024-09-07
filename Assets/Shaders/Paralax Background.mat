@@ -61,13 +61,13 @@ Material:
     - _EnableExternalAlpha: 0
     - _Layer_1_Intensity: 0.5
     - _Layer_1_Scale: 10
-    - _Layer_1_speed_multiplier: 0.25
+    - _Layer_1_speed_multiplier: -0.005
     - _Layer_2_Intensity: 0.5
     - _Layer_2_Scale: 5
-    - _Layer_2_speed_multiplier: 0.1
+    - _Layer_2_speed_multiplier: 0.01
     - _Layer_3_Intensity: 0.1
     - _Layer_3_Scale: 3
-    - _Layer_3_speed_multiplier: 0.3
+    - _Layer_3_speed_multiplier: 0.01
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ZWrite: 0
