@@ -224,22 +224,25 @@ public class Spaceship : MonoBehaviourPun, IPunObservable
         
         while(delta > 0)
         {
-            if (GameManager.Instance.IsMatchActive) yield break;
+            if (!GameManager.Instance.IsMatchActive) yield break;
             
             yield return new WaitForSeconds(0.1f);
             delta = spawnTime - PhotonNetwork.ServerTimestamp;
         }
 
         // Spawn ship
-       
-        gameObject.SetActive(true);
+        if (GameManager.Instance.IsMatchActive)
+        {
+            gameObject.SetActive(true);
 
-        if (photonView.IsMine)
-            SetInputActive(true);
+            if (photonView.IsMine)
+                SetInputActive(true);
 
-        float lag = delta * -0.001f;
-        if(gameObject.activeSelf)
-            StartCoroutine(ImmuneCoroutine(lag));
+            float lag = delta * -0.001f;
+            if (gameObject.activeSelf)
+                StartCoroutine(ImmuneCoroutine(lag));
+
+        }
     }
 
     /// <summary>

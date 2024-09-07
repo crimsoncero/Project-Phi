@@ -82,6 +82,7 @@ public class WaitingRoomPanel : UIPanel
         _configsInUse[configID] = true;
 
         player.SetShipConfigID(configID);
+        player.SetPlayerKills(0);
     }
 
     private void ReleaseConfig(Player player)

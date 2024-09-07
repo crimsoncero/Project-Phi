@@ -165,7 +165,7 @@ public class WeaponPickup : MonoBehaviourPun, IPunInstantiateMagicCallback
 
         while (delta > 0)
         {
-            if (GameManager.Instance.IsMatchActive) yield break;
+            if (!GameManager.Instance.IsMatchActive) yield break;
 
             yield return new WaitForSeconds(0.1f);
             delta = spawnTime - PhotonNetwork.ServerTimestamp;
