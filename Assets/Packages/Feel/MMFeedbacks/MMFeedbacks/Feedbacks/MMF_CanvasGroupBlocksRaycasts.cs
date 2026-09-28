@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;using UnityEngine.Scripting.APIUpdating;
+
 namespace MoreMountains.Feedbacks
 {
 	/// <summary>
@@ -8,6 +9,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you turn the BlocksRaycast parameter of a target CanvasGroup on or off on play")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("UI/CanvasGroup BlocksRaycasts")]
 	public class MMF_CanvasGroupBlocksRaycasts : MMF_Feedback
 	{
@@ -50,7 +53,7 @@ namespace MoreMountains.Feedbacks
 			}
 
 			_initialState = TargetCanvasGroup.blocksRaycasts;
-			TargetCanvasGroup.blocksRaycasts = ShouldBlockRaycasts;
+			TargetCanvasGroup.blocksRaycasts = NormalPlayDirection ? ShouldBlockRaycasts : !ShouldBlockRaycasts;
 		}
 		
 		/// <summary>

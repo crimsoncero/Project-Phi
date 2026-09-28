@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 0
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -333,15 +338,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 48, y: 4}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1619054295
+    uuid:
+      value0: 3877121779
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -417845517
     name: Main Ship - Shields - Front Shield
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main Ship - Shields - Front Shield_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -350,7 +361,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: c1821e585eb9c0045847234a45a4b83e
-    - name: Main Ship - Shields - Front Shield_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -359,7 +370,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: 0d3de6b1c3ac5f2429affdd0bee9d922
-    - name: Main Ship - Shields - Front Shield_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -368,7 +379,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: 8c6b46f74a7746648b7118ce12f2c6e8
-    - name: Main Ship - Shields - Front Shield_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -377,7 +388,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: f58e71a97597b9c4ca55a69a06d292aa
-    - name: Main Ship - Shields - Front Shield_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -386,7 +397,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: 5283deebdd86280429fe0e427a567354
-    - name: Main Ship - Shields - Front Shield_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -395,7 +406,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: a680cdc76772da84d99f462eaa7584b1
-    - name: Main Ship - Shields - Front Shield_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -404,7 +415,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: d22bbdf79ed51cb488ddd8bec54ddd73
-    - name: Main Ship - Shields - Front Shield_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -413,7 +424,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: 7924b99056bca664bb0bcc844e77bcf2
-    - name: Main Ship - Shields - Front Shield_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -422,7 +433,7 @@ ScriptedImporter:
         width: 36
         height: 18
       spriteId: c033784071a3d8b46aecf3f337001580
-    - name: Main Ship - Shields - Front Shield_Frame_9
+    - name: Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -432,9 +443,12 @@ ScriptedImporter:
         height: 18
       spriteId: 0de76e59d75432342bd61d56659d1c56
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 128, y: 256}
   canvasSize: {x: 64, y: 64}

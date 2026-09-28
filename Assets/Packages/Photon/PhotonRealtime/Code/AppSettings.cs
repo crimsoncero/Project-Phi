@@ -13,6 +13,8 @@
 namespace Photon.Realtime
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text;
     using ExitGames.Client.Photon;
 
     #if SUPPORTED_UNITY || NETFX_CORE
@@ -43,6 +45,21 @@ namespace Photon.Realtime
 
         /// <summary>AppId for Photon Voice.</summary>
         public string AppIdVoice;
+
+        /// <summary>AppId for Photon Video.</summary>
+        /// <remarks>Photon Video is a separate SDK and AppId-type. Components that work for Voice and Video alike can use AppIdVoiceOrVideo.</remarks>
+        public string AppIdVideo;
+
+        /// <summary>Gets either the AppIdVoice or the AppIdVideo for convenient use in either SDK.</summary>
+        /// <remarks>If the Video SDK is enabled, AppIdVideo is preferred. If that is empty, AppIdVoice is returned.</remarks>
+        public string AppIdVoiceOrVideo
+        {
+            #if PHOTON_VOICE_VIDEO_ENABLE
+            get { return string.IsNullOrEmpty(this.AppIdVideo) ? this.AppIdVoice : this.AppIdVideo; }
+            #else
+            get { return string.IsNullOrEmpty(this.AppIdVoice) ? this.AppIdVideo : this.AppIdVoice; }
+            #endif
+        }
 
         /// <summary>The AppVersion can be used to identify builds and will split the AppId distinct "Virtual AppIds" (important for matchmaking).</summary>
         public string AppVersion;
@@ -125,29 +142,42 @@ namespace Photon.Realtime
         /// <summary>ToString but with more details.</summary>
         public string ToStringFull()
         {
-            return string.Format(
-                                 "appId {0}{1}{2}{3}" +
-                                 "use ns: {4}, reg: {5}, {9}, " +
-                                 "{6}{7}{8}" +
-                                 "auth: {10}",
-                                 String.IsNullOrEmpty(this.AppIdRealtime) ? string.Empty : "Realtime/PUN: " + this.HideAppId(this.AppIdRealtime) + ", ",
-                                 String.IsNullOrEmpty(this.AppIdFusion) ? string.Empty : "Fusion: " + this.HideAppId(this.AppIdFusion) + ", ",
-                                 String.IsNullOrEmpty(this.AppIdChat) ? string.Empty : "Chat: " + this.HideAppId(this.AppIdChat) + ", ",
-                                 String.IsNullOrEmpty(this.AppIdVoice) ? string.Empty : "Voice: " + this.HideAppId(this.AppIdVoice) + ", ",
-                                 String.IsNullOrEmpty(this.AppVersion) ? string.Empty : "AppVersion: " + this.AppVersion + ", ",
-                                 "UseNameServer: " + this.UseNameServer + ", ",
-                                 "Fixed Region: " + this.FixedRegion + ", ",
-                                 //this.BestRegionSummaryFromStorage,
-                                 String.IsNullOrEmpty(this.Server) ? string.Empty : "Server: " + this.Server + ", ",
-                                 this.IsDefaultPort ? string.Empty : "Port: " + this.Port + ", ",
-                                 String.IsNullOrEmpty(ProxyServer) ? string.Empty : "Proxy: " + this.ProxyServer + ", ",
-                                 this.Protocol,
-                                 this.AuthMode
-                                 //this.EnableLobbyStatistics,
-                                 //this.NetworkLogging,
-                                );
-        }
+            var sb = new StringBuilder();
 
+            sb.Append("AppId ");
+
+            var appIds = new List<string>();
+
+            AppendAppIdIfNotEmpty(appIds, "Realtime/PUN", AppIdRealtime);
+            AppendAppIdIfNotEmpty(appIds, "Fusion", AppIdFusion);
+            AppendAppIdIfNotEmpty(appIds, "Chat", AppIdChat);
+            AppendAppIdIfNotEmpty(appIds, "Voice", AppIdVoice);
+            AppendAppIdIfNotEmpty(appIds, "Video", AppIdVideo);
+
+            sb.Append(string.Join(", ", appIds.ToArray()));
+
+            sb.Append($", NameServer: {UseNameServer}");
+            sb.Append($", Region: {FixedRegion}");
+            sb.Append($", AppVersion: {AppVersion}");
+            sb.Append($", Server: {Server}");
+            sb.Append($", Port: {Port}");
+            sb.Append($", Proxy: {ProxyServer}");
+            sb.Append($", AuthMode: {AuthMode}");
+            sb.Append($", Protocol: {Protocol}");
+            sb.Append($", Enable Protocol Fallback: {EnableProtocolFallback}");
+            sb.Append($", Lobby Statistics: {EnableLobbyStatistics}");
+            sb.Append($", Network Logging: {NetworkLogging}");
+
+            return sb.ToString();
+
+            void AppendAppIdIfNotEmpty(List<string> list, string label, string value)
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    list.Add($"{label}: {HideAppId(value)}");
+                }
+            }
+        }
 
         /// <summary>Checks if a string is a Guid by attempting to create one.</summary>
         /// <param name="val">The potential guid to check.</param>
@@ -174,12 +204,16 @@ namespace Photon.Realtime
                        : string.Concat(appId.Substring(0, 8), "***");
         }
 
+        /// <summary>Copies values of this instance to the target.</summary>
+        /// <param name="target">Target instance.</param>
+        /// <returns>The target.</returns>
         public AppSettings CopyTo(AppSettings d)
         {
             d.AppIdRealtime = this.AppIdRealtime;
             d.AppIdFusion = this.AppIdFusion;
             d.AppIdChat = this.AppIdChat;
             d.AppIdVoice = this.AppIdVoice;
+            d.AppIdVideo = this.AppIdVideo;
             d.AppVersion = this.AppVersion;
             d.UseNameServer = this.UseNameServer;
             d.FixedRegion = this.FixedRegion;

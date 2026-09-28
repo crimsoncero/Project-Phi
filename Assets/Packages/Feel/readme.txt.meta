@@ -7,3 +7,10 @@ TextScriptImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/readme.txt
+  uploadId: 985420

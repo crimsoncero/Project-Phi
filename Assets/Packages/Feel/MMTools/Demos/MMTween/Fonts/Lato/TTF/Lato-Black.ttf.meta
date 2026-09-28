@@ -28,3 +28,10 @@ TrueTypeFontImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/MMTools/Demos/MMTween/Fonts/Lato/TTF/Lato-Black.ttf
+  uploadId: 985420

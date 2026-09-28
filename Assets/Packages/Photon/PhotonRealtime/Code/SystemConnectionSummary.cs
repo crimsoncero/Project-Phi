@@ -8,16 +8,15 @@
 // <author>developer@photonengine.com</author>
 // ----------------------------------------------------------------------------
 
-
-#if UNITY_4_7 || UNITY_5 || UNITY_5_3_OR_NEWER
+#if UNITY_2017_4_OR_NEWER
 #define SUPPORTED_UNITY
 #endif
-
 
 
 namespace Photon.Realtime
 {
     using System.Text;
+    using System.Collections.Generic;
 
 
     /// <summary>
@@ -51,48 +50,92 @@ namespace Photon.Realtime
         // ErrorCodeFits (ErrorCode > short.Max would be a problem)
         // WinSock (true) or BSD (false) Socket Error Codes
         //
-        // Time since receive?
-        // Times of send?!
+        // -> 12 of upper 16 bits are used
         //
-        // System/Platform -> should be in other analytic values (not this)
+        // lower 2 bytes are the Socket Error Code (capped to 0xFFFF)
 
+
+        /// <summary>Version of the SystemConnectionSummary type.</summary>
         public readonly byte Version = 0;
 
+        /// <summary>Which protocol is used. Refer to ConnectionProtocol.</summary>
         public byte UsedProtocol;
 
+        /// <summary>True if the Unity app is closing / shut down.</summary>
         public bool AppQuits;
-        public bool AppPause;
-        public bool AppPauseRecent;
-        public bool AppOutOfFocus;
 
+        /// <summary>True if the Unity app is paused.</summary>
+        public bool AppPause;
+        /// <summary>True if the Unity app was paused recently (past 5 sec).</summary>
+        public bool AppPauseRecent;
+
+        /// <summary>True if the Unity app is out of focus / minimized.</summary>
+        public bool AppOutOfFocus;
+        /// <summary>True if the Unity app was out of focus / minimized recently (past 5 sec).</summary>
         public bool AppOutOfFocusRecent;
+
+        /// <summary>True if the Unity engine tells us the network is reachable.</summary>
         public bool NetworkReachable;
+
+        /// <summary>True if the Socket-level error code fits into the usual byte "budget".</summary>
         public bool ErrorCodeFits;
+        /// <summary>True if the Socket-level error code is WinSock based.</summary>
         public bool ErrorCodeWinSock;
 
+        /// <summary>Socket-level error code (if any is available).</summary>
         public int SocketErrorCode;
 
         private static readonly string[] ProtocolIdToName = { "UDP", "TCP", "2(N/A)", "3(N/A)", "WS", "WSS", "6(N/A)", "7WebRTC" };
 
-        private class SCSBitPos
+        internal class SCSBitPos
         {
             /// <summary>28 and up. 4 bits.</summary>
-            public const int Version = 28;
+            internal const int Version = 28;
             /// <summary>25 and up. 3 bits.</summary>
-            public const int UsedProtocol = 25;
-            public const int EmptyBit = 24;
-
-            public const int AppQuits = 23;
-            public const int AppPause = 22;
-            public const int AppPauseRecent = 21;
-            public const int AppOutOfFocus = 20;
-
-            public const int AppOutOfFocusRecent = 19;
-            public const int NetworkReachable = 18;
-            public const int ErrorCodeFits = 17;
-            public const int ErrorCodeWinSock = 16;
+            internal const int UsedProtocol = 25;
+            /// <summary>Position of an empty bit.</summary>
+            internal const int EmptyBit = 24;
+            /// <summary>App Quits was called bit.</summary>
+            internal const int AppQuits = 23;
+            /// <summary>App Pause was called bit.</summary>
+            internal const int AppPause = 22;
+            /// <summary>App Quits was called recently bit.</summary>
+            internal const int AppPauseRecent = 21;
+            /// <summary>App not in focus bit.</summary>
+            internal const int AppOutOfFocus = 20;
+            /// <summary>App not in focus recently bit.</summary>
+            internal const int AppOutOfFocusRecent = 19;
+            /// <summary>Unity signals network is reachable bit.</summary>
+            internal const int NetworkReachable = 18;
+            /// <summary>ErrorCode is small enough to fit bit.</summary>
+            internal const int ErrorCodeFits = 17;
+            /// <summary>Error code is of WinSock type bit.</summary>
+            internal const int ErrorCodeWinSock = 16;
         }
 
+        /// <summary>Brief error description per Windows socket error code.</summary>
+        static readonly Dictionary<int, string> UdpSocketErrors = new Dictionary<int, string>
+                                                                  {
+                                                                      { 10004,  "WSAEINTR - interrupted (temp)" },
+                                                                      { 10009,  "WSAEBADF - bad file descriptor (fatal)" },
+                                                                      { 10013,  "WSAEACCES - blocked by filter or missing SO_BROADCAST (fatal)" },
+                                                                      { 10014,  "WSAEFAULT - invalid buffer pointer (fatal)" },
+                                                                      { 10022,  "WSAEINVAL - socket not bound or invalid argument (fatal)" },
+                                                                      { 10035,  "WSAEWOULDBLOCK - buffer full or no data yet (temp)" },
+                                                                      { 10036,  "WSAEINPROGRESS - operation in progress (temp)" },
+                                                                      { 10038,  "WSAENOTSOCK - socket handle invalid (fatal)" },
+                                                                      { 10039,  "WSAEDESTADDRREQ - destination address required (fatal)" },
+                                                                      { 10040,  "WSAEMSGSIZE - send: datagram too large / receive: datagram truncated (fatal)" },
+                                                                      { 10049,  "WSAEADDRNOTAVAIL - cannot assign requested address (fatal)" },
+                                                                      { 10050,  "WSAENETDOWN - network subsystem failed (fatal)" },
+                                                                      { 10051,  "WSAENETUNREACH - network unreachable (fatal)" },
+                                                                      { 10054,  "WSAECONNRESET - ICMP port unreachable from remote (fatal)" },
+                                                                      { 10055,  "WSAENOBUFS - buffer exhaustion (temp)" },
+                                                                      { 10057,  "WSAENOTCONN - socket not connected (fatal)" },
+                                                                      { 10058,  "WSAESHUTDOWN - cannot send after socket shutdown (fatal)" },
+                                                                      { 10064,  "WSAEHOSTDOWN - host is down (fatal)" },
+                                                                      { 10065,  "WSAEHOSTUNREACH - host unreachable, no route (fatal)" },
+                                                                  };
 
         /// <summary>
         /// Creates a SystemConnectionSummary for an incident of a local LoadBalancingClient. This gets used automatically by the LoadBalancingClient!
@@ -119,7 +162,7 @@ namespace Photon.Realtime
             this.AppOutOfFocusRecent = ConnectionHandler.AppOutOfFocusRecent;
             this.NetworkReachable = ConnectionHandler.IsNetworkReachableUnity();
 
-            this.ErrorCodeFits = this.SocketErrorCode <= short.MaxValue; // socket error code <= short.Max (everything else is a problem)
+            this.ErrorCodeFits = this.SocketErrorCode >= 0 && this.SocketErrorCode <= ushort.MaxValue; // socket error code fits in 4 bytes
             this.ErrorCodeWinSock = true;
         }
 
@@ -183,8 +226,12 @@ namespace Photon.Realtime
         {
             StringBuilder sb = new StringBuilder();
             string transportProtocol = ProtocolIdToName[this.UsedProtocol];
+            string annotation = "";
+            UdpSocketErrors.TryGetValue(this.SocketErrorCode, out annotation);
 
-            sb.Append($"SCS v{this.Version} {transportProtocol} SocketErrorCode: {this.SocketErrorCode} ");
+
+            sb.Append($"SCS v{this.Version} {transportProtocol} SocketError: {this.SocketErrorCode} ");
+            if (!string.IsNullOrEmpty(annotation)) sb.Append($"[{annotation}] ");
 
             if (this.AppQuits) sb.Append("AppQuits ");
             if (this.AppPause) sb.Append("AppPause ");
@@ -194,28 +241,43 @@ namespace Photon.Realtime
             if (!this.NetworkReachable) sb.Append("NetworkUnreachable ");
             if (!this.ErrorCodeFits) sb.Append("ErrorCodeRangeExceeded ");
 
-            if (this.ErrorCodeWinSock) sb.Append("WinSock");
-            else sb.Append("BSDSock");
+            if (!this.ErrorCodeWinSock) sb.Append("BSDSock");
 
             string result = sb.ToString();
             return result;
         }
 
+        /// <summary>Extracts the recorded error code from a SystemConnectionSummary binary representation.</summary>
+        /// <param name="summary">Pass the value of SystemConnectionSummary.ToInt().</param>
+        /// <returns>Error code from a SCS summary (int) or -1 if the version can't be read.</returns>
+        public static int GetErrorCode(int summary)
+        {
+            byte version = GetBits(ref summary, SCSBitPos.Version, 0xF);
+            if (version == 0)
+            {
+                // in SCS v0, the error code is put into the last 2 bytes of an int
+                return summary & 0xFFFF;
+            }
 
-        public static bool GetBit(ref int value, int bitpos)
+            return -1;
+        }
+
+        /// <summary>Gets a specific bit out of the value at the given position.</summary>
+        internal static bool GetBit(ref int value, int bitpos)
         {
             int result = (value >> bitpos) & 1;
             return result != 0;
         }
 
-        public static byte GetBits(ref int value, int bitpos, byte mask)
+        /// <summary>Gets bitvals out of the value at the given position.</summary>
+        internal static byte GetBits(ref int value, int bitpos, byte mask)
         {
             int result = (value >> bitpos) & mask;
             return (byte)result;
         }
 
         /// <summary>Applies bitval to bitpos (no matter value's initial bit value).</summary>
-        public static void SetBit(ref int value, bool bitval, int bitpos)
+        internal static void SetBit(ref int value, bool bitval, int bitpos)
         {
             if (bitval)
             {
@@ -228,7 +290,7 @@ namespace Photon.Realtime
         }
 
         /// <summary>Applies bitvals via OR operation (expects bits in value to be 0 initially).</summary>
-        public static void SetBits(ref int value, byte bitvals, int bitpos)
+        internal static void SetBits(ref int value, byte bitvals, int bitpos)
         {
             value |= bitvals << bitpos;
         }

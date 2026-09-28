@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Scripting.APIUpdating;
+#if MM_UI
 using UnityEngine.UI;
 
 namespace MoreMountains.Feedbacks
@@ -9,6 +11,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you control the color of a target Text over time.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("UI/Text Color")]
 	public class MMF_TextColor : MMF_Feedback
 	{
@@ -103,13 +107,14 @@ namespace MoreMountains.Feedbacks
 			switch (ColorMode)
 			{
 				case ColorModes.Instant:
-					TargetText.color = InstantColor;
+					TargetText.color = NormalPlayDirection ? InstantColor : _initialColor;
 					break;
 				case ColorModes.Gradient:
 					if (!AllowAdditivePlays && (_coroutine != null))
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(ChangeColor());
 					break;
 				case ColorModes.Interpolate:
@@ -117,6 +122,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(ChangeColor());
 					break;
 			}
@@ -192,3 +198,4 @@ namespace MoreMountains.Feedbacks
 		}
 	}
 }
+#endif

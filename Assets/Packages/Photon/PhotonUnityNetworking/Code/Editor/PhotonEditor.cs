@@ -50,8 +50,8 @@ namespace Photon.Pun
         public string LocateSettingsButton = "Locate PhotonServerSettings";
         public string SettingsHighlightLabel = "Highlights the used photon settings file in the project.";
         public string DocumentationLabel = "Documentation:";
-        public string OpenPDFText = "Reference PDF";
-        public string OpenPDFTooltip = "Opens the local documentation pdf.";
+        public string OpenPDFText = "Reference Docs";
+        public string OpenPDFTooltip = "Opens the local documentation chm.";
         public string OpenDevNetText = "Doc Pages / Manual";
         public string OpenDevNetTooltip = "Online documentation for Photon.";
         public string OpenCloudDashboardText = "Cloud Dashboard Login";
@@ -101,7 +101,7 @@ namespace Photon.Pun
         /// </summary>
         public static string CustomContext = null;
 
-        protected static string DocumentationLocation = "Assets/Photon/PhotonNetworking-Documentation.pdf";
+        protected static string DocumentationLocation = "Assets/Photon/PhotonNetworking-Documentation.chm";
 
         public const string UrlDevNet = "https://doc.photonengine.com/en-us/pun/v2";
 

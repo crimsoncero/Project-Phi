@@ -52,7 +52,7 @@ namespace Photon.Chat
         private void ConfigUnitySockets()
         {
             Type websocketType = null;
-            #if (UNITY_XBOXONE || UNITY_GAMECORE) && !UNITY_EDITOR
+            #if (UNITY_XBOXONE || UNITY_GAMECORE || UNITY_SWITCH2) && !UNITY_EDITOR
             websocketType = Type.GetType("ExitGames.Client.Photon.SocketNativeSource, Assembly-CSharp", false);
             if (websocketType == null)
             {
@@ -64,7 +64,7 @@ namespace Photon.Chat
             }
             if (websocketType != null)
             {
-                this.SocketImplementationConfig[ConnectionProtocol.Udp] = websocketType;    // on Xbox, the native socket plugin supports UDP as well
+                this.SocketImplementationConfig[ConnectionProtocol.Udp] = websocketType;    // the native socket plugin supports UDP as well
             }
             #else
             // to support WebGL export in Unity, we find and assign the SocketWebTcp class (if it's in the project).

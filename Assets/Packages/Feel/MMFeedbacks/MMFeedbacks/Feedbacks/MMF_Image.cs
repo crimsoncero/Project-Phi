@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿#if MM_UI
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -11,6 +13,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the color of a target Image over time. You can also use it to command one or many MMImageShakers.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("UI/Image")]
 	public class MMF_Image : MMF_Feedback
 	{
@@ -31,7 +35,7 @@ namespace MoreMountains.Feedbacks
 		protected override void AutomateTargetAcquisition() => BoundImage = FindAutomatedTarget<Image>();
 
 		/// the possible modes for this feedback
-		public enum Modes { OverTime, Instant }
+		public enum Modes { OverTime, Instant, ToDestinationColor, ToDestinationColorAndBack }
 
 		[MMFInspectorGroup("Image", true, 54, true)]
 		/// the Image to affect when playing the feedback
@@ -52,12 +56,22 @@ namespace MoreMountains.Feedbacks
 		public bool ModifyColor = true;
 		/// the colors to apply to the Image over time
 		[Tooltip("the colors to apply to the Image over time")]
-		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
+		[MMFEnumCondition("Mode", (int)Modes.OverTime, (int)Modes.ToDestinationColor, (int)Modes.ToDestinationColorAndBack)]
 		public Gradient ColorOverTime;
 		/// the color to move to in instant mode
 		[Tooltip("the color to move to in instant mode")]
 		[MMFEnumCondition("Mode", (int)Modes.Instant)]
 		public Color InstantColor;
+		/// the color to move to in ToDestination mode
+		[Tooltip("the color to move to in instant mode")]
+		[MMFEnumCondition("Mode", (int)Modes.Instant, (int)Modes.ToDestinationColor, (int)Modes.ToDestinationColorAndBack)]
+		public Color ToDestinationColor = Color.red;
+		/// the color to move to in ToDestination mode
+		[Tooltip("the color to move to in instant mode")]
+		[MMFEnumCondition("Mode", (int)Modes.Instant, (int)Modes.ToDestinationColor, (int)Modes.ToDestinationColorAndBack)]
+		public AnimationCurve ToDestinationColorCurve = new AnimationCurve(new Keyframe(0, 0f), new Keyframe(1, 1f));
+		
+		[Header("Behaviour")]
 		/// whether or not that Image should be turned off on start
 		[Tooltip("whether or not that Image should be turned off on start")]
 		[FormerlySerializedAs("StartsOff")]
@@ -74,6 +88,7 @@ namespace MoreMountains.Feedbacks
 
 		protected Coroutine _coroutine;
 		protected Color _initialColor;
+		protected Color _initialInstantColor;
 
 		/// <summary>
 		/// On init we turn the Image off if needed
@@ -89,6 +104,15 @@ namespace MoreMountains.Feedbacks
 				{
 					Turn(false);
 				}
+				
+				if (!TargetExists(BoundImage, nameof(BoundImage)))
+				{
+					return;
+				}
+				else
+				{
+					_initialInstantColor = BoundImage.color;
+				}
 			}
 		}
 
@@ -99,7 +123,7 @@ namespace MoreMountains.Feedbacks
 		/// <param name="feedbacksIntensity"></param>
 		protected override void CustomPlayFeedback(Vector3 position, float feedbacksIntensity = 1.0f)
 		{
-			if (!Active || !FeedbackTypeAuthorized)
+			if (!Active || !FeedbackTypeAuthorized || (BoundImage == null))
 			{
 				return;
 			}
@@ -114,7 +138,7 @@ namespace MoreMountains.Feedbacks
 				case Modes.Instant:
 					if (ModifyColor)
 					{
-						BoundImage.color = InstantColor;
+						BoundImage.color = NormalPlayDirection ? InstantColor : _initialInstantColor;
 					}
 					break;
 				case Modes.OverTime:
@@ -122,9 +146,64 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(ImageSequence());
 					break;
+				case Modes.ToDestinationColor:
+					if (!AllowAdditivePlays && (_coroutine != null))
+					{
+						return;
+					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
+					_coroutine = Owner.StartCoroutine(ToDestinationSequence(false));
+					break;
+				case Modes.ToDestinationColorAndBack:
+					if (!AllowAdditivePlays && (_coroutine != null))
+					{
+						return;
+					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
+					_coroutine = Owner.StartCoroutine(ToDestinationSequence(true));
+					break;
 			}
+		}
+		
+		/// <summary>
+		/// This coroutine will modify the values on the Image in destination modes
+		/// </summary>
+		/// <returns></returns>
+		protected virtual IEnumerator ToDestinationSequence(bool andBack)
+		{
+			float journey = NormalPlayDirection ? 0f : FeedbackDuration;
+			IsPlaying = true;
+			while ((journey >= 0) && (journey <= FeedbackDuration) && (FeedbackDuration > 0))
+			{
+				float remappedTime = MMFeedbacksHelpers.Remap(journey, 0f, FeedbackDuration, 0f, 1f);
+
+				if (andBack)
+				{
+					remappedTime = (remappedTime < 0.5f)
+						? MMFeedbacksHelpers.Remap(remappedTime, 0f, 0.5f, 0f, 1f)
+						: MMFeedbacksHelpers.Remap(remappedTime, 0.5f, 1f, 1f, 0f);
+				}
+                
+				float evalTime = ToDestinationColorCurve.Evaluate(remappedTime);
+                
+				if (ModifyColor)
+				{
+					BoundImage.color = Color.LerpUnclamped(_initialColor, ToDestinationColor, evalTime);
+				}
+
+				journey += NormalPlayDirection ? FeedbackDeltaTime : -FeedbackDeltaTime;
+				yield return null;
+			}
+			if (ModifyColor)
+			{
+				BoundImage.color = andBack ? _initialColor : ToDestinationColor;
+			}          
+			_coroutine = null;
+			IsPlaying = false;
+			yield return null;
 		}
 
 		/// <summary>
@@ -184,7 +263,12 @@ namespace MoreMountains.Feedbacks
 			{
 				Turn(false);    
 			}
-			Owner.StopCoroutine(_coroutine);
+
+			if (_coroutine != null)
+			{
+				Owner.StopCoroutine(_coroutine);	
+			}
+			
 			_coroutine = null;
 		}
 
@@ -211,3 +295,4 @@ namespace MoreMountains.Feedbacks
 		}
 	}
 }
+#endif

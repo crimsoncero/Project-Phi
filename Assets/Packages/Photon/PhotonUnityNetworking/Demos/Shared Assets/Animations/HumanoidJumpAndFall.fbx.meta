@@ -1830,8 +1830,7 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 9bde93922c5ea4196b87f9b5593da1dc,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 9bde93922c5ea4196b87f9b5593da1dc, type: 3}
   animationType: 3
   additionalBone: 0
   userData: 
@@ -1840,6 +1839,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 119922
   packageName: PUN 2 - FREE
-  packageVersion: 2.46
-  assetPath: Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidJumpAndFall.fbx
-  uploadId: 659958
+  packageVersion: 2.56
+  assetPath: Assets/Packages/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidJumpAndFall.fbx
+  uploadId: 993206

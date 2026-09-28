@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Scripting.APIUpdating;
+using Random = UnityEngine.Random;
 
 namespace MoreMountains.Feedbacks
 {
 	[AddComponentMenu("")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Audio/AudioSource")]
 	[FeedbackHelp("This feedback lets you play a target audio source, with some elements at random.")]
 	public class MMF_AudioSource : MMF_Feedback
@@ -26,7 +31,7 @@ namespace MoreMountains.Feedbacks
 		/// the possible ways to interact with the audiosource
 		public enum Modes { Play, Pause, UnPause, Stop }
 
-		[MMFInspectorGroup("Audiosource", true, 28, true)]
+		[MMFInspectorGroup("Audiosource", true, 5, true)]
 		/// the target audio source to play
 		[Tooltip("the target audio source to play")]
 		public AudioSource TargetAudioSource;
@@ -67,6 +72,24 @@ namespace MoreMountains.Feedbacks
 
 		protected AudioClip _randomClip;
 		protected float _duration;
+		
+		protected override void CustomInitialization(MMF_Player owner)
+		{
+			base.CustomInitialization(owner);
+
+			if (Active)
+			{
+				if (RandomSfx == null)
+				{
+					RandomSfx = Array.Empty<AudioClip>();
+				}
+			}
+			
+			if (!TargetExists(TargetAudioSource, nameof(TargetAudioSource)))
+			{
+				return;
+			}
+		}
         
 		/// <summary>
 		/// Plays either a random sound or the specified sfx
@@ -76,6 +99,11 @@ namespace MoreMountains.Feedbacks
 		protected override void CustomPlayFeedback(Vector3 position, float feedbacksIntensity = 1.0f)
 		{
 			if (!Active || !FeedbackTypeAuthorized)
+			{
+				return;
+			}
+			
+			if (TargetAudioSource == null)
 			{
 				return;
 			}

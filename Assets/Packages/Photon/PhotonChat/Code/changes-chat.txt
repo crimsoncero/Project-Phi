@@ -3,8 +3,64 @@ Photon Chat C# Client - Changelog
 www.photonengine.com  -  Join our Discord Server: https://dashboard.photonengine.com/account/profile
 
 
+Version 4.1.8.23 (10. September 2026)
+    No notable changes.
 
-Version 4.1.8.4 (26. April 2024 - rev7529)
+Version 4.1.8.22 (04. September 2026)
+    No notable changes.
+
+Version 4.1.8.21 (01. July 2026)
+    No notable changes.
+
+Version 4.1.8.20 (04. June 2026)
+    No notable changes.
+
+Version 4.1.8.19 (01. June 2026)
+    Fixed: Initialization of static value in ChannelCreationOptions for Unity (if run without Domain Reload).
+
+Version 4.1.8.18 (30. March 2026 - rev8338)
+    Changed: ChatPeer.ConfigUnitySockets() and LoadBalancingPeer.ConfigUnitySockets() to use the native socket implementation if available (SocketNativeSource).
+
+Version 4.1.8.17 (10. November 2025 - rev8151)
+    No notable changes.
+
+Version 4.1.8.16 (31. July 2025 - rev8016)
+    No notable changes.
+
+Version 4.1.8.15 (08. May 2025 - rev7931)
+    No notable changes.
+
+Version 4.1.8.14 (11. March 2025 - rev7866)
+    No notable changes.
+
+Version 4.1.8.13 (09. January 2025 - rev7815)
+    No notable changes.
+
+Version 4.1.8.12 (16. December 2024 - rev7801)
+    No notable changes.
+
+Version 4.1.8.11 (17. October 2024 - rev7735)
+    No notable changes.
+
+Version 4.1.8.10 (14. October 2024 - rev7732)
+    No notable changes.
+
+Version 4.1.8.9 (02. September 2024 - rev7660)
+    No notable changes.
+
+Version 4.1.8.8 (02. August 2024 - rev7638)
+    No notable changes.
+
+Version 4.1.8.7 (05. July 2024 - rev7622)
+    No notable changes.
+
+Version 4.1.8.6 (25. May 2024 - rev7571)
+    No notable changes. The Realtime API has fixes for non-Unity projects.
+
+Version 4.1.8.5 (13. May 2024 - rev7556)
+    No notable changes (except in library).
+
+Version 4.1.8.4 (26. April 2024 - rev7530)
     No notable changes (except in library).
 
 Version 4.1.8.3 (24. April 2024 - rev7519)

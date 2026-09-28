@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 638549623102266362
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -270,15 +275,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 71}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1430777279
+    uuid:
+      value0: 1565086853
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1565086853
     name: Autocannon Sprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Autocannon Sprite_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -287,7 +298,7 @@ ScriptedImporter:
         width: 24
         height: 17
       spriteId: 292197a5c4a146f4cb1a730117a941ff
-    - name: Autocannon Sprite_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -296,7 +307,7 @@ ScriptedImporter:
         width: 24
         height: 24
       spriteId: 3ef80cd11de8806408fc6ec4fd1d8ec1
-    - name: Autocannon Sprite_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -305,7 +316,7 @@ ScriptedImporter:
         width: 24
         height: 26
       spriteId: 35b4761f793d69d4abd87dee5e34a626
-    - name: Autocannon Sprite_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -314,7 +325,7 @@ ScriptedImporter:
         width: 26
         height: 27
       spriteId: 72baf41af2474f84290874eb885d1d42
-    - name: Autocannon Sprite_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -323,7 +334,7 @@ ScriptedImporter:
         width: 29
         height: 27
       spriteId: 0874db126bffce341b6000441fcc9e95
-    - name: Autocannon Sprite_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -332,7 +343,7 @@ ScriptedImporter:
         width: 27
         height: 21
       spriteId: b1a2cb5cc9b391b4dba034037bd3a2d1
-    - name: Autocannon Sprite_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -342,7 +353,10 @@ ScriptedImporter:
         height: 17
       spriteId: 8adf6b0420954954b8c9e3259146aa63
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -394,5 +408,5 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 128, y: 128}
   canvasSize: {x: 48, y: 48}

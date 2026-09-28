@@ -8,3 +8,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/FeelDemos/Wheel/Animation/FeelWheelDustAnimation.anim
+  uploadId: 985420

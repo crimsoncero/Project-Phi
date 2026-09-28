@@ -5,3 +5,10 @@ AssemblyDefinitionReferenceImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/MMFeedbacks/Demos/MoreMountains.Feedbacks.Demos.asmref
+  uploadId: 985420

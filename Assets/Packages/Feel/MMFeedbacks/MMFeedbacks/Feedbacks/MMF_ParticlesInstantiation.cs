@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -11,6 +11,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will instantiate the specified ParticleSystem at the specified position on Start or on Play, optionally nesting them.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Particles/Particles Instantiation")]
 	public class MMF_ParticlesInstantiation : MMF_Feedback
 	{
@@ -38,7 +40,7 @@ namespace MoreMountains.Feedbacks
 		[MMFInspectorGroup("Particles Instantiation", true, 37, true)]
 		/// whether the particle system should be cached or created on demand the first time
 		[Tooltip("whether the particle system should be cached or created on demand the first time")]
-		public Modes Mode = Modes.Cached;
+		public Modes Mode = Modes.Pool;
 		
 		/// the initial and planned size of this object pool
 		[Tooltip("the initial and planned size of this object pool")]
@@ -57,12 +59,20 @@ namespace MoreMountains.Feedbacks
 		[Tooltip("if this is false, a brand new particle system will be created every time")]
 		[MMFEnumCondition("Mode", (int)Modes.OnDemand)]
 		public bool CachedRecycle = true;
+		
+		[Header("Particle Prefabs")]
 		/// the particle system to spawn
 		[Tooltip("the particle system to spawn")]
 		public ParticleSystem ParticlesPrefab;
 		/// the possible random particle systems
 		[Tooltip("the possible random particle systems")]
 		public List<ParticleSystem> RandomParticlePrefabs;
+
+		[Header("Weights")] 
+		public int MainParticlesPrefabWeight = 1;
+		public List<int> RandomParticleWeights = new List<int>();
+		
+		[Header("Settings")]
 		/// if this is true, the particle system game object will be activated on Play, useful if you've somehow disabled it in a past Play
 		[Tooltip("if this is true, the particle system game object will be activated on Play, useful if you've somehow disabled it in a past Play")]
 		public bool ForceSetActiveOnPlay = false;
@@ -72,6 +82,13 @@ namespace MoreMountains.Feedbacks
 		/// the duration for the player to consider. This won't impact your particle system, but is a way to communicate to the MMF Player the duration of this feedback. Usually you'll want it to match your actual particle system, and setting it can be useful to have this feedback work with holding pauses.
 		[Tooltip("the duration for the player to consider. This won't impact your particle system, but is a way to communicate to the MMF Player the duration of this feedback. Usually you'll want it to match your actual particle system, and setting it can be useful to have this feedback work with holding pauses.")]
 		public float DeclaredDuration = 0f;
+		/// set this to true to override the target particle system(s) StopAction, forcing a disable or destroy for instance when the particle system stops. If you're pooling your particle systems, don't have them destroy on stop
+		[Tooltip("set this to true to override the target particle system(s) StopAction, forcing a disable or destroy for instance when the particle system stops. If you're pooling your particle systems, don't have them destroy on stop")]
+		public bool ForceStopAction = false;
+		/// if ForceStopAction is true, this will override the target particle system(s) StopAction 
+		[Tooltip("if ForceStopAction is true, this will override the target particle system(s) StopAction ")]
+		[MMFCondition("ForceStopAction", true)]
+		public ParticleSystemStopAction StopAction = ParticleSystemStopAction.None;
 
 		[MMFInspectorGroup("Position", true, 29)]
 		/// the selected position mode
@@ -81,6 +98,10 @@ namespace MoreMountains.Feedbacks
 		[Tooltip("the position at which to spawn this particle system")]
 		[MMFEnumCondition("PositionMode", (int)PositionModes.Transform)]
 		public Transform InstantiateParticlesPosition;
+		/// in Transform mode, whether or not to parent / attach the spawned particle system to the InstantiateParticlePosition transform on play
+		[Tooltip("in Transform mode, whether or not to parent / attach the spawned particle system to the InstantiateParticlePosition transform on play")]
+		[MMFEnumCondition("PositionMode", (int)PositionModes.Transform)]
+		public bool ParentParticleSystemOnPlay = false;
 		/// the world position to move to when in WorldPosition mode 
 		[Tooltip("the world position to move to when in WorldPosition mode")]
 		[MMFEnumCondition("PositionMode", (int)PositionModes.WorldPosition)]
@@ -90,7 +111,6 @@ namespace MoreMountains.Feedbacks
 		public Vector3 Offset;
 		/// whether or not the particle system should be nested in hierarchy or floating on its own
 		[Tooltip("whether or not the particle system should be nested in hierarchy or floating on its own")]
-		[MMFEnumCondition("PositionMode", (int)PositionModes.Transform, (int)PositionModes.FeedbackPosition)]
 		public bool NestParticles = true;
 		/// whether or not to also apply rotation
 		[Tooltip("whether or not to also apply rotation")]
@@ -108,12 +128,20 @@ namespace MoreMountains.Feedbacks
 		[MMFCondition("ForceSimulationSpeed", true)]
 		public Vector2 ForcedSimulationSpeed = new Vector2(0.1f,1f);
 
+		/// the particle system instantiated by this feedback
+		public ParticleSystem InstantiatedParticleSystem => _instantiatedParticleSystem;
+		/// the particle systems instantiated by this feedback
+		public List<ParticleSystem> InstantiatedRandomParticleSystems => _instantiatedRandomParticleSystems;
+
 		protected ParticleSystem _instantiatedParticleSystem;
 		protected List<ParticleSystem> _instantiatedRandomParticleSystems;
 
 		protected MMMiniObjectPooler _objectPooler; 
+		protected List<MMMiniObjectPooler> _objectPoolers;
 		protected GameObject _newGameObject;
 		protected bool _poolCreatedOrFound = false;
+		protected Vector3 _scriptPosition;
+		protected MMShufflebag<int> _weightShuffleBag;
 		
 		/// <summary>
 		/// On init, instantiates the particle system, positions it and nests it if needed
@@ -127,8 +155,8 @@ namespace MoreMountains.Feedbacks
 			}
 			
 			CacheParticleSystem();
-
 			CreatePools(owner);
+			InitializeWeights();
 		}
 		
 		protected virtual bool ShouldCache => (Mode == Modes.OnDemand && CachedRecycle) || (Mode == Modes.Cached);
@@ -136,6 +164,16 @@ namespace MoreMountains.Feedbacks
 		protected virtual void CreatePools(MMF_Player owner)
 		{
 			if (Mode != Modes.Pool)
+			{
+				return;
+			}
+
+			if (RandomParticlePrefabs == null)
+			{
+				RandomParticlePrefabs = new List<ParticleSystem>();
+			}
+
+			if ((ParticlesPrefab == null) && (RandomParticlePrefabs.Count == 0))
 			{
 				return;
 			}
@@ -169,6 +207,36 @@ namespace MoreMountains.Feedbacks
 					SceneManager.MoveGameObjectToScene(objectPoolGo, Owner.gameObject.scene);    
 				}
 				_poolCreatedOrFound = true;
+
+				if (RandomParticlePrefabs.Count > 0)
+				{
+					_objectPoolers = new List<MMMiniObjectPooler>();
+					_objectPoolers.Add(_objectPooler);
+					foreach (ParticleSystem ps in RandomParticlePrefabs)
+					{
+						GameObject randomObjectPoolGo = new GameObject();
+						randomObjectPoolGo.name = Owner.name+"_"+ps.name+"_ObjectPooler";
+						MMMiniObjectPooler objectPooler = randomObjectPoolGo.AddComponent<MMMiniObjectPooler>();
+						objectPooler.GameObjectToPool = ps.gameObject;
+						objectPooler.PoolSize = ObjectPoolSize;
+						objectPooler.NestWaitingPool = NestParticles;
+						if (ParentTransform != null)
+						{
+							objectPooler.transform.SetParent(ParentTransform);
+						}
+						else
+						{
+							objectPooler.transform.SetParent(Owner.transform);
+						}
+						objectPooler.MutualizeWaitingPools = MutualizePools;
+						objectPooler.FillObjectPool();
+						if ((Owner != null) && (randomObjectPoolGo.transform.parent == null))
+						{
+							SceneManager.MoveGameObjectToScene(randomObjectPoolGo, Owner.gameObject.scene);    
+						}
+						_objectPoolers.Add(objectPooler);
+					}
+				}
 			}
 			
 		}
@@ -183,13 +251,37 @@ namespace MoreMountains.Feedbacks
 			InstantiateParticleSystem();
 		}
 
+		protected virtual void InitializeWeights()
+		{
+			if (RandomParticleWeights.Count != RandomParticlePrefabs.Count)
+			{
+				RandomParticleWeights = new List<int>();
+				for (int i = 0; i < RandomParticlePrefabs.Count; i++)
+				{
+					RandomParticleWeights.Add(1);
+				}
+			}
+
+			int size = Mode == Modes.Pool ? RandomParticleWeights.Count + 1 : RandomParticleWeights.Count;
+			_weightShuffleBag = new MMShufflebag<int>(size);
+			if (Mode == Modes.Pool)
+			{
+				_weightShuffleBag.Add(0, MainParticlesPrefabWeight);	
+			}
+			for (int i = 0; i < RandomParticleWeights.Count; i++)
+			{
+				int newIndex = Mode == Modes.Pool ? i+1 : i;
+				_weightShuffleBag.Add(newIndex, RandomParticleWeights[i]);
+			}
+		}
+
 		/// <summary>
 		/// Instantiates the particle system
 		/// </summary>
 		protected virtual void InstantiateParticleSystem()
 		{
 			Transform newParent = null;
-            
+			
 			if (NestParticles)
 			{
 				if (PositionMode == PositionModes.FeedbackPosition)
@@ -220,7 +312,7 @@ namespace MoreMountains.Feedbacks
 				}
 				else
 				{
-					int random = Random.Range(0, RandomParticlePrefabs.Count);
+					int random = _weightShuffleBag.Pick();
 					_instantiatedParticleSystem = GameObject.Instantiate(RandomParticlePrefabs[random], newParent) as ParticleSystem;
 					if (newParent == null)
 					{
@@ -240,6 +332,7 @@ namespace MoreMountains.Feedbacks
 				{
 					SceneManager.MoveGameObjectToScene(_instantiatedParticleSystem.gameObject, Owner.gameObject.scene);    
 				}
+				_instantiatedParticleSystem.gameObject.SetActive(false);
 			}
 			
 			if (_instantiatedParticleSystem != null)
@@ -266,11 +359,17 @@ namespace MoreMountains.Feedbacks
 				}
 			}
 
+			if (ParentParticleSystemOnPlay)
+			{
+				system.transform.SetParent(InstantiateParticlesPosition);
+			}
+
 			if (system != null)
 			{
 				system.Stop();
 				
 				system.transform.position = GetPosition(Owner.transform.position);
+				
 				if (ApplyRotation)
 				{
 					system.transform.rotation = GetRotation(Owner.transform);    
@@ -345,9 +444,9 @@ namespace MoreMountains.Feedbacks
 				case PositionModes.WorldPosition:
 					return TargetWorldPosition + Offset;
 				case PositionModes.Script:
-					return position + Offset;
+					return _scriptPosition + Offset;
 				default:
-					return position + Offset;
+					return _scriptPosition + Offset;
 			}
 		}
 
@@ -362,12 +461,27 @@ namespace MoreMountains.Feedbacks
 			{
 				return;
 			}
-
+			_scriptPosition = position;
+			
 			if (Mode == Modes.Pool)
 			{
-				if (_objectPooler != null)
+				if (RandomParticlePrefabs.Count == 0)
 				{
-					_newGameObject = _objectPooler.GetPooledGameObject();
+					if (_objectPooler != null)
+					{
+						_newGameObject = _objectPooler.GetPooledGameObject();
+						_instantiatedParticleSystem = _newGameObject.MMFGetComponentNoAlloc<ParticleSystem>();
+						if (_instantiatedParticleSystem != null)
+						{
+							PositionParticleSystem(_instantiatedParticleSystem);
+							_newGameObject.SetActive(true);
+						}
+					}	
+				}
+				else
+				{
+					int randomIndex = _weightShuffleBag.Pick();
+					_newGameObject = _objectPoolers[randomIndex].GetPooledGameObject();
 					_instantiatedParticleSystem = _newGameObject.MMFGetComponentNoAlloc<ParticleSystem>();
 					if (_instantiatedParticleSystem != null)
 					{
@@ -396,6 +510,8 @@ namespace MoreMountains.Feedbacks
 				}
 				_instantiatedParticleSystem.Stop();
 				_instantiatedParticleSystem.transform.position = GetPosition(position);
+				PositionParticleSystem(_instantiatedParticleSystem);
+				_instantiatedParticleSystem.gameObject.SetActive(true);
 				PlayTargetParticleSystem(_instantiatedParticleSystem);
 			}
 
@@ -403,7 +519,6 @@ namespace MoreMountains.Feedbacks
 			{
 				foreach (ParticleSystem system in _instantiatedRandomParticleSystems)
 				{
-                    
 					if (ForceSetActiveOnPlay)
 					{
 						system.gameObject.SetActive(true);
@@ -411,7 +526,7 @@ namespace MoreMountains.Feedbacks
 					system.Stop();
 					system.transform.position = GetPosition(position);
 				}
-				int random = Random.Range(0, _instantiatedRandomParticleSystems.Count);
+				int random = _weightShuffleBag.Pick();
 				PlayTargetParticleSystem(_instantiatedRandomParticleSystems[random]);
 			}
 		}
@@ -422,6 +537,11 @@ namespace MoreMountains.Feedbacks
 		/// <param name="targetParticleSystem"></param>
 		protected virtual void PlayTargetParticleSystem(ParticleSystem targetParticleSystem)
 		{
+			if (ForceStopAction)
+			{
+				ParticleSystem.MainModule main = targetParticleSystem.main;
+				main.stopAction = StopAction;
+			}
 			if (ForceSimulationSpeed)
 			{
 				ParticleSystem.MainModule main = targetParticleSystem.main;

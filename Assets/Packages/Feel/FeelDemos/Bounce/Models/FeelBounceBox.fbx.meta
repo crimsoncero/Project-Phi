@@ -92,3 +92,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/FeelDemos/Bounce/Models/FeelBounceBox.fbx
+  uploadId: 985420

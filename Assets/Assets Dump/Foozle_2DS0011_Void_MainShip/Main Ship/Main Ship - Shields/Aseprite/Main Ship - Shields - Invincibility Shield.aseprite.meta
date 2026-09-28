@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 0
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -333,15 +338,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 44, y: 76}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -876687235
+    uuid:
+      value0: 3448911537
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -846055759
     name: Main Ship - Shields - Invincibility Shield
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main Ship - Shields - Invincibility Shield_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -350,7 +361,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: ea46e6632039f7846871e2acf41a6e86
-    - name: Main Ship - Shields - Invincibility Shield_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -359,7 +370,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: 46f74227776099440ba75b70b0653660
-    - name: Main Ship - Shields - Invincibility Shield_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -368,7 +379,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: e719e94e2ae338f4b9a2bef9d8960bad
-    - name: Main Ship - Shields - Invincibility Shield_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -377,7 +388,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: e63a295757c0fe046b03d4f68060ffe4
-    - name: Main Ship - Shields - Invincibility Shield_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -386,7 +397,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: 8a6c5894e8dc3ae49a26906b5d280d3e
-    - name: Main Ship - Shields - Invincibility Shield_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -395,7 +406,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: a1c5225701879074e8d28e5222a66434
-    - name: Main Ship - Shields - Invincibility Shield_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -404,7 +415,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: 3fe4fd6a67444674a89e2065a25f3a8c
-    - name: Main Ship - Shields - Invincibility Shield_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -413,7 +424,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: 94ad399de4a64e941988fd3d3aeaff30
-    - name: Main Ship - Shields - Invincibility Shield_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -422,7 +433,7 @@ ScriptedImporter:
         width: 32
         height: 28
       spriteId: 8d5c419e8a849c54d920fb76b01063dc
-    - name: Main Ship - Shields - Invincibility Shield_Frame_9
+    - name: Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -432,9 +443,12 @@ ScriptedImporter:
         height: 28
       spriteId: e40c17e7c77188549b0d4b1e55dc43c6
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 128, y: 256}
   canvasSize: {x: 64, y: 64}

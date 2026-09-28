@@ -352,7 +352,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 119922
   packageName: PUN 2 - FREE
-  packageVersion: 2.46
-  assetPath: Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized
-    city/Models/car_3.FBX
-  uploadId: 659958
+  packageVersion: 2.56
+  assetPath: Assets/Packages/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_3.FBX
+  uploadId: 993206

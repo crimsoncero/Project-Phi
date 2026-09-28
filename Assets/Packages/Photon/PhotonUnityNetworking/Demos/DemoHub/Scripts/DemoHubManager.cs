@@ -81,7 +81,7 @@ namespace Photon.Pun.Demo.Hub
 					"Allows simple commands via text.\n" +
 					"\n" +
 					"Requires configuration of Chat App ID in ServerSettings.",
-						Scene = "DemoChat-Scene",
+						Scene = "Chat-Scene",
 						DocLink = "http://j.mp/2iwQkPJ" 
 				}
 			);

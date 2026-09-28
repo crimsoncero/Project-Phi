@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 0
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 638549393283797548
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -165,9 +170,15 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 1
-    guid: 885305060
+    uuid:
+      value0: 2328219833
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -1966747463
     name: Base
     layerFlags: 3
     layerType: 0
@@ -183,7 +194,10 @@ ScriptedImporter:
         height: 26
       spriteId: 68983e39b053f91419d3fccb1cd40b62
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -225,5 +239,5 @@ ScriptedImporter:
   secondarySpriteTextures:
   - name: _Emission
     texture: {fileID: 2800000, guid: f3f163ebd3bbb5440899c68e01018fb9, type: 3}
-  spritePackingTag: 
+  previousTextureSize: {x: 32, y: 32}
   canvasSize: {x: 48, y: 48}

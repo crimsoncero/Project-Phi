@@ -901,12 +901,30 @@ namespace Photon.Pun
                 }
             }
 
+            #if UNITY_EDITOR
+            bool wasDirty = UnityEditor.EditorUtility.IsDirty(res);
+            #endif
+
             bool wasActive = res.activeSelf;
-            if (wasActive) res.SetActive(false);
+            if (wasActive)
+            {
+                res.SetActive(false);
+            }
 
-            GameObject instance =GameObject.Instantiate(res, position, rotation) as GameObject;
+            GameObject instance = GameObject.Instantiate(res, position, rotation) as GameObject;
 
-            if (wasActive) res.SetActive(true);
+            if (wasActive)
+            {
+                res.SetActive(true);
+
+                #if UNITY_EDITOR
+                if (!wasDirty)
+                {
+                    UnityEditor.EditorUtility.ClearDirty(res);
+                }
+                #endif
+            }
+            
             return instance;
         }
 

@@ -939,8 +939,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5c442f9e667c3ac4089fc4321d655698,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5c442f9e667c3ac4089fc4321d655698, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
@@ -949,3 +948,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/FeelDemos/Brass/Animations/FeelTactical@Turn.fbx
+  uploadId: 985420

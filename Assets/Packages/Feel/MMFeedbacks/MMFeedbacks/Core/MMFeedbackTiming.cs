@@ -32,8 +32,8 @@ namespace MoreMountains.Feedbacks
 		public bool ContributeToTotalDuration = true;
 
 		[Header("Delays")]
-		/// the initial delay to apply before playing the delay (in seconds)
-		[Tooltip("the initial delay to apply before playing the delay (in seconds)")]
+		/// the initial delay to apply before playing the feedback (in seconds)
+		[Tooltip("the initial delay to apply before playing the feedback (in seconds)")]
 		public float InitialDelay = 0f;
 		/// the cooldown duration mandatory between two plays
 		[Tooltip("the cooldown duration mandatory between two plays")]
@@ -54,7 +54,27 @@ namespace MoreMountains.Feedbacks
 		/// the delay (in seconds) between two firings of this feedback. This doesn't include the duration of the feedback. 
 		[Tooltip("the delay (in seconds) between two firings of this feedback. This doesn't include the duration of the feedback.")]
 		public float DelayBetweenRepeats = 1f;
+		/// if this is true, repeated feedbacks won't wait for the feedback's duration before firing again
+		[Tooltip("if this is true, repeated feedbacks won't wait for the feedback's duration before firing again")]
+		public bool IgnoreFeedbackDurationForRepeats = false;
 
+		[Header("PlayCount")]
+		/// the number of times this feedback's been played since its initialization (or last reset if SetPlayCountToZeroOnReset is true) 
+		[Tooltip("the number of times this feedback's been played since its initialization (or last reset if SetPlayCountToZeroOnReset is true)")]
+		[MMFReadOnly]
+		public int PlayCount = 0;
+		/// whether or not to limit the amount of times this feedback can be played. beyond that amount, it won't play anymore 
+		[Tooltip("whether or not to limit the amount of times this feedback can be played. beyond that amount, it won't play anymore")]
+		public bool LimitPlayCount = false;
+		/// if LimitPlayCount is true, the maximum amount of times this feedback can be played
+		[Tooltip("if LimitPlayCount is true, the maximum amount of times this feedback can be played")]
+		[MMFCondition("LimitPlayCount", true)]
+		public int MaxPlayCount = 3;
+		/// if LimitPlayCount is true, whether or not to reset the play count to zero when the feedback is reset
+		[Tooltip("if LimitPlayCount is true, whether or not to reset the play count to zero when the feedback is reset")]
+		[MMFCondition("LimitPlayCount", true)]
+		public bool SetPlayCountToZeroOnReset = false;
+		
 		[Header("Play Direction")]
 		/// this defines how this feedback should play when the host MMFeedbacks is played :
 		/// - always (default) : this feedback will always play
@@ -80,8 +100,8 @@ namespace MoreMountains.Feedbacks
 		public PlayDirections PlayDirection = PlayDirections.FollowMMFeedbacksDirection;
 
 		[Header("Intensity")]
-		/// if this is true, intensity will be constant, even if the parent MMFeedbacks is played at a lower intensity
-		[Tooltip("if this is true, intensity will be constant, even if the parent MMFeedbacks is played at a lower intensity")]
+		/// if this is true, intensity will have a constant value of 1, even if the parent MMFeedbacks is played at a lower or higher intensity
+		[Tooltip("if this is true, intensity will have a constant value of 1, even if the parent MMFeedbacks is played at a lower or higher intensity")]
 		public bool ConstantIntensity = false;
 		/// if this is true, this feedback will only play if its intensity is higher or equal to IntensityIntervalMin and lower than IntensityIntervalMax
 		[Tooltip("if this is true, this feedback will only play if its intensity is higher or equal to IntensityIntervalMin and lower than IntensityIntervalMax")]

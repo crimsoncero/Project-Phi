@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using System.Threading.Tasks;
 using MoreMountains.Tools;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using UnityEngine.Scripting.APIUpdating;
+using UnityEngine.Serialization;
 
 namespace MoreMountains.Feedbacks
 {    
@@ -13,6 +17,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[ExecuteAlways]
 	[AddComponentMenu("")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
+	[System.Serializable]
 	[FeedbackPath("Audio/MMSoundManager Sound")]
 	[FeedbackHelp("This feedback will let you play a sound via the MMSoundManager. You will need a game object in your scene with a MMSoundManager object on it for this to work.")]
 	public class MMF_MMSoundManagerSound : MMF_Feedback
@@ -22,6 +28,8 @@ namespace MoreMountains.Feedbacks
 		/// sets the inspector color for this feedback
 		#if UNITY_EDITOR
 		public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.SoundsColor; } }
+		public override bool HasCustomInspectors => true;
+		public override bool HasAutomaticShakerSetup => true;
 		public override bool EvaluateRequiresSetup()
 		{
 			bool requiresSetup = false;
@@ -49,19 +57,28 @@ namespace MoreMountains.Feedbacks
 		public override string RequiredTargetText { get { return Sfx != null ? Sfx.name + " - ID:" + ID : "";  } }
 
 		public override string RequiresSetupText { get { return "This feedback requires that you set an Audio clip in its Sfx slot below, or one or more clips in the Random Sfx array."; } }
-		public override bool HasCustomInspectors { get { return true; } }
 		#endif
 
 		/// the duration of this feedback is the duration of the clip being played
 		public override float FeedbackDuration { get { return GetDuration(); } }
 		public override bool HasRandomness => true;
-        
+		
+		public enum Sources { AudioClip, AudioResource }
+
 		[MMFInspectorGroup("Sound", true, 14, true)]
+		/// whether this feedback should play an audio clip or an AudioResource
+		[Tooltip("whether this feedback should play an audio clip or an AudioResource")]
+		public Sources Source = Sources.AudioClip;
 		/// the sound clip to play
 		[Tooltip("the sound clip to play")]
+		[MMFEnumCondition("Source", (int)Sources.AudioClip)]
 		public AudioClip Sfx;
+		/// alternatively, instead of an audio clip you can specify an AudioResource, in which case the Sfx above will be ignored, and the AudioResource will be used
+		[Tooltip("alternatively, instead of an audio clip you can specify an AudioResource, in which case the Sfx above will be ignored, and the AudioResource will be used")]
+		[MMFEnumCondition("Source", (int)Sources.AudioResource)]
+		public AudioResource AudioResourceToPlay;
 
-		[MMFInspectorGroup("Random Sound", true, 34, true)]
+		[MMFInspectorGroup("Random Sound", true, 39, true)]
         
 		/// an array to pick a random sfx from
 		[Tooltip("an array to pick a random sfx from")]
@@ -111,6 +128,10 @@ namespace MoreMountains.Feedbacks
 		/// the track on which to play the sound. Pick the one that matches the nature of your sound
 		[Tooltip("the track on which to play the sound. Pick the one that matches the nature of your sound")]
 		public MMSoundManager.MMSoundManagerTracks MmSoundManagerTrack = MMSoundManager.MMSoundManagerTracks.Sfx;
+		/// if MmSoundManagerTrack is set to Other, the custom track SO to route through
+		[Tooltip("if MmSoundManagerTrack is set to Other, the custom track SO to route through")]
+		[MMFEnumCondition("MmSoundManagerTrack", (int)MMSoundManager.MMSoundManagerTracks.Other)]
+		public MMSoundManagerCustomTrackSO CustomTrack;
 		/// the ID of the sound. This is useful if you plan on using sound control feedbacks on it afterwards. 
 		[Tooltip("the ID of the sound. This is useful if you plan on using sound control feedbacks on it afterwards.")]
 		public int ID = 0;
@@ -129,26 +150,44 @@ namespace MoreMountains.Feedbacks
 		/// whether or not this sound should play if the same sound clip is already playing
 		[Tooltip("whether or not this sound should play if the same sound clip is already playing")]
 		public bool DoNotPlayIfClipAlreadyPlaying = false;
+		/// the maximum amount of instances of this sound allowed to play at once. use -1 for unlimited concurrent plays 
+		[Tooltip("the maximum amount of instances of this sound allowed to play at once. use -1 for unlimited concurrent plays")]
+		public int MaximumConcurrentInstances = 3;
 		/// if this is true, this sound will stop playing when stopping the feedback
 		[Tooltip("if this is true, this sound will stop playing when stopping the feedback")]
 		public bool StopSoundOnFeedbackStop = false;
         
-		[MMFInspectorGroup("Fade", true, 30)]
+		[MMFInspectorGroup("Fade In", true, 30)]
 		/// whether or not to fade this sound in when playing it
 		[Tooltip("whether or not to fade this sound in when playing it")]
-		public bool Fade = false;
+		[FormerlySerializedAs("Fade")]
+		public bool FadeIn = false;
 		/// if fading, the volume at which to start the fade
 		[Tooltip("if fading, the volume at which to start the fade")]
-		[MMCondition("Fade", true)]
-		public float FadeInitialVolume = 0f;
+		[MMCondition("FadeIn", true)]
+		[FormerlySerializedAs("FadeInitialVolume")]
+		public float FadeInInitialVolume = 0f;
 		/// if fading, the duration of the fade, in seconds
 		[Tooltip("if fading, the duration of the fade, in seconds")]
-		[MMCondition("Fade", true)]
-		public float FadeDuration = 1f;
+		[MMCondition("FadeIn", true)]
+		[FormerlySerializedAs("FadeDuration")]
+		public float FadeInDuration = 1f;
 		/// if fading, the tween over which to fade the sound 
 		[Tooltip("if fading, the tween over which to fade the sound ")]
-		[MMCondition("Fade", true)]
-		public MMTweenType FadeTween = new MMTweenType(MMTween.MMTweenCurve.EaseInOutQuartic);
+		[FormerlySerializedAs("FadeTween")]
+		public MMTweenType FadeInTween = new MMTweenType(MMTween.MMTweenCurve.EaseInOutQuartic, "FadeIn");
+		
+		[MMFInspectorGroup("Fade Out", true, 30)]
+		/// whether or not to fade this sound in when stopping the feedback
+		[Tooltip("whether or not to fade this sound in when stopping the feedback")]
+		public bool FadeOutOnStop = false;
+		/// if fading out, the duration of the fade, in seconds
+		[Tooltip("if fading out, the duration of the fade, in seconds")]
+		[MMCondition("FadeOutOnStop", true)]
+		public float FadeOutDuration = 1f;
+		/// if fading out, the tween over which to fade the sound 
+		[Tooltip("if fading out, the tween over which to fade the sound ")]
+		public MMTweenType FadeOutTween = new MMTweenType(MMTween.MMTweenCurve.EaseInOutQuartic, "FadeOutOnStop");
         
 		[MMFInspectorGroup("Solo", true, 32)]
 		/// whether or not this sound should play in solo mode over its destination track. If yes, all other sounds on that track will be muted when this sound starts playing
@@ -282,11 +321,20 @@ namespace MoreMountains.Feedbacks
 		protected int _currentIndex = 0;
 		protected Vector3 _gizmoCenter;
 		protected MMShufflebag<int> _randomUniqueShuffleBag;
+		protected AudioClip _lastPlayedClip;
+		protected Coroutine _isPlayingCoroutine;
 		
 		protected override void CustomInitialization(MMF_Player owner)
 		{
 			base.CustomInitialization(owner);
 			HandleSO();
+			
+			_lastPlayedClip = null;
+
+			if (RandomSfx == null)
+			{
+				RandomSfx = Array.Empty<AudioClip>();
+			}
 			
 			if (RandomUnique)
 			{
@@ -303,6 +351,7 @@ namespace MoreMountains.Feedbacks
 		/// </summary>
 		public override void InitializeCustomAttributes()
 		{
+			base.InitializeCustomAttributes();
 			TestPlayButton = new MMF_Button("Debug Play Sound", TestPlaySound);
 			TestStopButton = new MMF_Button("Debug Stop Sound", TestStopSound);
 			ResetSequentialIndexButton = new MMF_Button("Reset Sequential Index", ResetSequentialIndex);
@@ -334,9 +383,9 @@ namespace MoreMountains.Feedbacks
 				}
 			}
 			
-			if (Sfx != null)
+			if ((Sfx != null) || (AudioResourceToPlay != null))
 			{
-				PlaySound(Sfx, position, intensityMultiplier);
+				PlaySound(Sfx, position, intensityMultiplier, AudioResourceToPlay);
 				return;
 			}
 		}
@@ -352,11 +401,42 @@ namespace MoreMountains.Feedbacks
 			{
 				return;
 			}
-            
+
+			if (FadeOutOnStop)
+			{
+				Owner.StartCoroutine(FadeOutCo());
+				return;
+			}
+			
+			StopSound();
+		}
+
+		protected virtual IEnumerator FadeOutCo()
+		{
+			if (_playedAudioSource == null)
+			{
+				yield break;
+			}
+			MMSoundManager.Instance.FadeSound(_playedAudioSource, FadeOutDuration, _playedAudioSource.volume, 0f, FadeOutTween);
+			yield return MMCoroutine.WaitFor(FadeOutDuration);
+			StopSound();
+		}
+
+		protected virtual void StopSound()
+		{
 			if (StopSoundOnFeedbackStop && (_playedAudioSource != null))
 			{
 				_playedAudioSource.Stop();
-				MMSoundManager.Instance.FreeSound(_playedAudioSource);
+				if (RecycleAudioSource == null)
+				{
+					MMSoundManager.Instance.FreeSound(_playedAudioSource);	
+				}
+				if (_isPlayingCoroutine != null)
+				{
+					Owner.StopCoroutine(_isPlayingCoroutine);
+					_isPlayingCoroutine = null;
+				}
+				_playedAudioSource = null;
 			}
 		}
 
@@ -383,23 +463,31 @@ namespace MoreMountains.Feedbacks
 			PlaybackTime = SoundDataSO.PlaybackTime;
 			PlaybackDuration = SoundDataSO.PlaybackDuration;
 			MmSoundManagerTrack = SoundDataSO.MmSoundManagerTrack;
+			CustomTrack = SoundDataSO.CustomTrack;
 			ID = SoundDataSO.ID;
 			AudioGroup = SoundDataSO.AudioGroup;
 			RecycleAudioSource = SoundDataSO.RecycleAudioSource;
 			Loop = SoundDataSO.Loop;
 			Persistent = SoundDataSO.Persistent;
 			DoNotPlayIfClipAlreadyPlaying = SoundDataSO.DoNotPlayIfClipAlreadyPlaying;
+			MaximumConcurrentInstances = SoundDataSO.MaximumConcurrentInstances;
 			StopSoundOnFeedbackStop = SoundDataSO.StopSoundOnFeedbackStop;
-			Fade = SoundDataSO.Fade;
-			FadeInitialVolume = SoundDataSO.FadeInitialVolume;
-			FadeDuration = SoundDataSO.FadeDuration;
-			FadeTween = SoundDataSO.FadeTween;
+			FadeIn = SoundDataSO.FadeIn;
+			FadeInInitialVolume = SoundDataSO.FadeInInitialVolume;
+			FadeInDuration = SoundDataSO.FadeInDuration;
+			FadeInTween = SoundDataSO.FadeInTween;
+			FadeOutOnStop = SoundDataSO.FadeOutOnStop;
+			FadeOutDuration = SoundDataSO.FadeOutDuration;
+			FadeOutTween = SoundDataSO.FadeOutTween;
 			SoloSingleTrack = SoundDataSO.SoloSingleTrack;
 			SoloAllTracks = SoundDataSO.SoloAllTracks;
 			AutoUnSoloOnEnd = SoundDataSO.AutoUnSoloOnEnd;
 			PanStereo = SoundDataSO.PanStereo;
 			SpatialBlend = SoundDataSO.SpatialBlend;
-			AttachToTransform = SoundDataSO.AttachToTransform;
+			if (AttachToTransform == null)
+			{
+				AttachToTransform = SoundDataSO.AttachToTransform;	
+			}
 			BypassEffects = SoundDataSO.BypassEffects;
 			BypassListenerEffects = SoundDataSO.BypassListenerEffects;
 			BypassReverbZones = SoundDataSO.BypassReverbZones;
@@ -436,11 +524,19 @@ namespace MoreMountains.Feedbacks
 		/// <param name="sfx"></param>
 		/// <param name="position"></param>
 		/// <param name="intensity"></param>
-		protected virtual void PlaySound(AudioClip sfx, Vector3 position, float intensity)
+		protected virtual void PlaySound(AudioClip sfx, Vector3 position, float intensity, AudioResource audioResource = null)
 		{
 			if (DoNotPlayIfClipAlreadyPlaying) 
 			{
 				if ((MMSoundManager.Instance.FindByClip(sfx) != null) && (MMSoundManager.Instance.FindByClip(sfx).isPlaying))
+				{
+					return;
+				}
+			}
+
+			if (MaximumConcurrentInstances >= 0)
+			{
+				if (MMSoundManager.Instance.CurrentlyPlayingCount(sfx) >= MaximumConcurrentInstances)
 				{
 					return;
 				}
@@ -457,16 +553,18 @@ namespace MoreMountains.Feedbacks
 			RandomizeTimes();
 
 			int timeSamples = NormalPlayDirection ? 0 : sfx.samples - 1;
-            
+
+			_options.AudioResourceToPlay = audioResource;
 			_options.MmSoundManagerTrack = MmSoundManagerTrack;
+			_options.CustomTrack = CustomTrack;
 			_options.Location = position;
 			_options.Loop = Loop;
 			_options.Volume = volume;
 			_options.ID = ID;
-			_options.Fade = Fade;
-			_options.FadeInitialVolume = FadeInitialVolume;
-			_options.FadeDuration = FadeDuration;
-			_options.FadeTween = FadeTween;
+			_options.Fade = FadeIn;
+			_options.FadeInitialVolume = FadeInInitialVolume;
+			_options.FadeDuration = FadeInDuration;
+			_options.FadeTween = FadeInTween;
 			_options.Persistent = Persistent;
 			_options.RecycleAudioSource = RecycleAudioSource;
 			_options.AudioGroup = AudioGroup;
@@ -498,10 +596,31 @@ namespace MoreMountains.Feedbacks
 			_options.UseReverbZoneMixCurve = UseReverbZoneMixCurve;
 			_options.ReverbZoneMixCurve = ReverbZoneMixCurve;
 			_options.DoNotAutoRecycleIfNotDonePlaying = true;
-
+			
 			_playedAudioSource = MMSoundManagerSoundPlayEvent.Trigger(sfx, _options);
 
+			_isPlayingCoroutine = Owner.StartCoroutine(IsPlayingCoroutine());
+
 			_lastPlayTimestamp = FeedbackTime;
+			_lastPlayedClip = sfx;
+		}
+
+		/// <summary>
+		/// A coroutine used to determine if the sound is still playing or not
+		/// </summary>
+		/// <returns></returns>
+		protected virtual IEnumerator IsPlayingCoroutine()
+		{
+			if (_playedAudioSource != null)
+			{
+				while (_playedAudioSource.isPlaying)
+				{
+					IsPlaying = true;
+					yield return null;
+				}
+				IsPlaying = false;
+				yield break;
+			}
 		}
 
 		/// <summary>
@@ -530,6 +649,11 @@ namespace MoreMountains.Feedbacks
 			float longest = 0f;
 			if ((randomSfx != null) && (randomSfx.Length > 0))
 			{
+				if (_lastPlayedClip != null)
+				{
+					return _lastPlayedClip.length;	
+				}
+				
 				foreach (AudioClip clip in randomSfx)
 				{
 					if ((clip != null) && (clip.length > longest))
@@ -557,16 +681,30 @@ namespace MoreMountains.Feedbacks
 			Gizmos.color = MaxDistanceColor;
 			Gizmos.DrawWireSphere(_gizmoCenter, MaxDistance);
 		}
+		
+		/// <summary>
+		/// Automatically tries to add a MMSoundManager to the scene if none are present
+		/// </summary>
+		public override void AutomaticShakerSetup()
+		{
+			MMSoundManager soundManager = (MMSoundManager)Object.FindAnyObjectByType(typeof(MMSoundManager));
+			if (soundManager == null)
+			{
+				GameObject soundManagerGo = new GameObject("MMSoundManager");
+				soundManagerGo.AddComponent<MMSoundManager>();
+				MMDebug.DebugLogInfo( "Added a MMSoundManager to the scene. You're all set.");
+			}
+		}
 
 		#region TestMethods
 
 		/// <summary>
 		/// A test method that creates an audiosource, plays it, and destroys itself after play
 		/// </summary>
-		protected virtual async void TestPlaySound()
+		public virtual async void TestPlaySound()
 		{
 			AudioClip tmpAudioClip = null;
-
+			
 			if (Sfx != null)
 			{
 				tmpAudioClip = Sfx;
@@ -577,7 +715,7 @@ namespace MoreMountains.Feedbacks
 				tmpAudioClip = PickRandomClip();
 			}
 
-			if (tmpAudioClip == null)
+			if ((tmpAudioClip == null) && (AudioResourceToPlay == null))
 			{
 				Debug.LogError(Label + " on " + Owner.gameObject.name + " can't play in editor mode, you haven't set its Sfx.");
 				return;
@@ -589,10 +727,23 @@ namespace MoreMountains.Feedbacks
 			GameObject temporaryAudioHost = new GameObject("EditorTestAS_WillAutoDestroy");
 			SceneManager.MoveGameObjectToScene(temporaryAudioHost.gameObject, Owner.gameObject.scene);
 			temporaryAudioHost.transform.position = Owner.transform.position;
+			if (!Application.isPlaying)
+			{
+				temporaryAudioHost.AddComponent<MMForceDestroyInPlayMode>();
+			}
 			_editorAudioSource = temporaryAudioHost.AddComponent<AudioSource>() as AudioSource;
-			PlayAudioSource(_editorAudioSource, tmpAudioClip, volume, pitch, _randomPlaybackTime, _randomPlaybackDuration);
+			PlayAudioSource(_editorAudioSource, tmpAudioClip, volume, pitch, _randomPlaybackTime, _randomPlaybackDuration, AudioResourceToPlay);
 			_lastPlayTimestamp = FeedbackTime;
-			float length = (_randomPlaybackDuration > 0) ? _randomPlaybackDuration : tmpAudioClip.length;
+			_lastPlayedClip = tmpAudioClip;
+			float length = 0f;
+			if (tmpAudioClip != null)
+			{
+				length = (_randomPlaybackDuration > 0) ? _randomPlaybackDuration : tmpAudioClip.length;
+			}
+			else
+			{
+				length = 10f;
+			}
 			length *= 1000;
 			length = length / Mathf.Abs(pitch);
 			await Task.Delay((int)length);
@@ -617,11 +768,18 @@ namespace MoreMountains.Feedbacks
 		/// <param name="sfx"></param>
 		/// <param name="volume"></param>
 		/// <param name="pitch"></param>
-		protected virtual void PlayAudioSource(AudioSource audioSource, AudioClip sfx, float volume, float pitch, float time, float playbackDuration)
+		protected virtual void PlayAudioSource(AudioSource audioSource, AudioClip sfx, float volume, float pitch, float time, float playbackDuration, AudioResource audioResourceToPlay)
 		{
-			// we set that audio source clip to the one in paramaters
-			audioSource.clip = sfx;
-			audioSource.time = time;
+			// we set that audio source clip to the one in parameters
+			if (audioResourceToPlay == null)
+			{
+				audioSource.clip = sfx;
+				audioSource.time = time;
+			}
+			else
+			{
+				audioSource.resource = audioResourceToPlay;
+			}
 			// we set the audio source volume to the one in parameters
 			audioSource.volume = volume;
 			audioSource.pitch = pitch;
@@ -699,6 +857,20 @@ namespace MoreMountains.Feedbacks
 		{
 			base.OnValidate();
 			RandomizeTimes();
+			
+			if ((RandomSfx != null) && (RandomSfx.Length > 0))
+			{
+				_randomUniqueShuffleBag = new MMShufflebag<int>(RandomSfx.Length);
+				for (int i = 0; i < RandomSfx.Length; i++)
+				{
+					_randomUniqueShuffleBag.Add(i,1);
+				}
+			}
+			
+			if (string.IsNullOrEmpty(FadeInTween.ConditionPropertyName))
+			{
+				FadeInTween.ConditionPropertyName = "Fade";
+			}
 		}
 
 		#endregion

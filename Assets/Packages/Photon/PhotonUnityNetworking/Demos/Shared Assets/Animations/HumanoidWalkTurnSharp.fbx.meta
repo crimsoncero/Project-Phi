@@ -1392,8 +1392,7 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e8914d097ece7cc48a83d5fccd4098c0,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e8914d097ece7cc48a83d5fccd4098c0, type: 3}
   animationType: 3
   additionalBone: 0
   userData: 
@@ -1402,6 +1401,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 119922
   packageName: PUN 2 - FREE
-  packageVersion: 2.46
-  assetPath: Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalkTurnSharp.fbx
-  uploadId: 659958
+  packageVersion: 2.56
+  assetPath: Assets/Packages/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalkTurnSharp.fbx
+  uploadId: 993206

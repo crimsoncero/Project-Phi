@@ -1,7 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MoreMountains.FeedbacksForThirdParty;
 using MoreMountains.Tools;
+#if MM_CINEMACHINE
+using Cinemachine;
+#elif MM_CINEMACHINE3
+using Unity.Cinemachine;
+#endif
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -14,6 +19,8 @@ namespace MoreMountains.Feedbacks
 	              "zoom transition (in seconds) and the zoom duration (the time the camera should remain zoomed in, in seconds). " +
 	              "For this to work, you'll need to add a MMCameraZoom component to your Camera, or a MMCinemachineZoom if you're " +
 	              "using virtual cameras.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Camera/Camera Zoom")]
 	public class MMF_CameraZoom : MMF_Feedback
 	{
@@ -24,6 +31,7 @@ namespace MoreMountains.Feedbacks
 		public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.CameraColor; } }
 		public override string RequiredTargetText => RequiredChannelText;
 		public override bool HasCustomInspectors => true; 
+		public override bool HasAutomaticShakerSetup => true;
 		#endif
 
 		/// the duration of this feedback is the duration of the zoom
@@ -94,6 +102,41 @@ namespace MoreMountains.Feedbacks
 			}
 			MMCameraZoomEvent.Trigger(ZoomMode, ZoomFieldOfView, ZoomTransitionDuration, FeedbackDuration, ChannelData, 
 				ComputedTimescaleMode == TimescaleModes.Unscaled, restore:true, tweenType: ZoomTween);
+		}
+		
+		/// <summary>
+		/// Automatically tries to add a MMCameraZoom to the main camera, if none are present
+		/// </summary>
+		public override void AutomaticShakerSetup()
+		{
+			#if MM_CINEMACHINE || MM_CINEMACHINE3
+			bool virtualCameraFound = false;
+			#endif
+			
+			#if MM_CINEMACHINE 
+				CinemachineVirtualCamera virtualCamera = (CinemachineVirtualCamera)Object.FindObjectOfType(typeof(CinemachineVirtualCamera));
+				virtualCameraFound = (virtualCamera != null);
+			#elif MM_CINEMACHINE3
+				CinemachineCamera virtualCamera = (CinemachineCamera)Object.FindAnyObjectByType(typeof(CinemachineCamera), FindObjectsInactive.Include);
+				virtualCameraFound = (virtualCamera != null);
+			#endif
+			
+			#if MM_CINEMACHINE || MM_CINEMACHINE3
+			if (virtualCameraFound)
+			{
+				MMCinemachineHelpers.AutomaticCinemachineShakersSetup(Owner, "CameraZoom");
+				return;
+			}
+			#endif
+			
+			MMCameraZoom camZoom = (MMCameraZoom)Object.FindAnyObjectByType(typeof(MMCameraZoom));
+			if (camZoom != null)
+			{
+				return;
+			}
+
+			Camera.main.gameObject.MMGetOrAddComponent<MMCameraZoom>(); 
+			MMDebug.DebugLogInfo( "Added a MMCameraZoom to the main camera. You're all set.");
 		}
 	}
 }

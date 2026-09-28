@@ -20,3 +20,10 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/MMFeedbacks/Demos/SequencingDemo/Sounds/Kit/MMSequencingBass3.wav
+  uploadId: 985420

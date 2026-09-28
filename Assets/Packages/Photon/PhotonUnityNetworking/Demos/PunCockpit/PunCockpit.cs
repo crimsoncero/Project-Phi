@@ -542,7 +542,11 @@ namespace Photon.Pun.Demo.Cockpit
 				ServerSettings.ResetBestRegionCodeInPreferences ();
 			}
 
+            #pragma warning disable CS0618 // Type or member is obsolete (this project still uses it)
             PhotonNetwork.ConnectToBestCloudServer();
+            #pragma warning restore CS0618 // Type or member is obsolete
+
+
 			if (GameVersionOverride != string.Empty) {
 				PhotonNetwork.GameVersion = GameVersionOverride;
 			}
@@ -563,9 +567,11 @@ namespace Photon.Pun.Demo.Cockpit
 
             this.ConnectingLabel.SetActive(true);
 
+            #pragma warning disable CS0618 // Type or member is obsolete (this project still uses it)
             bool _result = PhotonNetwork.ConnectToRegion(region);
+            #pragma warning restore CS0618 // Type or member is obsolete
 
-			if (GameVersionOverride != string.Empty) {
+            if (GameVersionOverride != string.Empty) {
 				PhotonNetwork.GameVersion = GameVersionOverride;
 			}
 

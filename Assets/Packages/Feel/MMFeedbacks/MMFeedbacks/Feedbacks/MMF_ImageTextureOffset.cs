@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
+#if MM_UI
 using UnityEngine.UI;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -12,6 +14,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you control the texture offset of a target UI Image over time.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("UI/Image Texture Offset")]
 	public class MMF_ImageTextureOffset : MMF_Feedback
 	{
@@ -43,6 +47,9 @@ namespace MoreMountains.Feedbacks
 		[Tooltip("the property name, for example _MainTex_ST, or _MainTex if you don't have UseMaterialPropertyBlocks set to true")]
 		[MMEnumCondition("MaterialPropertyType", (int)MaterialPropertyTypes.TextureID)]
 		public string MaterialPropertyName = "_MainTex_ST";
+		/// if this is true, a unique material copy will be created for the target image, preventing changes from affecting other images sharing the same material
+		[Tooltip("if this is true, a unique material copy will be created for the target image, preventing changes from affecting other images sharing the same material")]
+		public bool CreateUniqueMaterial = true;
 		/// whether the feedback should affect the material instantly or over a period of time
 		[Tooltip("whether the feedback should affect the material instantly or over a period of time")]
 		public Modes Mode = Modes.OverTime;
@@ -62,13 +69,15 @@ namespace MoreMountains.Feedbacks
 		[Tooltip("the curve to tween the offset on")]
 		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
 		public AnimationCurve OffsetCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1f), new Keyframe(1, 0));
-		/// the value to remap the offset curve's 0 to
-		[Tooltip("the value to remap the offset curve's 0 to")]
+		/// the value to remap the offset curve's 0 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness
+		[Tooltip("the value to remap the offset curve's 0 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness")]
 		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
+		[MMFVector("Min", "Max")]
 		public Vector2 RemapZero = Vector2.zero;
-		/// the value to remap the offset curve's 1 to
-		[Tooltip("the value to remap the offset curve's 1 to")]
+		/// the value to remap the offset curve's 1 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness
+		[Tooltip("the value to remap the offset curve's 1 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness")]
 		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
+		[MMFVector("Min", "Max")]
 		public Vector2 RemapOne = Vector2.one;
 		/// the value to move the intensity to in instant mode
 		[Tooltip("the value to move the intensity to in instant mode")]
@@ -79,6 +88,7 @@ namespace MoreMountains.Feedbacks
 		protected Coroutine _coroutine;
 		protected Vector2 _newValue;
 		protected Material _material;
+		protected Material _originalMaterial;
 
 		/// the duration of this feedback is the duration of the transition
 		public override float FeedbackDuration { get { return (Mode == Modes.Instant) ? 0f : ApplyTimeMultiplier(Duration); } set { Duration = value; } }
@@ -91,8 +101,22 @@ namespace MoreMountains.Feedbacks
 		protected override void CustomInitialization(MMF_Player owner)
 		{
 			base.CustomInitialization(owner);
+			
+			if (!TargetExists(TargetImage, nameof(TargetImage)))
+			{
+				return;
+			}
 
-			_material = TargetImage.materialForRendering;
+			if (CreateUniqueMaterial)
+			{
+				_originalMaterial = TargetImage.material;
+				_material = new Material(_originalMaterial);
+				TargetImage.material = _material;
+			}
+			else
+			{
+				_material = TargetImage.material;
+			}
 
 			switch (MaterialPropertyType)
 			{
@@ -112,7 +136,7 @@ namespace MoreMountains.Feedbacks
 		/// <param name="feedbacksIntensity"></param>
 		protected override void CustomPlayFeedback(Vector3 position, float feedbacksIntensity = 1.0f)
 		{
-			if (!Active || !FeedbackTypeAuthorized)
+			if (!Active || !FeedbackTypeAuthorized || (TargetImage == null))
 			{
 				return;
 			}
@@ -122,13 +146,21 @@ namespace MoreMountains.Feedbacks
 			switch (Mode)
 			{
 				case Modes.Instant:
-					ApplyValue(InstantOffset * intensityMultiplier);
+					if (NormalPlayDirection)
+					{
+						ApplyValue(InstantOffset * intensityMultiplier);	
+					}
+					else
+					{
+						ApplyValue(_initialValue);
+					}
 					break;
 				case Modes.OverTime:
 					if (!AllowAdditivePlays && (_coroutine != null))
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(TransitionCo(intensityMultiplier));
 					break;
 			}
@@ -207,5 +239,36 @@ namespace MoreMountains.Feedbacks
 			Owner.StopCoroutine(_coroutine);
 			_coroutine = null;
 		}
+		
+		/// <summary>
+		/// On restore, we restore our initial state
+		/// </summary>
+		protected override void CustomRestoreInitialValues()
+		{
+			if (!Active || !FeedbackTypeAuthorized)
+			{
+				return;
+			}
+
+			ApplyValue(_initialValue);
+		}
+		
+		/// <summary>
+		/// On destroy, we restore the original material and destroy the instance
+		/// </summary>
+		public override void OnDestroy()
+		{
+			if (CreateUniqueMaterial && _material != null && TargetImage != null && _originalMaterial != null)
+			{
+				TargetImage.material = _originalMaterial;
+				
+				#if UNITY_EDITOR
+				UnityEngine.Object.DestroyImmediate(_material);
+				#else
+				UnityEngine.Object.Destroy(_material);
+				#endif
+			}
+		}
 	}
 }
+#endif

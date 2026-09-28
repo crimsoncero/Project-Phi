@@ -1,7 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MoreMountains.FeedbacksForThirdParty;
+using MoreMountains.Tools;
+#if MM_CINEMACHINE
+using Cinemachine;
+#elif MM_CINEMACHINE3
+using Unity.Cinemachine;
+#endif
 using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -9,6 +14,8 @@ namespace MoreMountains.Feedbacks
 	/// This feedback lets you control a camera's field of view over time. You'll need a MMCameraFieldOfViewShaker on your camera.
 	/// </summary>
 	[AddComponentMenu("")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Camera/Field of View")]
 	[FeedbackHelp(
 		"This feedback lets you control a camera's field of view over time. You'll need a MMCameraFieldOfViewShaker on your camera.")]
@@ -19,12 +26,10 @@ namespace MoreMountains.Feedbacks
 
 		/// sets the inspector color for this feedback
 		#if UNITY_EDITOR
-		public override Color FeedbackColor
-		{
-			get { return MMFeedbacksInspectorColors.CameraColor; }
-		}
-
+		public override Color FeedbackColor => MMFeedbacksInspectorColors.CameraColor; 
 		public override string RequiredTargetText => RequiredChannelText;
+		public override bool HasCustomInspectors => true; 
+		public override bool HasAutomaticShakerSetup => true;
 		#endif
 		/// returns the duration of the feedback
 		public override float FeedbackDuration
@@ -116,6 +121,41 @@ namespace MoreMountains.Feedbacks
 
 			MMCameraFieldOfViewShakeEvent.Trigger(ShakeFieldOfView, FeedbackDuration, RemapFieldOfViewZero,
 				RemapFieldOfViewOne, restore: true);
+		}
+		
+		/// <summary>
+		/// Automatically tries to add a MMCameraFieldOfViewShaker to the main camera, if none are present
+		/// </summary>
+		public override void AutomaticShakerSetup()
+		{
+			#if MM_CINEMACHINE || MM_CINEMACHINE3
+			bool virtualCameraFound = false;
+			#endif
+			
+			#if MM_CINEMACHINE 
+				CinemachineVirtualCamera virtualCamera = (CinemachineVirtualCamera)Object.FindObjectOfType(typeof(CinemachineVirtualCamera));
+				virtualCameraFound = (virtualCamera != null);
+			#elif MM_CINEMACHINE3
+				CinemachineCamera virtualCamera = (CinemachineCamera)Object.FindAnyObjectByType(typeof(CinemachineCamera), FindObjectsInactive.Include);
+				virtualCameraFound = (virtualCamera != null);
+			#endif
+			
+			#if MM_CINEMACHINE || MM_CINEMACHINE3
+			if (virtualCameraFound)
+			{
+				MMCinemachineHelpers.AutomaticCinemachineShakersSetup(Owner, "FieldOfView");
+				return;
+			}
+			#endif
+			
+			MMCameraFieldOfViewShaker fieldOfViewShaker = (MMCameraFieldOfViewShaker)Object.FindAnyObjectByType(typeof(MMCameraFieldOfViewShaker));
+			if (fieldOfViewShaker != null)
+			{
+				return;
+			}
+
+			Camera.main.gameObject.MMGetOrAddComponent<MMCameraFieldOfViewShaker>(); 
+			MMDebug.DebugLogInfo( "Added a MMCameraFieldOfViewShaker to the main camera. You're all set.");
 		}
 	}
 }

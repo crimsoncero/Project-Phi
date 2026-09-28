@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 638549626530820948
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -207,15 +212,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 29}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 940251154
+    uuid:
+      value0: 727211738
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 727211738
     name: Main ship weapon - Projectile - Auto cannon bullet
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main ship weapon - Projectile - Auto cannon bullet_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -224,7 +235,7 @@ ScriptedImporter:
         width: 10
         height: 17
       spriteId: 219e22612f725d944ab67612fca6063c
-    - name: Main ship weapon - Projectile - Auto cannon bullet_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -233,7 +244,7 @@ ScriptedImporter:
         width: 10
         height: 16
       spriteId: f842639f61c12be4bb083a7c38495dea
-    - name: Main ship weapon - Projectile - Auto cannon bullet_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -242,7 +253,7 @@ ScriptedImporter:
         width: 10
         height: 17
       spriteId: 10765c5e43b529e418f8cb29c8568087
-    - name: Main ship weapon - Projectile - Auto cannon bullet_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -252,7 +263,10 @@ ScriptedImporter:
         height: 16
       spriteId: 48a2f7fd3ff12be47a847b2cad8200f6
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -304,5 +318,5 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 64, y: 64}
   canvasSize: {x: 32, y: 32}

@@ -3,6 +3,52 @@ PUN 2 - Changelog
 www.photonengine.com  -  Join the community Discord Server: https://dashboard.photonengine.com/account/profile
 
 
+v2.56 (10. September 2026)
+Updated: Library, Realtime and Chat API to 4.1.8.23. More details in the change logs.
+
+v2.55 (03. July 2026)
+Changed: In Unity 6.4 and up GetInstanceID() is replaced with GetEntityId(). This was only used in PhotonHandler.
+Changed: DefaultPool instantiation to fetch and restore "dirty flag" of prefabs that gets instantiated. This only happens in Editor and extends the solution provided in v2.53.
+Updated: Library, Realtime and Chat API to 4.1.8.21. More details in the change logs.
+
+v2.54 (04. June 2026)
+Updated: Library, Realtime and Chat API to 4.1.8.20. Fixing a protocol-selection bug from previous version.
+
+v2.53 (02. June 2026)
+Fixed: The DefaultPool now clears the dirty flag on persistent assets. The flag being set is a sideeffect of using SetActive on the resource.
+Changed: PUN ConnectUsingSettings() to rely on the LoadBalancingClient.ConnectUsingSettings(). It avoids duplicate code which was not handling addresses correctly (only in PUN's case).
+Changed: ConnectTo* methods are now officially obsolete and should not be used anymore. They don't have benefits over using a config and are outdated.
+Changed: Disabled warning about unreachable code, in case the wrong Input System is used. It debug breaks at runtime anyways.
+Updated: Library, Realtime and Chat API to 4.1.8.19. Improved error handling on sockets. Added initialization code for Domain Reload being odd. More details in the change logs.
+
+v2.52 (10. November 2025)
+Updated: Demo for Chat API (same as in Realtime / Chat SDK for Unity v4.1.8.17). Plenty of files changes, so Unity might fail the import. To fix: Please delete folder: \Assets\Photon\PhotonChat\Demos before import.
+Note: A modification from the original demo is that it uses the Chat AppId from PUN's PhotonServerSettings, if the project has the PUN defines. Else, this uses a ChatSettings file.
+Updated: Library, Realtime and Chat API to 4.1.8.17. Improved connection settings for less timeouts. More details in the change logs.
+
+v2.51 (31. July 2025)
+Updated: Unity 6 Editor support (using https to ping regions while using WebGL as build target).
+Updated: The experimental Threaded WebAssembly feature of Unity 6 can now be used.
+Updated: Library, Realtime and Chat API to 4.1.8.16. More details in the change logs.
+Changed: The minimum required Editor version is 2021.3.45 (due to using certain Emscripten features).
+
+v2.50 (11. March 2025)
+Updated: Library, Realtime and Chat API to 4.1.8.14. More details in the change logs.
+
+v2.49 (09. January 2025)
+Fixed: Setting the LocalPlayer.UserId in Realtime.
+Note: No update of the .chm file (API reference did not change).
+Updated: Library, Realtime and Chat API to 4.1.8.13. More details in the change logs.
+
+v2.48 (06. January 2025)
+Fixed: Usage of Unity APIs which became obsolete in Unity 6 (by wrapping them in compile defines). On import you must agree to the automatic upgrades the Editor offers for PUN or there will still be some outdated API usage (PUN relies on the automatic upgrades).
+Added: Support for Discord Activities. https://doc.photonengine.com/pun/current/connection-and-authentication/discord-activities
+Updated: Library, Realtime and Chat API to 4.1.8.12. More details in the change logs.
+
+v2.47 (02. September 2024)
+Fixed: PhotonNetwork.PunVersion to "2.47". Accidentally v2.46 used "2.45" as well.
+Updated: Library, Realtime and Chat API to 4.1.8.9. More details in the change logs.
+
 v2.46 (26. April 2024)
 Changed: PhotonStream serialization: Char values are cast to short before being sent (receivers will simply get a short but can cast accordingly).
 Added: PhotonStream.Serialize(ref byte value).

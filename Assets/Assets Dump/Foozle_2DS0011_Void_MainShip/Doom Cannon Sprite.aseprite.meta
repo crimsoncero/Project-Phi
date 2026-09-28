@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 638549630880109087
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -417,15 +422,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 82, y: 32}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -856946453
+    uuid:
+      value0: 1934363223
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1934363223
     name: Doom Cannon Sprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Doom Cannon Sprite_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -434,7 +445,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 52212fa371f8e7249bd287e2a6fd5616
-    - name: Doom Cannon Sprite_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -443,7 +454,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 5490dba466b00a3489f6965cd1cef1fa
-    - name: Doom Cannon Sprite_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -452,7 +463,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 1e5451ce015f4fe4786e839191dfc4ae
-    - name: Doom Cannon Sprite_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -461,7 +472,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 5e9b63680b4bc6543ac026105482dca9
-    - name: Doom Cannon Sprite_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -470,7 +481,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 33defd8b7bb0db3418d45f46010b7ddb
-    - name: Doom Cannon Sprite_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -479,7 +490,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 1f3b3057fcc1fd44494256ae41d9da79
-    - name: Doom Cannon Sprite_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -488,7 +499,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 841e35835aabbb44f9ffbb9d0dbaac16
-    - name: Doom Cannon Sprite_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -497,7 +508,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 19fb7020aa432934eaef513482cad24c
-    - name: Doom Cannon Sprite_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -506,7 +517,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: c0d00272da8773247b2d63820f35043b
-    - name: Doom Cannon Sprite_Frame_9
+    - name: Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -515,7 +526,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 80e7f3e65971ef34fa0d656f63684494
-    - name: Doom Cannon Sprite_Frame_10
+    - name: Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
@@ -524,7 +535,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: c5dff0ffd3fd61b439c7b115332f04f7
-    - name: Doom Cannon Sprite_Frame_11
+    - name: Frame_11
       frameIndex: 11
       additiveSortOrder: 0
       cellRect:
@@ -533,7 +544,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: c36181fc85258844dbad4825f89a0dcf
-    - name: Doom Cannon Sprite_Frame_12
+    - name: Frame_12
       frameIndex: 12
       additiveSortOrder: 0
       cellRect:
@@ -542,7 +553,7 @@ ScriptedImporter:
         width: 18
         height: 20
       spriteId: 2605a4c34e1c36b41874a6b0c1f6d16d
-    - name: Doom Cannon Sprite_Frame_13
+    - name: Frame_13
       frameIndex: 13
       additiveSortOrder: 0
       cellRect:
@@ -552,7 +563,10 @@ ScriptedImporter:
         height: 20
       spriteId: b02e4fb9621de4e48b664a44d8425218
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -604,5 +618,5 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 128, y: 128}
   canvasSize: {x: 48, y: 48}

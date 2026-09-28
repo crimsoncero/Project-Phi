@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -11,6 +10,8 @@ namespace MoreMountains.Feedbacks
 	/// This feedback will animate the scale of the target object over time when played
 	/// </summary>
 	[AddComponentMenu("")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Transform/Scale")]
 	[FeedbackHelp("This feedback will animate the target's scale on the 3 specified animation curves, for the specified duration (in seconds). You can apply a multiplier, that will multiply each animation curve value.")]
 	public class MMF_Scale : MMF_Feedback
@@ -19,8 +20,8 @@ namespace MoreMountains.Feedbacks
 		public static bool FeedbackTypeAuthorized = true;
 		/// the possible modes this feedback can operate on
 		public enum Modes { Absolute, Additive, ToDestination }
-		/// the possible timescales for the animation of the scale
-		public enum TimeScales { Scaled, Unscaled }
+		/// whether to animate the scale over time or at a fixed speed
+		public enum MovementModes { Duration, Speed }
 		/// sets the inspector color for this feedback
 		#if UNITY_EDITOR
 		public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.TransformColor; } }
@@ -48,9 +49,18 @@ namespace MoreMountains.Feedbacks
 		public Transform AnimateScaleTarget;
         
 		[MMFInspectorGroup("Scale Animation", true, 13)]
+		/// whether movement should occur over a fixed duration, or at a certain speed. Note that speed mode will only apply in AtoB and ToDestination modes
+		[Tooltip("whether movement should occur over a fixed duration, or at a certain speed. Note that speed mode will only apply in AtoB and ToDestination modes")]
+		[MMFEnumCondition("Mode", (int)Modes.ToDestination)]
+		public MovementModes MovementMode = MovementModes.Duration;
 		/// the duration of the animation
 		[Tooltip("the duration of the animation")]
+		[MMFEnumCondition("MovementMode", (int)MovementModes.Duration)]
 		public float AnimateScaleDuration = 0.2f;
+		/// in speed mode, the speed at which we should animate the position
+		[Tooltip("in speed mode, the speed at which we should animate the position")]
+		[MMFEnumCondition("MovementMode", (int)MovementModes.Speed)]
+		public float AnimatePositionSpeed = 1f;
 		/// the value to remap the curve's 0 value to
 		[Tooltip("the value to remap the curve's 0 value to")]
 		public float RemapCurveZero = 1f;
@@ -66,22 +76,19 @@ namespace MoreMountains.Feedbacks
 		public bool AnimateX = true;
 		/// the x scale animation definition
 		[Tooltip("the x scale animation definition")]
-		[MMFCondition("AnimateX", true)]
-		public MMTweenType AnimateScaleTweenX = new MMTweenType( new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1.5f), new Keyframe(1, 0)));
+		public MMTweenType AnimateScaleTweenX = new MMTweenType( new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1.5f), new Keyframe(1, 0)), "AnimateX");
 		/// if this is true, should animate the Y scale value
 		[Tooltip("if this is true, should animate the Y scale value")]
 		public bool AnimateY = true;
 		/// the y scale animation definition
 		[Tooltip("the y scale animation definition")]
-		[MMFCondition("AnimateY", true)]
-		public MMTweenType AnimateScaleTweenY = new MMTweenType( new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1.5f), new Keyframe(1, 0)));
+		public MMTweenType AnimateScaleTweenY = new MMTweenType( new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1.5f), new Keyframe(1, 0)), "AnimateY");
 		/// if this is true, should animate the z scale value
 		[Tooltip("if this is true, should animate the z scale value")]
 		public bool AnimateZ = true;
 		/// the z scale animation definition
 		[Tooltip("the z scale animation definition")]
-		[MMFCondition("AnimateZ", true)]
-		public MMTweenType AnimateScaleTweenZ = new MMTweenType( new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1.5f), new Keyframe(1, 0)));
+		public MMTweenType AnimateScaleTweenZ = new MMTweenType( new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1.5f), new Keyframe(1, 0)), "AnimateZ");
 		/// if this is true, the AnimateX curve only will be used, and applied to all axis
 		[Tooltip("if this is true, the AnimateX curve only will be used, and applied to all axis")] 
 		public bool UniformScaling = false;
@@ -131,6 +138,22 @@ namespace MoreMountains.Feedbacks
 		{
 			_initialScale = AnimateScaleTarget.localScale;
 		}
+		
+		/// <summary>
+		/// In speed mode, computes the duration the feedback should last based on the distance between the two points and the speed
+		/// </summary>
+		/// <param name="pointA"></param>
+		/// <param name="pointB"></param>
+		/// <param name="duration"></param>
+		/// <returns></returns>
+		protected virtual float HandleSpeedMode(Vector3 pointA, Vector3 pointB, float duration)
+		{
+			if (MovementMode != MovementModes.Speed)
+			{
+				return duration;
+			}
+			return Vector3.Distance(pointA, pointB) / AnimatePositionSpeed;
+		}
 
 		/// <summary>
 		/// On Play, triggers the scale animation
@@ -158,6 +181,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(AnimateScale(AnimateScaleTarget, Vector3.zero, FeedbackDuration, AnimateScaleTweenX, AnimateScaleTweenY, AnimateScaleTweenZ, RemapCurveZero * intensityMultiplier, RemapCurveOne * intensityMultiplier));
 				}
 				if (Mode == Modes.ToDestination)
@@ -166,6 +190,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(ScaleToDestination());
 				}                   
 			}
@@ -187,19 +212,28 @@ namespace MoreMountains.Feedbacks
 				yield break;
 			}
 
-			if (FeedbackDuration == 0f)
+			if (AnimateScaleDuration == 0f)
 			{
+				AnimateScaleTarget.localScale = NormalPlayDirection ? DestinationScale : _initialScale;
+				_coroutine = null;
+				IsPlaying = false;
 				yield break;
 			}
 
 			float journey = NormalPlayDirection ? 0f : FeedbackDuration;
 
-			_initialScale = AnimateScaleTarget.localScale;
+			float duration = HandleSpeedMode(AnimateScaleTarget.localScale, DestinationScale, FeedbackDuration);
+
+			if (DetermineScaleOnPlay)
+			{
+				_initialScale = AnimateScaleTarget.localScale;	
+			}
+			
 			_newScale = _initialScale;
 			IsPlaying = true;
-			while ((journey >= 0) && (journey <= FeedbackDuration) && (FeedbackDuration > 0))
+			while ((journey >= 0) && (journey <= duration) && (duration > 0))
 			{
-				float percent = Mathf.Clamp01(journey / FeedbackDuration);
+				float percent = Mathf.Clamp01(journey / duration);
 
 				if (AnimateX)
 				{
@@ -267,8 +301,11 @@ namespace MoreMountains.Feedbacks
 			}
             
 			float journey = NormalPlayDirection ? 0f : duration;
-            
-			_initialScale = targetTransform.localScale;
+
+			if (DetermineScaleOnPlay)
+			{
+				_initialScale = targetTransform.localScale;	
+			}
             
 			IsPlaying = true;
 			
@@ -422,6 +459,12 @@ namespace MoreMountains.Feedbacks
 			MMFeedbacksHelpers.MigrateCurve(AnimateScaleX, AnimateScaleTweenX, Owner);
 			MMFeedbacksHelpers.MigrateCurve(AnimateScaleY, AnimateScaleTweenY, Owner);
 			MMFeedbacksHelpers.MigrateCurve(AnimateScaleZ, AnimateScaleTweenZ, Owner);
+			if (string.IsNullOrEmpty(AnimateScaleTweenX.ConditionPropertyName))
+			{
+				AnimateScaleTweenX.ConditionPropertyName = "AnimateX";
+				AnimateScaleTweenY.ConditionPropertyName = "AnimateY";
+				AnimateScaleTweenZ.ConditionPropertyName = "AnimateZ";	
+			}
 		}
 		
 		/// <summary>

@@ -10,6 +10,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 119922
   packageName: PUN 2 - FREE
-  packageVersion: 2.46
-  assetPath: Assets/Photon/PhotonNetworking-Documentation.chm
-  uploadId: 659958
+  packageVersion: 2.56
+  assetPath: Assets/Packages/Photon/PhotonNetworking-Documentation.chm
+  uploadId: 993206

@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 638549631194246103
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -291,15 +296,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 36, y: 44}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1172493080
+    uuid:
+      value0: 3421617528
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -873349768
     name: Main ship weapon - Projectile - Zapper
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Main ship weapon - Projectile - Zapper_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -308,7 +319,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: 9a7df33d8dfb4eb4ba9d0470c6e8eeee
-    - name: Main ship weapon - Projectile - Zapper_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -317,7 +328,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: 965b1f52a635aeb4c85308192e7a67c1
-    - name: Main ship weapon - Projectile - Zapper_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -326,7 +337,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: 059a1f76ff8405e4ab5cbef54ec5ba4e
-    - name: Main ship weapon - Projectile - Zapper_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -335,7 +346,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: a4c79111d6cf81945b393cc809c913d7
-    - name: Main ship weapon - Projectile - Zapper_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -344,7 +355,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: 4035b1a692851ee438366ad430d5d9b3
-    - name: Main ship weapon - Projectile - Zapper_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -353,7 +364,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: 8f91c489619921d4bb5d23a76daa1d46
-    - name: Main ship weapon - Projectile - Zapper_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -362,7 +373,7 @@ ScriptedImporter:
         width: 8
         height: 32
       spriteId: b35a629a6bf23c949ac2ca5fd4bcd250
-    - name: Main ship weapon - Projectile - Zapper_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -372,7 +383,10 @@ ScriptedImporter:
         height: 32
       spriteId: e4ec30532133f394ca0c7a89a98b825f
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -424,5 +438,5 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 64, y: 128}
   canvasSize: {x: 32, y: 32}

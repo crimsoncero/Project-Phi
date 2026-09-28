@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/FeelDemos/SquashAndStretch/PhysicsMaterials/FeelSquashAndStretchCarMaterial.physicMaterial
+  uploadId: 985420

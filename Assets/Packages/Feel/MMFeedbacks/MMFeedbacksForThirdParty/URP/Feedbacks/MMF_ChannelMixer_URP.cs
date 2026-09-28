@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using MoreMountains.Feedbacks;
+using UnityEngine.Scripting.APIUpdating;
+#if MM_URP
+using UnityEngine.Rendering.Universal;
+#endif
 
 namespace MoreMountains.FeedbacksForThirdParty
 {
@@ -9,11 +11,13 @@ namespace MoreMountains.FeedbacksForThirdParty
 	/// This feedback allows you to control bloom intensity and threshold over time. It requires you have in your scene an object with a Volume with Bloom active, and a MMBloomShaker_URP component.
 	/// </summary>
 	[AddComponentMenu("")]
+	[System.Serializable]
 	[FeedbackHelp("This feedback allows you to control bloom intensity and threshold over time. It requires you have in your scene an object with a Volume " +
 	              "with Bloom active, and a MMBloomShaker_URP component.")]
 	#if MM_URP
 	[FeedbackPath("PostProcess/Channel Mixer URP")]
 	#endif
+	[MovedFrom(false, null, "MoreMountains.Feedbacks.URP")]
 	public class MMF_ChannelMixer_URP : MMF_Feedback 
 	{
 		/// a static bool used to disable all feedbacks of this type at once
@@ -21,6 +25,8 @@ namespace MoreMountains.FeedbacksForThirdParty
 		/// sets the inspector color for this feedback
 		#if UNITY_EDITOR
 		public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.PostProcessColor; } }
+		public override bool HasCustomInspectors => true;
+		public override bool HasAutomaticShakerSetup => true;
 		#endif
 
 		/// the duration of this feedback is the duration of the shake
@@ -136,6 +142,16 @@ namespace MoreMountains.FeedbacksForThirdParty
 				ShakeBlue, RemapBlueZero, RemapBlueOne,
 				FeedbackDuration,
 				RelativeIntensity, channelData:ChannelData, restore:true);
+		}
+		
+		/// <summary>
+		/// Automaticall sets up the post processing profile and shaker
+		/// </summary>
+		public override void AutomaticShakerSetup()
+		{
+			#if MM_URP && UNITY_EDITOR
+			MMURPHelpers.GetOrCreateVolume<ChannelMixer, MMChannelMixerShaker_URP>(Owner, "Channel Mixer");
+			#endif
 		}
 	}
 }

@@ -86,3 +86,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 6.1
+  assetPath: Assets/Packages/Feel/MMFeedbacks/Demos/MMFeedbacksDemo/Models/Background/Background.fbm/checker.tga
+  uploadId: 985420

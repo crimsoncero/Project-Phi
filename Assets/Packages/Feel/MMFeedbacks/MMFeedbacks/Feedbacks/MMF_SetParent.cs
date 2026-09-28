@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -7,6 +8,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you change the parent of a transform.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Transform/Set Parent")]
 	public class MMF_SetParent : MMF_Feedback 
 	{
@@ -36,6 +39,23 @@ namespace MoreMountains.Feedbacks
 		public bool WorldPositionStays = true;
 
 		/// <summary>
+		/// On init we check if we have a target
+		/// </summary>
+		/// <param name="owner"></param>
+		protected override void CustomInitialization(MMF_Player owner)
+		{
+			base.CustomInitialization(owner);
+
+			if (Active)
+			{
+				if (!TargetExists(ObjectToParent, nameof(ObjectToParent)))
+				{
+					return;
+				}
+			}
+		}
+		
+		/// <summary>
 		/// On Play, changes the parent of the target transform
 		/// </summary>
 		/// <param name="position"></param>
@@ -48,7 +68,6 @@ namespace MoreMountains.Feedbacks
 			}
 			if (ObjectToParent == null)
 			{
-				Debug.LogWarning("No object to parent was set for " + Owner.name);
 				return;
 			}
 			ObjectToParent.SetParent(NewParent, WorldPositionStays);

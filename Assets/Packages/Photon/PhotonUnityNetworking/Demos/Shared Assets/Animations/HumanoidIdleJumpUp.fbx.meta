@@ -2568,8 +2568,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d89ea37480b6d75458aa38843e9688dc,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d89ea37480b6d75458aa38843e9688dc, type: 3}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
@@ -2580,6 +2579,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 119922
   packageName: PUN 2 - FREE
-  packageVersion: 2.46
-  assetPath: Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidIdleJumpUp.fbx
-  uploadId: 659958
+  packageVersion: 2.56
+  assetPath: Assets/Packages/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidIdleJumpUp.fbx
+  uploadId: 993206

@@ -35,8 +35,11 @@ namespace Photon.Pun
             {
                 if (instance == null)
                 {
-#pragma warning disable
+                    #if UNITY_6000_0_OR_NEWER
+                    instance = FindFirstObjectByType<PhotonHandler>();
+                    #else
                     instance = FindObjectOfType<PhotonHandler>();
+                    #endif
                     if (instance == null)
                     {
                         GameObject obj = new GameObject();
@@ -109,10 +112,17 @@ namespace Photon.Pun
                 }
                 if (this.supportLoggerComponent != null)
                 {
+                    #if UNITY_6000_4_OR_NEWER
+                    if (supportLogger.GetEntityId() != this.supportLoggerComponent.GetEntityId())
+                    {
+                        Debug.LogWarningFormat("Cached SupportLogger component is different from the one attached to PhotonMono GameObject");
+                    }
+                    #else
                     if (supportLogger.GetInstanceID() != this.supportLoggerComponent.GetInstanceID())
                     {
                         Debug.LogWarningFormat("Cached SupportLogger component is different from the one attached to PhotonMono GameObject");
                     }
+                    #endif
                 }
                 this.supportLoggerComponent = supportLogger;
                 this.supportLoggerComponent.Client = PhotonNetwork.NetworkingClient;

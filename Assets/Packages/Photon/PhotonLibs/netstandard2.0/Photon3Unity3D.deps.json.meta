@@ -9,6 +9,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 119922
   packageName: PUN 2 - FREE
-  packageVersion: 2.46
-  assetPath: Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.deps.json
-  uploadId: 659958
+  packageVersion: 2.56
+  assetPath: Assets/Packages/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.deps.json
+  uploadId: 993206

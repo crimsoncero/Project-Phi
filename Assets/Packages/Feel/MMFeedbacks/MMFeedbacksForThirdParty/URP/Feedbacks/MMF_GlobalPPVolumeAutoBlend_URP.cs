@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.FeedbacksForThirdParty
 {
@@ -9,10 +10,12 @@ namespace MoreMountains.FeedbacksForThirdParty
 	/// This feedback will let you pilot a Global PostProcessing Volume AutoBlend URP component. A GPPVAB component is placed on a PostProcessing Volume, and will let you control and blend its weight over time on demand.    
 	/// </summary>
 	[AddComponentMenu("")]
+	[System.Serializable]
 	[FeedbackHelp("This feedback will let you pilot a Global PostProcessing Volume AutoBlend URP component. A GPPVAB component is placed on a PostProcessing Volume, and will let you control and blend its weight over time on demand.")]
 	#if MM_URP
 	[FeedbackPath("PostProcess/Global PP Volume Auto Blend URP")]
 	#endif
+	[MovedFrom(false, null, "MoreMountains.Feedbacks.URP")]
 	public class MMF_GlobalPPVolumeAutoBlend_URP : MMF_Feedback
 	{
 		/// a static bool used to disable all feedbacks of this type at once
@@ -27,12 +30,12 @@ namespace MoreMountains.FeedbacksForThirdParty
 		/// sets the inspector color for this feedback
 		#if UNITY_EDITOR
 		public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.PostProcessColor; } }
-		public override bool EvaluateRequiresSetup() { return (TargetAutoBlend == null); }
 		public override string RequiredTargetText { get { return TargetAutoBlend != null ? TargetAutoBlend.name : "";  } }
 		public override string RequiresSetupText { get { return "This feedback requires that a TargetCanvasGroup be set to be able to work properly. You can set one below."; } }
 		#endif
 		public override bool HasAutomatedTargetAcquisition => true;
 		protected override void AutomateTargetAcquisition() => TargetAutoBlend = FindAutomatedTarget<MMGlobalPostProcessingVolumeAutoBlend_URP>();
+		public override bool HasChannel => true;
 
 		/// defines the duration of the feedback
 		public override float FeedbackDuration
@@ -85,6 +88,10 @@ namespace MoreMountains.FeedbacksForThirdParty
 		/// the weight to blend to
 		[MMFEnumCondition("Mode", (int)Modes.Override)]
 		public float FinalWeight = 1f;        
+		/// whether or not to reset to the initial value at the end of the shake
+		[Tooltip("whether or not to reset to the initial value at the end of the shake")]
+		[MMFEnumCondition("Mode", (int)Modes.Override)]
+		public bool ResetToInitialValueOnEnd = true;
 
 		/// <summary>
 		/// On custom play, triggers a blend on the target blender, overriding its settings if needed
@@ -98,34 +105,8 @@ namespace MoreMountains.FeedbacksForThirdParty
 				return;
 			}
             
-			if (TargetAutoBlend == null)
-			{
-				Debug.LogWarning(Owner.name + " : this MMFeedbackGlobalPPVolumeAutoBlend needs a TargetAutoBlend, please set one in its inspector.");
-				return;
-			}
-			if (Mode == Modes.Default)
-			{
-				if (BlendAction == Actions.Blend)
-				{
-					TargetAutoBlend.Blend();
-					return;
-				}
-				if (BlendAction == Actions.BlendBack)
-				{
-					TargetAutoBlend.BlendBack();
-					return;
-				}
-			}
-			else
-			{
-				TargetAutoBlend.TimeScale = (ComputedTimescaleMode == TimescaleModes.Scaled) ? MMGlobalPostProcessingVolumeAutoBlend_URP.TimeScales.Scaled : MMGlobalPostProcessingVolumeAutoBlend_URP.TimeScales.Unscaled;
-				TargetAutoBlend.BlendDuration = FeedbackDuration;
-				TargetAutoBlend.Curve = BlendCurve;
-				TargetAutoBlend.InitialWeight = InitialWeight;
-				TargetAutoBlend.FinalWeight = FinalWeight;
-				TargetAutoBlend.Blend();
-			}
-            
+			MMGlobalPostProcessingVolumeAutoBlend_URP.TimeScales timeScale = (ComputedTimescaleMode == TimescaleModes.Scaled) ? MMGlobalPostProcessingVolumeAutoBlend_URP.TimeScales.Scaled : MMGlobalPostProcessingVolumeAutoBlend_URP.TimeScales.Unscaled;
+            MMPostProcessingVolumeAutoBlendURPShakeEvent.Trigger(ChannelData, TargetAutoBlend, Mode, BlendAction, ApplyTimeMultiplier(BlendDuration), BlendCurve, InitialWeight, FinalWeight, ResetToInitialValueOnEnd, NormalPlayDirection, timeScale);
 		}
         
 		/// <summary>

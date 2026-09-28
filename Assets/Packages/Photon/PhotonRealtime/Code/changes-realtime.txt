@@ -3,8 +3,104 @@ Photon Realtime C# Client - Changelog
 www.photonengine.com  -  Join our Discord Server: https://dashboard.photonengine.com/account/profile
 
 
+Version 4.1.8.23 (10. September 2026)
+    Added: PhotonUtilitiesUnity now adds a compile define to the current build target on load: PHOTON_REALTIME_4.
 
-Version 4.1.8.4 (26. April 2024 - rev7529)
+Version 4.1.8.22 (04. September 2026)
+    Changed: ConnectUsingSettings() checks if AppSettings.Server is an IP address. In that case, WS and WSS are refused (logged as error, returns false) and AuthMode AuthOnceWss is changed to AuthOnce (logged as warning). Before, this failed on connect with no hint about the cause.
+    Added: Support for the Video SDK. AppSettings.AppIdVideo and a property AppIdVoiceOrVideo to get the preferred AppId (Video, if the Video SDK is present). If the preferred AppId field is null or empty, the other is returned.
+    Added: ClientAppType.Video and VoiceOrVideo (for components that work with either SDK).
+
+Version 4.1.8.21 (01. July 2026)
+    No notable changes.
+
+Version 4.1.8.20 (04. June 2026)
+    Fixed: v4.1.8.19 introduced a bug where the transport protocol from the AppSettings was no longer applied. This was a sideeffect of the changes for Protocol Correction for WebGL.
+    Note: In Unity WebGL builds, it is now possible to use AuthMode AuthOnceWss with WS as selected protocol. It will use WSS on the Name Server but WS on other servers.
+
+Version 4.1.8.19 (01. June 2026)
+    Changed: Error handling in SocketWebTcp to ignore most temporary error codes when using WebSocket-sharp.
+    Fixed: For Unity WebGL, ConnectUsingSettings() first makes sure the protocol is WS/WSS, then configures AuthOnceWss with an expected protocol, if selected.
+    Removed: Surplus prococol change in the LoadBalancingClient constructor. Even for WebGL builds, it is unclear if the connection (later) is WS or WSS.
+    Changed: Initialization of static fields for Unity (to fix behaviour when Domain Reload is off).
+
+Version 4.1.8.18 (30. March 2026 - rev8338)
+    Changed: ToProtocolAddress now removes trailing slashes from the server address to connect to (especially the Name Server address for WS/WSS). This avoids issues with WS/WSS APIs which do not accept two slashes where the URL query starts (address//?query).
+    Updated: ChatPeer.ConfigUnitySockets() and LoadBalancingPeer.ConfigUnitySockets() to use the native socket implementation if available (SocketNativeSource).
+    Fixed: Null checks in SupportLogger.StopLogStats() and .StopTrackValues() for timers (that are not guaranteed to exist).
+    Fixed: LoadBalancingClient.ConnectUsingSettings will use the ProxyServer from the appSettings in all cases. Before, it was ignored when connecting to a Master Server directly.
+
+Version 4.1.8.17 (10. November 2025 - rev8151)
+    Changed: Player NickName synchronization. On entering a room, the LocalPlayer sends an update for the NickName, if the received Custom Properties have it wrong.
+    Added: Support to log in intervals .Net (non-Unity projects).
+    Changed: Order of some methods to put "helper" methods to the bottom of the file.
+    Changed: LogBasics (about the app) is now logged as normal info (no longer a warning).
+    Changed: Stopwatch for the logging is started on first log use. This sets the OnConnected time to 0. Before, it was running since creation of the SupportLogger.
+    Added: Fixed 3 digits for Milliseconds in GetFormattedTimestamp().
+
+Version 4.1.8.16 (31. July 2025 - rev8016)
+    Updated: Reference doc summary for Player.IsInactive.
+    Note: Minimal release to make a small update available for the Voice SDK.
+
+Version 4.1.8.15 (08. May 2025 - rev7931)
+    Changed: ConfigUnitySockets() for WebGL. It no longer logs a warning if the SocketWebTcp is missing in the Editor. It logs an error if the JS lib for WebSockets is missing.
+    Changed: PingHttp will now use HTTPs as scheme unless it runs in Editor below Unity 6.
+    Changed: When the app closes, the ConnectionHandler will set IsSimulationEnabled = false to work around a problem with closing the Network Sim Thread in some Unity 6 builds. Il2cpp builds were freezing on app quit, if the Network Simulation thread was running.
+
+Version 4.1.8.14 (11. March 2025 - rev7866)
+    Moved: DNS resolution for Best Region detection from RegionPinger.Start() to RegionPingThreaded() / RegionPingCoroutine(). This is off the main thread, where possible.
+    Added: Log.Info() in case the DNS resolution (for Best Region selection) took longer than 100ms to finish for any given address.
+    Changed: ReconnectAndRejoin() will clear any Matchmaking Ticket before doing a reconnect and rejoin. The expectation is that the room still has this user as inactive and allows re-join.
+    Changed: OpLeaveRoom() to change local state only if the client is in a room and can send (queue) the operation successfully.
+    Changed: WebSocket implementation to receive incoming messages via callbacks. One benefit is that this avoids using a Coroutine in Unity WebGL to receive messages. At the same time our WebSocket code now also implements all typical callbacks for WS/WSS.
+    Note: The goal is to process incoming messages in WebGL (and with WebSocket-sharp) more directly. This specifically helps the Voice SDK on WebGL to process the stream while in background.
+    Changed: WebSocket.jslib replicates standard js websocket methods and callbacks in its interface instead of caching messages for polling.
+
+Version 4.1.8.13 (09. January 2025 - rev7815)
+    Changed: RealtimeFallback() will no longer call client.Disconnect if the client is disconnecting already.
+    Changed: ChangeLocalID() to not change the LocalPlayer.UserId, unless it is null or empty. This improves a change in v4.1.8.9, which could set the LocalPlayer.UserId to null.
+    Added: LoadBalancingClient.ConnectCount as count of connections made to any server (in one "session"). Purely statistical.
+    Added: LoadBalancingClient.DisconnectMessage (for debugging / logging). Set when the client receives a disconnect info message with a debug string.
+    Added: PHOTON_LOCATION and PHOTON_TELEMETRY for upcoming features (not included in this release).
+
+Version 4.1.8.12 (16. December 2024 - rev7801)
+    Added: ParameterCode.ReportQos. Preparation for upcoming connection quality reports.
+    Added: Timestamp logging to SupportLogger basics log. So far, it was only logging the timespan for the connection.
+    Changed: Operations that contain any UserId will be sent encrypted if they do. This improves security on the network layer. Affected: OpCreateRoom, OpJoinRoom, OpJoinRandomRoom, OpJoinRandomOrCreateRoom and OpFindFriends.
+
+Version 4.1.8.11 (17. October 2024 - rev7735)
+    Fixed: Issue with "Discord Activities" addresses in the Photon dll. See changes-library.txt.
+
+Version 4.1.8.10 (14. October 2024 - rev7732)
+    Added: Support for Discord Activities.
+    Added: LoadBalancingClient.AddressRewriter function. Useful to rewrite addresses, when some relay must be used (e.g. in case of Discord Activities). Used when setting server addresses.
+    Internal: Added optional parameter to SetRegions to pass LoadBalancingClient. If AddressRewriter is set, this calls it. Also used to log.
+    Added: ToProtocolAddress to format addresses correctly for the given protocol. This includes scheme where needed, port and path. Calls AddressRewriter if set.
+    Internal: GetNameServerAddress now uses ToProtocolAddress.
+    Changed: The Authenticate response on the Name Server will first apply the expected protocol for the Master Server connection. Then read the address and maybe rewrite it.
+    Removed: Unity special cases of using SocketUdpAsync / SocketTcpAsync for .Net 4.x for Mono specifically. Recent Unity versions (2019 tested) no longer run into issues with receiving data in blocking mode.
+
+Version 4.1.8.9 (02. September 2024 - rev7660)
+    Changed: EnableProtocolFallback will only ever work for UDP, TCP or WS connections. If WSS should be used on the Name Server, this is likely for the encryption. A switch from WSS to others will lower the security level unexpectedly.
+    Removed: Special handling of AuthOnceWss, which allowed clients to try another transport protocol on the Name Server, if WSS failed to connect.
+    Note: The idea was to not accidentally block users when our special WSS port 19093 was being blocked. We will now use 443 as WSS port, which is rarely to never blocked.
+    Changed: Disconnect() is now separate from the internally used Disconnect(DisconnectCause cause). Simplifies the public API.
+    Changed: ChangeLocalID with optional paramater applyUserId = false. This allows PUN to set a UserId when "entering" offline rooms.
+
+Version 4.1.8.8 (02. August 2024 - rev7638)
+    Changed: Handling of server paths and ports. If the AppSettings contain a path for the initial server to connect to, it is preserved. This is handled with the URI class in ToProtocolAddress().
+
+Version 4.1.8.7 (05. July 2024 - rev7622)
+    Changed: ConnectionHandler.StartFallbackSendAckThread() to use a Thread.Timer instead of a separate thread to reduce used resources. This avoids an issue with thread limits on console. WebGL exports use InvokeRepeating() instead (which is dependent on the main loop but WebGL is single threaded anyways).
+    Changed: Player.UpdateNickNameOnJoined() avoids sending the NickName if it is empty and not found in the props.
+
+Version 4.1.8.6 (25. May 2024 - rev7571)
+    Fixed: Non-Unity projects use the System.Hashtable which does not provide TryGetValue. TryGetValue use (recently added) has been replaced using ContainsKey.
+
+Version 4.1.8.5 (13. May 2024 - rev7556)
+    No notable changes (except in library).
+
+Version 4.1.8.4 (26. April 2024 - rev7530)
     No notable changes (except in library).
 
 Version 4.1.8.3 (24. April 2024 - rev7519)

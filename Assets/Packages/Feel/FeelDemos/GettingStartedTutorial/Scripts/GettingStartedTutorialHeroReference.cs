@@ -11,6 +11,7 @@ namespace MoreMountains.Feel
 	/// A very simple class used to make a character jump, designed to be used in Feel's Getting Started tutorial
 	/// Yes the name is different from the one in the tutorial, it's to avoid conflicts if you were to name it exactly the same.
 	/// </summary>
+	[AddComponentMenu("")]
 	public class GettingStartedTutorialHeroReference : MonoBehaviour
 	{
 		[Header("Hero Settings")]

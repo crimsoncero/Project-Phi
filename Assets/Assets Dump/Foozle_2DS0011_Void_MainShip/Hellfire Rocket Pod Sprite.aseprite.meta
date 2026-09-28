@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -42,7 +43,9 @@ ScriptedImporter:
     cubemapConvolution: 0
     seamlessCubemap: 0
     alphaIsTransparency: 1
+    spriteTessellationMethod: 0
     spriteTessellationDetail: -1
+    spriteGeometrySubdivision: 0
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
@@ -83,6 +86,8 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -96,9 +101,9 @@ ScriptedImporter:
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
-  importFileNodeState: 1
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   platformSettingsDirtyTick: 638549625662964792
-  textureAssetName: 
   singleSpriteImportData:
   - name: 
     originalName: 
@@ -879,15 +884,21 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 65, y: 149}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 860757019
+    uuid:
+      value0: 3301828167
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: -993139129
     name: Hellfire Rocket Pod Sprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Hellfire Rocket Pod Sprite_Frame_0
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -896,7 +907,7 @@ ScriptedImporter:
         width: 34
         height: 20
       spriteId: 2eec54b7f89ed534283ab31b082bbffe
-    - name: Hellfire Rocket Pod Sprite_Frame_1
+    - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -905,7 +916,7 @@ ScriptedImporter:
         width: 34
         height: 20
       spriteId: cbcc396a92cb6264baab0c5fb9e09208
-    - name: Hellfire Rocket Pod Sprite_Frame_2
+    - name: Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -914,7 +925,7 @@ ScriptedImporter:
         width: 34
         height: 21
       spriteId: 0259c115fcb36444aaaf6b2a4b691557
-    - name: Hellfire Rocket Pod Sprite_Frame_3
+    - name: Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -923,7 +934,7 @@ ScriptedImporter:
         width: 34
         height: 23
       spriteId: ff1b909499c32d84c883ceb1b494388a
-    - name: Hellfire Rocket Pod Sprite_Frame_4
+    - name: Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -932,7 +943,7 @@ ScriptedImporter:
         width: 34
         height: 24
       spriteId: 3e32ea231430aa74fafea4dd5e04b30e
-    - name: Hellfire Rocket Pod Sprite_Frame_5
+    - name: Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -941,7 +952,7 @@ ScriptedImporter:
         width: 34
         height: 23
       spriteId: 6ae8484b2d16d334394ce0e129ce5756
-    - name: Hellfire Rocket Pod Sprite_Frame_6
+    - name: Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -950,7 +961,7 @@ ScriptedImporter:
         width: 34
         height: 20
       spriteId: c6159a8e1b3dbb047b09cf6edf161163
-    - name: Hellfire Rocket Pod Sprite_Frame_7
+    - name: Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -959,7 +970,7 @@ ScriptedImporter:
         width: 34
         height: 19
       spriteId: 7fd2ebfe06b24214d9a798b2c0000890
-    - name: Hellfire Rocket Pod Sprite_Frame_8
+    - name: Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -968,7 +979,7 @@ ScriptedImporter:
         width: 34
         height: 21
       spriteId: d6ae723416fc43348ad5026c9a5eb447
-    - name: Hellfire Rocket Pod Sprite_Frame_9
+    - name: Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -977,7 +988,7 @@ ScriptedImporter:
         width: 34
         height: 23
       spriteId: 0a96269411a737247be61e4386437b76
-    - name: Hellfire Rocket Pod Sprite_Frame_10
+    - name: Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
@@ -986,7 +997,7 @@ ScriptedImporter:
         width: 34
         height: 24
       spriteId: 83008ebbd0036bb4191787de58d45d59
-    - name: Hellfire Rocket Pod Sprite_Frame_11
+    - name: Frame_11
       frameIndex: 11
       additiveSortOrder: 0
       cellRect:
@@ -995,7 +1006,7 @@ ScriptedImporter:
         width: 34
         height: 23
       spriteId: 86cb6d6d24135ce43a7ae9a162f23111
-    - name: Hellfire Rocket Pod Sprite_Frame_12
+    - name: Frame_12
       frameIndex: 12
       additiveSortOrder: 0
       cellRect:
@@ -1004,7 +1015,7 @@ ScriptedImporter:
         width: 34
         height: 16
       spriteId: d7efd8c80254d9d49a64218499c93109
-    - name: Hellfire Rocket Pod Sprite_Frame_13
+    - name: Frame_13
       frameIndex: 13
       additiveSortOrder: 0
       cellRect:
@@ -1013,7 +1024,7 @@ ScriptedImporter:
         width: 34
         height: 16
       spriteId: 3174148468b07214988f11259f80609b
-    - name: Hellfire Rocket Pod Sprite_Frame_14
+    - name: Frame_14
       frameIndex: 14
       additiveSortOrder: 0
       cellRect:
@@ -1022,7 +1033,7 @@ ScriptedImporter:
         width: 34
         height: 21
       spriteId: efea6f9cf8dc535479f89e69fcb2ef99
-    - name: Hellfire Rocket Pod Sprite_Frame_15
+    - name: Frame_15
       frameIndex: 15
       additiveSortOrder: 0
       cellRect:
@@ -1031,7 +1042,7 @@ ScriptedImporter:
         width: 34
         height: 23
       spriteId: 32e73aca2bc59894a8022b85d6d4f724
-    - name: Hellfire Rocket Pod Sprite_Frame_16
+    - name: Frame_16
       frameIndex: 16
       additiveSortOrder: 0
       cellRect:
@@ -1040,7 +1051,7 @@ ScriptedImporter:
         width: 34
         height: 24
       spriteId: ea0495c6abf8c754cb689df4bd776e02
-    - name: Hellfire Rocket Pod Sprite_Frame_17
+    - name: Frame_17
       frameIndex: 17
       additiveSortOrder: 0
       cellRect:
@@ -1049,7 +1060,7 @@ ScriptedImporter:
         width: 34
         height: 21
       spriteId: fc7b716a40809994295d3fcd04b9ed87
-    - name: Hellfire Rocket Pod Sprite_Frame_18
+    - name: Frame_18
       frameIndex: 18
       additiveSortOrder: 0
       cellRect:
@@ -1058,7 +1069,7 @@ ScriptedImporter:
         width: 34
         height: 16
       spriteId: 3598bf702580f864983665603ca33954
-    - name: Hellfire Rocket Pod Sprite_Frame_19
+    - name: Frame_19
       frameIndex: 19
       additiveSortOrder: 0
       cellRect:
@@ -1067,7 +1078,7 @@ ScriptedImporter:
         width: 34
         height: 15
       spriteId: 618a92e90fd433343bb831e9c6d88f3f
-    - name: Hellfire Rocket Pod Sprite_Frame_20
+    - name: Frame_20
       frameIndex: 20
       additiveSortOrder: 0
       cellRect:
@@ -1076,7 +1087,7 @@ ScriptedImporter:
         width: 34
         height: 21
       spriteId: 565e900d3a76d2347b773d954a1ae945
-    - name: Hellfire Rocket Pod Sprite_Frame_21
+    - name: Frame_21
       frameIndex: 21
       additiveSortOrder: 0
       cellRect:
@@ -1085,7 +1096,7 @@ ScriptedImporter:
         width: 34
         height: 23
       spriteId: ec7b0e20f730fdc4ab0a7c3b7db3c95b
-    - name: Hellfire Rocket Pod Sprite_Frame_22
+    - name: Frame_22
       frameIndex: 22
       additiveSortOrder: 0
       cellRect:
@@ -1094,7 +1105,7 @@ ScriptedImporter:
         width: 34
         height: 24
       spriteId: 258895470d17c93488a2da95d2ba84cc
-    - name: Hellfire Rocket Pod Sprite_Frame_23
+    - name: Frame_23
       frameIndex: 23
       additiveSortOrder: 0
       cellRect:
@@ -1103,7 +1114,7 @@ ScriptedImporter:
         width: 34
         height: 21
       spriteId: 289b90c830ce7d44e9dc02f942db2993
-    - name: Hellfire Rocket Pod Sprite_Frame_24
+    - name: Frame_24
       frameIndex: 24
       additiveSortOrder: 0
       cellRect:
@@ -1112,7 +1123,7 @@ ScriptedImporter:
         width: 34
         height: 12
       spriteId: d0df4cfe1746ff2409bb18cd2b808bfb
-    - name: Hellfire Rocket Pod Sprite_Frame_25
+    - name: Frame_25
       frameIndex: 25
       additiveSortOrder: 0
       cellRect:
@@ -1121,7 +1132,7 @@ ScriptedImporter:
         width: 34
         height: 13
       spriteId: 5a03a96db1af8054ab7d89da54415649
-    - name: Hellfire Rocket Pod Sprite_Frame_26
+    - name: Frame_26
       frameIndex: 26
       additiveSortOrder: 0
       cellRect:
@@ -1130,7 +1141,7 @@ ScriptedImporter:
         width: 34
         height: 17
       spriteId: 38783b35112dcc2479c22d3136155e6b
-    - name: Hellfire Rocket Pod Sprite_Frame_27
+    - name: Frame_27
       frameIndex: 27
       additiveSortOrder: 0
       cellRect:
@@ -1139,7 +1150,7 @@ ScriptedImporter:
         width: 35
         height: 19
       spriteId: e0106da5828c8f54397dd44cbc860260
-    - name: Hellfire Rocket Pod Sprite_Frame_28
+    - name: Frame_28
       frameIndex: 28
       additiveSortOrder: 0
       cellRect:
@@ -1148,7 +1159,7 @@ ScriptedImporter:
         width: 37
         height: 20
       spriteId: 3b0dc2dc66a54a549bd3eb08d82a616c
-    - name: Hellfire Rocket Pod Sprite_Frame_29
+    - name: Frame_29
       frameIndex: 29
       additiveSortOrder: 0
       cellRect:
@@ -1157,7 +1168,7 @@ ScriptedImporter:
         width: 38
         height: 17
       spriteId: 6090fec8d92b2b540997f620d1fe4637
-    - name: Hellfire Rocket Pod Sprite_Frame_30
+    - name: Frame_30
       frameIndex: 30
       additiveSortOrder: 0
       cellRect:
@@ -1166,7 +1177,7 @@ ScriptedImporter:
         width: 5
         height: 12
       spriteId: 45b154966a194794a8497322c5ed276c
-    - name: Hellfire Rocket Pod Sprite_Frame_31
+    - name: Frame_31
       frameIndex: 31
       additiveSortOrder: 0
       cellRect:
@@ -1175,7 +1186,7 @@ ScriptedImporter:
         width: 5
         height: 12
       spriteId: 6b6aa26e3fd621c4289e801c849e60bc
-    - name: Hellfire Rocket Pod Sprite_Frame_32
+    - name: Frame_32
       frameIndex: 32
       additiveSortOrder: 0
       cellRect:
@@ -1184,7 +1195,7 @@ ScriptedImporter:
         width: 4
         height: 8
       spriteId: 0f4df0d093357424dbb27d54eecf7b66
-    - name: Hellfire Rocket Pod Sprite_Frame_33
+    - name: Frame_33
       frameIndex: 33
       additiveSortOrder: 0
       cellRect:
@@ -1193,7 +1204,7 @@ ScriptedImporter:
         width: 7
         height: 3
       spriteId: 79039745d98054840b3c41a52413f677
-    - name: Hellfire Rocket Pod Sprite_Frame_34
+    - name: Frame_34
       frameIndex: 34
       additiveSortOrder: 0
       cellRect:
@@ -1202,7 +1213,7 @@ ScriptedImporter:
         width: 11
         height: 5
       spriteId: 5bec17850e382f94b9a91f1919e39592
-    - name: Hellfire Rocket Pod Sprite_Frame_35
+    - name: Frame_35
       frameIndex: 35
       additiveSortOrder: 0
       cellRect:
@@ -1212,7 +1223,10 @@ ScriptedImporter:
         height: 3
       spriteId: 0daabcabf39d60a43a7ded97126f5695
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -1264,5 +1278,5 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
-  spritePackingTag: 
+  previousTextureSize: {x: 256, y: 256}
   canvasSize: {x: 48, y: 48}

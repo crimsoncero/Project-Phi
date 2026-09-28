@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -10,6 +10,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you unload a scene by name or build index")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Scene/Unload Scene")]
 	public class MMF_UnloadScene : MMF_Feedback
 	{
@@ -62,6 +64,26 @@ namespace MoreMountains.Feedbacks
 		public bool OutputWarningsIfNeeded = true;
         
 		protected Scene _sceneToUnload;
+		
+		/// <summary>
+		/// On init, we check if we have a scene to unload
+		/// </summary>
+		/// <param name="owner"></param>
+		protected override void CustomInitialization(MMF_Player owner)
+		{
+			base.CustomInitialization(owner);
+
+			GetSceneToUnload();
+			
+			if ((_sceneToUnload == null) || (!_sceneToUnload.isLoaded))
+			{
+				if (OutputWarningsIfNeeded)
+				{
+					Debug.LogWarning("[Unload Scene Feedback] The unload scene feedback on " + Owner.name +
+					                 " is trying to unload a scene that hasn't been loaded.");
+				}
+			}
+		}
 
 		/// <summary>
 		/// On play we change the text of our target TMPText
@@ -75,6 +97,16 @@ namespace MoreMountains.Feedbacks
 				return;
 			}
 
+			GetSceneToUnload();
+
+			if ((_sceneToUnload != null) && (_sceneToUnload.isLoaded))
+			{
+				SceneManager.UnloadSceneAsync(_sceneToUnload);    
+			}
+		}
+
+		protected virtual void GetSceneToUnload()
+		{
 			if (Method == Methods.BuildIndex)
 			{
 				_sceneToUnload = SceneManager.GetSceneByBuildIndex(BuildIndex);
@@ -82,18 +114,6 @@ namespace MoreMountains.Feedbacks
 			else
 			{
 				_sceneToUnload = SceneManager.GetSceneByName(SceneName);
-			}
-
-			if ((_sceneToUnload != null) && (_sceneToUnload.isLoaded))
-			{
-				SceneManager.UnloadSceneAsync(_sceneToUnload);    
-			}
-			else
-			{
-				if (OutputWarningsIfNeeded)
-				{
-					Debug.LogWarning("Unload Scene Feedback : you're trying to unload a scene that hasn't been loaded.");    
-				}
 			}
 		}
 	}

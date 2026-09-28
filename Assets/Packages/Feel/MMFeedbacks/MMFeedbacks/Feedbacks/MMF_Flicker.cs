@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -11,6 +13,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you flicker the color of a specified renderer (sprite, mesh, etc) for a certain duration, at the specified octave, and with the specified color. Useful when a character gets hit, for example (but so much more!).")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Renderer/Flicker")]
 	public class MMF_Flicker : MMF_Feedback
 	{
@@ -35,6 +39,9 @@ namespace MoreMountains.Feedbacks
 		/// the renderer to flicker when played
 		[Tooltip("the renderer to flicker when played")]
 		public Renderer BoundRenderer;
+		/// more renderers to flicker when played
+		[Tooltip("more renderers to flicker when played")]
+		public List<Renderer> ExtraBoundRenderers;
 		/// the selected mode to flicker the renderer 
 		[Tooltip("the selected mode to flicker the renderer")]
 		public Modes Mode = Modes.Color;
@@ -69,15 +76,24 @@ namespace MoreMountains.Feedbacks
 
 		protected const string _colorPropertyName = "_Color";
         
-		protected Color[] _initialFlickerColors;
 		protected int[] _propertyIDs;
 		protected bool[] _propertiesFound;
-		protected Coroutine[] _coroutines;
-		protected MaterialPropertyBlock _propertyBlock;
-		protected SpriteRenderer _spriteRenderer;
-		protected Texture2D _spriteRendererTexture;
 		protected bool _spriteRendererIsNull;
 		
+		protected Coroutine[] _coroutines;
+		protected List<Coroutine[]> _extraCoroutines;
+		
+		protected Color[] _initialFlickerColors;
+		protected List<Color[]> _extraInitialFlickerColors;
+		
+		protected MaterialPropertyBlock _propertyBlock;
+		protected List<MaterialPropertyBlock> _extraPropertyBlocks;
+		
+		protected SpriteRenderer _spriteRenderer;
+		protected List<SpriteRenderer> _spriteRenderers;
+		
+		protected Texture2D _spriteRendererTexture;
+		protected List<Texture2D> _spriteRendererTextures;
 
 		/// <summary>
 		/// On init we grab our initial color and components
@@ -85,6 +101,16 @@ namespace MoreMountains.Feedbacks
 		/// <param name="owner"></param>
 		protected override void CustomInitialization(MMF_Player owner)
 		{
+			if (MaterialIndexes == null)
+			{
+				MaterialIndexes = Array.Empty<int>();
+			}
+			if (ExtraBoundRenderers == null)
+			{
+				ExtraBoundRenderers = new List<Renderer>();
+			}
+			
+			// init material indexes
 			if (MaterialIndexes.Length == 0)
 			{
 				MaterialIndexes = new int[1];
@@ -92,31 +118,21 @@ namespace MoreMountains.Feedbacks
 			}
 
 			_coroutines = new Coroutine[MaterialIndexes.Length];
-
 			_initialFlickerColors = new Color[MaterialIndexes.Length];
+			
+			_extraCoroutines = new List<Coroutine[]>();
+			_extraInitialFlickerColors = new List<Color[]>();
+			foreach (Renderer renderer in ExtraBoundRenderers)
+			{
+				_extraCoroutines.Add(new Coroutine[MaterialIndexes.Length]);
+				_extraInitialFlickerColors.Add(new Color[MaterialIndexes.Length]);
+			}
+			
 			_propertyIDs = new int[MaterialIndexes.Length];
 			_propertiesFound = new bool[MaterialIndexes.Length];
 			_propertyBlock = new MaterialPropertyBlock();
-            
-			if (Active && (BoundRenderer == null) && (owner != null))
-			{
-				if (Owner.gameObject.MMFGetComponentNoAlloc<Renderer>() != null)
-				{
-					BoundRenderer = owner.GetComponent<Renderer>();
-				}
-				if (BoundRenderer == null)
-				{
-					BoundRenderer = owner.GetComponentInChildren<Renderer>();
-				}
-			}
 
-			if (BoundRenderer == null)
-			{
-				Debug.LogWarning("[MMFeedbackFlicker] The flicker feedback on "+Owner.name+" doesn't have a bound renderer, it won't work. You need to specify a renderer to flicker in its inspector.");    
-			}
-			
-			_spriteRenderer = BoundRenderer.GetComponent<SpriteRenderer>();
-			_spriteRendererIsNull = _spriteRenderer == null;
+			AcquireRenderers(owner);
 			StoreSpriteRendererTexture();
 
 			for (int i = 0; i < MaterialIndexes.Length; i++)
@@ -132,6 +148,10 @@ namespace MoreMountains.Feedbacks
 						if (_propertiesFound[i])
 						{
 							_initialFlickerColors[i] = UseMaterialPropertyBlocks ? BoundRenderer.sharedMaterials[index].color : BoundRenderer.materials[index].color;
+							foreach (Renderer renderer in ExtraBoundRenderers)
+							{
+								_extraInitialFlickerColors[ExtraBoundRenderers.IndexOf(renderer)][i] = UseMaterialPropertyBlocks ? renderer.sharedMaterials[index].color : renderer.materials[index].color;
+							}
 						}
 					}
 					else
@@ -141,9 +161,58 @@ namespace MoreMountains.Feedbacks
 						{
 							_propertyIDs[i] = Shader.PropertyToID(PropertyName);
 							_initialFlickerColors[i] = UseMaterialPropertyBlocks ? BoundRenderer.sharedMaterials[index].GetColor(_propertyIDs[i]) : BoundRenderer.materials[index].GetColor(_propertyIDs[i]);
+							foreach (Renderer renderer in ExtraBoundRenderers)
+							{
+								_extraInitialFlickerColors[ExtraBoundRenderers.IndexOf(renderer)][i] = UseMaterialPropertyBlocks ? renderer.sharedMaterials[index].GetColor(_propertyIDs[i]) : renderer.materials[index].GetColor(_propertyIDs[i]);
+							}
 						}
 					}
 				}
+			}
+		}
+
+		protected virtual void AcquireRenderers(MMF_Player owner)
+		{
+			if (Active && (BoundRenderer == null) && (owner != null))
+			{
+				if (Owner.gameObject.MMFGetComponentNoAlloc<Renderer>() != null)
+				{
+					BoundRenderer = owner.GetComponent<Renderer>();
+				}
+				if (BoundRenderer == null)
+				{
+					BoundRenderer = owner.GetComponentInChildren<Renderer>();
+				}
+			}
+			if (!TargetExists(BoundRenderer, nameof(BoundRenderer)))
+			{
+				_spriteRendererIsNull = true;
+				return;
+			}
+			_spriteRenderer = BoundRenderer.GetComponent<SpriteRenderer>();	
+			
+			_spriteRenderers = new List<SpriteRenderer>();
+			foreach (Renderer renderer in ExtraBoundRenderers)
+			{
+				if (renderer.GetComponent<SpriteRenderer>() != null)
+				{
+					_spriteRenderers.Add(renderer.GetComponent<SpriteRenderer>());
+				}
+			}
+			_spriteRendererIsNull = _spriteRenderer == null;
+		}
+
+		protected virtual void StoreSpriteRendererTexture()
+		{
+			if (_spriteRendererIsNull)
+			{
+				return;
+			}
+			_spriteRendererTexture = _spriteRenderer.sprite.texture;
+			_spriteRendererTextures = new List<Texture2D>();
+			for (var index = 0; index < ExtraBoundRenderers.Count; index++)
+			{
+				_spriteRendererTextures.Add(_spriteRenderers[index].sprite.texture);
 			}
 		}
 
@@ -160,7 +229,12 @@ namespace MoreMountains.Feedbacks
 			}
 			for (int i = 0; i < MaterialIndexes.Length; i++)
 			{
+				if (_coroutines[i] != null) { Owner.StopCoroutine(_coroutines[i]); }
 				_coroutines[i] = Owner.StartCoroutine(Flicker(BoundRenderer, i, _initialFlickerColors[i], FlickerColor, FlickerPeriod, FeedbackDuration));
+				for (var index = 0; index < ExtraBoundRenderers.Count; index++)
+				{
+					_extraCoroutines[index][i] = Owner.StartCoroutine(Flicker(ExtraBoundRenderers[index], i, _extraInitialFlickerColors[index][i], FlickerColor, FlickerPeriod, FeedbackDuration));
+				}
 			}
 		}
 
@@ -180,27 +254,34 @@ namespace MoreMountains.Feedbacks
 			{
 				for (int i = 0; i < MaterialIndexes.Length; i++)
 				{
-					SetColor(i, _initialFlickerColors[i]);
+					SetColor(BoundRenderer, i, _initialFlickerColors[i]);
+				}
+			}
+			
+			foreach (Renderer renderer in ExtraBoundRenderers)
+			{
+				for (int i = 0; i < MaterialIndexes.Length; i++)
+				{
+					SetColor(renderer, i, _extraInitialFlickerColors[ExtraBoundRenderers.IndexOf(renderer)][i]);
 				}
 			}
 		}
-
-		protected virtual void StoreSpriteRendererTexture()
-		{
-			if (_spriteRendererIsNull)
-			{
-				return;
-			}
-			_spriteRendererTexture = _spriteRenderer.sprite.texture;
-		}
 		
-		protected virtual void SetStoredSpriteRendererTexture(MaterialPropertyBlock block)
+		protected virtual void SetStoredSpriteRendererTexture(Renderer renderer, MaterialPropertyBlock block)
 		{
 			if (_spriteRendererIsNull)
 			{
 				return;
 			}
-			block.SetTexture(SpriteRendererTextureProperty, _spriteRendererTexture);
+
+			if (renderer == BoundRenderer)
+			{
+				block.SetTexture(SpriteRendererTextureProperty, _spriteRendererTexture);	
+			}
+			else
+			{
+				block.SetTexture(SpriteRendererTextureProperty, _spriteRendererTextures[ExtraBoundRenderers.IndexOf(renderer)]);
+			}
 		}
 
 		public virtual IEnumerator Flicker(Renderer renderer, int materialIndex, Color initialColor, Color flickerColor, float flickerSpeed, float flickerDuration)
@@ -227,18 +308,18 @@ namespace MoreMountains.Feedbacks
             
 			while (FeedbackTime < flickerStop)
 			{
-				SetColor(materialIndex, flickerColor);
+				SetColor(renderer, materialIndex, flickerColor);
 				yield return WaitFor(flickerSpeed);
-				SetColor(materialIndex, initialColor);
+				SetColor(renderer, materialIndex, initialColor);
 				yield return WaitFor(flickerSpeed);
 			}
 
-			SetColor(materialIndex, initialColor);
+			SetColor(renderer, materialIndex, initialColor);
 			IsPlaying = false;
 		}
 
 
-		protected virtual void SetColor(int materialIndex, Color color)
+		protected virtual void SetColor(Renderer renderer, int materialIndex, Color color)
 		{
 			if (!_propertiesFound[materialIndex])
 			{
@@ -249,28 +330,28 @@ namespace MoreMountains.Feedbacks
 			{
 				if (UseMaterialPropertyBlocks)
 				{
-					BoundRenderer.GetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
+					renderer.GetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
 					_propertyBlock.SetColor(_colorPropertyName, color);
-					SetStoredSpriteRendererTexture(_propertyBlock);
-					BoundRenderer.SetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
+					SetStoredSpriteRendererTexture(renderer, _propertyBlock);
+					renderer.SetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
 				}
 				else
 				{
-					BoundRenderer.materials[MaterialIndexes[materialIndex]].color = color;
+					renderer.materials[MaterialIndexes[materialIndex]].color = color;
 				}
 			}
 			else
 			{
 				if (UseMaterialPropertyBlocks)
 				{
-					BoundRenderer.GetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
+					renderer.GetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
 					_propertyBlock.SetColor(_propertyIDs[materialIndex], color);
-					SetStoredSpriteRendererTexture(_propertyBlock);
-					BoundRenderer.SetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
+					SetStoredSpriteRendererTexture(renderer, _propertyBlock);
+					renderer.SetPropertyBlock(_propertyBlock, MaterialIndexes[materialIndex]);
 				}
 				else
 				{
-					BoundRenderer.materials[MaterialIndexes[materialIndex]].SetColor(_propertyIDs[materialIndex], color);
+					renderer.materials[MaterialIndexes[materialIndex]].SetColor(_propertyIDs[materialIndex], color);
 				}
 			}            
 		}
@@ -295,7 +376,18 @@ namespace MoreMountains.Feedbacks
 				{
 					Owner.StopCoroutine(_coroutines[i]);    
 				}
-				_coroutines[i] = null;    
+				_coroutines[i] = null;  
+			}
+			foreach (Renderer renderer in ExtraBoundRenderers)
+			{
+				for (int i = 0; i < MaterialIndexes.Length; i++)
+				{
+					if (_extraCoroutines[ExtraBoundRenderers.IndexOf(renderer)][i] != null)
+					{
+						Owner.StopCoroutine(_extraCoroutines[ExtraBoundRenderers.IndexOf(renderer)][i]);
+					}
+					_extraCoroutines[ExtraBoundRenderers.IndexOf(renderer)][i] = null;
+				}
 			}
 		}
 		

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -10,6 +11,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you change the color of a target sprite renderer over time, and flip it on X or Y. You can also use it to command one or many MMSpriteRendererShakers.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[System.Serializable]
 	[FeedbackPath("Renderer/SpriteRenderer")]
 	public class MMF_SpriteRenderer : MMF_Feedback
 	{
@@ -130,8 +133,13 @@ namespace MoreMountains.Feedbacks
 					Turn(false);
 				}
 			}
+			
+			if (!TargetExists(BoundSpriteRenderer, nameof(BoundSpriteRenderer)))
+			{
+				return;
+			}
 
-			if ((BoundSpriteRenderer != null) && (InitialColorMode == InitialColorModes.InitialColorOnInit))
+			if (InitialColorMode == InitialColorModes.InitialColorOnInit)
 			{
 				_initialColor = BoundSpriteRenderer.color;
 				_initialFlipX = BoundSpriteRenderer.flipX;
@@ -150,8 +158,13 @@ namespace MoreMountains.Feedbacks
 			{
 				return;
 			}
+			
+			if (BoundSpriteRenderer == null)
+			{
+				return;
+			}
             
-			if ((BoundSpriteRenderer != null) && (InitialColorMode == InitialColorModes.InitialColorOnPlay))
+			if (InitialColorMode == InitialColorModes.InitialColorOnPlay)
 			{
 				_initialColor = BoundSpriteRenderer.color;
 				_initialFlipX = BoundSpriteRenderer.flipX;
@@ -165,7 +178,7 @@ namespace MoreMountains.Feedbacks
 				case Modes.Instant:
 					if (ModifyColor)
 					{
-						BoundSpriteRenderer.color = InstantColor;
+						BoundSpriteRenderer.color = NormalPlayDirection ? InstantColor : _initialColor;
 					}
 					Flip();
 					break;
@@ -174,6 +187,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(SpriteRendererSequence());
 					break;
 				case Modes.ShakerEvent:
@@ -188,6 +202,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(SpriteRendererToDestinationSequence(false));
 					break;
 				case Modes.ToDestinationColorAndBack:
@@ -195,6 +210,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(SpriteRendererToDestinationSequence(true));
 					break;
 			}

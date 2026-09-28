@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 using MoreMountains.Tools;
-using UnityEngine.Audio;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -12,6 +8,8 @@ namespace MoreMountains.Feedbacks
 	/// This feedback will let you control all sounds playing on a specific track (master, UI, music, sfx), and play, pause, mute, unmute, resume, stop, free them all at once. You will need a MMSoundManager in your scene for this to work.
 	/// </summary>
 	[AddComponentMenu("")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks.MMTools")]
+	[System.Serializable]
 	[FeedbackPath("Audio/MMSoundManager Track Control")]
 	[FeedbackHelp("This feedback will let you control all sounds playing on a specific track (master, UI, music, sfx), and play, pause, mute, unmute, resume, stop, free them all at once. You will need a MMSoundManager in your scene for this to work.")]
 	public class MMF_MMSoundManagerTrackControl : MMF_Feedback
@@ -31,6 +29,10 @@ namespace MoreMountains.Feedbacks
 		/// the track to mute/unmute/pause/play/stop/free/etc
 		[Tooltip("the track to mute/unmute/pause/play/stop/free/etc")]
 		public MMSoundManager.MMSoundManagerTracks Track;
+		/// if Track is set to Other, the custom track SO to target
+		[Tooltip("if Track is set to Other, the custom track SO to target")]
+		[MMFEnumCondition("Track", (int)MMSoundManager.MMSoundManagerTracks.Other)]
+		public MMSoundManagerCustomTrackSO CustomTrack;
 		/// the selected control mode to interact with the track. Free will stop all sounds and return them to the pool
 		[Tooltip("the selected control mode to interact with the track. Free will stop all sounds and return them to the pool")]
 		public ControlModes ControlMode = ControlModes.Pause;
@@ -54,25 +56,25 @@ namespace MoreMountains.Feedbacks
 			switch (ControlMode)
 			{
 				case ControlModes.Mute:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.MuteTrack, Track);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.MuteTrack, Track, customTrack: CustomTrack);
 					break;
 				case ControlModes.UnMute:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.UnmuteTrack, Track);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.UnmuteTrack, Track, customTrack: CustomTrack);
 					break;
 				case ControlModes.SetVolume:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.SetVolumeTrack, Track, Volume);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.SetVolumeTrack, Track, Volume, CustomTrack);
 					break;
 				case ControlModes.Pause:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.PauseTrack, Track);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.PauseTrack, Track, customTrack: CustomTrack);
 					break;
 				case ControlModes.Play:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.PlayTrack, Track);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.PlayTrack, Track, customTrack: CustomTrack);
 					break;
 				case ControlModes.Stop:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.StopTrack, Track);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.StopTrack, Track, customTrack: CustomTrack);
 					break;
 				case ControlModes.Free:
-					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.FreeTrack, Track);
+					MMSoundManagerTrackEvent.Trigger(MMSoundManagerTrackEventTypes.FreeTrack, Track, customTrack: CustomTrack);
 					break;
 			}
 		}
